@@ -4,7 +4,6 @@ import Document from './Document.js'
 import Trails from './Trails.js'
 // import History from './History.js'
 import {React, Component} from 'react';
-import {CSSTransitionGroup} from 'react-transition-group'
 
 
 class App extends Component {
@@ -19,14 +18,9 @@ class App extends Component {
     };
   }
     
-
+  
   getLinks(idMem){ 
-    var linksToReturn = [];
-    data.links.forEach(link => {
-      if (link.source === idMem){
-        linksToReturn.push(link);
-      }
-    })
+    const linksToReturn =  data.links.filter(link => link.source === idMem); 
     return linksToReturn;
   }
 
@@ -48,27 +42,16 @@ class App extends Component {
     const memory = data.nodes[this.state.currentMemory]
     const memId = this.state.links[0].source
     return (
-      <div className="App">
-        <header className="App-header" onClick = {this.nextMemory}>
-          <CSSTransitionGroup 
-            transitionName = "example"
-            transitionAppear = {false}
-            transitionLeave = {false}
-            timeout={1000}>
-            <Document 
-              key = {memId}
-              path = {memory.path}
-              desc = {memory.name}
-              format = {memory.format}
-            />
-          </CSSTransitionGroup>
-        </header>
-
+      <div className="App" onClick = {this.nextMemory}>
+          <Document 
+            key = {memId}
+            path = {memory.path}
+            desc = {memory.name}
+            format = {memory.format}
+          />
         <Trails
           currentNode = {memId}
-        
         />
-
       </div>
     );
   }

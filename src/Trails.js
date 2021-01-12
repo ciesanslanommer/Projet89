@@ -5,6 +5,7 @@ import data from './souvenirs.json'
 const myConfig = {
     nodeHighlightBehavior: true,
     directed: true,
+    width:400,
     node: {
       color: "lightgreen",
       size: 120,
@@ -35,7 +36,7 @@ class Trails extends Component {
         selectNode.forEach(item => {//set it to red
             item.color = "red";
         });
-        console.log(selectNode);
+        //console.log(selectNode);
         //this.setState({ data: modData });// change state.data
 
 
