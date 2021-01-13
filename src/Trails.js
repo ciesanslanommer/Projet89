@@ -6,9 +6,13 @@ const myConfig = {
     nodeHighlightBehavior: true,
     directed: true,
     width:400,
+    staticgraph: true,
+    d3: {
+      gravity: -1000,
+    },
     node: {
       color: "lightgreen",
-      size: 120,
+      size: 1200,
       highlightStrokeColor: "blue",
     },
     link: {
@@ -22,8 +26,33 @@ class Trails extends Component {
 
         this.state = {
         data: data,
+        width: 0, height : 0
         };
     };
+
+    componentWillMount () {
+      window.addEventListener('resize', this.measure, false);
+    }
+    componentWillUnmount () {
+      window.removeEventListener('resize', this.measure, false);
+    }
+    componentDidMount (){
+      this.measure();
+    }
+    componentDidUpdate (){
+      this.measure();
+    }
+    measure = e => {
+      // let rect = this.container.getBoundingClientRect();
+      let rect = {width : document.getElementsByClassName("Graph")[0].clientWidth, height: document.getElementsByClassName("Graph")[0].clientHeight};
+      console.log(rect);
+      if(this.state.width !== rect.width || this.state.height !== rect.height){
+         this.setState({
+                width: rect.width, 
+                height: rect.height
+             });
+      }
+    }
 
     render() {
 
@@ -35,20 +64,24 @@ class Trails extends Component {
             item.color = "red";
         });
         
-      
       const displayMemoryTest = function(nodeId, node) {
         console.log(data.nodes[nodeId].name);
         alert(`Affiche le souvenir du noeud ${modData.nodes[nodeId].name}`);
        };
 
+      myConfig.width = this.state.width;
+      myConfig.height = this.state.height;
+
         return(
+          <div className="Graph" ref={(container)=>{this.container = container}} >
             <Graph
-            id="graph-id"
-            data =  {this.state.data}
-            config= {myConfig}
-            //onClickNode={displayMemoryTest}
-            onMouseOverNode={displayMemoryTest}
-        />
+              id="graph-id"
+              data =  {this.state.data}
+              config= {myConfig}
+              //onClickNode={displayMemoryTest}
+              onMouseOverNode={displayMemoryTest}
+            />
+          </div>
         )
     }
 }

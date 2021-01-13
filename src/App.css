@@ -1,6 +1,9 @@
 .App {
   text-align: center;
-  display: flex;
+}
+
+.Graph{
+  height : 100vh;
 }
 
 .example-enter {
@@ -19,8 +22,4 @@
 example-leave-active {
   opacity: 0.01;
   transition: opacity 1000ms ease-in;
-}
-
-#graph-id-graph-wrapper {
-  width:45%;
 }
