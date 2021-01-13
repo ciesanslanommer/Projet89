@@ -14,8 +14,8 @@ const myConfig = {
     link: {
       highlightColor: "lightblue",
     },
-  };
-  
+  }; 
+   
 class Trails extends Component {
     constructor(props){
       super(props)
