@@ -15,7 +15,6 @@ const myConfig = {
       highlightColor: "lightblue",
     },
   };
-
   
 class Trails extends Component {
     constructor(props){
@@ -26,7 +25,6 @@ class Trails extends Component {
         };
     };
 
-
     render() {
 
         let modData = { ...this.state.data }; //copy state.data
@@ -36,15 +34,20 @@ class Trails extends Component {
         selectNode.forEach(item => {//set it to red
             item.color = "red";
         });
-        //console.log(selectNode);
-        //this.setState({ data: modData });// change state.data
-
+        
+      
+      const displayMemoryTest = function(nodeId, node) {
+        console.log(data.nodes[nodeId].name);
+        alert(`Affiche le souvenir du noeud ${modData.nodes[nodeId].name}`);
+       };
 
         return(
             <Graph
             id="graph-id"
             data =  {this.state.data}
             config= {myConfig}
+            //onClickNode={displayMemoryTest}
+            onMouseOverNode={displayMemoryTest}
         />
         )
     }
