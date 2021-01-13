@@ -42,7 +42,7 @@ class App extends Component {
     const memory = data.nodes[this.state.currentMemory]
     const memId = this.state.links[0].source
     return (
-      <div className="App" onClick = {this.nextMemory}>
+      <div className="App" /*onClick = {this.nextMemory}*/>
         <Trails
           currentNode = {memId}
         />

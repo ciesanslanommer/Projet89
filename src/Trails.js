@@ -1,14 +1,15 @@
 import { Graph } from "react-d3-graph";
+import * as d3 from "d3";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
 
 const myConfig = {
     nodeHighlightBehavior: true,
     directed: true,
+    disableLinkForce: true,
     width:400,
-    staticgraph: true,
     d3: {
-      gravity: -1000,
+      gravity: -2000,
     },
     node: {
       color: "lightgreen",
@@ -19,6 +20,7 @@ const myConfig = {
       highlightColor: "lightblue",
     },
   }; 
+
    
 class Trails extends Component {
     constructor(props){
@@ -30,6 +32,7 @@ class Trails extends Component {
         };
     };
 
+    // ************************************************************* RESIZING
     componentWillMount () {
       window.addEventListener('resize', this.measure, false);
     }
@@ -53,6 +56,22 @@ class Trails extends Component {
              });
       }
     }
+    // ************************************************************* 
+
+    // ************************************************************* EVENT
+    _onDragStart(){
+      console.log("dragstart");
+    }
+    
+    _zoomed(){
+      console.log("zoom");
+    } 
+
+    Click(){
+      console.log("click");
+    }
+    
+    // ************************************************************* 
 
     render() {
 
@@ -71,7 +90,6 @@ class Trails extends Component {
 
       myConfig.width = this.state.width;
       myConfig.height = this.state.height;
-
         return(
           <div className="Graph" ref={(container)=>{this.container = container}} >
             <Graph
@@ -79,7 +97,9 @@ class Trails extends Component {
               data =  {this.state.data}
               config= {myConfig}
               //onClickNode={displayMemoryTest}
-              onMouseOverNode={displayMemoryTest}
+              // onMouseOverNode={displayMemoryTest}
+              onClickGraph = {this.Click()}
+              _zoomed= {null}
             />
           </div>
         )

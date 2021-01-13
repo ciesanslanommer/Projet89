@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.2.2",
     "d3": "^6.3.1",
     "d3-drag": "^2.0.0",
+    "d3-zoom": "^2.0.0",
     "react": "^17.0.1",
     "react-d3-graph": "^2.5.0",
     "react-dom": "^17.0.1",
