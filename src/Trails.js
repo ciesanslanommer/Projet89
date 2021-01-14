@@ -28,7 +28,7 @@ const myConfig = {
 class Trails extends Component {
     constructor(props){
       super(props)
-      data.nodes.map( node => { //randomize nodes position
+      data.nodes.forEach( node => { //randomize nodes position
         node.x = Math.floor(Math.random()* 1000)
         node.y = Math.floor(Math.random()* 1000)
       })
