@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Projet89/static/css/main.5085310d.chunk.css",
-    "main.js": "/Projet89/static/js/main.84f5bfb8.chunk.js",
-    "main.js.map": "/Projet89/static/js/main.84f5bfb8.chunk.js.map",
-    "runtime-main.js": "/Projet89/static/js/runtime-main.15d9ea9c.js",
-    "runtime-main.js.map": "/Projet89/static/js/runtime-main.15d9ea9c.js.map",
-    "static/js/2.1d59cc07.chunk.js": "/Projet89/static/js/2.1d59cc07.chunk.js",
-    "static/js/2.1d59cc07.chunk.js.map": "/Projet89/static/js/2.1d59cc07.chunk.js.map",
-    "static/js/3.80f118c7.chunk.js": "/Projet89/static/js/3.80f118c7.chunk.js",
-    "static/js/3.80f118c7.chunk.js.map": "/Projet89/static/js/3.80f118c7.chunk.js.map",
+    "main.css": "/Projet89/static/css/main.39f853c7.chunk.css",
+    "main.js": "/Projet89/static/js/main.96367ed0.chunk.js",
+    "main.js.map": "/Projet89/static/js/main.96367ed0.chunk.js.map",
+    "runtime-main.js": "/Projet89/static/js/runtime-main.e55501a6.js",
+    "runtime-main.js.map": "/Projet89/static/js/runtime-main.e55501a6.js.map",
+    "static/js/2.31220d47.chunk.js": "/Projet89/static/js/2.31220d47.chunk.js",
+    "static/js/2.31220d47.chunk.js.map": "/Projet89/static/js/2.31220d47.chunk.js.map",
+    "static/js/3.9bcb7285.chunk.js": "/Projet89/static/js/3.9bcb7285.chunk.js",
+    "static/js/3.9bcb7285.chunk.js.map": "/Projet89/static/js/3.9bcb7285.chunk.js.map",
     "index.html": "/Projet89/index.html",
-    "static/css/main.5085310d.chunk.css.map": "/Projet89/static/css/main.5085310d.chunk.css.map",
-    "static/js/2.1d59cc07.chunk.js.LICENSE.txt": "/Projet89/static/js/2.1d59cc07.chunk.js.LICENSE.txt",
+    "static/css/main.39f853c7.chunk.css.map": "/Projet89/static/css/main.39f853c7.chunk.css.map",
+    "static/js/2.31220d47.chunk.js.LICENSE.txt": "/Projet89/static/js/2.31220d47.chunk.js.LICENSE.txt",
     "static/media/2019_15avril12h35_Walkman.txt": "/Projet89/static/media/2019_15avril12h35_Walkman.1ebd2d99.txt",
     "static/media/2019_19 juin 22h57_Squats.txt": "/Projet89/static/media/2019_19 juin 22h57_Squats.41072f47.txt",
     "static/media/2019_2 août 7h03_Ste-Victoire.txt": "/Projet89/static/media/2019_2 août 7h03_Ste-Victoire.8cc03398.txt",
@@ -29,14 +29,13 @@
     "static/media/2020_28 mai 00h17_Café parisien.txt": "/Projet89/static/media/2020_28 mai 00h17_Café parisien.82023cb5.txt",
     "static/media/IMG_20190804_180228.jpg": "/Projet89/static/media/IMG_20190804_180228.2a095ff0.jpg",
     "static/media/IMG_20190804_180354.jpg": "/Projet89/static/media/IMG_20190804_180354.ec9ea223.jpg",
-    "static/media/cross.png": "/Projet89/static/media/cross.7ee90bde.png",
-    "static/media/fond.35a73e71.png": "/Projet89/static/media/fond.35a73e71.png",
+    "static/media/fond.png": "/Projet89/static/media/fond.35a73e71.png",
     "static/media/loupe.png": "/Projet89/static/media/loupe.1d92f967.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.15d9ea9c.js",
-    "static/js/2.1d59cc07.chunk.js",
-    "static/css/main.5085310d.chunk.css",
-    "static/js/main.84f5bfb8.chunk.js"
+    "static/js/runtime-main.e55501a6.js",
+    "static/js/2.31220d47.chunk.js",
+    "static/css/main.39f853c7.chunk.css",
+    "static/js/main.96367ed0.chunk.js"
   ]
 }
