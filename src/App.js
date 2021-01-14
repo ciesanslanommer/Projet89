@@ -15,6 +15,7 @@ class App extends Component {
       // history : [idFirstSouvenir],
       currentMemory : idFirstMem,
       links : firstLink,
+      docOpen : true,
     };
   }
     
@@ -38,6 +39,13 @@ class App extends Component {
     
   }
 
+  closeMemory = e => {
+    this.setState({docOpen: false});
+  }
+  openMemory = e => {
+    this.setState({docOpen: true});
+  }
+
   setMemory = (nodeId, e) =>{
     console.log(nodeId);
     const nextMem = nodeId;
@@ -45,6 +53,7 @@ class App extends Component {
     this.setState({ 
       currentMemory: nextMem, 
     })
+    this.openMemory();
   }
 
 
@@ -57,12 +66,17 @@ class App extends Component {
           currentNode = {memId}
           nodeClick = {this.setMemory}
         />
-        <Document 
+        {this.state.docOpen ?
+          <Document 
           key = {memId}
           path = {memory.path}
           desc = {memory.name}
           format = {memory.format}
+          onClick = {this.closeMemory}
         />
+        : null
+        }
+        
       </div>
     );
   }
