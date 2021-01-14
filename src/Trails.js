@@ -1,5 +1,4 @@
 import { Graph } from "react-d3-graph";
-import * as d3 from "d3";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
 
@@ -46,7 +45,6 @@ class Trails extends Component {
       this.measure();
     }
     measure = e => {
-      // let rect = this.container.getBoundingClientRect();
       let rect = {width : document.getElementsByClassName("Graph")[0].clientWidth, height: document.getElementsByClassName("Graph")[0].clientHeight};
       console.log(rect);
       if(this.state.width !== rect.width || this.state.height !== rect.height){
@@ -59,17 +57,7 @@ class Trails extends Component {
     // ************************************************************* 
 
     // ************************************************************* EVENT
-    _onDragStart(){
-      console.log("dragstart");
-    }
     
-    _zoomed(){
-      console.log("zoom");
-    } 
-
-    Click(){
-      console.log("click");
-    }
     
     // ************************************************************* 
 
@@ -83,10 +71,10 @@ class Trails extends Component {
             item.color = "red";
         });
         
-      const displayMemoryTest = function(nodeId, node) {
-        console.log(data.nodes[nodeId].name);
-        alert(`Affiche le souvenir du noeud ${modData.nodes[nodeId].name}`);
-       };
+      // const displayMemoryTest = function(nodeId, node) {
+      //   console.log(data.nodes[nodeId].name);
+      //   alert(`Affiche le souvenir du noeud ${modData.nodes[nodeId].name}`);
+      //  };
 
       myConfig.width = this.state.width;
       myConfig.height = this.state.height;
@@ -97,9 +85,7 @@ class Trails extends Component {
               data =  {this.state.data}
               config= {myConfig}
               //onClickNode={displayMemoryTest}
-              // onMouseOverNode={displayMemoryTest}
-              onClickGraph = {this.Click()}
-              _zoomed= {null}
+              //onMouseOverNode={displayMemoryTest}
             />
           </div>
         )
