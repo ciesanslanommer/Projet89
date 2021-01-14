@@ -1,0 +1,46 @@
+.form {
+    position : absolute;
+    left: 2vw;
+    top: 2vh;
+    width: 2%;
+    height: auto;
+    display: inline-block;
+}
+
+.form img {
+    width: 1.5vw;
+    height: 1%;
+    padding-right:2vw;
+}
+
+.search {
+    width: 0px;
+    height: 0px;
+    position: relative;
+    left: -60px;
+    opacity: 0;
+    }
+
+.searchDis {
+    width: auto;
+    position: absolute;
+    left: 2vw;
+    top: -0.5vh;
+    opacity: 1;
+    border-radius: 6px;
+    border: none;
+    background-color: burlywood;
+    color: white;
+    display: inherit;
+    transition: opacity 0.5s;
+    padding: 20%;
+}
+
+.searchDis::placeholder{
+    color: white;
+    padding-left: 5px;
+}
+
+input:focus{
+    outline: none;
+}

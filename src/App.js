@@ -2,6 +2,7 @@ import './App.css';
 import data from './souvenirs.json'
 import Document from './Document.js'
 import Trails from './Trails.js'
+import Nav from './Nav.js'
 // import History from './History.js'
 import {React, Component} from 'react';
 
@@ -61,7 +62,14 @@ class App extends Component {
     const memory = data.nodes[this.state.currentMemory]
     const memId = this.state.links[0].source
     return (
-      <div className="App" /*onClick = {this.nextMemory}*/>
+          <Nav />
+          <Document 
+            key = {memId}
+            path = {memory.path}
+            desc = {memory.name}
+            format = {memory.format}
+          />
+      <div className="App" onClick = {this.nextMemory}>
         <Trails
           currentNode = {memId}
           nodeClick = {this.setMemory}
