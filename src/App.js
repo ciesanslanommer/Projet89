@@ -15,6 +15,8 @@ class App extends Component {
       // history : [idFirstSouvenir],
       currentMemory : idFirstMem,
       links : firstLink,
+      // ADDED
+      docOpen : true,
     };
   }
     
@@ -38,6 +40,10 @@ class App extends Component {
     
   }
 
+  closeMemory = e => {
+    this.setState({docOpen: false});
+  }
+
   render() {
     const memory = data.nodes[this.state.currentMemory]
     const memId = this.state.links[0].source
@@ -46,12 +52,17 @@ class App extends Component {
         <Trails
           currentNode = {memId}
         />
-        <Document 
+        {this.state.docOpen ?
+          <Document 
           key = {memId}
           path = {memory.path}
           desc = {memory.name}
           format = {memory.format}
+          onClick = {this.closeMemory}
         />
+        : null
+        }
+        
       </div>
     );
   }
