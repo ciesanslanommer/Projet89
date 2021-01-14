@@ -16,7 +16,7 @@ class App extends Component {
       // history : [idFirstSouvenir],
       currentMemory : idFirstMem,
       links : firstLink,
-      docOpen : true,
+      docOpen : false,
     };
   }
     
@@ -62,29 +62,24 @@ class App extends Component {
     const memory = data.nodes[this.state.currentMemory]
     const memId = this.state.links[0].source
     return (
-          <Nav />
-          <Document 
+      <div>
+        <Nav />
+        <div className="App">
+          <Trails
+            currentNode = {memId}
+            nodeClick = {this.setMemory}
+          />
+          {this.state.docOpen ?
+            <Document 
             key = {memId}
             path = {memory.path}
             desc = {memory.name}
             format = {memory.format}
+            onClick = {this.closeMemory}
           />
-      <div className="App" onClick = {this.nextMemory}>
-        <Trails
-          currentNode = {memId}
-          nodeClick = {this.setMemory}
-        />
-        {this.state.docOpen ?
-          <Document 
-          key = {memId}
-          path = {memory.path}
-          desc = {memory.name}
-          format = {memory.format}
-          onClick = {this.closeMemory}
-        />
-        : null
-        }
-        
+          : null
+          }
+        </div>
       </div>
     );
   }
