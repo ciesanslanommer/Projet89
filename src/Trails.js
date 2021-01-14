@@ -7,8 +7,12 @@ const myConfig = {
     directed: true,
     disableLinkForce: true,
     width:400,
+    initialZoom: 2,
+    maxZoom: 2,
+    minZoom: 2,
+    staticGraph : true,
     d3: {
-      gravity: -2000,
+      gravity: -1000,
     },
     node: {
       color: "lightgreen",
@@ -24,8 +28,11 @@ const myConfig = {
 class Trails extends Component {
     constructor(props){
       super(props)
-
-        this.state = {
+      data.nodes.map( node => { //randomize nodes position
+        node.x = Math.floor(Math.random()* 1000)
+        node.y = Math.floor(Math.random()* 1000)
+      })
+      this.state = {
         data: data,
         width: 0, height : 0
         };
@@ -41,9 +48,6 @@ class Trails extends Component {
     componentDidMount (){
       this.measure();
     }
-    componentDidUpdate (){
-      this.measure();
-    }
     measure = e => {
       let rect = {width : document.getElementsByClassName("Graph")[0].clientWidth, height: document.getElementsByClassName("Graph")[0].clientHeight};
       console.log(rect);
@@ -57,6 +61,11 @@ class Trails extends Component {
     // ************************************************************* 
 
     // ************************************************************* EVENT
+    displayMemoryTest (nodeId) {
+      console.log(data.nodes[nodeId].name);
+      console.log(data.nodes[nodeId]);
+      //alert(`Affiche le souvenir du noeud ${modData.nodes[nodeId].name}`);
+     };
     
     
     // ************************************************************* 
@@ -71,21 +80,17 @@ class Trails extends Component {
             item.color = "red";
         });
         
-      // const displayMemoryTest = function(nodeId, node) {
-      //   console.log(data.nodes[nodeId].name);
-      //   alert(`Affiche le souvenir du noeud ${modData.nodes[nodeId].name}`);
-      //  };
 
       myConfig.width = this.state.width;
       myConfig.height = this.state.height;
         return(
-          <div className="Graph" ref={(container)=>{this.container = container}} >
+          <div className="Graph">
             <Graph
               id="graph-id"
               data =  {this.state.data}
               config= {myConfig}
               //onClickNode={displayMemoryTest}
-              //onMouseOverNode={displayMemoryTest}
+              onMouseOverNode={this.displayMemoryTest}
             />
           </div>
         )
