@@ -10,7 +10,9 @@ function CustomNode({node}){
             case 'jpg':
                 return <img src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
             case 'txt':
-                return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>;
+                return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+            default :
+                return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
             }
     }
     return(

@@ -21,7 +21,7 @@ class Nav extends Component {
         //pas trouver d'autre solution, boolean ne donctionnait pas
         
         //Condition pour le changement de classe et d'icône
-        if(verify == 0){
+        if(verify === 0){
             this.setState({searchClass: "searchDis", icons: "close"});
             this.navInput.current.value = ""; //on efface la recherche lorsqu'on ferme la barre
         }
@@ -34,7 +34,7 @@ class Nav extends Component {
     //Fonction collectant l'information de la recherche
     collectInfo = (event) => {
         //Vérification de la touche Entrée
-        if (event.key == 'Enter') {
+        if (event.key === 'Enter') {
             event.preventDefault(); //evite le rafraichissement de la page
 
             console.log(this.navInput.current.value);
