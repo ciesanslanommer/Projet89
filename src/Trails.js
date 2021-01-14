@@ -46,8 +46,7 @@ class Trails extends Component {
             id="graph-id"
             data =  {this.state.data}
             config= {myConfig}
-            //onClickNode={displayMemoryTest}
-            onMouseOverNode={displayMemoryTest}
+            
         />
         )
     }
