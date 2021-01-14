@@ -1,6 +1,7 @@
 import { Graph } from "react-d3-graph";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
+import CustomNode from './CustomNode.js'
 
 const myConfig = {
     nodeHighlightBehavior: true,
@@ -33,7 +34,8 @@ class Trails extends Component {
         node.y = Math.floor(Math.random()* 1000)
       })
       this.state = {
-        data: data,
+        nodes: data.nodes,
+        links: data.links,
         width: 0, height : 0
         };
     };
@@ -61,33 +63,26 @@ class Trails extends Component {
     // ************************************************************* 
 
     // ************************************************************* EVENT
-    displayMemoryTest (nodeId) {
-      console.log(data.nodes[nodeId].name);
-      console.log(data.nodes[nodeId]);
-      //alert(`Affiche le souvenir du noeud ${modData.nodes[nodeId].name}`);
+    displayMemoryTest = function(nodeId) {
+      // console.log(nodes[nodeId].name);
+      // console.log(nodes[nodeId]);
      };
     
+    CustomNodeGenerator(node){
+      return <CustomNode node={node} />;
+    }
     
     // ************************************************************* 
 
     render() {
-
-        let modData = { ...this.state.data }; //copy state.data
-        let selectNode = modData.nodes.filter(item => { //find node selected
-            return item.id === this.props.currentNode;
-        });
-        selectNode.forEach(item => {//set it to red
-            item.color = "red";
-        });
-        
-
       myConfig.width = this.state.width;
       myConfig.height = this.state.height;
+      myConfig.node.viewGenerator = this.CustomNodeGenerator;
         return(
-          <div className="Graph">
+          <div className="Graph" style = {{backgroundColor : "#290E0B"}}>
             <Graph
               id="graph-id"
-              data =  {this.state.data}
+              data =  {{nodes : this.state.nodes, links: this.state.links}}
               config= {myConfig}
               //onClickNode={displayMemoryTest}
               onMouseOverNode={this.displayMemoryTest}
