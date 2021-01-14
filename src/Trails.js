@@ -2,6 +2,8 @@ import { Graph } from "react-d3-graph";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
 import CustomNode from './CustomNode.js'
+import Background from './assets/fond.png';
+
 
 const myConfig = {
     nodeHighlightBehavior: true,
@@ -79,7 +81,7 @@ class Trails extends Component {
       myConfig.height = this.state.height;
       myConfig.node.viewGenerator = this.CustomNodeGenerator;
         return(
-          <div className="Graph" style = {{backgroundColor : "#290E0B"}}>
+          <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
             <Graph
               id="graph-id"
               data =  {{nodes : this.state.nodes, links: this.state.links}}
