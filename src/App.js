@@ -38,6 +38,16 @@ class App extends Component {
     
   }
 
+  setMemory = (nodeId, e) =>{
+    console.log(nodeId);
+    const nextMem = nodeId;
+    //change currentMemory and current Link
+    this.setState({ 
+      currentMemory: nextMem, 
+    })
+  }
+
+
   render() {
     const memory = data.nodes[this.state.currentMemory]
     const memId = this.state.links[0].source
@@ -45,6 +55,7 @@ class App extends Component {
       <div className="App" /*onClick = {this.nextMemory}*/>
         <Trails
           currentNode = {memId}
+          nodeClick = {this.setMemory}
         />
         <Document 
           key = {memId}

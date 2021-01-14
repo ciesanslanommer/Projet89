@@ -22,6 +22,7 @@ const myConfig = {
       color: "lightgreen",
       size: 1200,
       highlightStrokeColor: "blue",
+      renderLabel : false,
     },
     link: {
       highlightColor: "lightblue",
@@ -68,10 +69,9 @@ class Trails extends Component {
     // ************************************************************* 
 
     // ************************************************************* EVENT
-    displayMemoryTest = function(nodeId) {
-      // console.log(nodes[nodeId].name);
-      // console.log(nodes[nodeId]);
-     };
+    NodeClick = (nodeId, e) => {
+      this.props.nodeClick(nodeId)
+    };
     
     CustomNodeGenerator(node){
       return <CustomNode node={node} />;
@@ -89,8 +89,7 @@ class Trails extends Component {
               id="graph-id"
               data =  {{nodes : this.state.nodes, links: this.state.links}}
               config= {myConfig}
-              //onClickNode={displayMemoryTest}
-              onMouseOverNode={this.displayMemoryTest}
+              onClickNode={this.NodeClick}
             />
           </div>
         )
