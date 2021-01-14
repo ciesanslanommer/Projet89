@@ -15,7 +15,6 @@ class App extends Component {
       // history : [idFirstSouvenir],
       currentMemory : idFirstMem,
       links : firstLink,
-      // ADDED
       docOpen : true,
     };
   }

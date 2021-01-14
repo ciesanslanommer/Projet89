@@ -3,28 +3,6 @@ import raw from 'raw.macro';
 import {React, Component} from 'react';
 import { render } from '@testing-library/react';
 
-
-// function Document({path, desc, format}){
-//     const cross = data.nodes[0];
-
-//     return(
-//         <div className="souvenir">
-//             <h1>{desc}</h1>
-//             {(format === 'jpg' || format === 'png') ? 
-//                 <img src={require('./../public/souvenirs/' + path + "." + format).default} alt={desc}></img> 
-//                 : <p>{raw(`../public/souvenirs/${path}.txt`).substr(0,500).concat("...")}</p>
-//             }
-//             <img 
-//                 id='cross' 
-//                 src={require('./../public/assets/' + cross.path + '.' + cross.format).default} 
-//                 alt={cross.name}
-//                 onClick={ () => alert('clicked') }>
-//             </img> 
-
-//         </div>
-//     );
-// }
-
 class Document extends Component {
 
     constructor(props) {
