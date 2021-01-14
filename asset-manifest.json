@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/Projet89/static/css/main.8feb94e5.chunk.css",
-    "main.js": "/Projet89/static/js/main.7c396fb8.chunk.js",
-    "main.js.map": "/Projet89/static/js/main.7c396fb8.chunk.js.map",
+    "main.js": "/Projet89/static/js/main.efbf7d76.chunk.js",
+    "main.js.map": "/Projet89/static/js/main.efbf7d76.chunk.js.map",
     "runtime-main.js": "/Projet89/static/js/runtime-main.66fffd73.js",
     "runtime-main.js.map": "/Projet89/static/js/runtime-main.66fffd73.js.map",
-    "static/js/2.4fd31c52.chunk.js": "/Projet89/static/js/2.4fd31c52.chunk.js",
-    "static/js/2.4fd31c52.chunk.js.map": "/Projet89/static/js/2.4fd31c52.chunk.js.map",
+    "static/js/2.d3efb5d1.chunk.js": "/Projet89/static/js/2.d3efb5d1.chunk.js",
+    "static/js/2.d3efb5d1.chunk.js.map": "/Projet89/static/js/2.d3efb5d1.chunk.js.map",
     "static/js/3.fd747a26.chunk.js": "/Projet89/static/js/3.fd747a26.chunk.js",
     "static/js/3.fd747a26.chunk.js.map": "/Projet89/static/js/3.fd747a26.chunk.js.map",
     "index.html": "/Projet89/index.html",
     "static/css/main.8feb94e5.chunk.css.map": "/Projet89/static/css/main.8feb94e5.chunk.css.map",
-    "static/js/2.4fd31c52.chunk.js.LICENSE.txt": "/Projet89/static/js/2.4fd31c52.chunk.js.LICENSE.txt",
+    "static/js/2.d3efb5d1.chunk.js.LICENSE.txt": "/Projet89/static/js/2.d3efb5d1.chunk.js.LICENSE.txt",
     "static/media/2019_15avril12h35_Walkman.txt": "/Projet89/static/media/2019_15avril12h35_Walkman.1ebd2d99.txt",
     "static/media/2019_19 juin 22h57_Squats.txt": "/Projet89/static/media/2019_19 juin 22h57_Squats.41072f47.txt",
     "static/media/2019_2 août 7h03_Ste-Victoire.txt": "/Projet89/static/media/2019_2 août 7h03_Ste-Victoire.8cc03398.txt",
@@ -32,8 +32,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.66fffd73.js",
-    "static/js/2.4fd31c52.chunk.js",
+    "static/js/2.d3efb5d1.chunk.js",
     "static/css/main.8feb94e5.chunk.css",
-    "static/js/main.7c396fb8.chunk.js"
+    "static/js/main.efbf7d76.chunk.js"
   ]
 }
