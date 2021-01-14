@@ -14,6 +14,7 @@ const myConfig = {
     maxZoom: 2,
     minZoom: 2,
     staticGraph : true,
+    highlightDegree : 0,
     d3: {
       gravity: -1000,
     },
@@ -34,6 +35,7 @@ class Trails extends Component {
       data.nodes.forEach( node => { //randomize nodes position
         node.x = Math.floor(Math.random()* 1000)
         node.y = Math.floor(Math.random()* 1000)
+        node.state = 'none'
       })
       this.state = {
         nodes: data.nodes,
@@ -41,6 +43,7 @@ class Trails extends Component {
         width: 0, height : 0
         };
     };
+
 
     // ************************************************************* RESIZING
     componentWillMount () {
