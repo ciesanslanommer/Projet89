@@ -23,7 +23,7 @@ class Document extends Component {
                 }
                 <img 
                     id='cross' 
-                    src={require('./assets/cross.png').default}
+                    src={require('./assets/close.png').default}
                     alt='cross'
                     onClick={this.handleClick}
                 >

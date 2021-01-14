@@ -42,7 +42,7 @@ class Trails extends Component {
         nodes: data.nodes,
         links: data.links,
         width: 0, height : 0
-        };
+      };
     };
 
 
@@ -58,12 +58,11 @@ class Trails extends Component {
     }
     measure = e => {
       let rect = {width : document.getElementsByClassName("Graph")[0].clientWidth, height: document.getElementsByClassName("Graph")[0].clientHeight};
-      console.log(rect);
       if(this.state.width !== rect.width || this.state.height !== rect.height){
-         this.setState({
-                width: rect.width, 
-                height: rect.height
-             });
+        this.setState({
+          width: rect.width, 
+          height: rect.height
+        });
       }
     }
     // ************************************************************* 
@@ -86,7 +85,7 @@ class Trails extends Component {
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
             <Graph
-              id="graph-id"
+              id='id'
               data =  {{nodes : this.state.nodes, links: this.state.links}}
               config= {myConfig}
               onClickNode={this.NodeClick}
