@@ -2,26 +2,22 @@
 
 function CustomNode({node}){
     let highlighted = node.highlighted
-    let nature = node.nature
-    console.log(node);
-    function Format(nature, highlighted) {
+    let format = node.format
+    function Format(format, highlighted) {
         let id = 1 
         highlighted ? id = 2 : id = 1
-        switch (nature) {
-            case 'image':
+        switch (format) {
+            case 'jpg':
                 return <img src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
-            case 'texte':
+            case 'txt':
                 return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
-            case 'audio':
-                return <img src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
             default :
-                // return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
-                return <p style = {{color: "white"}}>{nature}</p>
+                return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
             }
     }
     return(
         <div>
-            {Format(nature, highlighted)}
+            {Format(format, highlighted)}
         </div>
     );
 }

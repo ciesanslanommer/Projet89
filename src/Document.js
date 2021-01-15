@@ -28,9 +28,8 @@ class Document extends Component {
     }
 
     handleType() {
-        console.log("HANDLE TYPE");
-        switch(this.props.type) {
-            case "image":
+        switch(this.props.nature) {
+            case 'image':
                 return <Image path = {this.props.path} desc = {this.props.desc}/>;
             case 'texte':
                 return <Text path = {this.props.path} desc = {this.props.desc}/>
@@ -39,7 +38,7 @@ class Document extends Component {
             case 'video':
                 return <p>VIDEO</p>
             default : 
-                return <p>AUTRE</p>
+                return <p>{this.props.nature}</p>
         }
     }
 

@@ -71,7 +71,7 @@ class App extends Component {
             key = {memId}
             path = {memory.path}
             desc = {memory.name}
-            type = {memory.type}
+            nature = {memory.nature}
             onClick = {this.closeMemory}
           />
           : null

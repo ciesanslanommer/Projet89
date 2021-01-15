@@ -4,70 +4,70 @@
             "id" : 0,
             "name": "manege",
             "path": "2019_5juin14h34_manège_roumanie.jpg",
-            "type": "image" 
+            "nature": "image" 
         },
         {
             "id" : 1,
             "name": "walkman",
             "path": "2019_15avril12h35_Walkman.txt",
-            "type": "texte"
+            "nature": "texte"
         },
         {
             "id" : 2,
             "name": "tambour",
             "path": "2020_27 mai 23h19_Le tambour.jpg",
-            "type": "image"
+            "nature": "image"
         },
         {
             "id" : 3,
             "name": "famille",
             "path": "2019_juin_photo de famille_Eglantine Agathe et Marguerite _4 mois_ juillet 1989.jpg",
-            "type": "image"
+            "nature": "image"
         },
         {
             "id" : 4,
             "name": "tour trump",
             "path": "2020_22 avril_Tour de  Trump.jpg",
-            "type": "image"
+            "nature": "image"
         },
         {
             "id" : 5,
             "name": "distribution",
             "path": "2019_5 juin 14h34_distribution alimentaire_roumanie.jpg",
-            "type": "image"
+            "nature": "image"
         },
         {
             "id" : 6,
             "name": "squat",
             "path": "2019_19 juin 22h57_Squats.txt",
-            "type": "texte"
+            "nature": "texte"
         },
         {
             "id" : 7,
             "name": "anniversaire",
             "path": "2019_27 août_gâteau d_anniversaire.jpg",
-            "type": "image"
+            "nature": "image"
         },
 
         {
             "id" : 8,
             "name": "centre commercial",
             "path": "2020_2 mai_futur centre commercial.jpg",
-            "type": "image"
+            "nature": "image"
         },
         
         {
             "id" : 9,
             "name": "salon",
             "path": "2020_21 octobre à 22h38_Salon.txt",
-            "type": "texte"
+            "nature": "texte"
         },
         
         {
             "id" : 10,
             "name": "conte de raiponce",
             "path": "2019_27 août_Le conte de Raiponce.mp3",
-            "type": "audio"
+            "nature": "audio"
         }
     ],
     "links" : [
