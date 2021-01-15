@@ -42,7 +42,7 @@ class Nav extends Component {
         
         return (
             <form className = "form" onSubmit={this.collectInfo}>
-                <img src={require('./../src/icons/' + icons + '.png').default} alt={desc} onClick={this.state.boolean ? this.openSearch : this.closeSearch}></img> 
+                <img src={require('./../src/assets/' + icons + '.png').default} alt={desc} onClick={this.state.boolean ? this.openSearch : this.closeSearch}></img> 
                 <input value={this.state.value} onChange={this.handleChange} onKeyDown={this.collectInfo} className={searchClass} type="text" placeholder="Recherche" />
             </form>
         )
