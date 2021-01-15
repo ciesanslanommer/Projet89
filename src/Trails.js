@@ -36,14 +36,15 @@ class Trails extends Component {
       data.nodes.forEach( node => { //randomize nodes position
         node.x = Math.floor(Math.random()* 1000)
         node.y = Math.floor(Math.random()* 1000)
-        node.state = 'none'
+        node.visited = false
       })
       this.state = {
         nodes: data.nodes,
         links: data.links,
-        width: 0, height : 0
+        width: 0, height : 0,
       };
     };
+
 
 
     // ************************************************************* RESIZING
@@ -69,6 +70,14 @@ class Trails extends Component {
 
     // ************************************************************* EVENT
     NodeClick = (nodeId, e) => {
+      //visited node
+      let visitedNode = [...this.state.nodes]
+      let currentNodeVisited = {...visitedNode[nodeId]}
+      currentNodeVisited.visited = true
+      visitedNode[nodeId] = currentNodeVisited;
+      this.setState({nodes:visitedNode})
+      console.log(this.state.nodes[nodeId])
+      console.log(visitedNode[nodeId])
       this.props.nodeClick(nodeId)
     };
     

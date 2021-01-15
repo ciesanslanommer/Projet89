@@ -44,7 +44,7 @@ class App extends Component {
     this.setState({docOpen: false});
   }
   openMemory = e => {
-    this.setState({docOpen: true});
+    this.setState({docOpen: true, visited : true});
   }
 
   setMemory = (nodeId, e) =>{
@@ -60,6 +60,7 @@ class App extends Component {
   render() {
     const memory = data.nodes[this.state.currentMemory]
     const memId = this.state.links[0].source
+    const visitedNode = this.state.visited
     return (
       <div className= "App">
         <Trails
