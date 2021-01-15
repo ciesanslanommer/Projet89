@@ -14,7 +14,8 @@ const Image = (props) => (
 function Text(props) {
     const path = props.path;
     return (
-        <p>{raw(`../public/souvenirs/${path}`).substr(0,500).concat("...")}</p>
+        // <p>{raw(`../public/souvenirs/${path}`).substr(0,500).concat("...")}</p>
+        <p>TEXT</p>
     );
 }
 

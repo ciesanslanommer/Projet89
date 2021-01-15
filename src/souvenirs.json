@@ -3,80 +3,80 @@
         {
           "id": 0,
           "name": "Ste Victoire",
-          "path": "Ruines/0_SainteVictoire",
-          "format": "txt",
+          "path": "Ruines/0_SainteVictoire.txt",
+          "nature": "texte",
           "x": 777,
           "y": 718
         },
         {
           "id": 1,
           "name": "Les Pierres",
-          "path": "Ruines/1_LesPierres",
-          "format": "txt",
+          "path": "Ruines/1_LesPierres.txt",
+          "nature": "texte",
           "x": 1022.5,
           "y": 47.5
         },
         {
           "id": 2,
           "name": "tambour",
-          "path": "Ruines/2_Terrasse",
-          "format": "txt",
+          "path": "Ruines/2_Terrasse.txt",
+          "nature": "texte",
           "x": 284,
           "y": 1
         },
         {
           "id": 3,
           "name": "Centre Commercial",
-          "path": "Ruines/3_FuturCentreCommercial",
-          "format": "jpg",
+          "path": "Ruines/3_FuturCentreCommercial.jpg",
+          "nature": "image",
           "x": 444.5,
           "y": 252
         },
         {
           "id": 4,
           "name": "Mur",
-          "path": "Ruines/4_Mur",
-          "format": "jpg",
+          "path": "Ruines/4_Mur.jpg",
+          "nature": "image",
           "x": 779,
           "y": -144
         },
         {
           "id": 5,
           "name": "Diane Scott",
-          "path": "Ruines/5_DianeScott",
-          "format": "txt",
+          "path": "Ruines/5_DianeScott.txt",
+          "nature": "texte",
           "x": 339.5,
           "y": 630.5
         },
         {
           "id": 6,
           "name": "Depardon",
-          "path": "Ruines/6_Depardon",
-          "format": "jpg",
+          "path": "Ruines/6_Depardon.jpg",
+          "nature": "image",
           "x": 1294.5,
           "y": 429
         },
         {
           "id": 7,
           "name": "Manege",
-          "path": "Ruines/7_Manège",
-          "format": "jpg",
+          "path": "Ruines/7_Manège.jpg",
+          "nature": "image",
           "x": 756.5,
           "y": 336
         },
         {
           "id": 8,
-          "name": "centre commercial",
+          "name": "centre commercial.jpg",
           "path": "2020_2 mai_futur centre commercial",
-          "format": "jpg",
+          "nature": "image",
           "x": 922,
           "y": 484.5
         },
         {
           "id": 9,
-          "name": "salon",
-          "path": "2020_21 octobre à 22h38_Salon",
-          "format": "txt",
+          "name": "conte de raiponce",
+          "path": "2019_27 août_Le conte de Raiponce.mp3",
+          "nature": "audio",
           "x": 192,
           "y": 398.5
         }
