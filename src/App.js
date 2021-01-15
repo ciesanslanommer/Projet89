@@ -46,6 +46,7 @@ class App extends Component {
           <Document 
             key = {memory.id}
             path = {memory.path}
+            parcours = {memory.parcours}
             desc = {memory.name}
             nature = {memory.nature}
             onClick = {this.closeMemory}

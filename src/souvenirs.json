@@ -3,7 +3,8 @@
       {
         "id": 0,
         "name": "Ste Victoire",
-        "path": "Ruines/0_SainteVictoire.txt",
+        "parcours": "Ruines",
+        "path": "0_SainteVictoire.txt",
         "nature": "texte",
         "x": 310.5,
         "y": 843.5
@@ -11,15 +12,17 @@
       {
         "id": 1,
         "name": "Les Pierres",
-        "path": "Ruines/1_LesPierres.txt",
+        "parcours": "Ruines",
+        "path": "1_LesPierres.txt",
         "nature": "texte",
         "x": 117,
         "y": 608.5
       },
       {
         "id": 2,
-        "name": "tambour",
-        "path": "Ruines/2_Terrasse.txt",
+        "name": "terrasse",
+        "parcours": "Ruines",
+        "path": "2_Terrasse.txt",
         "nature": "texte",
         "x": 504,
         "y": 689.5
@@ -27,7 +30,8 @@
       {
         "id": 3,
         "name": "Centre Commercial",
-        "path": "Ruines/3_FuturCentreCommercial.jpg",
+        "parcours": "Ruines",
+        "path": "3_FuturCentreCommercial.jpg",
         "nature": "image",
         "x": 939.5,
         "y": 556.5
@@ -35,7 +39,8 @@
       {
         "id": 4,
         "name": "Mur",
-        "path": "Ruines/4_Mur.jpg",
+        "parcours": "Ruines",
+        "path": "4_Mur.jpg",
         "nature": "image",
         "x": 722.5,
         "y": 354
@@ -43,7 +48,8 @@
       {
         "id": 5,
         "name": "Diane Scott",
-        "path": "Ruines/5_DianeScott.txt",
+        "parcours": "Ruines",
+        "path": "5_DianeScott.txt",
         "nature": "texte",
         "x": 348.5,
         "y": 475
@@ -51,7 +57,8 @@
       {
         "id": 6,
         "name": "Depardon",
-        "path": "Ruines/6_Depardon.jpg",
+        "parcours": "Ruines",
+        "path": "6_Depardon.jpg",
         "nature": "image",
         "x": 28.5,
         "y": 398
@@ -59,7 +66,8 @@
       {
         "id": 7,
         "name": "Manege",
-        "path": "Ruines/7_Manège.jpg",
+        "parcours": "Ruines",
+        "path": "7_Manège.jpg",
         "nature": "image",
         "x": -212,
         "y": 557
@@ -77,6 +85,14 @@
         "name": "conte de raiponce",
         "path": "2019_27 août_Le conte de Raiponce.mp3",
         "nature": "audio",
+        "x": 800,
+        "y": 754.5
+      },
+      {
+        "id": 10,
+        "name": "text",
+        "path": "2019_2 août 7h03_Ste-Victoire.txt",
+        "nature": "texte",
         "x": 800,
         "y": 754.5
       }
