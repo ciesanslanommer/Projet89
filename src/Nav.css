@@ -29,15 +29,15 @@
     opacity: 1;
     border-radius: 6px;
     border: none;
-    background-color: burlywood;
-    color: white;
+    background-color: white;
+    color: brown;
     display: inherit;
     transition: opacity 0.5s;
     padding: 20%;
 }
 
 .searchDis::placeholder{
-    color: white;
+    color:grey;
     padding-left: 5px;
 }
 

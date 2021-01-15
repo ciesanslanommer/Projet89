@@ -1,55 +1,49 @@
 import React, {Component} from "react";
 import './Nav.css'
 
-//Classe Nav affiche la barre de recherche et récupère la recherche
+
 class Nav extends Component {
     
-    navInput  = React.createRef(); //création d'une référence lié à l'input
-
     state = {
-        increment: 0, //Compteur
-        searchClass: "search", //permet le changement de classe
-        icons: "loupe", //permet le changement d'icône
-        request: "" //permet de récupérer la recherche
+        request: "",
+        boolean: true
+   };
+
+   handleChange = (event) => {
+        this.setState({request: event.currentTarget.value});
    };
     
-   //Fonction pour l'affichage / animation de la barre de recherche
-    displaySearch = (event) => {
-       
-        this.setState({increment: this.state.increment +1});//on incrémente un compteur
-        const verify = this.state.increment %2; //on fait modulo du compteur pour obtenir 0 ou 1
-        //pas trouver d'autre solution, boolean ne donctionnait pas
-        
-        //Condition pour le changement de classe et d'icône
-        if(verify == 0){
-            this.setState({searchClass: "searchDis", icons: "close"});
-            this.navInput.current.value = ""; //on efface la recherche lorsqu'on ferme la barre
-        }
-        else{
-            this.setState({searchClass: "search", icons: "loupe"})
-        }
-        
+   closeSearch = (event) => {
+        this.setState({boolean : true});
+        console.log(this.state.boolean);
+        this.state.value = "";
+   };
+
+    openSearch = (event) => { 
+        this.setState({boolean : false});
+        console.log(this.state.boolean);
+        this.state.value = event.currentTarget.value;
     };
 
-    //Fonction collectant l'information de la recherche
     collectInfo = (event) => {
-        //Vérification de la touche Entrée
-        if (event.key == 'Enter') {
-            event.preventDefault(); //evite le rafraichissement de la page
+        
+        if (event.key === 'Enter') {
+            event.preventDefault(); 
 
-            console.log(this.navInput.current.value);
-
-            const navInfo = this.navInput.current.value; //récupère et stocke la recherche
-            console.log(navInfo);
+            this.setState({request : this.state.value});
+            console.log(this.state.request + " valeur de request ");
           }
     };
 
-    //Fonction d'affichage de la barre de recherche
+    
     render(desc){
+        const searchClass = this.state.boolean ? "search" : "searchDis"
+        const icons = this.state.boolean ? "loupe" : "close"
+        
         return (
             <form className = "form" onSubmit={this.collectInfo}>
-                <img src={require('./../src/icons/' + this.state.icons + '.png').default} alt={desc} onClick={this.displaySearch}></img> 
-                <input ref={this.navInput} onKeyDown={this.collectInfo} className={this.state.searchClass} type="text" placeholder="Recherche" />
+                <img src={require('./../src/icons/' + icons + '.png').default} alt={desc} onClick={this.state.boolean ? this.openSearch : this.closeSearch}></img> 
+                <input value={this.state.value} onChange={this.handleChange} onKeyDown={this.collectInfo} className={searchClass} type="text" placeholder="Recherche" />
             </form>
         )
         
