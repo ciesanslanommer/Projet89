@@ -2,22 +2,24 @@ function CustomNode({node}){
     let highlighted = node.highlighted
     let nature = node.nature
     let visited = node.visited
-    function Format(format, highlighted) {
+    let style = {maxHeight : "100%", maxWidth : "100%"}
+    function Format(nature, highlighted) {
         let id = highlighted ? 2 : 1
         switch (nature) {
             case 'image':
-                return <img src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
+                return <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
             case 'texte':
-                return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                return <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
             case 'audio':
-                return <img src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
+                return <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
             default :
-                return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                return <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
             }
     }
     if(visited){
+        style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
         return(
-            <div style = {{backgroundColor : 'red', width : 100, height: 100, borderRadius : 50}}></div>
+            <div style = {style}></div>
         )
     }
     else{

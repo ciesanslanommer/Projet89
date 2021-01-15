@@ -12,7 +12,8 @@ const myConfig = {
     initialZoom: 2,
     maxZoom: 2,
     minZoom: 2,
-    staticGraphWithDragAndDrop : true,
+    //staticGraphWithDragAndDrop : true,
+    staticGraph : true,
     highlightDegree : 0,
     node: {
       color: "lightgreen",
@@ -21,7 +22,7 @@ const myConfig = {
       renderLabel : false,
     },
     link: {
-      opacity : 0.3
+      color : "rgba(255, 255, 255, 0.49)"
     },
   }; 
 

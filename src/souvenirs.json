@@ -6,8 +6,8 @@
         "parcours": "Ruines",
         "path": "0_SainteVictoire.txt",
         "nature": "texte",
-        "x": 310.5,
-        "y": 843.5
+        "x": 41.5,
+        "y": 969.5
       },
       {
         "id": 1,
@@ -15,8 +15,8 @@
         "parcours": "Ruines",
         "path": "1_LesPierres.txt",
         "nature": "texte",
-        "x": 117,
-        "y": 608.5
+        "x": 194.5,
+        "y": 708
       },
       {
         "id": 2,
@@ -51,8 +51,8 @@
         "parcours": "Ruines",
         "path": "5_DianeScott.txt",
         "nature": "texte",
-        "x": 348.5,
-        "y": 475
+        "x": 275.5,
+        "y": 556
       },
       {
         "id": 6,
@@ -60,8 +60,8 @@
         "parcours": "Ruines",
         "path": "6_Depardon.jpg",
         "nature": "image",
-        "x": 28.5,
-        "y": 398
+        "x": 36.5,
+        "y": 430.5
       },
       {
         "id": 7,
@@ -69,24 +69,96 @@
         "parcours": "Ruines",
         "path": "7_Manège.jpg",
         "nature": "image",
-        "x": -212,
-        "y": 557
+        "x": -118,
+        "y": 213.5
       },
       {
         "id": 8,
-        "name": "centre commercial",
-        "path": "2020_2 mai_futur centre commercial.jpg",
-        "nature": "image",
-        "x": 468,
-        "y": 267.5
+        "name": "Etienne Parc",
+        "parcours": "Passage",
+        "path": "8_EtienneParc.txt",
+        "nature": "texte",
+        "x": 609.5,
+        "y": 273.5
       },
       {
         "id": 9,
+        "name": "Mathieu Bonzom",
+        "parcours": "Passage",
+        "path": "9_MathieuBonzom.txt",
+        "nature": "texte",
+        "x": 456,
+        "y": 52.5
+      },
+      {
+        "id": 10,
+        "name": "Stephen Jaffe",
+        "parcours": "Passage",
+        "path": "10_StephenJaffe.jpg",
+        "nature": "image",
+        "x": 150,
+        "y": 148.5
+      },
+      {
+        "id": 11,
+        "name": "Christophe",
+        "parcours": "Passage",
+        "path": "11_Christophe.png",
+        "nature": "image",
+        "x": 325.5,
+        "y": 310
+      },
+      {
+        "id": 12,
+        "name": "Claude Bernard",
+        "parcours": "Passage",
+        "path": "12_ClaudeBernard.txt",
+        "nature": "texte",
+        "x": -77,
+        "y": 673.5
+      },
+      {
+        "id": 13,
+        "name": "Cyrille Bregere",
+        "parcours": "Passage",
+        "path": "13_CyrilleBregere.txt",
+        "nature": "texte",
+        "x": -455.5,
+        "y": 544
+      },
+      {
+        "id": 14,
+        "name": "Place Tienanmen",
+        "parcours": "Passage",
+        "path": "14_PlaceTienanmenDidierLeglise.jpg",
+        "nature": "image",
+        "x": -305,
+        "y": 391
+      },
+      {
+        "id": 15,
+        "name": "Maison Isolé",
+        "parcours": "Passage",
+        "path": "15_MaisonIsolePinos.jpg",
+        "nature": "image",
+        "x": -597.5,
+        "y": 343
+      },
+      {
+        "id": 16,
+        "name": "centre commercial",
+        "path": "2020_2 mai_futur centre commercial.jpg",
+        "nature": "image",
+        "x": 813,
+        "y": 828
+      },
+      {
+        "id": 17,
         "name": "conte de raiponce",
         "path": "2019_27 août_Le conte de Raiponce.mp3",
         "nature": "audio",
-        "x": 192,
-        "y": 398.5,
+        "y": 84.5
+        "x": 719,
         "subs": [
               {   
                   "id": 0,
@@ -101,14 +173,6 @@
                   "nature": "texte"
               }
           ]
-      },
-      {
-        "id": 10,
-        "name": "text",
-        "path": "2019_2 août 7h03_Ste-Victoire.txt",
-        "nature": "texte",
-        "x": 800,
-        "y": 754.5
       }
     ],
     "links" : [
@@ -139,6 +203,38 @@
         {
             "source" : 6,
             "target" : 7
+        },
+        {
+            "source" : 8,
+            "target" : 9
+        },
+        {
+            "source" : 9,
+            "target" : 10
+        },
+        {
+            "source" : 10,
+            "target" : 11
+        },
+        {
+            "source" : 11,
+            "target" : 6
+        },
+        {
+            "source" : 6,
+            "target" : 12
+        },
+        {
+            "source" : 12,
+            "target" : 13
+        },
+        {
+            "source" : 13,
+            "target" : 14
+        },
+        {
+            "source" : 14,
+            "target" : 15
         }
     ]
 }
