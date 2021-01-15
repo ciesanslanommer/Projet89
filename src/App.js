@@ -39,6 +39,7 @@ class App extends Component {
     const memory = data.nodes[this.state.currentMemory]
     return (
       <div className= "App">
+        {<Nav />}
         <Trails
           nodeClick = {this.setMemory}
         />
@@ -53,7 +54,6 @@ class App extends Component {
           />
           : null
         }
-        {<Nav />}
       </div>
     );
   }
