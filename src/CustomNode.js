@@ -7,14 +7,16 @@ function CustomNode({node}){
         let id = highlighted ? 2 : 1
         switch (nature) {
             case 'image':
-                return <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
+                return <img style={style} src={require('./assets/photo' + id + '.png').default} alt={node.name} />
             case 'texte':
-                return <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                return <img style={style} src={require('./assets/texte' + id + '.png').default} alt={node.name} />
             case 'audio':
-                return <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
-            default :
-                return <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
-            }
+                return <img style={style} src={require('./assets/audio' + id + '.png').default} alt={node.name} />
+            case 'video':
+                return <img style={style} src={require('./assets/video' + id + '.png').default} alt={node.name} />
+            default:
+                return <img style={style} src={require('./assets/texte' + id + '.png').default} alt={node.name} />
+        }
     }
     if(visited){
         style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
