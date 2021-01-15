@@ -2,7 +2,6 @@ function CustomNode({node}){
     let highlighted = node.highlighted
     let nature = node.nature
     let visited = node.visited
-    console.log(node.visited)
     function Format(format, highlighted) {
         let id = highlighted ? 2 : 1
         switch (nature) {
