@@ -7,8 +7,7 @@
         "path": "0_SainteVictoire.txt",
         "nature": "texte",
         "x": 310.5,
-        "y": 843.5,
-        "subs": null 
+        "y": 843.5
       },
       {
         "id": 1,
@@ -17,8 +16,7 @@
         "path": "1_LesPierres.txt",
         "nature": "texte",
         "x": 117,
-        "y": 608.5,
-        "subs": null 
+        "y": 608.5
       },
       {
         "id": 2,
@@ -27,8 +25,7 @@
         "path": "2_Terrasse.txt",
         "nature": "texte",
         "x": 504,
-        "y": 689.5,
-        "subs": null 
+        "y": 689.5
       },
       {
         "id": 3,
@@ -37,8 +34,7 @@
         "path": "3_FuturCentreCommercial.jpg",
         "nature": "image",
         "x": 939.5,
-        "y": 556.5,
-        "subs": null 
+        "y": 556.5
       },
       {
         "id": 4,
@@ -47,8 +43,7 @@
         "path": "4_Mur.jpg",
         "nature": "image",
         "x": 722.5,
-        "y": 354,
-        "subs": null 
+        "y": 354
       },
       {
         "id": 5,
@@ -57,8 +52,7 @@
         "path": "5_DianeScott.txt",
         "nature": "texte",
         "x": 348.5,
-        "y": 475,
-        "subs": null 
+        "y": 475
       },
       {
         "id": 6,
@@ -67,8 +61,7 @@
         "path": "6_Depardon.jpg",
         "nature": "image",
         "x": 28.5,
-        "y": 398,
-        "subs": null 
+        "y": 398
       },
       {
         "id": 7,
@@ -77,8 +70,7 @@
         "path": "7_Manège.jpg",
         "nature": "image",
         "x": -212,
-        "y": 557,
-        "subs": null 
+        "y": 557
       },
       {
         "id": 8,
@@ -86,8 +78,7 @@
         "path": "2020_2 mai_futur centre commercial.jpg",
         "nature": "image",
         "x": 468,
-        "y": 267.5,
-        "subs": null 
+        "y": 267.5
       },
       {
         "id": 9,
@@ -105,9 +96,9 @@
               },
               {   
                   "id": 1,
-                  "name": "three buildings",
-                  "path": "IMG_20190804_180228.jpg",
-                  "nature": "image"
+                  "name": "Ste Victoire",
+                  "path": "2019_2 août 7h03_Ste-Victoire.txt",
+                  "nature": "texte"
               }
           ]
       },
@@ -117,8 +108,7 @@
         "path": "2019_2 août 7h03_Ste-Victoire.txt",
         "nature": "texte",
         "x": 800,
-        "y": 754.5,
-        "subs": null 
+        "y": 754.5
       }
     ],
     "links" : [

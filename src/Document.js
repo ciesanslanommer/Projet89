@@ -43,21 +43,6 @@ class Document extends Component {
         this.props.onClick();
     }
 
-    // displayDoc(nature, path) {
-    //     switch(nature) {
-    //         case 'image':
-    //             return <Image path = {path}/>
-    //         case 'texte':
-    //             return <Text path = {path}/>
-    //         case 'audio':
-    //             return <Audio path = {path}/>
-    //         case 'video':
-    //             return <p>VIDEO</p>
-    //         default : 
-    //             return <p>{this.props.nature}</p>
-    //     }
-    // }
-
     displayDoc(id, nature, path) {
         switch(nature) {
             case 'image':
