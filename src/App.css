@@ -1,9 +1,14 @@
+body{
+  overflow:hidden;
+}
+
 .App {
   text-align: center;
 }
 
 .Graph{
   height : 100vh;
+  width:100%
 }
 
 .example-enter {

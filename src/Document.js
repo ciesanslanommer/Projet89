@@ -1,13 +1,12 @@
 import './Document.css';
 import raw from 'raw.macro';
 import {React, Component} from 'react';
-import { render } from '@testing-library/react';
 
 class Document extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     handleClick = e => {
         this.props.onClick();
@@ -24,7 +23,7 @@ class Document extends Component {
                 }
                 <img 
                     id='cross' 
-                    src={require('./assets/cross.png').default}
+                    src={require('./assets/close.png').default}
                     alt='cross'
                     onClick={this.handleClick}
                 >

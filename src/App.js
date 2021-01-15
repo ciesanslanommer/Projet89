@@ -48,7 +48,6 @@ class App extends Component {
   }
 
   setMemory = (nodeId, e) =>{
-    console.log(nodeId);
     const nextMem = nodeId;
     //change currentMemory and current Link
     this.setState({ 
@@ -62,15 +61,13 @@ class App extends Component {
     const memory = data.nodes[this.state.currentMemory]
     const memId = this.state.links[0].source
     return (
-      <div>
-        <Nav />
-        <div className="App">
-          <Trails
-            currentNode = {memId}
-            nodeClick = {this.setMemory}
-          />
-          {this.state.docOpen ?
-            <Document 
+      <div className= "App">
+        <Trails
+          currentNode = {memId}
+          nodeClick = {this.setMemory}
+        />
+        {this.state.docOpen ?
+          <Document 
             key = {memId}
             path = {memory.path}
             desc = {memory.name}
@@ -78,8 +75,8 @@ class App extends Component {
             onClick = {this.closeMemory}
           />
           : null
-          }
-        </div>
+        }
+        {<Nav />}
       </div>
     );
   }
