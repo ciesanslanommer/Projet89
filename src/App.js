@@ -37,6 +37,7 @@ class App extends Component {
 
   render() {
     const memory = data.nodes[this.state.currentMemory]
+    const sub = data.nodes[memory.sub_id]
     return (
       <div className= "App">
         <Trails
@@ -48,6 +49,7 @@ class App extends Component {
             path = {memory.path}
             desc = {memory.name}
             nature = {memory.nature}
+            sub = {sub}
             onClick = {this.closeMemory}
           />
           : null

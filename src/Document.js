@@ -35,14 +35,14 @@ class Document extends Component {
         this.props.onClick();
     }
 
-    handleType() {
-        switch(this.props.nature) {
+    displayDoc(nature, path) {
+        switch(nature) {
             case 'image':
-                return <Image path = {this.props.path}/>
+                return <Image path = {path}/>
             case 'texte':
-                return <Text path = {this.props.path}/>
+                return <Text path = {path}/>
             case 'audio':
-                return <Audio path = {this.props.path}/>
+                return <Audio path = {path}/>
             case 'video':
                 return <p>VIDEO</p>
             default : 
@@ -51,11 +51,19 @@ class Document extends Component {
     }
 
     render() {
-        let doc = this.handleType();
+        let doc = this.displayDoc(this.props.nature, this.props.path);
+        let sub_doc = this.props.sub != null ? this.displayDoc(this.props.sub.nature, this.props.sub.path) : null;
+        let tab = [0 ,2];
+        // console.log("TEST TEST TEST");
+        // console.log(Array.isArray(this.props));
+        // console.log(this.props);
+        // console.log(Array.isArray(tab));
+        // console.log(tab);
         return(
             <div className="souvenir">
                 <h1>{this.props.desc}</h1>
                 {doc}
+                {sub_doc}
                 <img 
                     id='cross' 
                     src={require('./assets/close.png').default}
