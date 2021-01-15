@@ -5,16 +5,16 @@ import ReactAudioPlayer from 'react-audio-player';
 
 const Image = (props) => (
     <img
-        src={require('./../public/souvenirs/' + props.path).default}
+        src={require('./souvenirs/' + props.path).default}
         alt={props.desc}
     >
     </img>
 )
 
 function Text(props) {
-    const path = props.path;
+    // const path = props.path;
     return (
-        // <p>{raw(`../public/souvenirs/${path}`).substr(0,500).concat("...")}</p>
+        // <p>{raw(`souvenirs/${path}`).substr(0,500).concat("...")}</p>
         <p>TEXT</p>
     );
 }
@@ -22,7 +22,7 @@ function Text(props) {
 function Audio(props) {
     return (
         <ReactAudioPlayer
-            src={require('./../public/souvenirs/' + props.path).default}
+            src={require('./souvenirs/' + props.path).default}
             autoPlay
             controls
         />
@@ -35,35 +35,46 @@ class Document extends Component {
         this.props.onClick();
     }
 
-    displayDoc(nature, path) {
+    // displayDoc(nature, path) {
+    //     switch(nature) {
+    //         case 'image':
+    //             return <Image path = {path}/>
+    //         case 'texte':
+    //             return <Text path = {path}/>
+    //         case 'audio':
+    //             return <Audio path = {path}/>
+    //         case 'video':
+    //             return <p>VIDEO</p>
+    //         default : 
+    //             return <p>{this.props.nature}</p>
+    //     }
+    // }
+
+    displayDoc(id, nature, path) {
         switch(nature) {
             case 'image':
-                return <Image path = {path}/>
+                return <Image key = {id} path = {path}/>
             case 'texte':
-                return <Text path = {path}/>
+                return <Text key = {id} path = {path}/>
             case 'audio':
-                return <Audio path = {path}/>
+                return <Audio key = {id} path = {path}/>
             case 'video':
-                return <p>VIDEO</p>
+                return <p key = {id}>VIDEO</p>
             default : 
-                return <p>{this.props.nature}</p>
+                return <p key = {id}>{this.props.nature}</p>
         }
     }
 
     render() {
-        let doc = this.displayDoc(this.props.nature, this.props.path);
-        let sub_doc = this.props.sub != null ? this.displayDoc(this.props.sub.nature, this.props.sub.path) : null;
-        let tab = [0 ,2];
-        // console.log("TEST TEST TEST");
-        // console.log(Array.isArray(this.props));
-        // console.log(this.props);
-        // console.log(Array.isArray(tab));
-        // console.log(tab);
+        let doc = this.displayDoc('main_doc', this.props.nature, this.props.path); // Main document
+        let subs = this.props.subs; // Array of secondary documents associated with the main one
         return(
             <div className="souvenir">
                 <h1>{this.props.desc}</h1>
                 {doc}
-                {sub_doc}
+                <div className="sub_docs">
+                    { subs!=null && subs.map( (sub) => this.displayDoc(sub.id, sub.nature, sub.path) )}
+                </div>
                 <img 
                     id='cross' 
                     src={require('./assets/close.png').default}

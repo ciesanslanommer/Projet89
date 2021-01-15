@@ -7,7 +7,7 @@
           "nature": "texte",
           "x": 777,
           "y": 718,
-          "sub_id": null 
+          "subs": null 
         },
         {
           "id": 1,
@@ -16,7 +16,7 @@
           "nature": "texte",
           "x": 1022.5,
           "y": 47.5,
-          "sub_id": null 
+          "subs": null 
         },
         {
           "id": 2,
@@ -25,7 +25,7 @@
           "nature": "texte",
           "x": 284,
           "y": 1,
-          "sub_id": null 
+          "subs": null 
         },
         {
           "id": 3,
@@ -34,7 +34,7 @@
           "nature": "image",
           "x": 444.5,
           "y": 252,
-          "sub_id": null 
+          "subs": null 
         },
         {
           "id": 4,
@@ -43,7 +43,7 @@
           "nature": "image",
           "x": 779,
           "y": -144,
-          "sub_id": null 
+          "subs": null 
         },
         {
           "id": 5,
@@ -52,7 +52,7 @@
           "nature": "texte",
           "x": 339.5,
           "y": 630.5,
-          "sub_id": null 
+          "subs": null 
         },
         {
           "id": 6,
@@ -61,7 +61,7 @@
           "nature": "image",
           "x": 1294.5,
           "y": 429,
-          "sub_id": null 
+          "subs": null 
         },
         {
           "id": 7,
@@ -70,16 +70,16 @@
           "nature": "image",
           "x": 756.5,
           "y": 336,
-          "sub_id": null 
+          "subs": null 
         },
         {
           "id": 8,
           "name": "centre commercial.jpg",
-          "path": "2020_2 mai_futur centre commercial",
+          "path": "2020_2 mai_futur centre commercial.jpg",
           "nature": "image",
           "x": 922,
           "y": 484.5,
-          "sub_id": null 
+          "subs": null 
         },
         {
           "id": 9,
@@ -88,7 +88,20 @@
           "nature": "audio",
           "x": 192,
           "y": 398.5,
-          "sub_id": 0 
+          "subs": [
+                {   
+                    "id": 0,
+                    "name": "distribution alimentaire",
+                    "path": "2019_5 juin 14h34_distribution alimentaire_roumanie.jpg",
+                    "nature": "image"
+                },
+                {   
+                    "id": 1,
+                    "name": "three buildings",
+                    "path": "IMG_20190804_180228.jpg",
+                    "nature": "image"
+                }
+            ]
         }
     ],
     "links" : [

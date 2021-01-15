@@ -25,3 +25,15 @@
     top: 10px;
     right: 10px;
 }
+
+.sub_docs {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: auto;
+}
+
+.sub_docs * {
+    padding: 10px;
+    margin: auto;
+}
