@@ -30,8 +30,8 @@ class Trails extends Component {
     constructor(props){
       super(props)
       data.nodes.forEach( node => { //randomize nodes position
-        node.x = Math.floor(Math.random()* 1000)
-        node.y = Math.floor(Math.random()* 1000)
+        // node.x = Math.floor(Math.random()* 1000)
+        // node.y = Math.floor(Math.random()* 1000)
         node.visited = false
       })
       this.state = {

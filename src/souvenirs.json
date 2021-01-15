@@ -1,85 +1,85 @@
 { 
     "nodes" :[
-        {
-          "id": 0,
-          "name": "Ste Victoire",
-          "path": "Ruines/0_SainteVictoire.txt",
-          "nature": "texte",
-          "x": 777,
-          "y": 718
-        },
-        {
-          "id": 1,
-          "name": "Les Pierres",
-          "path": "Ruines/1_LesPierres.txt",
-          "nature": "texte",
-          "x": 1022.5,
-          "y": 47.5
-        },
-        {
-          "id": 2,
-          "name": "tambour",
-          "path": "Ruines/2_Terrasse.txt",
-          "nature": "texte",
-          "x": 284,
-          "y": 1
-        },
-        {
-          "id": 3,
-          "name": "Centre Commercial",
-          "path": "Ruines/3_FuturCentreCommercial.jpg",
-          "nature": "image",
-          "x": 444.5,
-          "y": 252
-        },
-        {
-          "id": 4,
-          "name": "Mur",
-          "path": "Ruines/4_Mur.jpg",
-          "nature": "image",
-          "x": 779,
-          "y": -144
-        },
-        {
-          "id": 5,
-          "name": "Diane Scott",
-          "path": "Ruines/5_DianeScott.txt",
-          "nature": "texte",
-          "x": 339.5,
-          "y": 630.5
-        },
-        {
-          "id": 6,
-          "name": "Depardon",
-          "path": "Ruines/6_Depardon.jpg",
-          "nature": "image",
-          "x": 1294.5,
-          "y": 429
-        },
-        {
-          "id": 7,
-          "name": "Manege",
-          "path": "Ruines/7_Manège.jpg",
-          "nature": "image",
-          "x": 756.5,
-          "y": 336
-        },
-        {
-          "id": 8,
-          "name": "centre commercial.jpg",
-          "path": "2020_2 mai_futur centre commercial",
-          "nature": "image",
-          "x": 922,
-          "y": 484.5
-        },
-        {
-          "id": 9,
-          "name": "conte de raiponce",
-          "path": "2019_27 août_Le conte de Raiponce.mp3",
-          "nature": "audio",
-          "x": 192,
-          "y": 398.5
-        }
+      {
+        "id": 0,
+        "name": "Ste Victoire",
+        "path": "Ruines/0_SainteVictoire.txt",
+        "nature": "texte",
+        "x": 310.5,
+        "y": 843.5
+      },
+      {
+        "id": 1,
+        "name": "Les Pierres",
+        "path": "Ruines/1_LesPierres.txt",
+        "nature": "texte",
+        "x": 117,
+        "y": 608.5
+      },
+      {
+        "id": 2,
+        "name": "tambour",
+        "path": "Ruines/2_Terrasse.txt",
+        "nature": "texte",
+        "x": 504,
+        "y": 689.5
+      },
+      {
+        "id": 3,
+        "name": "Centre Commercial",
+        "path": "Ruines/3_FuturCentreCommercial.jpg",
+        "nature": "image",
+        "x": 939.5,
+        "y": 556.5
+      },
+      {
+        "id": 4,
+        "name": "Mur",
+        "path": "Ruines/4_Mur.jpg",
+        "nature": "image",
+        "x": 722.5,
+        "y": 354
+      },
+      {
+        "id": 5,
+        "name": "Diane Scott",
+        "path": "Ruines/5_DianeScott.txt",
+        "nature": "texte",
+        "x": 348.5,
+        "y": 475
+      },
+      {
+        "id": 6,
+        "name": "Depardon",
+        "path": "Ruines/6_Depardon.jpg",
+        "nature": "image",
+        "x": 28.5,
+        "y": 398
+      },
+      {
+        "id": 7,
+        "name": "Manege",
+        "path": "Ruines/7_Manège.jpg",
+        "nature": "image",
+        "x": -212,
+        "y": 557
+      },
+      {
+        "id": 8,
+        "name": "centre commercial",
+        "path": "2020_2 mai_futur centre commercial.jpg",
+        "nature": "image",
+        "x": 468,
+        "y": 267.5
+      },
+      {
+        "id": 9,
+        "name": "conte de raiponce",
+        "path": "2019_27 août_Le conte de Raiponce.mp3",
+        "nature": "audio",
+        "x": 800,
+        "y": 754.5
+      }
     ],
     "links" : [
         {
