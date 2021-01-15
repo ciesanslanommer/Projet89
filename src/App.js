@@ -1,8 +1,8 @@
 import './App.css';
-import data from './souvenirs.json'
-import Document from './Document.js'
-import Trails from './Trails.js'
-import Nav from './Nav.js'
+import data from './souvenirs.json';
+import Document from './Document.js';
+import Trails from './Trails.js';
+import Nav from './Nav.js';
 // import History from './History.js'
 import {React, Component} from 'react';
 
@@ -16,7 +16,7 @@ class App extends Component {
       // history : [idFirstSouvenir],
       currentMemory : idFirstMem,
       links : firstLink,
-      docOpen : false,
+      docOpen : true, // A MODIFIER
     };
   }
     
@@ -71,7 +71,7 @@ class App extends Component {
             key = {memId}
             path = {memory.path}
             desc = {memory.name}
-            format = {memory.format}
+            type = {memory.type}
             onClick = {this.closeMemory}
           />
           : null

@@ -3,64 +3,71 @@
         {
             "id" : 0,
             "name": "manege",
-            "path": "2019_5juin14h34_manège_roumanie",
-            "format" : "jpg"
+            "path": "2019_5juin14h34_manège_roumanie.jpg",
+            "type": "image" 
         },
         {
             "id" : 1,
             "name": "walkman",
-            "path": "2019_15avril12h35_Walkman",
-            "format" : "txt"
+            "path": "2019_15avril12h35_Walkman.txt",
+            "type": "texte"
         },
         {
             "id" : 2,
             "name": "tambour",
-            "path": "2020_27 mai 23h19_Le tambour",
-            "format" : "jpg"
+            "path": "2020_27 mai 23h19_Le tambour.jpg",
+            "type": "image"
         },
         {
             "id" : 3,
             "name": "famille",
-            "path": "2019_juin_photo de famille_Eglantine Agathe et Marguerite _4 mois_ juillet 1989",
-            "format" : "jpg"
+            "path": "2019_juin_photo de famille_Eglantine Agathe et Marguerite _4 mois_ juillet 1989.jpg",
+            "type": "image"
         },
         {
             "id" : 4,
             "name": "tour trump",
-            "path": "2020_22 avril_Tour de  Trump",
-            "format" : "jpg"
+            "path": "2020_22 avril_Tour de  Trump.jpg",
+            "type": "image"
         },
         {
             "id" : 5,
             "name": "distribution",
-            "path": "2019_5 juin 14h34_distribution alimentaire_roumanie",
-            "format" : "jpg"
+            "path": "2019_5 juin 14h34_distribution alimentaire_roumanie.jpg",
+            "type": "image"
         },
         {
             "id" : 6,
             "name": "squat",
-            "path": "2019_19 juin 22h57_Squats",
-            "format" : "txt"
+            "path": "2019_19 juin 22h57_Squats.txt",
+            "type": "texte"
         },
         {
             "id" : 7,
             "name": "anniversaire",
-            "path": "2019_27 août_gâteau d_anniversaire",
-            "format" : "jpg"
+            "path": "2019_27 août_gâteau d_anniversaire.jpg",
+            "type": "image"
         },
 
         {
             "id" : 8,
             "name": "centre commercial",
-            "path": "2020_2 mai_futur centre commercial",
-            "format" : "jpg"
+            "path": "2020_2 mai_futur centre commercial.jpg",
+            "type": "image"
         },
         
         {
             "id" : 9,
             "name": "salon",
-            "path": "2020_21 octobre à 22h38_Salon",
-            "format" : "txt"
+            "path": "2020_21 octobre à 22h38_Salon.txt",
+            "type": "texte"
+        },
+        
+        {
+            "id" : 10,
+            "name": "conte de raiponce",
+            "path": "2019_27 août_Le conte de Raiponce.mp3",
+            "type": "audio"
         }
     ],
     "links" : [

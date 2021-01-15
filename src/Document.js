@@ -2,25 +2,53 @@ import './Document.css';
 import raw from 'raw.macro';
 import {React, Component} from 'react';
 
-class Document extends Component {
+const Image = (props) => (
+    <img
+        src={require('./../public/souvenirs/' + props.path).default}
+        alt={props.desc}
+    >
+    </img>
+)
 
-    // constructor(props) {
-    //     super(props);
-    // }
+function Text(props) {
+    const path = props.path;
+    return (
+        <p>{raw(`../public/souvenirs/${path}`).substr(0,500).concat("...")}</p>
+    );
+}
+
+// const Audio = (props) => {
+
+// }
+
+class Document extends Component {
 
     handleClick = e => {
         this.props.onClick();
     }
 
+    handleType() {
+        console.log("HANDLE TYPE");
+        switch(this.props.type) {
+            case "image":
+                return <Image path = {this.props.path} desc = {this.props.desc}/>;
+            case 'texte':
+                return <Text path = {this.props.path} desc = {this.props.desc}/>
+            case 'audio':
+                return <p>AUDIO</p>
+            case 'video':
+                return <p>VIDEO</p>
+            default : 
+                return <p>AUTRE</p>
+        }
+    }
+
     render() {
-        const path = this.props.path;
+        let doc = this.handleType();
         return(
             <div className="souvenir">
                 <h1>{this.props.desc}</h1>
-                {(this.props.format === 'jpg' || this.props.format === 'png') ? 
-                    <img src={require('./../public/souvenirs/' + this.props.path + "." + this.props.format).default} alt={this.props.desc}></img> 
-                    : <p>{raw(`../public/souvenirs/${path}.txt`).substr(0,500).concat("...")}</p>
-                }
+                {doc}
                 <img 
                     id='cross' 
                     src={require('./assets/close.png').default}
@@ -32,7 +60,5 @@ class Document extends Component {
         );
     }
 }
-
-
 
 export default Document;
