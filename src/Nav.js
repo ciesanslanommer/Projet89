@@ -9,30 +9,27 @@ class Nav extends Component {
         boolean: true
    };
 
-   handleChange = (event) => {
-        this.setState({request: event.currentTarget.value});
-   };
+    handleChange = (event) => {
+        let newRequest = event.target.value
+        this.setState({request : newRequest})
+    };
     
    closeSearch = (event) => {
         this.setState({boolean : true});
-        console.log(this.state.boolean);
-        this.state.value = "";
+        this.setState({request : ""});
+        event.target.nextSibling.value = "";
    };
 
     openSearch = (event) => { 
         this.setState({boolean : false});
-        console.log(this.state.boolean);
-        this.state.value = event.currentTarget.value;
     };
 
     collectInfo = (event) => {
-        
         if (event.key === 'Enter') {
             event.preventDefault(); 
-
-            this.setState({request : this.state.value});
+            //send request to app
             console.log(this.state.request + " valeur de request ");
-          }
+        }
     };
 
     
@@ -42,8 +39,19 @@ class Nav extends Component {
         
         return (
             <form className = "form" onSubmit={this.collectInfo}>
-                <img src={require('./../src/assets/' + icons + '.png').default} alt={desc} onClick={this.state.boolean ? this.openSearch : this.closeSearch}></img> 
-                <input value={this.state.value} onChange={this.handleChange} onKeyDown={this.collectInfo} className={searchClass} type="text" placeholder="Recherche" />
+                <img 
+                    src={require('./../src/assets/' + icons + '.png').default} 
+                    alt={desc} 
+                    onClick={this.state.boolean ? this.openSearch : this.closeSearch}
+                ></img> 
+                <input 
+                    //value={this.state.request}
+                    onChange={this.handleChange} 
+                    onKeyDown={this.collectInfo} 
+                    className={searchClass} 
+                    type="text" 
+                    placeholder="Recherche" 
+                />
             </form>
         )
         

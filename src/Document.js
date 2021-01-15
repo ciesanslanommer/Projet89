@@ -1,5 +1,5 @@
 import './Document.css';
-import raw from 'raw.macro';
+//import raw from 'raw.macro';
 import {React, Component} from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 
@@ -15,7 +15,7 @@ function Text(props) {
     const path = props.path;
     return (
         // <p>{raw(`../public/souvenirs/${path}`).substr(0,500).concat("...")}</p>
-        <p>TEXT</p>
+        <p>TEXT : {path}</p>
     );
 }
 

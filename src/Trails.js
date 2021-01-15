@@ -65,7 +65,7 @@ class Trails extends Component {
     // ************************************************************* 
 
     // ************************************************************* EVENT
-    NodeClick = (nodeId, e) => {
+    nodeClick = (nodeId, e) => {
       //visited node
       let visitedNode = [...this.state.nodes]
       let currentNodeVisited = {...visitedNode[nodeId]}
