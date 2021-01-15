@@ -1,28 +1,36 @@
 import './Document.css';
-// import raw from 'raw.macro';
+import raw from 'raw.macro';
 import {React, Component} from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 
-const Image = (props) => (
-    <img
-        src={require('./souvenirs/' + props.path).default}
+const Image = (props) => {
+    var path = props.parcours ? props.parcours + "/" : ""
+    return (<img
+        src={require('./souvenirs/'  + path + props.path).default}
         alt={props.desc}
-    >
-    </img>
-)
+    ></img>)
+}
 
 function Text(props) {
-    // const path = props.path;
-    return (
-        // <p>{raw(`souvenirs/${path}`).substr(0,500).concat("...")}</p>
-        <p>TEXT</p>
-    );
+    const path = props.path;
+    const dir = props.parcours;
+    if (dir){
+        return (
+            <p>{raw(`./souvenirs/${dir}/${path}`)}</p>
+        );
+    } else {
+        return (
+            <p>{raw(`./souvenirs/${path}`)}</p>
+        );
+    }
+    
 }
 
 function Audio(props) {
+    var path = props.parcours ? props.parcours + "/" : ""
     return (
         <ReactAudioPlayer
-            src={require('./souvenirs/' + props.path).default}
+            src={require('./souvenirs/'+ path + props.path).default}
             autoPlay
             controls
         />
@@ -53,11 +61,11 @@ class Document extends Component {
     displayDoc(id, nature, path) {
         switch(nature) {
             case 'image':
-                return <Image key = {id} path = {path}/>
+                return <Image key = {id} path = {path} parcours= {this.props.parcours }/>
             case 'texte':
-                return <Text key = {id} path = {path}/>
+                return <Text key = {id} path = {path} parcours= {this.props.parcours} />
             case 'audio':
-                return <Audio key = {id} path = {path}/>
+                return <Audio key = {id} path = {path} parcours= {this.props.parcours} />
             case 'video':
                 return <p key = {id}>VIDEO</p>
             default : 

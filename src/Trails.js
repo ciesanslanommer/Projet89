@@ -30,8 +30,8 @@ class Trails extends Component {
     constructor(props){
       super(props)
       data.nodes.forEach( node => { //randomize nodes position
-        node.x = Math.floor(Math.random()* 1000)
-        node.y = Math.floor(Math.random()* 1000)
+        // node.x = Math.floor(Math.random()* 1000)
+        // node.y = Math.floor(Math.random()* 1000)
         node.visited = false
       })
       this.state = {
@@ -66,6 +66,12 @@ class Trails extends Component {
 
     // ************************************************************* EVENT
     nodeClick = (nodeId, e) => {
+      //visited node
+      let visitedNode = [...this.state.nodes]
+      let currentNodeVisited = {...visitedNode[nodeId]}
+      currentNodeVisited.visited = true
+      visitedNode[nodeId] = currentNodeVisited;
+      this.setState({nodes:visitedNode})
       this.props.nodeClick(nodeId)
     };
 
