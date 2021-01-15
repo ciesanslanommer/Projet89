@@ -1,123 +1,114 @@
 { 
     "nodes" :[
         {
-            "id" : 0,
-            "name": "manege",
-            "path": "2019_5juin14h34_manège_roumanie.jpg",
-            "nature": "image" 
+          "id": 0,
+          "name": "Ste Victoire",
+          "path": "Ruines/0_SainteVictoire",
+          "format": "txt",
+          "x": 777,
+          "y": 718
         },
         {
-            "id" : 1,
-            "name": "walkman",
-            "path": "2019_15avril12h35_Walkman.txt",
-            "nature": "texte"
+          "id": 1,
+          "name": "Les Pierres",
+          "path": "Ruines/1_LesPierres",
+          "format": "txt",
+          "x": 1022.5,
+          "y": 47.5
         },
         {
-            "id" : 2,
-            "name": "tambour",
-            "path": "2020_27 mai 23h19_Le tambour.jpg",
-            "nature": "image"
+          "id": 2,
+          "name": "tambour",
+          "path": "Ruines/2_Terrasse",
+          "format": "txt",
+          "x": 284,
+          "y": 1
         },
         {
-            "id" : 3,
-            "name": "famille",
-            "path": "2019_juin_photo de famille_Eglantine Agathe et Marguerite _4 mois_ juillet 1989.jpg",
-            "nature": "image"
+          "id": 3,
+          "name": "Centre Commercial",
+          "path": "Ruines/3_FuturCentreCommercial",
+          "format": "jpg",
+          "x": 444.5,
+          "y": 252
         },
         {
-            "id" : 4,
-            "name": "tour trump",
-            "path": "2020_22 avril_Tour de  Trump.jpg",
-            "nature": "image"
+          "id": 4,
+          "name": "Mur",
+          "path": "Ruines/4_Mur",
+          "format": "jpg",
+          "x": 779,
+          "y": -144
         },
         {
-            "id" : 5,
-            "name": "distribution",
-            "path": "2019_5 juin 14h34_distribution alimentaire_roumanie.jpg",
-            "nature": "image"
+          "id": 5,
+          "name": "Diane Scott",
+          "path": "Ruines/5_DianeScott",
+          "format": "txt",
+          "x": 339.5,
+          "y": 630.5
         },
         {
-            "id" : 6,
-            "name": "squat",
-            "path": "2019_19 juin 22h57_Squats.txt",
-            "nature": "texte"
+          "id": 6,
+          "name": "Depardon",
+          "path": "Ruines/6_Depardon",
+          "format": "jpg",
+          "x": 1294.5,
+          "y": 429
         },
         {
-            "id" : 7,
-            "name": "anniversaire",
-            "path": "2019_27 août_gâteau d_anniversaire.jpg",
-            "nature": "image"
+          "id": 7,
+          "name": "Manege",
+          "path": "Ruines/7_Manège",
+          "format": "jpg",
+          "x": 756.5,
+          "y": 336
         },
-
         {
-            "id" : 8,
-            "name": "centre commercial",
-            "path": "2020_2 mai_futur centre commercial.jpg",
-            "nature": "image"
+          "id": 8,
+          "name": "centre commercial",
+          "path": "2020_2 mai_futur centre commercial",
+          "format": "jpg",
+          "x": 922,
+          "y": 484.5
         },
-        
         {
-            "id" : 9,
-            "name": "salon",
-            "path": "2020_21 octobre à 22h38_Salon.txt",
-            "nature": "texte"
-        },
-        
-        {
-            "id" : 10,
-            "name": "conte de raiponce",
-            "path": "2019_27 août_Le conte de Raiponce.mp3",
-            "nature": "audio"
+          "id": 9,
+          "name": "salon",
+          "path": "2020_21 octobre à 22h38_Salon",
+          "format": "txt",
+          "x": 192,
+          "y": 398.5
         }
     ],
     "links" : [
         {
             "source" : 0,
-            "target" : 5
-        },
-        {
-            "source" : 5,
-            "target" : 9
-        },
-        {
-            "source" : 9,
-            "target" : 3
-        },
-        {
-            "source" : 3,
-            "target" : 7
-        },
-        {
-            "source" : 3,
-            "target" : 2
-        },
-        {
-            "source" : 3,
-            "target" : 9
-        },
-        {
-            "source" : 2,
-            "target" : 4
-        },
-        {
-            "source" : 4,
-            "target" : 1
-        },
-        {
-            "source" : 7,
             "target" : 1
         },
         {
             "source" : 1,
+            "target" : 2
+        },
+        {
+            "source" : 2,
+            "target" : 3
+        },
+        {
+            "source" : 3,
+            "target" : 4
+        },
+        {
+            "source" : 4,
+            "target" : 5
+        },
+        {
+            "source" : 5,
             "target" : 6
         },
         {
             "source" : 6,
-            "target" : 8
-        },
-        {
-            "source" : 8,
-            "target" : 0
+            "target" : 7
         }
     ]
 }

@@ -11,33 +11,11 @@ class App extends Component {
   constructor(props){
     super(props)
     const idFirstMem = Math.floor(Math.random() * data.nodes.length);
-    const firstLink = this.getLinks(idFirstMem);
     this.state = {
       // history : [idFirstSouvenir],
       currentMemory : idFirstMem,
-      links : firstLink,
       docOpen : false,
     };
-  }
-    
-  
-  getLinks(idMem){ 
-    const linksToReturn =  data.links.filter(link => link.source === idMem); 
-    return linksToReturn;
-  }
-
-  nextMemory = e =>{
-    let linkIndex = Math.floor(Math.random()* this.state.links.length);
-    
-    const nextMem = this.state.links[linkIndex].target;
-    const nextLink = this.getLinks(nextMem);
-
-    //change currentMemory and current Link
-    this.setState({ 
-      currentMemory: nextMem, 
-      links: nextLink
-    })
-    
   }
 
   closeMemory = e => {
@@ -59,17 +37,14 @@ class App extends Component {
 
   render() {
     const memory = data.nodes[this.state.currentMemory]
-    const memId = this.state.links[0].source
-    const visitedNode = this.state.visited
     return (
       <div className= "App">
         <Trails
-          currentNode = {memId}
           nodeClick = {this.setMemory}
         />
         {this.state.docOpen ?
           <Document 
-            key = {memId}
+            key = {memory.id}
             path = {memory.path}
             desc = {memory.name}
             nature = {memory.nature}

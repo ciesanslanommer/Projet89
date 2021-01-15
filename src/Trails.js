@@ -7,17 +7,13 @@ import Background from './assets/fond.png';
 
 const myConfig = {
     nodeHighlightBehavior: true,
-    directed: true,
     disableLinkForce: true,
     width:400,
     initialZoom: 2,
     maxZoom: 2,
     minZoom: 2,
-    staticGraph : true,
+    staticGraphWithDragAndDrop : true,
     highlightDegree : 0,
-    d3: {
-      gravity: -1000,
-    },
     node: {
       color: "lightgreen",
       size: 1200,
@@ -25,7 +21,7 @@ const myConfig = {
       renderLabel : false,
     },
     link: {
-      highlightColor: "lightblue",
+      opacity : 0.3
     },
   }; 
 
@@ -69,19 +65,20 @@ class Trails extends Component {
     // ************************************************************* 
 
     // ************************************************************* EVENT
-    NodeClick = (nodeId, e) => {
-      //visited node
-      let visitedNode = [...this.state.nodes]
-      let currentNodeVisited = {...visitedNode[nodeId]}
-      currentNodeVisited.visited = true
-      visitedNode[nodeId] = currentNodeVisited;
-      this.setState({nodes:visitedNode})
-      console.log(this.state.nodes[nodeId])
-      console.log(visitedNode[nodeId])
+    nodeClick = (nodeId, e) => {
       this.props.nodeClick(nodeId)
     };
-    
-    CustomNodeGenerator(node){
+
+    savePosition = (nodeId, x,y, e)=>{
+      var copy = [...this.state.nodes]
+      var item = {...copy[nodeId]};
+      item.x = x;
+      item.y = y;
+      copy[nodeId] = item;
+      this.setState({nodes : copy});
+    }
+
+    customNodeGenerator(node){
       return <CustomNode node={node} />;
     }
     
@@ -90,14 +87,16 @@ class Trails extends Component {
     render() {
       myConfig.width = this.state.width;
       myConfig.height = this.state.height;
-      myConfig.node.viewGenerator = this.CustomNodeGenerator;
+      myConfig.node.viewGenerator = this.customNodeGenerator;
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
             <Graph
               id='id'
               data =  {{nodes : this.state.nodes, links: this.state.links}}
               config= {myConfig}
-              onClickNode={this.NodeClick}
+              onClickNode={this.nodeClick}
+              onNodePositionChange={this.savePosition}
+              onClickGraph = {() => {console.log(this.state.nodes);}}
             />
           </div>
         )
