@@ -1,6 +1,7 @@
 import './Document.css';
 import raw from 'raw.macro';
 import {React, Component} from 'react';
+import ReactAudioPlayer from 'react-audio-player';
 
 const Image = (props) => (
     <img
@@ -17,9 +18,15 @@ function Text(props) {
     );
 }
 
-// const Audio = (props) => {
-
-// }
+function Audio(props) {
+    return (
+        <ReactAudioPlayer
+            src={require('./../public/souvenirs/' + props.path).default}
+            autoPlay
+            controls
+        />
+    );
+}
 
 class Document extends Component {
 
@@ -30,11 +37,11 @@ class Document extends Component {
     handleType() {
         switch(this.props.nature) {
             case 'image':
-                return <Image path = {this.props.path} desc = {this.props.desc}/>;
+                return <Image path = {this.props.path}/>
             case 'texte':
-                return <Text path = {this.props.path} desc = {this.props.desc}/>
+                return <Text path = {this.props.path}/>
             case 'audio':
-                return <p>AUDIO</p>
+                return <Audio path = {this.props.path}/>
             case 'video':
                 return <p>VIDEO</p>
             default : 

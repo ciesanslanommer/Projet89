@@ -3,7 +3,6 @@
 function CustomNode({node}){
     let highlighted = node.highlighted
     let nature = node.nature
-    console.log(node);
     function Format(nature, highlighted) {
         let id = 1 
         highlighted ? id = 2 : id = 1
@@ -15,8 +14,7 @@ function CustomNode({node}){
             case 'audio':
                 return <img src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
             default :
-                // return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
-                return <p style = {{color: "white"}}>{nature}</p>
+                return <img src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
             }
     }
     return(
