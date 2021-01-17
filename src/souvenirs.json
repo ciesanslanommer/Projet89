@@ -88,7 +88,8 @@
         "path": "9_MathieuBonzom.txt",
         "nature": "texte",
         "x": 456,
-        "y": 52.5
+        "y": 52.5,
+        "zoom": 1
       },
       {
         "id": 10,
@@ -159,6 +160,7 @@
         "nature": "audio",
         "x": 719,
         "y": 84.5,
+        "zoom" : 2,
         "subs": [
               {   
                   "id": 0,
