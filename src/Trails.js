@@ -24,7 +24,6 @@ const myConfig = {
     link: {
       color : "rgba(255, 255, 255, 1)",
       type : "CURVE_SMOOTH",
-      strokeWidth: 1.5,
     },
   }; 
 
@@ -122,30 +121,31 @@ class Trails extends Component {
 
       currentNodeVisited.parcours.forEach(element => {
 
-        console.log(element);
-
         // handle node highlighting
         nodes.forEach((node) => {
-          let htmlNode = d3.select(`[id="${node.id}"] div`); // CAUTION : works because only parents of customNodes have numbered id
-          //console.log(node.parcours);
-          if (node.parcours!=null && node.parcours[0] !== element) {
-            htmlNode.attr("class", "unselected");
+          let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
+          if(node.parcours==null || node.parcours.indexOf(element)===-1) {
+            htmlNode.attr("class", "unselected"); 
           }
           else {
-            console.log(node.id);
+            htmlNode.attr("class", "selected");
           }
         });
 
         // handle link highlighting
         this.state.links.forEach((link) => {
           let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
-          if (nodes[link.source].parcours !== element
-            || nodes[link.target].parcours !== element
+          if (nodes[link.source].parcours==null 
+          || nodes[link.target].parcours==null 
+          || nodes[link.source].parcours.indexOf(element)===-1
+          || nodes[link.target].parcours.indexOf(element)===-1
           ) {
             // htmlLink.attr("class", "unselected"); // doesn't work: <path> element already has opacity set
             // myConfig['link'].opacity = 0.2; // doesn't work: change opcaity for all links
             htmlLink.style("opacity", "0.2");
-            htmlLink.style("stroke", "red");
+          }
+          else {
+            htmlLink.style("stroke", "#4444dd");
           }
         });
 
@@ -157,16 +157,23 @@ class Trails extends Component {
 
       // remove node highlighting
       this.state.nodes.forEach( (node) => {
-        let htmlNode = d3.select(`[id="${node.id}"] div`); // CAUTION : works because only parents of customNodes have numbered id
-        htmlNode.attr("class", null); 
+        let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
+        htmlNode.classed("unselected", null); 
+        htmlNode.classed("selected", null); 
       });
     
       // remove link highlighting
       this.state.links.forEach( (link) => {
         let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
         htmlLink.style("opacity", "1");
+        htmlLink.style("stroke", "white");
+        htmlLink.style("filter", "none");
       });
     };
+
+  onMouseOverNode = function (nodeId, node) {
+    console.log(`Mouse over node ${nodeId}`);
+  };
     
     
 
@@ -189,6 +196,7 @@ class Trails extends Component {
               onClickGraph = {() => {console.log(this.state.nodes);}}
               onZoomChange = {this.zoomChange}
               onClickLink={this.onClickLink}
+              onMouseOverNode={this.onMouseOverNode}
             />
           </div>
         )
