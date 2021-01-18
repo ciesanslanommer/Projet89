@@ -3,6 +3,9 @@ import {React, Component} from 'react';
 import data from './souvenirs.json'
 import CustomNode from './CustomNode.js'
 import Background from './assets/fond.png';
+import * as d3 from "d3";
+import { html } from "d3";
+import "./Trails.css";
 
 
 const myConfig = {
@@ -20,7 +23,7 @@ const myConfig = {
       renderLabel : false,
     },
     link: {
-      color : "rgba(255, 255, 255, 0.49)"
+      color : "rgba(255, 255, 255, 1)",
     },
   }; 
 
@@ -76,7 +79,14 @@ class Trails extends Component {
       visitedNode[nodeId] = currentNodeVisited;
       this.setState({nodes:visitedNode})
       this.props.nodeClick(nodeId)
-    };
+
+      // if node is in a parcours, highlight all nodes in the parcours 
+      this.removeHighlightParcours();
+      if(currentNodeVisited.parcours != null) {
+        this.highlightParcours(currentNodeVisited);
+      }
+
+    }
 
     zoomChange = (prevZoom, newZoom, e) =>  {
       //console.log(newZoom);
@@ -96,7 +106,50 @@ class Trails extends Component {
     customNodeGenerator = (node) =>{
       return <CustomNode node={node} zoom={this.state.zoom} />;
     }
+
+    highlightParcours(currentNodeVisited) {
+
+      const nodes = this.state.nodes;
+
+      // handle node highlighting
+      nodes.forEach( (node) => {
+        let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
+        if(node.parcours !== currentNodeVisited.parcours) {
+          htmlNode.attr("class", "unselected"); 
+        }
+      });
+
+      // handle link highlighting
+      this.state.links.forEach( (link) => {
+        let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
+        if(nodes[link.source].parcours !== currentNodeVisited.parcours 
+        || nodes[link.target].parcours !== currentNodeVisited.parcours 
+        ) {
+          // htmlLink.attr("class", "unselected"); // doesn't work: <path> element already has opacity set
+          // myConfig['link'].opacity = 0.2; // doesn't work: change opcaity for all links
+          htmlLink.style("opacity", "0.2");
+        }
+      });
+
+    }
+
+    removeHighlightParcours() {
+
+      // remove node highlighting
+      this.state.nodes.forEach( (node) => {
+        let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
+        htmlNode.attr("class", null); 
+      });
     
+      // remove link highlighting
+      this.state.links.forEach( (link) => {
+        let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
+        htmlLink.style("opacity", "1");
+      });
+    };
+    
+    
+
     // ************************************************************* 
 
     render() {
@@ -104,6 +157,7 @@ class Trails extends Component {
       myConfig.height = this.state.height;
       myConfig.node.viewGenerator = this.customNodeGenerator;
       myConfig.initialZoom = this.state.zoom;
+
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
             <Graph
@@ -114,12 +168,12 @@ class Trails extends Component {
               onNodePositionChange={this.savePosition}
               onClickGraph = {() => {console.log(this.state.nodes);}}
               onZoomChange = {this.zoomChange}
+              onClickLink={this.onClickLink}
             />
           </div>
         )
     }
-}
-
+};
 
 
 
