@@ -23,7 +23,8 @@ const myConfig = {
     },
     link: {
       color : "rgba(255, 255, 255, 1)",
-      type : "CURVE_SMOOTH" 
+      type : "CURVE_SMOOTH",
+      strokeWidth: 1.5,
     },
   }; 
 
@@ -87,7 +88,7 @@ class Trails extends Component {
     }
 
     zoomChange = (prevZoom, newZoom, e) =>  {
-      console.log(newZoom);
+      // console.log(newZoom);
       this.setState({zoom : newZoom});
       
     }
@@ -115,28 +116,41 @@ class Trails extends Component {
 
     highlightParcours(currentNodeVisited) {
 
+      console.log(currentNodeVisited.id);
+
       const nodes = this.state.nodes;
 
-      // handle node highlighting
-      nodes.forEach( (node) => {
-        let htmlNode = d3.select(`[id="${node.id}"] div`); // CAUTION : works because only parents of customNodes have numbered id
-        if(node.parcours !== currentNodeVisited.parcours) {
-          htmlNode.attr("class", "unselected"); 
-        }
-      });
+      currentNodeVisited.parcours.forEach(element => {
 
-      // handle link highlighting
-      this.state.links.forEach( (link) => {
-        let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
-        if(nodes[link.source].parcours !== currentNodeVisited.parcours 
-        || nodes[link.target].parcours !== currentNodeVisited.parcours 
-        ) {
-          // htmlLink.attr("class", "unselected"); // doesn't work: <path> element already has opacity set
-          // myConfig['link'].opacity = 0.2; // doesn't work: change opcaity for all links
-          htmlLink.style("opacity", "0.2");
-        }
-      });
+        console.log(element);
 
+        // handle node highlighting
+        nodes.forEach((node) => {
+          let htmlNode = d3.select(`[id="${node.id}"] div`); // CAUTION : works because only parents of customNodes have numbered id
+          //console.log(node.parcours);
+          if (node.parcours!=null && node.parcours[0] !== element) {
+            htmlNode.attr("class", "unselected");
+          }
+          else {
+            console.log(node.id);
+          }
+        });
+
+        // handle link highlighting
+        this.state.links.forEach((link) => {
+          let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
+          if (nodes[link.source].parcours !== element
+            || nodes[link.target].parcours !== element
+          ) {
+            // htmlLink.attr("class", "unselected"); // doesn't work: <path> element already has opacity set
+            // myConfig['link'].opacity = 0.2; // doesn't work: change opcaity for all links
+            htmlLink.style("opacity", "0.2");
+            htmlLink.style("stroke", "red");
+          }
+        });
+
+      });
+      
     }
 
     removeHighlightParcours() {
