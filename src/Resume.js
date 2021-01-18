@@ -1,7 +1,7 @@
 import './Resume.css'
 
-function Resume({node}){
-    let description = node.name
+function Resume({name}){
+    let description = name
     return (
             <div className = 'resume'>
                 <p>{description}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat, metus in facilisis iaculis, magna orci eleifend augue, tincidunt sollicitudin quam quam quis arcu. Etiam facilisis neque id congue blandit. Phasellus in posuere arcu, ac porta nisl. Morbi vel sapien eros. Suspendisse potenti. Nam scelerisque eu tellus ac fermentum. In hac habitasse platea dictumst. Maecenas nisl dui, rhoncus sed nisl eget, malesuada accumsan erat. Maecenas vitae mauris id quam ullamcorper vulputate. Donec euismod ut ligula nec gravida.

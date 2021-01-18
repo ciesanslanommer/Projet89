@@ -95,9 +95,12 @@ class Trails extends Component {
     customNodeGenerator = (node) =>{
       //return <CustomNode node={node} zoom={this.state.zoom} style = {{width: '1200px', height: '1200px' }}/>;
       return <CustomNodeClass 
+              name = {node.name}
               nature = {node.nature}
               highlighted = {node.highlighted}
               visited = {node.visited}
+              zoom = {this.state.zoom}
+              nodeZoom = {node.zoom}
             />
     }
     

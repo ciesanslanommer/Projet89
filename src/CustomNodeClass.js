@@ -1,14 +1,99 @@
 import {React, Component} from 'react';
+import Resume from './Resume.js'
 
 class CustomNodeClass extends Component{
-    // let doc = this.displayDoc('main_doc', this.props.nature, this.props.path); // Main document
-    // let subs = this.props.subs; // Array of secondary documents associated with the main one
     render () {
-        console.log(this.props.nature)
-        console.log(this.props.highlighted)
-        return (
-            <div>Hello</div>
-        )
+        let name = this.props.name
+        let nature = this.props.nature
+        let highlighted = this.props.highlighted
+        let visited = this.props.visited
+        let visible = this.props.zoom > this.props.nodeZoom ? true : false
+        let style = {maxHeight : "100%", maxWidth : "100%"}
+
+        const Format = (nature, highlighted) => {
+            let id = highlighted ? 2 : 1
+            switch (nature) 
+        {
+            case 'image':
+                if(highlighted){
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {name}/>
+                            <Resume resume = {this.props} />
+                        </div>
+                    )
+                }
+                else
+                {
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {name}/>
+                        </div>
+                    )
+                }
+            case 'texte':
+                if(highlighted){
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                            <Resume resume = {this.props} />
+                        </div>
+                    )
+                }
+                else
+                {
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                        </div>
+                    )
+                }
+            case 'audio':
+                if(highlighted){
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {name}/>
+                            <Resume resume = {this.props} />
+                        </div>
+                    )
+                } 
+                else
+                {
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {name}/>
+                        </div>
+                    )  
+                }
+                
+            default :
+            if(highlighted){
+                return (
+                    <div>
+                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                        <Resume resume = {this.props} />
+                    </div>
+                )
+            }
+            else
+            {
+                return (
+                    <div>
+                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                    </div>
+                )
+            }
+         }
+        }
+        if(!visible) return <div></div>
+        if(visited)
+        {
+            style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
+            return (<div style = {style}></div>)
+        }
+        else{
+            return (<div>{Format(nature, highlighted)}</div>)
+        }
     };
 }
 
