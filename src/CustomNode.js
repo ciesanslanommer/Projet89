@@ -79,13 +79,8 @@ function CustomNode({node, zoom}){
                     </div>
                 )
             }
-            }
-                return <img style={style} src={require('./assets/audio' + id + '.png').default} alt={node.name} />
-            case 'video':
-                return <img style={style} src={require('./assets/video' + id + '.png').default} alt={node.name} />
-            default:
-                return <img style={style} src={require('./assets/texte' + id + '.png').default} alt={node.name} />
-        }
+         }
+
     }
     if(!visible)
         return <div></div>
