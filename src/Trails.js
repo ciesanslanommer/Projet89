@@ -9,11 +9,9 @@ const myConfig = {
     nodeHighlightBehavior: true,
     disableLinkForce: true,
     width:400,
-    initialZoom: 2,
-    maxZoom: 2,
-    minZoom: 2,
-    //staticGraphWithDragAndDrop : true,
-    staticGraph : true,
+    initialZoom: 1,
+    staticGraphWithDragAndDrop : true,
+    //staticGraph : true,
     highlightDegree : 0,
     node: {
       color: "lightgreen",
@@ -34,11 +32,15 @@ class Trails extends Component {
         // node.x = Math.floor(Math.random()* 1000)
         // node.y = Math.floor(Math.random()* 1000)
         node.visited = false
-      })
+        node.visible = true
+        if (!node.zoom)
+          node.zoom = 0.1
+        })
       this.state = {
         nodes: data.nodes,
         links: data.links,
         width: 0, height : 0,
+        zoom : 1,
       };
     };
 
@@ -76,6 +78,12 @@ class Trails extends Component {
       this.props.nodeClick(nodeId)
     };
 
+    zoomChange = (prevZoom, newZoom, e) =>  {
+      //console.log(newZoom);
+      this.setState({zoom : newZoom})
+    }
+
+
     savePosition = (nodeId, x,y, e)=>{
       var copy = [...this.state.nodes]
       var item = {...copy[nodeId]};
@@ -85,8 +93,8 @@ class Trails extends Component {
       this.setState({nodes : copy});
     }
 
-    customNodeGenerator(node){
-      return <CustomNode node={node} />;
+    customNodeGenerator = (node) =>{
+      return <CustomNode node={node} zoom={this.state.zoom} />;
     }
     
     // ************************************************************* 
@@ -95,6 +103,7 @@ class Trails extends Component {
       myConfig.width = this.state.width;
       myConfig.height = this.state.height;
       myConfig.node.viewGenerator = this.customNodeGenerator;
+      myConfig.initialZoom = this.state.zoom;
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
             <Graph
@@ -104,6 +113,7 @@ class Trails extends Component {
               onClickNode={this.nodeClick}
               onNodePositionChange={this.savePosition}
               onClickGraph = {() => {console.log(this.state.nodes);}}
+              onZoomChange = {this.zoomChange}
             />
           </div>
         )
