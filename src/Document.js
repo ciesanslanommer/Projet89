@@ -2,9 +2,11 @@ import './Document.css';
 import raw from 'raw.macro';
 import {React, Component} from 'react';
 import ReactAudioPlayer from 'react-audio-player';
+import leftArrow from './assets/arrowL.png'
+import rightArrow from './assets/arrowR.png'
 
 const Image = (props) => {
-    var path = props.parcours[0] ? props.parcours[0] + "/" : ""
+    var path = props.parcours ? props.parcours[0] + "/" : ""
     return (<img
         src={require('./souvenirs/'  + path + props.path).default}
         alt={props.desc}
@@ -13,7 +15,7 @@ const Image = (props) => {
 
 function Text(props) {
     const path = props.path;
-    const dir = props.parcours[0];
+    const dir = props.parcours? props.parcours[0] : null;
     if (dir){
         return (
             <p>{raw(`./souvenirs/${dir}/${path}`)}</p>
@@ -27,7 +29,7 @@ function Text(props) {
 }
 
 function Audio(props) {
-    var path = props.parcours[0] ? props.parcours[0] + "/" : ""
+    var path = props.parcours ? props.parcours[0] + "/" : ""
     return (
         <ReactAudioPlayer
             src={require('./souvenirs/'+ path + props.path).default}
@@ -39,15 +41,18 @@ function Audio(props) {
 
 
 function DocumentButton(props) {
-    var path = props.parcours[0].toLowerCase() + ".png"
-    var parcours = props.parcours.length > 1 ? props.parcours[0] +" ou "+ props.parcours[1] : props.parcours[0]
-    console.log(props.parcours);
+    var type = props.type;
     return (
-        <div onClick={props.onClick}>
-            <img
-                src={require('./assets/'+ path).default}
-                alt={props.type + " souvenirs - parcours " + parcours}
-            />
+        <div onClick={props.onClick} className={"button " + type}>
+            {type === "previous" && <img alt="previous" src ={leftArrow}/>}
+            {props.parcours.map( el => 
+                <img
+                    key = {el}
+                    src = {require("./assets/" + el.toLowerCase() +".png" ).default}
+                    alt = {el}
+                />
+            )}
+            {type === "next" && <img alt="previous" src={rightArrow} />}
         </div>
     );
 }
@@ -81,28 +86,34 @@ class Document extends Component {
         let subs = this.props.subs; // Array of secondary documents associated with the main one
         return(
             <div className="souvenir">
-                <div className="sources">
+                <div className="buttons">
                     {this.state.sources.map(source =>
                         <DocumentButton 
+                            key={source.id}
                             onClick={() => this.props.onNextClick(source.id)} 
                             type="previous" 
                             parcours= {source.parcours}
                         />
                     )}
                 </div>
-                <h1>{this.props.desc}</h1>
-                {doc}
-                <div className="sub_docs">
-                    { subs!=null && subs.map( (sub) => this.displayDoc(sub.id, sub.nature, sub.path) )}
+                <div className="document">
+                    <h1>{this.props.desc}</h1>
+                    {doc}
+                {subs!=null && 
+                    <div className="sub_docs"> 
+                        {subs.map( (sub) => this.displayDoc(sub.id, sub.nature, sub.path) )}
+                    </div>
+                }
                 </div>
-                <div className="targets">
-                    {this.state.targets.map(target =>
-                        <DocumentButton 
-                            onClick={() => this.props.onNextClick(target.id)} 
-                            type="next" 
-                            parcours={target.parcours}
-                        />
-                    )}
+                <div className="buttons">
+                {this.state.targets.map(target =>
+                    <DocumentButton 
+                        key={target.id}
+                        onClick={() => this.props.onNextClick(target.id)} 
+                        type="next" 
+                        parcours={target.parcours}
+                    />
+                )}
                 </div>
                 <img 
                     id='cross' 
