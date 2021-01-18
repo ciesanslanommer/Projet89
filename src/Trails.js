@@ -113,7 +113,7 @@ class Trails extends Component {
 
       // handle node highlighting
       nodes.forEach( (node) => {
-        let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
+        let htmlNode = d3.select(`[id="${node.id}"] div`); // CAUTION : works because only parents of customNodes have numbered id
         if(node.parcours !== currentNodeVisited.parcours) {
           htmlNode.attr("class", "unselected"); 
         }
@@ -137,7 +137,7 @@ class Trails extends Component {
 
       // remove node highlighting
       this.state.nodes.forEach( (node) => {
-        let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
+        let htmlNode = d3.select(`[id="${node.id}"] div`); // CAUTION : works because only parents of customNodes have numbered id
         htmlNode.attr("class", null); 
       });
     
