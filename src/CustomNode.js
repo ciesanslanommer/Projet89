@@ -79,7 +79,7 @@ function CustomNode({node, zoom}){
                     </div>
                 )
             }
-        }
+            }
     }
     if(!visible)
         return <div></div>
