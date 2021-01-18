@@ -77,8 +77,9 @@ class Trails extends Component {
     };
 
     zoomChange = (prevZoom, newZoom, e) =>  {
-      //console.log(newZoom);
-      this.setState({zoom : newZoom})
+      console.log(newZoom);
+      this.setState({zoom : newZoom});
+      
     }
 
 

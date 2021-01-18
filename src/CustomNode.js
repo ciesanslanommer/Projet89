@@ -1,5 +1,7 @@
 import Resume from './Resume.js'
 
+import './CustomNode.css';
+
 function CustomNode({node, zoom}){
     let highlighted = node.highlighted
     let nature = node.nature
@@ -82,21 +84,23 @@ function CustomNode({node, zoom}){
          }
 
     }
-    if(!visible)
-        return <div></div>
+    
+    let visibleClass = visible ? "appear" : "disappear"
     if(visited){
         style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
         return(
-            <div style = {style}></div>
+            <div class={visibleClass} style = {style}></div>
         )
     }
     else{
         return(
-            <div>
+            <div class = {visibleClass}>
                 {Format(nature, highlighted)}
+                
             </div>
         );
     }
+    
 }
 
 export default CustomNode
