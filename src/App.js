@@ -22,15 +22,28 @@ class App extends Component {
     this.setState({docOpen: false});
   }
   openMemory = e => {
-    this.setState({docOpen: true, visited : true});
+    this.setState({docOpen: true});
   }
 
-  setMemory = (nodeId, e) =>{
+  getLinks(nodeId) {
+    let sources = data.links.map((el) => {
+      if (el.target === nodeId)
+        return el.source
+      return ""
+    }).filter( el => el !== "")
+    let targets = data.links.map((el) => {
+      if (el.source === nodeId)
+        return el.target
+      return ""
+    }).filter( el => el !== "")
+    return {sources, targets}
+  }
+
+  changeDoc = (nodeId,e) => {
+    //console.log(nodeId);
     const nextMem = nodeId;
-    //change currentMemory and current Link
-    this.setState({ 
-      currentMemory: nextMem, 
-    })
+    this.setState({ currentMemory : nextMem })
+    data.nodes[nextMem].visited = true
     this.openMemory();
   }
 
@@ -41,17 +54,19 @@ class App extends Component {
       <div className= "App">
         {<Nav />}
         <Trails
-          nodeClick = {this.setMemory}
+          nodeClick = {this.changeDoc}
         />
         {this.state.docOpen ?
           <Document 
             key = {memory.id}
             path = {memory.path}
             parcours = {memory.parcours}
+            links = {this.getLinks(memory.id)}
             desc = {memory.name}
             nature = {memory.nature}
             subs = {memory.subs}
-            onClick = {this.closeMemory}
+            onCrossClick = {this.closeMemory}
+            onNextClick = {this.changeDoc}
           />
           : null
         }

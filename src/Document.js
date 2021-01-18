@@ -38,9 +38,12 @@ function Audio(props) {
 }
 
 class Document extends Component {
-
-    handleClick = e => {
-        this.props.onClick();
+    constructor(props){
+        super(props)
+        this.state = ({
+            sources: this.props.links.sources,
+            targets: this.props.links.targets,
+        })
     }
 
     displayDoc(id, nature, path) {
@@ -63,16 +66,26 @@ class Document extends Component {
         let subs = this.props.subs; // Array of secondary documents associated with the main one
         return(
             <div className="souvenir">
+                <div className="sources">
+                    {this.state.sources.map(id=>
+                        <button onClick={() => this.props.onNextClick(id)}>Previous</button>
+                    )}
+                </div>
                 <h1>{this.props.desc}</h1>
                 {doc}
                 <div className="sub_docs">
                     { subs!=null && subs.map( (sub) => this.displayDoc(sub.id, sub.nature, sub.path) )}
                 </div>
+                <div className="targets">
+                    {this.state.targets.map(id =>
+                        <button onClick={() => this.props.onNextClick(id)}>Next</button>
+                    )}
+                </div>
                 <img 
                     id='cross' 
                     src={require('./assets/close.png').default}
                     alt='cross'
-                    onClick={this.handleClick}
+                    onClick={this.props.onCrossClick}
                 >
                 </img> 
             </div>
