@@ -7,7 +7,8 @@
         "path": "0_SainteVictoire.txt",
         "nature": "texte",
         "x": 41.5,
-        "y": 969.5
+        "y": 969.5,
+        "zoom": 0.5
       },
       {
         "id": 1,
@@ -16,7 +17,8 @@
         "path": "1_LesPierres.txt",
         "nature": "texte",
         "x": 194.5,
-        "y": 708
+        "y": 708,
+        "zoom": 1
       },
       {
         "id": 2,
@@ -25,7 +27,8 @@
         "path": "2_Terrasse.txt",
         "nature": "texte",
         "x": 504,
-        "y": 689.5
+        "y": 689.5,
+        "zoom": 2
       },
       {
         "id": 3,
@@ -34,7 +37,8 @@
         "path": "3_FuturCentreCommercial.jpg",
         "nature": "image",
         "x": 939.5,
-        "y": 556.5
+        "y": 556.5,
+        "zoom": 2
       },
       {
         "id": 4,
@@ -43,7 +47,8 @@
         "path": "4_Mur.jpg",
         "nature": "image",
         "x": 722.5,
-        "y": 354
+        "y": 354,
+        "zoom": 2
       },
       {
         "id": 5,
@@ -52,7 +57,8 @@
         "path": "5_DianeScott.txt",
         "nature": "texte",
         "x": 275.5,
-        "y": 556
+        "y": 556,
+        "zoom": 2
       },
       {
         "id": 6,
@@ -61,7 +67,8 @@
         "path": "6_Depardon.jpg",
         "nature": "image",
         "x": 36.5,
-        "y": 430.5
+        "y": 430.5,
+        "zoom": 2
       },
       {
         "id": 7,
@@ -70,7 +77,8 @@
         "path": "7_Manège.jpg",
         "nature": "image",
         "x": -118,
-        "y": 213.5
+        "y": 213.5,
+        "zoom": 2
       },
       {
         "id": 8,
@@ -79,7 +87,8 @@
         "path": "8_EtienneParc.txt",
         "nature": "texte",
         "x": 609.5,
-        "y": 273.5
+        "y": 273.5,
+        "zoom": 0.5
       },
       {
         "id": 9,
@@ -98,7 +107,8 @@
         "path": "10_StephenJaffe.jpg",
         "nature": "image",
         "x": 150,
-        "y": 148.5
+        "y": 148.5,
+        "zoom": 2
       },
       {
         "id": 11,
@@ -107,7 +117,8 @@
         "path": "11_Christophe.png",
         "nature": "image",
         "x": 325.5,
-        "y": 310
+        "y": 310,
+        "zoom": 2
       },
       {
         "id": 12,
@@ -116,7 +127,8 @@
         "path": "12_ClaudeBernard.txt",
         "nature": "texte",
         "x": -77,
-        "y": 673.5
+        "y": 673.5,
+        "zoom": 2
       },
       {
         "id": 13,
@@ -125,7 +137,8 @@
         "path": "13_CyrilleBregere.txt",
         "nature": "texte",
         "x": -455.5,
-        "y": 544
+        "y": 544,
+        "zoom": 2
       },
       {
         "id": 14,
@@ -134,7 +147,8 @@
         "path": "14_PlaceTienanmenDidierLeglise.jpg",
         "nature": "image",
         "x": -305,
-        "y": 391
+        "y": 391,
+        "zoom": 3
       },
       {
         "id": 15,
@@ -143,7 +157,8 @@
         "path": "15_MaisonIsolePinos.jpg",
         "nature": "image",
         "x": -597.5,
-        "y": 343
+        "y": 343,
+        "zoom": 3
       },
       {
         "id": 16,
@@ -151,7 +166,8 @@
         "path": "Les maillots de bains de l'été 1989 _ Archive INA.mp4",
         "nature": "video",
         "x": 813,
-        "y": 828
+        "y": 828,
+        "zoom": 3
       },
       {
         "id": 17,

@@ -9,7 +9,7 @@ const myConfig = {
     nodeHighlightBehavior: true,
     disableLinkForce: true,
     width:400,
-    initialZoom: 1,
+    initialZoom: 0.5,
     staticGraphWithDragAndDrop : true,
     //staticGraph : true,
     highlightDegree : 0,
@@ -79,8 +79,9 @@ class Trails extends Component {
     };
 
     zoomChange = (prevZoom, newZoom, e) =>  {
-      //console.log(newZoom);
-      this.setState({zoom : newZoom})
+      console.log(newZoom);
+      this.setState({zoom : newZoom});
+      
     }
 
 
