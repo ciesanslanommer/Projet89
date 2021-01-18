@@ -1,7 +1,6 @@
 import { Graph } from "react-d3-graph";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
-import CustomNode from './CustomNode.js'
 import Background from './assets/fond.png';
 import CustomNodeClass from './CustomNodeClass.js'
 
@@ -10,7 +9,7 @@ const myConfig = {
     nodeHighlightBehavior: true,
     disableLinkForce: true,
     width:400,
-    initialZoom: 1,
+    initialZoom: 0.5,
     staticGraphWithDragAndDrop : true,
     //staticGraph : true,
     highlightDegree : 0,
@@ -93,7 +92,6 @@ class Trails extends Component {
     }
 
     customNodeGenerator = (node) =>{
-      //return <CustomNode node={node} zoom={this.state.zoom} style = {{width: '1200px', height: '1200px' }}/>;
       return <CustomNodeClass 
               name = {node.name}
               nature = {node.nature}
@@ -107,7 +105,6 @@ class Trails extends Component {
     // ************************************************************* 
 
     render() {
-      console.log(this.state.nodes)
       myConfig.width = this.state.width;
       myConfig.height = this.state.height;
       myConfig.node.viewGenerator = this.customNodeGenerator;

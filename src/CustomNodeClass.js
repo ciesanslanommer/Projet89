@@ -1,5 +1,6 @@
 import {React, Component} from 'react';
 import Resume from './Resume.js'
+import './CustomNode.css'
 
 class CustomNodeClass extends Component{
     render () {
@@ -85,14 +86,21 @@ class CustomNodeClass extends Component{
             }
          }
         }
-        if(!visible) return <div></div>
-        if(visited)
-        {
+
+        let visibleClass = visible ? "appear" : "disappear"
+        if(visited){
             style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
-            return (<div style = {style}></div>)
+            return(
+                <div class={visibleClass} style = {style}></div>
+            )
         }
         else{
-            return (<div>{Format(nature, highlighted)}</div>)
+            return(
+                <div class = {visibleClass}>
+                    {Format(nature, highlighted)}
+                    
+                </div>
+            );
         }
     };
 }
