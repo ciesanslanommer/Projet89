@@ -3,6 +3,7 @@ import {React, Component} from 'react';
 import data from './souvenirs.json'
 import CustomNode from './CustomNode.js'
 import Background from './assets/fond.png';
+import CustomNodeClass from './CustomNodeClass.js'
 
 
 const myConfig = {
@@ -43,8 +44,6 @@ class Trails extends Component {
         zoom : 1,
       };
     };
-
-
 
     // ************************************************************* RESIZING
     componentWillMount () {
@@ -94,12 +93,18 @@ class Trails extends Component {
     }
 
     customNodeGenerator = (node) =>{
-      return <CustomNode node={node} zoom={this.state.zoom} style = {{width: '1200px', height: '1200px' }}/>;
+      //return <CustomNode node={node} zoom={this.state.zoom} style = {{width: '1200px', height: '1200px' }}/>;
+      return <CustomNodeClass 
+              nature = {node.nature}
+              highlighted = {node.highlighted}
+              visited = {node.visited}
+            />
     }
     
     // ************************************************************* 
 
     render() {
+      console.log(this.state.nodes)
       myConfig.width = this.state.width;
       myConfig.height = this.state.height;
       myConfig.node.viewGenerator = this.customNodeGenerator;
