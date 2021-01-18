@@ -1,3 +1,5 @@
+import Resume from './Resume.js'
+
 function CustomNode({node, zoom}){
     let highlighted = node.highlighted
     let nature = node.nature
@@ -6,16 +8,78 @@ function CustomNode({node, zoom}){
     let style = {maxHeight : "100%", maxWidth : "100%"}
     function Format(nature, highlighted) {
         let id = highlighted ? 2 : 1
-        switch (nature) {
+        switch (nature) 
+        {
             case 'image':
-                return <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
+                if(highlighted){
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
+                            <Resume node = {node} />
+                        </div>
+                    )
+                }
+                else
+                {
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
+                        </div>
+                    )
+                }
             case 'texte':
-                return <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                if(highlighted){
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                            <Resume node = {node} />
+                        </div>
+                    )
+                }
+                else
+                {
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                        </div>
+                    )
+                }
             case 'audio':
-                return <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
+                if(highlighted){
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
+                            <Resume node = {node} />
+                        </div>
+                    )
+                } 
+                else
+                {
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
+                        </div>
+                    )  
+                }
+                
             default :
-                return <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+            if(highlighted){
+                return (
+                    <div>
+                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                        <Resume node = {node} />
+                    </div>
+                )
             }
+            else
+            {
+                return (
+                    <div>
+                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                    </div>
+                )
+            }
+        }
     }
     if(!visible)
         return <div></div>

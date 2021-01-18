@@ -15,7 +15,7 @@ const myConfig = {
     highlightDegree : 0,
     node: {
       color: "lightgreen",
-      size: 1200,
+      size: 1600,
       highlightStrokeColor: "blue",
       renderLabel : false,
     },
@@ -94,7 +94,7 @@ class Trails extends Component {
     }
 
     customNodeGenerator = (node) =>{
-      return <CustomNode node={node} zoom={this.state.zoom} />;
+      return <CustomNode node={node} zoom={this.state.zoom} style = {{width: '1200px', height: '1200px' }}/>;
     }
     
     // ************************************************************* 

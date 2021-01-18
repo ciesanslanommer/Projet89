@@ -1,5 +1,3 @@
-//import {Node} from 'react-d3-graph'
-
 function CustomNode({node}){
     let highlighted = node.highlighted
     let format = node.format
@@ -18,20 +16,9 @@ function CustomNode({node}){
     return(
         <div>
             {Format(format, highlighted)}
+          
         </div>
     );
 }
 
 export default CustomNode
-
-
-/* { format == "jpg" ?
-highlighted ? 
-   <img src={require('./assets/photo2.png').default} alt= {node.name}/>
-   : <img src={require('./assets/photo1.png').default} alt= {node.name}/>
-:
-highlighted ? 
-   <img src={require('./assets/texte2.png').default} alt= {node.name}/>
-   : <img src={require('./assets/texte1.png').default} alt= {node.name}/>
-
-}*/
