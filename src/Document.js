@@ -4,7 +4,7 @@ import {React, Component} from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 
 const Image = (props) => {
-    var path = props.parcours ? props.parcours + "/" : ""
+    var path = props.parcours[0] ? props.parcours[0] + "/" : ""
     return (<img
         src={require('./souvenirs/'  + path + props.path).default}
         alt={props.desc}
@@ -13,7 +13,7 @@ const Image = (props) => {
 
 function Text(props) {
     const path = props.path;
-    const dir = props.parcours;
+    const dir = props.parcours[0];
     if (dir){
         return (
             <p>{raw(`./souvenirs/${dir}/${path}`)}</p>
@@ -27,13 +27,28 @@ function Text(props) {
 }
 
 function Audio(props) {
-    var path = props.parcours ? props.parcours + "/" : ""
+    var path = props.parcours[0] ? props.parcours[0] + "/" : ""
     return (
         <ReactAudioPlayer
             src={require('./souvenirs/'+ path + props.path).default}
             autoPlay
             controls
         />
+    );
+}
+
+
+function DocumentButton(props) {
+    var path = props.parcours[0].toLowerCase() + ".png"
+    var parcours = props.parcours.length > 1 ? props.parcours[0] +" ou "+ props.parcours[1] : props.parcours[0]
+    console.log(props.parcours);
+    return (
+        <div onClick={props.onClick}>
+            <img
+                src={require('./assets/'+ path).default}
+                alt={props.type + " souvenirs - parcours " + parcours}
+            />
+        </div>
     );
 }
 
@@ -67,8 +82,12 @@ class Document extends Component {
         return(
             <div className="souvenir">
                 <div className="sources">
-                    {this.state.sources.map(id=>
-                        <button onClick={() => this.props.onNextClick(id)}>Previous</button>
+                    {this.state.sources.map(source =>
+                        <DocumentButton 
+                            onClick={() => this.props.onNextClick(source.id)} 
+                            type="previous" 
+                            parcours= {source.parcours}
+                        />
                     )}
                 </div>
                 <h1>{this.props.desc}</h1>
@@ -77,8 +96,12 @@ class Document extends Component {
                     { subs!=null && subs.map( (sub) => this.displayDoc(sub.id, sub.nature, sub.path) )}
                 </div>
                 <div className="targets">
-                    {this.state.targets.map(id =>
-                        <button onClick={() => this.props.onNextClick(id)}>Next</button>
+                    {this.state.targets.map(target =>
+                        <DocumentButton 
+                            onClick={() => this.props.onNextClick(target.id)} 
+                            type="next" 
+                            parcours={target.parcours}
+                        />
                     )}
                 </div>
                 <img 

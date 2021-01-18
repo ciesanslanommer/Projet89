@@ -28,12 +28,12 @@ class App extends Component {
   getLinks(nodeId) {
     let sources = data.links.map((el) => {
       if (el.target === nodeId)
-        return el.source
+        return {id : el.source, parcours : data.nodes[el.source].parcours}
       return ""
     }).filter( el => el !== "")
     let targets = data.links.map((el) => {
       if (el.source === nodeId)
-        return el.target
+        return {id : el.target, parcours : data.nodes[el.target].parcours}
       return ""
     }).filter( el => el !== "")
     return {sources, targets}
