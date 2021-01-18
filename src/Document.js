@@ -2,9 +2,11 @@ import './Document.css';
 import raw from 'raw.macro';
 import {React, Component} from 'react';
 import ReactAudioPlayer from 'react-audio-player';
+import leftArrow from './assets/arrowL.png'
+import rightArrow from './assets/arrowR.png'
 
 const Image = (props) => {
-    var path = props.parcours ? props.parcours + "/" : ""
+    var path = props.parcours ? props.parcours[0] + "/" : ""
     return (<img
         src={require('./souvenirs/'  + path + props.path).default}
         alt={props.desc}
@@ -13,7 +15,7 @@ const Image = (props) => {
 
 function Text(props) {
     const path = props.path;
-    const dir = props.parcours;
+    const dir = props.parcours? props.parcours[0] : null;
     if (dir){
         return (
             <p>{raw(`./souvenirs/${dir}/${path}`)}</p>
@@ -27,7 +29,7 @@ function Text(props) {
 }
 
 function Audio(props) {
-    var path = props.parcours ? props.parcours + "/" : ""
+    var path = props.parcours ? props.parcours[0] + "/" : ""
     return (
         <ReactAudioPlayer
             src={require('./souvenirs/'+ path + props.path).default}
@@ -38,7 +40,7 @@ function Audio(props) {
 }
 
 function Video(props) {
-    var path = props.parcours ? props.parcours + "/" : ""
+    //var path = props.parcours ? props.parcours + "/" : ""
     return (
         /*<video controls>
             <source src={require('./souvenirs/'+ path + props.path).default}
@@ -46,14 +48,35 @@ function Video(props) {
             </source>
             Sorry, your browser doesn't support embedded videos.
         </video>*/
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/jXZAbnn1kTU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe title={props.key} width="560" height="315" src="https://www.youtube.com/embed/jXZAbnn1kTU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    );
+}
+
+
+function DocumentButton(props) {
+    var type = props.type;
+    return (
+        <div onClick={props.onClick} className={"button " + type}>
+            {type === "previous" && <img alt="previous" src ={leftArrow}/>}
+            {props.parcours.map( el => 
+                <img
+                    key = {el}
+                    src = {require("./assets/" + el.toLowerCase() +".png" ).default}
+                    alt = {el}
+                />
+            )}
+            {type === "next" && <img alt="previous" src={rightArrow} />}
+        </div>
     );
 }
 
 class Document extends Component {
-
-    handleClick = e => {
-        this.props.onClick();
+    constructor(props){
+        super(props)
+        this.state = ({
+            sources: this.props.links.sources,
+            targets: this.props.links.targets,
+        })
     }
 
     displayDoc(id, nature, path) {
@@ -76,16 +99,40 @@ class Document extends Component {
         let subs = this.props.subs; // Array of secondary documents associated with the main one
         return(
             <div className="souvenir">
-                <h1>{this.props.desc}</h1>
-                {doc}
-                <div className="sub_docs">
-                    { subs!=null && subs.map( (sub) => this.displayDoc(sub.id, sub.nature, sub.path) )}
+                <div className="buttons">
+                    {this.state.sources.map(source =>
+                        <DocumentButton 
+                            key={source.id}
+                            onClick={() => this.props.onNextClick(source.id)} 
+                            type="previous" 
+                            parcours= {source.parcours}
+                        />
+                    )}
+                </div>
+                <div className="document">
+                    <h1>{this.props.desc}</h1>
+                    {doc}
+                {subs!=null && 
+                    <div className="sub_docs"> 
+                        {subs.map( (sub) => this.displayDoc(sub.id, sub.nature, sub.path) )}
+                    </div>
+                }
+                </div>
+                <div className="buttons">
+                {this.state.targets.map(target =>
+                    <DocumentButton 
+                        key={target.id}
+                        onClick={() => this.props.onNextClick(target.id)} 
+                        type="next" 
+                        parcours={target.parcours}
+                    />
+                )}
                 </div>
                 <img 
                     id='cross' 
                     src={require('./assets/close.png').default}
                     alt='cross'
-                    onClick={this.handleClick}
+                    onClick={this.props.onCrossClick}
                 >
                 </img> 
             </div>

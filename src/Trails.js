@@ -1,29 +1,29 @@
 import { Graph } from "react-d3-graph";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
-import CustomNode from './CustomNode.js'
 import Background from './assets/fond.png';
 import * as d3 from "d3";
-import { html } from "d3";
 import "./Trails.css";
+import CustomNode from './CustomNode.js'
 
 
 const myConfig = {
     nodeHighlightBehavior: true,
     disableLinkForce: true,
     width:400,
-    initialZoom: 1,
+    initialZoom: 0.5,
     staticGraphWithDragAndDrop : true,
     //staticGraph : true,
     highlightDegree : 0,
     node: {
       color: "lightgreen",
-      size: 1200,
+      size: 1600,
       highlightStrokeColor: "blue",
       renderLabel : false,
     },
     link: {
       color : "rgba(255, 255, 255, 1)",
+      type : "CURVE_SMOOTH" 
     },
   }; 
 
@@ -46,8 +46,6 @@ class Trails extends Component {
         zoom : 1,
       };
     };
-
-
 
     // ************************************************************* RESIZING
     componentWillMount () {
@@ -89,8 +87,9 @@ class Trails extends Component {
     }
 
     zoomChange = (prevZoom, newZoom, e) =>  {
-      //console.log(newZoom);
-      this.setState({zoom : newZoom})
+      console.log(newZoom);
+      this.setState({zoom : newZoom});
+      
     }
 
 
@@ -104,7 +103,14 @@ class Trails extends Component {
     }
 
     customNodeGenerator = (node) =>{
-      return <CustomNode node={node} zoom={this.state.zoom} />;
+      return <CustomNode 
+              name = {node.name}
+              nature = {node.nature}
+              highlighted = {node.highlighted}
+              visited = {node.visited}
+              zoom = {this.state.zoom}
+              nodeZoom = {node.zoom}
+            />
     }
 
     highlightParcours(currentNodeVisited) {

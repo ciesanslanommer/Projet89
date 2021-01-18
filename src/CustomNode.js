@@ -1,39 +1,108 @@
-function CustomNode({node, zoom}){
-    let highlighted = node.highlighted
-    let nature = node.nature
-    let visited = node.visited
-    let visible = zoom > node.zoom ? true : false
-    let style = {maxHeight : "100%", maxWidth : "100%"}
-    function Format(nature, highlighted) {
-        let id = highlighted ? 2 : 1
-        switch (nature) {
+import {React, Component} from 'react';
+import Preview from './Preview.js'
+import './CustomNode.css'
+
+class CustomNode extends Component{
+    render () {
+        let name = this.props.name
+        let nature = this.props.nature
+        let highlighted = this.props.highlighted
+        let visited = this.props.visited
+        let visible = this.props.zoom > this.props.nodeZoom ? true : false
+        let style = {maxHeight : "100%", maxWidth : "100%"}
+
+        const Format = (nature, highlighted) => {
+            let id = highlighted ? 2 : 1
+            switch (nature) 
+        {
             case 'image':
-                return <img style={style} src={require('./assets/photo' + id + '.png').default} alt={node.name} />
+                if(highlighted){
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {name}/>
+                            <Preview resume = {this.props} />
+                        </div>
+                    )
+                }
+                else
+                {
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {name}/>
+                        </div>
+                    )
+                }
             case 'texte':
-                return <img style={style} src={require('./assets/texte' + id + '.png').default} alt={node.name} />
+                if(highlighted){
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                            <Preview resume = {this.props} />
+                        </div>
+                    )
+                }
+                else
+                {
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                        </div>
+                    )
+                }
             case 'audio':
-                return <img style={style} src={require('./assets/audio' + id + '.png').default} alt={node.name} />
-            case 'video':
-                return <img style={style} src={require('./assets/video' + id + '.png').default} alt={node.name} />
-            default:
-                return <img style={style} src={require('./assets/texte' + id + '.png').default} alt={node.name} />
+                if(highlighted){
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {name}/>
+                            <Preview resume = {this.props} />
+                        </div>
+                    )
+                } 
+                else
+                {
+                    return (
+                        <div>
+                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {name}/>
+                        </div>
+                    )  
+                }
+                
+            default :
+            if(highlighted){
+                return (
+                    <div>
+                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                        <Preview resume = {this.props} />
+                    </div>
+                )
+            }
+            else
+            {
+                return (
+                    <div>
+                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                    </div>
+                )
+            }
+         }
         }
-    }
-    if(!visible)
-        return <div></div>
-    if(visited){
-        style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
-        return(
-            <div style = {style}></div>
-        )
-    }
-    else{
-        return(
-            <div>
-                {Format(nature, highlighted)}
-            </div>
-        );
-    }
+
+        let visibleClass = visible ? "appear" : "disappear"
+        if(visited){
+            style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
+            return(
+                <div class={visibleClass} style = {style}></div>
+            )
+        }
+        else{
+            return(
+                <div class = {visibleClass}>
+                    {Format(nature, highlighted)}
+                    
+                </div>
+            );
+        }
+    };
 }
 
-export default CustomNode
+export default CustomNode;
