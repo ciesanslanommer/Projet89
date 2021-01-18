@@ -3,7 +3,7 @@
       {
         "id": 0,
         "name": "Ste Victoire",
-        "parcours": "Ruines",
+        "parcours": ["Ruines"],
         "path": "0_SainteVictoire.txt",
         "nature": "texte",
         "x": 41.5,
@@ -13,7 +13,7 @@
       {
         "id": 1,
         "name": "Les Pierres",
-        "parcours": "Ruines",
+        "parcours":[ "Ruines"],
         "path": "1_LesPierres.txt",
         "nature": "texte",
         "x": 194.5,
@@ -23,7 +23,7 @@
       {
         "id": 2,
         "name": "terrasse",
-        "parcours": "Ruines",
+        "parcours": ["Ruines"],
         "path": "2_Terrasse.txt",
         "nature": "texte",
         "x": 504,
@@ -33,7 +33,7 @@
       {
         "id": 3,
         "name": "Centre Commercial",
-        "parcours": "Ruines",
+        "parcours": ["Ruines"],
         "path": "3_FuturCentreCommercial.jpg",
         "nature": "image",
         "x": 939.5,
@@ -43,7 +43,7 @@
       {
         "id": 4,
         "name": "Mur",
-        "parcours": "Ruines",
+        "parcours": ["Ruines"],
         "path": "4_Mur.jpg",
         "nature": "image",
         "x": 722.5,
@@ -53,7 +53,7 @@
       {
         "id": 5,
         "name": "Diane Scott",
-        "parcours": "Ruines",
+        "parcours": ["Ruines"],
         "path": "5_DianeScott.txt",
         "nature": "texte",
         "x": 275.5,
@@ -63,7 +63,7 @@
       {
         "id": 6,
         "name": "Depardon",
-        "parcours": "Ruines",
+        "parcours": ["Ruines", "Passage"],
         "path": "6_Depardon.jpg",
         "nature": "image",
         "x": 36.5,
@@ -73,7 +73,7 @@
       {
         "id": 7,
         "name": "Manege",
-        "parcours": "Ruines",
+        "parcours": ["Ruines"],
         "path": "7_Manège.jpg",
         "nature": "image",
         "x": -118,
@@ -83,7 +83,7 @@
       {
         "id": 8,
         "name": "Etienne Parc",
-        "parcours": "Passage",
+        "parcours": ["Passage"],
         "path": "8_EtienneParc.txt",
         "nature": "texte",
         "x": 609.5,
@@ -93,7 +93,7 @@
       {
         "id": 9,
         "name": "Mathieu Bonzom",
-        "parcours": "Passage",
+        "parcours": ["Passage"],
         "path": "9_MathieuBonzom.txt",
         "nature": "texte",
         "x": 456,
@@ -103,7 +103,7 @@
       {
         "id": 10,
         "name": "Stephen Jaffe",
-        "parcours": "Passage",
+        "parcours": ["Passage"],
         "path": "10_StephenJaffe.jpg",
         "nature": "image",
         "x": 150,
@@ -113,7 +113,7 @@
       {
         "id": 11,
         "name": "Christophe",
-        "parcours": "Passage",
+        "parcours": ["Passage"],
         "path": "11_Christophe.png",
         "nature": "image",
         "x": 325.5,
@@ -123,7 +123,7 @@
       {
         "id": 12,
         "name": "Claude Bernard",
-        "parcours": "Passage",
+        "parcours": ["Passage"],
         "path": "12_ClaudeBernard.txt",
         "nature": "texte",
         "x": -77,
@@ -133,7 +133,7 @@
       {
         "id": 13,
         "name": "Cyrille Bregere",
-        "parcours": "Passage",
+        "parcours": ["Passage"],
         "path": "13_CyrilleBregere.txt",
         "nature": "texte",
         "x": -455.5,
@@ -143,7 +143,7 @@
       {
         "id": 14,
         "name": "Place Tienanmen",
-        "parcours": "Passage",
+        "parcours":[ "Passage"],
         "path": "14_PlaceTienanmenDidierLeglise.jpg",
         "nature": "image",
         "x": -305,
@@ -153,7 +153,7 @@
       {
         "id": 15,
         "name": "Maison Isolé",
-        "parcours": "Passage",
+        "parcours": ["Passage"],
         "path": "15_MaisonIsolePinos.jpg",
         "nature": "image",
         "x": -597.5,

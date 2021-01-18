@@ -20,7 +20,8 @@ const myConfig = {
       renderLabel : false,
     },
     link: {
-      color : "rgba(255, 255, 255, 0.49)"
+      color : "rgba(255, 255, 255, 0.49)",
+      type : "CURVE_SMOOTH" 
     },
   }; 
 
