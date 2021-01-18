@@ -1,6 +1,6 @@
-import './Resume.css'
+import './Preview.css'
 
-function Resume({name}){
+function Preview({name}){
     let description = name
     return (
             <div className = 'resume'>
@@ -9,4 +9,4 @@ function Resume({name}){
 Pellentesque ut urna id urna efficitur pellentesque eget vitae nibh. Suspendisse potenti. Quisque ac rhoncus neque, viverra aliquet nulla. Donec euismod mollis risus, non bibendum massa ultrices ac. Sed ut sapien urna. Nam aliquet erat faucibus neque egestas tincidunt. Phasellus lobortis lectus sed diam feugiat, placerat volutpat nulla scelerisque. Duis quis lacus sed ipsum mattis vulputate id eget nunc. Morbi et orci magna.</p>
             </div>)
 }
-export default Resume;
+export default Preview;

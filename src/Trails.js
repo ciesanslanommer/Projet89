@@ -2,7 +2,7 @@ import { Graph } from "react-d3-graph";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
 import Background from './assets/fond.png';
-import CustomNodeClass from './CustomNodeClass.js'
+import CustomNode from './CustomNode.js'
 
 
 const myConfig = {
@@ -93,7 +93,7 @@ class Trails extends Component {
     }
 
     customNodeGenerator = (node) =>{
-      return <CustomNodeClass 
+      return <CustomNode 
               name = {node.name}
               nature = {node.nature}
               highlighted = {node.highlighted}

@@ -1,23 +1,26 @@
-import Resume from './Resume.js'
+import {React, Component} from 'react';
+import Preview from './Preview.js'
+import './CustomNode.css'
 
-import './CustomNode.css';
+class CustomNode extends Component{
+    render () {
+        let name = this.props.name
+        let nature = this.props.nature
+        let highlighted = this.props.highlighted
+        let visited = this.props.visited
+        let visible = this.props.zoom > this.props.nodeZoom ? true : false
+        let style = {maxHeight : "100%", maxWidth : "100%"}
 
-function CustomNode({node, zoom}){
-    let highlighted = node.highlighted
-    let nature = node.nature
-    let visited = node.visited
-    let visible = zoom > node.zoom ? true : false
-    let style = {maxHeight : "100%", maxWidth : "100%"}
-    function Format(nature, highlighted) {
-        let id = highlighted ? 2 : 1
-        switch (nature) 
+        const Format = (nature, highlighted) => {
+            let id = highlighted ? 2 : 1
+            switch (nature) 
         {
             case 'image':
                 if(highlighted){
                     return (
                         <div>
-                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
-                            <Resume node = {node} />
+                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {name}/>
+                            <Preview resume = {this.props} />
                         </div>
                     )
                 }
@@ -25,7 +28,7 @@ function CustomNode({node, zoom}){
                 {
                     return (
                         <div>
-                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {node.name}/>
+                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {name}/>
                         </div>
                     )
                 }
@@ -33,8 +36,8 @@ function CustomNode({node, zoom}){
                 if(highlighted){
                     return (
                         <div>
-                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
-                            <Resume node = {node} />
+                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                            <Preview resume = {this.props} />
                         </div>
                     )
                 }
@@ -42,7 +45,7 @@ function CustomNode({node, zoom}){
                 {
                     return (
                         <div>
-                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
                         </div>
                     )
                 }
@@ -50,8 +53,8 @@ function CustomNode({node, zoom}){
                 if(highlighted){
                     return (
                         <div>
-                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
-                            <Resume node = {node} />
+                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {name}/>
+                            <Preview resume = {this.props} />
                         </div>
                     )
                 } 
@@ -59,7 +62,7 @@ function CustomNode({node, zoom}){
                 {
                     return (
                         <div>
-                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {node.name}/>
+                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {name}/>
                         </div>
                     )  
                 }
@@ -68,8 +71,8 @@ function CustomNode({node, zoom}){
             if(highlighted){
                 return (
                     <div>
-                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
-                        <Resume node = {node} />
+                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
+                        <Preview resume = {this.props} />
                     </div>
                 )
             }
@@ -77,30 +80,29 @@ function CustomNode({node, zoom}){
             {
                 return (
                     <div>
-                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {node.name}/>
+                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
                     </div>
                 )
             }
          }
+        }
 
-    }
-    
-    let visibleClass = visible ? "appear" : "disappear"
-    if(visited){
-        style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
-        return(
-            <div class={visibleClass} style = {style}></div>
-        )
-    }
-    else{
-        return(
-            <div class = {visibleClass}>
-                {Format(nature, highlighted)}
-                
-            </div>
-        );
-    }
-    
+        let visibleClass = visible ? "appear" : "disappear"
+        if(visited){
+            style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
+            return(
+                <div class={visibleClass} style = {style}></div>
+            )
+        }
+        else{
+            return(
+                <div class = {visibleClass}>
+                    {Format(nature, highlighted)}
+                    
+                </div>
+            );
+        }
+    };
 }
 
-export default CustomNode
+export default CustomNode;
