@@ -36,6 +36,7 @@ class Trails extends Component {
         // node.y = Math.floor(Math.random()* 1000)
         node.visited = false
         node.visible = true
+        node.highlighted = false
         if (!node.zoom)
           node.zoom = 0.1
         })
@@ -115,42 +116,37 @@ class Trails extends Component {
 
     highlightParcours(currentNodeVisited) {
 
-      console.log(currentNodeVisited.id);
-
       const nodes = this.state.nodes;
+      // set unhighlighted state for all
+      nodes.forEach( (node) => d3.select(`[id="${node.id}"] img`).attr("class", "unhighlighted") );
+      this.state.links.forEach((link) => d3.select(`[id="${link.source},${link.target}"]`).style("opacity", "0.2") );
+      // htmlLink.attr("class", "unhighlighted"); // doesn't work: <path> element already has opacity set
+      // myConfig['link'].opacity = 0.2; // doesn't work: change opacity for all links
+            
 
+      // change to highlighted state only if conditions met
       currentNodeVisited.parcours.forEach(element => {
-
         // handle node highlighting
         nodes.forEach((node) => {
           let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
-          if(node.parcours==null || node.parcours.indexOf(element)===-1) {
-            htmlNode.attr("class", "unselected"); 
-          }
-          else {
-            htmlNode.attr("class", "selected");
+          if(node.parcours!=null && node.parcours.indexOf(element)!==-1) {
+            htmlNode.attr("class", "highlighted");
           }
         });
-
         // handle link highlighting
         this.state.links.forEach((link) => {
           let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
-          if (nodes[link.source].parcours==null 
-          || nodes[link.target].parcours==null 
-          || nodes[link.source].parcours.indexOf(element)===-1
-          || nodes[link.target].parcours.indexOf(element)===-1
+          if (nodes[link.source].parcours!=null // if source node is in a parcours
+          && nodes[link.target].parcours!=null // if target node is in a parcours
+          && nodes[link.source].parcours.indexOf(element)!==-1
+          && nodes[link.target].parcours.indexOf(element)!==-1
           ) {
-            // htmlLink.attr("class", "unselected"); // doesn't work: <path> element already has opacity set
-            // myConfig['link'].opacity = 0.2; // doesn't work: change opcaity for all links
-            htmlLink.style("opacity", "0.2");
-          }
-          else {
+            htmlLink.style("opacity", "1");
             htmlLink.style("stroke", "#4444dd");
           }
         });
-
       });
-      
+
     }
 
     removeHighlightParcours() {
@@ -158,8 +154,8 @@ class Trails extends Component {
       // remove node highlighting
       this.state.nodes.forEach( (node) => {
         let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
-        htmlNode.classed("unselected", null); 
-        htmlNode.classed("selected", null); 
+        htmlNode.classed("unhighlighted", null); 
+        htmlNode.classed("highlighted", null); 
       });
     
       // remove link highlighting
