@@ -37,6 +37,19 @@ function Audio(props) {
     );
 }
 
+function Video(props) {
+    var path = props.parcours ? props.parcours + "/" : ""
+    return (
+        /*<video controls>
+            <source src={require('./souvenirs/'+ path + props.path).default}
+                    type="video/mp4">
+            </source>
+            Sorry, your browser doesn't support embedded videos.
+        </video>*/
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/jXZAbnn1kTU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    );
+}
+
 class Document extends Component {
 
     handleClick = e => {
@@ -52,7 +65,7 @@ class Document extends Component {
             case 'audio':
                 return <Audio key = {id} path = {path} parcours= {this.props.parcours} />
             case 'video':
-                return <p key = {id}>VIDEO</p>
+                return <Video key = {id} path = {path} parcours= {this.props.parcours} />
             default : 
                 return <p key = {id}>{this.props.nature}</p>
         }

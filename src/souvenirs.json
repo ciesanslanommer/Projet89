@@ -147,15 +147,15 @@
       },
       {
         "id": 16,
-        "name": "centre commercial",
-        "path": "2020_2 mai_futur centre commercial.jpg",
-        "nature": "image",
+        "name": "Maillots",
+        "path": "Les maillots de bains de l'été 1989 _ Archive INA.mp4",
+        "nature": "video",
         "x": 813,
         "y": 828
       },
       {
         "id": 17,
-        "name": "conte de raiponce",
+        "name": "Conte de raiponce",
         "path": "2019_27 août_Le conte de Raiponce.mp3",
         "nature": "audio",
         "x": 719,
@@ -164,7 +164,7 @@
         "subs": [
               {   
                   "id": 0,
-                  "name": "distribution alimentaire",
+                  "name": "Distribution alimentaire",
                   "path": "2019_5 juin 14h34_distribution alimentaire_roumanie.jpg",
                   "nature": "image"
               },
