@@ -36,7 +36,6 @@ class Trails extends Component {
         // node.y = Math.floor(Math.random()* 1000)
         node.visited = false
         node.visible = true
-        node.highlighted = false
         if (!node.zoom)
           node.zoom = 0.1
         })
@@ -128,7 +127,7 @@ class Trails extends Component {
       currentNodeVisited.parcours.forEach(element => {
         // handle node highlighting
         nodes.forEach((node) => {
-          let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
+          let htmlNode = d3.select(`[id="${node.id}"] img`);
           if(node.parcours!=null && node.parcours.indexOf(element)!==-1) {
             htmlNode.attr("class", "highlighted");
           }
@@ -138,8 +137,8 @@ class Trails extends Component {
           let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
           if (nodes[link.source].parcours!=null // if source node is in a parcours
           && nodes[link.target].parcours!=null // if target node is in a parcours
-          && nodes[link.source].parcours.indexOf(element)!==-1
-          && nodes[link.target].parcours.indexOf(element)!==-1
+          && nodes[link.source].parcours.indexOf(element)!==-1 // if selected node's parcours matches one of source's parcours
+          && nodes[link.target].parcours.indexOf(element)!==-1 // if selected node's parcours matches one of target's parcours
           ) {
             htmlLink.style("opacity", "1");
             htmlLink.style("stroke", "#4444dd");
@@ -162,8 +161,6 @@ class Trails extends Component {
       this.state.links.forEach( (link) => {
         let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
         htmlLink.style("opacity", "1");
-        htmlLink.style("stroke", "white");
-        htmlLink.style("filter", "none");
       });
     };
 
