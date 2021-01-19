@@ -59,10 +59,43 @@ class App extends Component {
   }
 
   callApi(){
-    fetch("http://localhost:3001/souvenirs")
+
+    /*~~~~~~~~~~ Get Request ~~~~~~~~~~*/
+    // fetch("http://localhost:3001/souvenirs", {
+    //   headers: { 
+    //     "Content-type": "application/json; charset=UTF-8"
+    //   } 
+    // })
+    //   .then(res => res.json())
+    //   .then(res => console.log(res));
+
+  /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
+  //   fetch("http://localhost:3001/souvenirs", {
+  //     method : 'POST',
+  //     body : JSON.stringify({
+  //       name:"Success",
+  //       path:"fgdgdfs.png",
+  //       nature:"texte"
+  //     }),
+  //     headers: { 
+  //       "Content-type": "application/json; charset=UTF-8"
+  //     } 
+  //   })
+  //     .then(res => res.json())
+  //     .then(res => console.log(res));
+
+  /*~~~~~~~~~~ Delete Request ~~~~~~~~~*/
+    fetch("http://localhost:3001/souvenirs/"+ 28, {
+      method : 'DELETE',
+      headers: { 
+        "Content-type": "application/json; charset=UTF-8"
+      } 
+    })
       .then(res => res.json())
       .then(res => console.log(res));
+
   }
+
   highlightParcours(currentNode) {
 
     const nodes = data.nodes;
@@ -117,12 +150,11 @@ class App extends Component {
 
   render() {
     const memory = data.nodes[this.state.currentMemory]
-    this.callApi();
     return (
       <div className= "App">
         {<Nav />}
         <Trails
-          nodeClick = {this.changeDoc}
+          nodeClick = {this.callApi}
           // currentMemory = {this.state.currentMemory}
         />
         {this.state.docOpen ?
