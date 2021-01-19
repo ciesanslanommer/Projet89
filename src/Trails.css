@@ -5,3 +5,9 @@
 .highlighted {
     filter: drop-shadow(0px 0px 10px #4444dd);
 }
+
+.node {
+    background-color: green;
+    height: 200px;
+    width : 200px;
+}
