@@ -40,7 +40,7 @@ class App extends Component {
     return {sources, targets}
   }
 
-  changeDoc = (nodeId,e) => {
+  changeDoc = (nodeId,visible,e) => {
     //console.log(nodeId);
     const nextMem = nodeId;
     this.setState({ currentMemory : nextMem })

@@ -10,7 +10,7 @@ const myConfig = {
     nodeHighlightBehavior: true,
     disableLinkForce: true,
     width:400,
-    initialZoom: 0.5,
+    initialZoom: 1,
     staticGraphWithDragAndDrop : true,
     //staticGraph : true,
     highlightDegree : 0,
@@ -72,8 +72,10 @@ class Trails extends Component {
       //visited node
       let visitedNode = [...this.state.nodes]
       let currentNodeVisited = {...visitedNode[nodeId]}
+      //let currentNodeVisited = visitedNode.filter(node => node.id === nodeId)
+      console.log(currentNodeVisited)
       currentNodeVisited.visited = true
-      visitedNode[nodeId] = currentNodeVisited;
+      visitedNode[nodeId] = currentNodeVisited
       this.setState({nodes:visitedNode})
       this.props.nodeClick(nodeId)
 
