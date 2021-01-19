@@ -1,24 +1,53 @@
+import {React, Component} from 'react';
+import * as d3 from "d3";
 import './App.css';
 import data from './souvenirs.json';
 import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
 // import History from './History.js'
-import {React, Component} from 'react';
-import * as d3 from "d3";
 import Welcome from './Welcome.js';
 
+import { ENDPOINT_API } from './constants/endpoints';
 
 class App extends Component {
   constructor(props){
     super(props)
     const idFirstMem = Math.floor(Math.random() * data.nodes.length);
     this.state = {
+      isLoaded: false,
       // history : [idFirstSouvenir],
       currentMemory : idFirstMem,
       docOpen : false,
       WelcomeOpen: true,
     };
+  }
+
+  // exemple from https://reactjs.org/docs/faq-ajax.html
+  // To be adapted to our app
+  componentDidMount (){
+    console.log(`Fetching souvenirs from ${ENDPOINT_API}/souvenirs/`);
+    fetch(ENDPOINT_API + '/souvenirs')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log("Success! Souvenirs = ", result);
+          this.setState({
+            isLoaded: true, // TODO display a loader when not loaded yet?
+            // souvenirs: result, // to be adapted to our data!
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          console.error("Oops, something wrong happened when loading souvenirs", error);
+          // TODO maybe display an error for the user?
+          this.setState({
+            isLoaded: true,
+          });
+        }
+      )
   }
 
   closeMemory = e => {
