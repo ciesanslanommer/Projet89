@@ -87,12 +87,13 @@ class CustomNode extends Component{
             }
          }
         }
-  
+        
+        if(!visible) return <div className = {classNames({'visible': visible === true, 'invisible' : visible === false && visited === false, "visited": visited === true})}></div>
         return(
-            <div className = {classNames({'visible': visible === true, 'invisible': visible === false, "visite": visited === true})}>
-                { visited? "" : Format(nature, highlighted)}
-            </div>
-        );
+            <div className = {classNames({'visible': visible === true, 'invisible' : visible === false && visited === false, "visited": visited === true})}>
+                 {visited ? "" : Format(nature, highlighted)}            
+             </div>
+         );
     };
 }
 

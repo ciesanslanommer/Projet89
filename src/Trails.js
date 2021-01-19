@@ -43,7 +43,7 @@ class Trails extends Component {
         nodes: data.nodes,
         links: data.links,
         width: 0, height : 0,
-        zoom : 1,
+        zoom : 0.5,
       };
     };
 

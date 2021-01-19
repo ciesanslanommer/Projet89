@@ -1,6 +1,28 @@
 .visible{
-    animation: appear 1s;
+    animation: appear 3s forwards;
 }
+
+.invisible{
+    animation: appear 3s forwards;
+    background-color: aqua;
+    box-shadow: 0px 0px 20px rgba(97, 165, 255, 0.336);
+    border-radius : 50%;
+    padding: 20%; 
+    margin: 30%;
+}
+
+.visited{
+    background-color : red;
+    border-radius : 50%;
+    padding: 20%; 
+    margin: 30%;
+}
+
+.fadeOut{
+    opacity: 0;
+    transition: opacity 1s;
+}
+
 @keyframes appear{
     0%{
         opacity: 0;
@@ -9,13 +31,12 @@
         opacity: 1;
     }
 }
-.invisible{
-    opacity: 0;
-    transition: opacity 1s;
-}
-.visite{
-    background-color : red;
-    border-radius : 50%;
-    padding: 20%; 
-    margin: 30%;
+
+@keyframes disappear{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
 }
