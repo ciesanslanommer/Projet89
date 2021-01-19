@@ -1,7 +1,9 @@
-.unhighlighted {
-    filter: blur(2px);
+.notInParcours {
+    opacity: 0.2 !important; 
 }
 
-.highlighted {
+.inParcours {
+    opacity: 1 !important;
     filter: drop-shadow(0px 0px 10px #4444dd);
+    stroke: #4444dd !important;
 }

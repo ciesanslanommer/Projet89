@@ -2,7 +2,6 @@ import { Graph } from "react-d3-graph";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
 import Background from './assets/fond.png';
-import * as d3 from "d3";
 import "./Trails.css";
 import CustomNode from './CustomNode.js'
 
@@ -78,12 +77,6 @@ class Trails extends Component {
       this.setState({nodes:visitedNode})
       this.props.nodeClick(nodeId)
 
-      // if node is in a parcours, highlight all nodes in the parcours 
-      this.removeHighlightParcours();
-      if(currentNodeVisited.parcours != null) {
-        this.highlightParcours(currentNodeVisited);
-      }
-
     }
 
     zoomChange = (prevZoom, newZoom, e) =>  {
@@ -112,62 +105,6 @@ class Trails extends Component {
               nodeZoom = {node.zoom}
             />
     }
-
-    highlightParcours(currentNodeVisited) {
-
-      const nodes = this.state.nodes;
-      // set unhighlighted state for all
-      nodes.forEach( (node) => d3.select(`[id="${node.id}"] img`).attr("class", "unhighlighted") );
-      this.state.links.forEach((link) => d3.select(`[id="${link.source},${link.target}"]`).style("opacity", "0.2") );
-      // htmlLink.attr("class", "unhighlighted"); // doesn't work: <path> element already has opacity set
-      // myConfig['link'].opacity = 0.2; // doesn't work: change opacity for all links
-            
-
-      // change to highlighted state only if conditions met
-      currentNodeVisited.parcours.forEach(element => {
-        // handle node highlighting
-        nodes.forEach((node) => {
-          let htmlNode = d3.select(`[id="${node.id}"] img`);
-          if(node.parcours!=null && node.parcours.indexOf(element)!==-1) {
-            htmlNode.attr("class", "highlighted");
-          }
-        });
-        // handle link highlighting
-        this.state.links.forEach((link) => {
-          let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
-          if (nodes[link.source].parcours!=null // if source node is in a parcours
-          && nodes[link.target].parcours!=null // if target node is in a parcours
-          && nodes[link.source].parcours.indexOf(element)!==-1 // if selected node's parcours matches one of source's parcours
-          && nodes[link.target].parcours.indexOf(element)!==-1 // if selected node's parcours matches one of target's parcours
-          ) {
-            htmlLink.style("opacity", "1");
-            htmlLink.style("stroke", "#4444dd");
-          }
-        });
-      });
-
-    }
-
-    removeHighlightParcours() {
-
-      // remove node highlighting
-      this.state.nodes.forEach( (node) => {
-        let htmlNode = d3.select(`[id="${node.id}"] img`); // CAUTION : works because only parents of customNodes have numbered id
-        htmlNode.classed("unhighlighted", null); 
-        htmlNode.classed("highlighted", null); 
-      });
-    
-      // remove link highlighting
-      this.state.links.forEach( (link) => {
-        let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
-        htmlLink.style("opacity", "1");
-      });
-    };
-
-  onMouseOverNode = function (nodeId, node) {
-    console.log(`Mouse over node ${nodeId}`);
-  };
-    
     
 
     // ************************************************************* 
@@ -181,15 +118,14 @@ class Trails extends Component {
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
             <Graph
-              id='id'
-              data =  {{nodes : this.state.nodes, links: this.state.links}}
-              config= {myConfig}
-              onClickNode={this.nodeClick}
-              onNodePositionChange={this.savePosition}
+              id = 'id'
+              data = {{nodes : this.state.nodes, links: this.state.links}}
+              config = {myConfig}
+              onClickNode = {this.nodeClick}
+              onNodePositionChange = {this.savePosition}
               onClickGraph = {() => {console.log(this.state.nodes);}}
               onZoomChange = {this.zoomChange}
-              onClickLink={this.onClickLink}
-              onMouseOverNode={this.onMouseOverNode}
+              onClickLink = {this.onClickLink}
             />
           </div>
         )
