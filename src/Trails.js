@@ -110,6 +110,7 @@ class Trails extends Component {
               visited = {node.visited}
               zoom = {this.state.zoom}
               nodeZoom = {node.zoom}
+              size = {node.size}
             />
     }
 

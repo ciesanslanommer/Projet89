@@ -4,6 +4,7 @@ import './CustomNode.css'
 
 class CustomNode extends Component{
     render () {
+        console.log(this.props.size)
         var classNames = require('classnames');
         let name = this.props.name
         let nature = this.props.nature
@@ -88,9 +89,9 @@ class CustomNode extends Component{
          }
         }
         
-        if(!visible) return <div className = {classNames({'visible': visible === true, 'invisible' : visible === false && visited === false, "visited": visited === true})}></div>
+        if(!visible) return <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, "visited": visited})}></div>
         return(
-            <div className = {classNames({'visible': visible === true, 'invisible' : visible === false && visited === false, "visited": visited === true})}>
+            <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, "visited": visited})}>
                  {visited ? "" : Format(nature, highlighted)}            
              </div>
          );
