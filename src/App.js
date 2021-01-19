@@ -85,14 +85,14 @@ class App extends Component {
   //     .then(res => console.log(res));
 
   /*~~~~~~~~~~ Delete Request ~~~~~~~~~*/
-    fetch("http://localhost:3001/souvenirs/"+ 28, {
-      method : 'DELETE',
-      headers: { 
-        "Content-type": "application/json; charset=UTF-8"
-      } 
-    })
-      .then(res => res.json())
-      .then(res => console.log(res));
+    // fetch("http://localhost:3001/souvenirs/"+ 28, {
+    //   method : 'DELETE',
+    //   headers: { 
+    //     "Content-type": "application/json; charset=UTF-8"
+    //   } 
+    // })
+    //   .then(res => res.json())
+    //   .then(res => console.log(res));
 
   }
 
