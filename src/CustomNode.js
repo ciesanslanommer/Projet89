@@ -4,6 +4,7 @@ import './CustomNode.css'
 
 class CustomNode extends Component{
     render () {
+        var classNames = require('classnames');
         let name = this.props.name
         let nature = this.props.nature
         let highlighted = this.props.highlighted
@@ -87,16 +88,18 @@ class CustomNode extends Component{
          }
         }
 
-        let visibleClass = visible ? "appear" : "disappear"
+        
+
+
         if(visited){
             style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
             return(
-                <div className = {visibleClass} style = {style}></div>
+                <div className = {classNames({'visible': visible === true, 'invisible': visible === false})} style = {style}></div>
             )
         }
         else{
             return(
-                <div className = {visibleClass}>
+                <div className = {classNames({'visible': visible === true, 'invisible': visible === false})}>
                     {Format(nature, highlighted)}
                     
                 </div>

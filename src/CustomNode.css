@@ -1,4 +1,4 @@
-.appear{
+.visible{
     animation: appear 1s;
 }
 @keyframes appear{
@@ -9,7 +9,7 @@
         opacity: 1;
     }
 }
-.disappear{
+.invisible{
     opacity: 0;
     transition: opacity 1s;
 }
