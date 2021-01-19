@@ -6,6 +6,7 @@ import Nav from './Nav.js';
 // import History from './History.js'
 import {React, Component} from 'react';
 import * as d3 from "d3";
+import Welcome from './Welcome.js';
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
       // history : [idFirstSouvenir],
       currentMemory : idFirstMem,
       docOpen : false,
+      WelcomeOpen: true,
     };
   }
 
@@ -109,15 +111,19 @@ class App extends Component {
     });
   };
 
+  closeWelcome = e => {
+    this.setState({WelcomeOpen: false});
+  }
+
 
   render() {
     const memory = data.nodes[this.state.currentMemory]
     return (
       <div className= "App">
+      {this.state.WelcomeOpen && <Welcome onCrossClick = {this.closeWelcome} />}
         {<Nav />}
         <Trails
           nodeClick = {this.changeDoc}
-          // currentMemory = {this.state.currentMemory}
         />
         {this.state.docOpen ?
           <Document 
