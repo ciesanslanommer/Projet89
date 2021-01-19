@@ -8,6 +8,6 @@
 
 .node {
     background-color: green;
-    height: 200px;
-    width : 200px;
+    height: auto;
+    width : 600px;
 }
