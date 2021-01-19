@@ -87,24 +87,12 @@ class CustomNode extends Component{
             }
          }
         }
-
-        
-
-
-        if(visited){
-            style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
-            return(
-                <div className = {classNames({'visible': visible === true, 'invisible': visible === false})} style = {style}></div>
-            )
-        }
-        else{
-            return(
-                <div className = {classNames({'visible': visible === true, 'invisible': visible === false})}>
-                    {Format(nature, highlighted)}
-                    
-                </div>
-            );
-        }
+  
+        return(
+            <div className = {classNames({'visible': visible === true, 'invisible': visible === false, "visite": visited === true})}>
+                { visited? "" : Format(nature, highlighted)}
+            </div>
+        );
     };
 }
 

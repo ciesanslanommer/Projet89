@@ -13,3 +13,9 @@
     opacity: 0;
     transition: opacity 1s;
 }
+.visite{
+    background-color : red;
+    border-radius : 50%;
+    padding: 20%; 
+    margin: 30%;
+}
