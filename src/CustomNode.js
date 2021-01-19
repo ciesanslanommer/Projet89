@@ -94,6 +94,12 @@ class CustomNode extends Component{
                  {visited ? "" : Format(nature, highlighted)}            
              </div>
          );
+  
+        // return(
+        //     <div className = {classNames({'visible': visible === true, 'invisible': visible === false, "visite": visited === true})}>
+        //         { visited? "" : Format(nature, highlighted)}
+        //     </div>
+        // );
     };
 }
 
