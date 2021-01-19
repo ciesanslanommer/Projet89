@@ -13,3 +13,16 @@
 #welcome p, #welcome h2{
     color: white;
 }
+
+#welcome_wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.darken_background {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.6;
+}
