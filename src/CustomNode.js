@@ -12,87 +12,11 @@ class CustomNode extends Component{
         let visited = this.props.visited
         const visible = this.props.zoom > this.props.nodeZoom ? true : false
         let style = {maxHeight : "100%", maxWidth : "100%"}
-
-        const Format = (nature, highlighted) => {
-            let id = highlighted ? 2 : 1
-            switch (nature) 
-        {
-            case 'image':
-                if(highlighted){
-                    return (
-                        <div>
-                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {name}/>
-                            <Preview resume = {this.props} />
-                        </div>
-                    )
-                }
-                else
-                {
-                    return (
-                        <div>
-                            <img style = {style} src={require('./assets/photo' + id + '.png').default} alt= {name}/>
-                        </div>
-                    )
-                }
-            case 'texte':
-                if(highlighted){
-                    return (
-                        <div>
-                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
-                            <Preview resume = {this.props} />
-                        </div>
-                    )
-                }
-                else
-                {
-                    return (
-                        <div>
-                            <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
-                        </div>
-                    )
-                }
-            case 'audio':
-                if(highlighted){
-                    return (
-                        <div>
-                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {name}/>
-                            <Preview resume = {this.props} />
-                        </div>
-                    )
-                } 
-                else
-                {
-                    return (
-                        <div>
-                            <img style = {style} src={require('./assets/audio' + id + '.png').default} alt= {name}/>
-                        </div>
-                    )  
-                }
-                
-            default :
-            if(highlighted){
-                return (
-                    <div>
-                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
-                        <Preview resume = {this.props} />
-                    </div>
-                )
-            }
-            else
-            {
-                return (
-                    <div>
-                        <img style = {style} src={require('./assets/texte' + id + '.png').default} alt= {name}/>
-                    </div>
-                )
-            }
-         }
-        }
         
-        if(!visible) return <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, "visited": visited})}></div>
+        if(!visible) return <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, 'visited': visited})}></div>
         return(
-            <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, "visited": visited})}>
-                 {visited ? "" : Format(nature, highlighted)}            
+            <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, 'visited': visited, 'highlighted': highlighted})}>
+                {highlighted ? <Preview resume = {this.props}/> : ""}
              </div>
          );
   
