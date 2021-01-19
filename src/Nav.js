@@ -17,7 +17,6 @@ class Nav extends Component {
    closeSearch = (event) => {
         this.setState({boolean : true});
         this.setState({request : ""});
-        event.target.nextSibling.value = "";
    };
 
     openSearch = (event) => { 
@@ -45,7 +44,7 @@ class Nav extends Component {
                     onClick={this.state.boolean ? this.openSearch : this.closeSearch}
                 ></img> 
                 <input 
-                    //value={this.state.request}
+                    value={this.state.request}
                     onChange={this.handleChange} 
                     onKeyDown={this.collectInfo} 
                     className={searchClass} 

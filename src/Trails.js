@@ -11,7 +11,7 @@ const myConfig = {
     nodeHighlightBehavior: true,
     disableLinkForce: true,
     width:400,
-    initialZoom: 0.5,
+    initialZoom: 1,
     staticGraphWithDragAndDrop : true,
     //staticGraph : true,
     highlightDegree : 0,

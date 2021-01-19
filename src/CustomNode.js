@@ -8,7 +8,7 @@ class CustomNode extends Component{
         let nature = this.props.nature
         let highlighted = this.props.highlighted
         let visited = this.props.visited
-        let visible = this.props.zoom > this.props.nodeZoom ? true : false
+        const visible = this.props.zoom > this.props.nodeZoom ? true : false
         let style = {maxHeight : "100%", maxWidth : "100%"}
 
         const Format = (nature, highlighted) => {
@@ -91,12 +91,12 @@ class CustomNode extends Component{
         if(visited){
             style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
             return(
-                <div class={visibleClass} style = {style}></div>
+                <div className = {visibleClass} style = {style}></div>
             )
         }
         else{
             return(
-                <div class = {visibleClass}>
+                <div className = {visibleClass}>
                     {Format(nature, highlighted)}
                     
                 </div>
