@@ -17,7 +17,7 @@ const Welcome = (props) => {
                 >
                 </img>
             </div>
-            <div class='darken_background' onClick={props.onCrossClick}></div>
+            <div className='darken_background' onClick={props.onCrossClick}></div>
         </div>
 
     );
