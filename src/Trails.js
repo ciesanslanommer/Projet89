@@ -73,8 +73,10 @@ class Trails extends Component {
       //visited node
       let visitedNode = [...this.state.nodes]
       let currentNodeVisited = {...visitedNode[nodeId]}
+      //let currentNodeVisited = visitedNode.filter(node => node.id === nodeId)
+      console.log(currentNodeVisited)
       currentNodeVisited.visited = true
-      visitedNode[nodeId] = currentNodeVisited;
+      visitedNode[nodeId] = currentNodeVisited
       this.setState({nodes:visitedNode})
       this.props.nodeClick(nodeId)
 

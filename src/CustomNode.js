@@ -90,9 +90,7 @@ class CustomNode extends Component{
         let visibleClass = visible ? "appear" : "disappear"
         if(visited){
             style= {backgroundColor : 'red', borderRadius : "50%", padding: "30%", margin:"20%" }
-            return(
-                <div className = {visibleClass} style = {style}></div>
-            )
+            return(<div className = {visibleClass} style = {style}></div>)
         }
         else{
             return(
