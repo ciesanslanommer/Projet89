@@ -1,4 +1,4 @@
-import { Graph, Node } from "react-d3-graph";
+import { Graph } from "react-d3-graph";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
 import Background from './assets/fond.png';
@@ -110,6 +110,12 @@ class Trails extends Component {
               nodeZoom = {node.zoom}
             />
     }
+
+    onMouseOverNode = (nodeId, node) => {
+      // window.alert(`Mouse over node ${nodeId} in position (${node.x}, ${node.y})`);
+      this.props.onMouseOverNode(node);
+      console.log("in Trails");
+    };
     
 
     // ************************************************************* 
@@ -131,6 +137,7 @@ class Trails extends Component {
               onClickGraph = {() => {console.log(this.state.nodes);}}
               onZoomChange = {this.zoomChange}
               onClickLink = {this.onClickLink}
+              onMouseOverNode={this.onMouseOverNode}
             />
           </div>
         )

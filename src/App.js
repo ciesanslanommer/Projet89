@@ -78,15 +78,74 @@ class App extends Component {
     data.nodes[nextMem].visited = true
     this.openMemory();
 
-    /** Handle parcours highlighting **/
+    
     const currentNode = data.nodes[nodeId];
+    this.handleHighlightParcours(currentNode);
+
+  }
+
+  handleHighlightParcours(currentNode) {
+    /** Handle parcours highlighting **/
     /* Initialization: clean parcours highlight */
-    this.removeHighlightParcours();
+
+    //this.removeHighlightParcours();
+
+
+    /* Remove node highlighting */
+    data.nodes.forEach((node) => {
+      let htmlNode = d3.select(`[id="${node.id}"] section`);
+      htmlNode.classed("notInParcours", null);
+      htmlNode.classed("inParcours", null);
+    });
+
+    /* Remove link highlighting */
+    data.links.forEach((link) => {
+      let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
+      htmlLink.classed("notInParcours", null);
+      htmlLink.classed("inParcours", null);
+    });
+
+    
+
     /* If the current node is in a parcours, highlight all nodes in the parcours */
     if (currentNode.parcours != null) {
-      this.highlightParcours(currentNode);
-    }
 
+      //this.highlightParcours(currentNode);
+
+
+      const nodes = data.nodes;
+
+      /*** Initialization: set notInParcours state for all ***/
+      nodes.forEach((node) => d3.select(`[id="${node.id}"] section`).attr("class", "notInParcours"));
+      data.links.forEach((link) => d3.select(`[id="${link.source},${link.target}"]`).attr("class", "notInParcours"));
+
+      /*** Change to inParcours state only if conditions met ***/
+      currentNode.parcours.forEach(element => {
+        /** Handle node highlighting **/
+        nodes.forEach((node) => {
+          let htmlNode = d3.select(`[id="${node.id}"] section`);
+          if (node.parcours != null && node.parcours.indexOf(element) !== -1) { // if node is in the parcours
+            htmlNode.classed("notInParcours", false);
+            htmlNode.classed("inParcours", true);
+          }
+        });
+        /** Handle link highlighting **/
+        data.links.forEach((link) => {
+          let htmlLink = d3.select(`[id="${link.source},${link.target}"]`);
+          if (nodes[link.source].parcours != null // if source node is in a parcours
+            && nodes[link.target].parcours != null // if target node is in a parcours
+            && nodes[link.source].parcours.indexOf(element) !== -1 // if current node's parcours matches one of source's parcours
+            && nodes[link.target].parcours.indexOf(element) !== -1 // if current node's parcours matches one of target's parcours
+          ) {
+            htmlLink.classed("notInParcours", false);
+            htmlLink.classed("inParcours", true);
+          }
+        });
+      });
+
+
+    }
+    console.log('in App');
   }
 
   highlightParcours(currentNode) {
@@ -153,6 +212,7 @@ class App extends Component {
         {<Nav />}
         <Trails
           nodeClick = {this.changeDoc}
+          onMouseOverNode = {this.handleHighlightParcours}
         />
         {this.state.docOpen ?
           <Document 
