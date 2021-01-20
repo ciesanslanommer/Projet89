@@ -81,6 +81,7 @@ class App extends Component {
     
     const currentNode = data.nodes[nodeId];
     this.handleHighlightParcours(currentNode);
+    
 
   }
 
@@ -213,6 +214,7 @@ class App extends Component {
           nodeClick = {this.changeDoc}
           onMouseOverNode = {this.handleHighlightParcours}
           onMouseOutNode = {this.removeHighlightParcours}
+          docOpen = {this.state.docOpen}
         />
         {this.state.docOpen ?
           <Document 

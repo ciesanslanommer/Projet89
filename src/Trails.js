@@ -14,6 +14,9 @@ const myConfig = {
     staticGraphWithDragAndDrop : true,
     //staticGraph : true,
     highlightDegree : 0,
+    focusZoom : 1,
+    focusAnimationDuration : 0.75,
+    directed : true,
     node: {
       color: "lightgreen",
       size: 1600,
@@ -23,7 +26,7 @@ const myConfig = {
     link: {
       color : "rgba(255, 255, 255, 1)",
       type : "CURVE_SMOOTH",
-    },
+    }
   }; 
 
    
@@ -41,6 +44,7 @@ class Trails extends Component {
       this.state = {
         nodes: data.nodes,
         links: data.links,
+        //focusedNodeId: "10",
         width: 0, height : 0,
         zoom : 0.5,
       };
@@ -112,14 +116,13 @@ class Trails extends Component {
     }
 
     onMouseOverNode = (nodeId, node) => {
-      // window.alert(`Mouse over node ${nodeId} in position (${node.x}, ${node.y})`);
-      this.props.onMouseOverNode(node);
-      
+      if(!this.props.docOpen)
+        this.props.onMouseOverNode(node);
     };
 
-  onMouseOutNode = (nodeId, node) => {
-    this.props.onMouseOutNode(node);
-  };
+    onMouseOutNode = (nodeId, node) => {
+      // this.props.onMouseOutNode(node);
+    };
 
 
     // ************************************************************* 
@@ -134,7 +137,7 @@ class Trails extends Component {
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
             <Graph
               id = 'id'
-              data = {{nodes : this.state.nodes, links: this.state.links}}
+              data = {{nodes : this.state.nodes, links: this.state.links/*, focusedNodeId: "10"*/}}
               config = {myConfig}
               onClickNode = {this.nodeClick}
               onNodePositionChange = {this.savePosition}
