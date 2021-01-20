@@ -30,22 +30,51 @@ const myConfig = {
 class Trails extends Component {
     constructor(props){
       super(props)
-      data.nodes.forEach( node => { //randomize nodes position
-        // node.x = Math.floor(Math.random()* 1000)
-        // node.y = Math.floor(Math.random()* 1000)
-        node.visited = false
-        node.visible = true
-        if (!node.zoom)
-          node.zoom = 0.1
-        })
       this.state = {
-        nodes: data.nodes,
-        links: data.links,
+        nodes: this.formatNodes(this.props.toFormat.noeuds , this.props.toFormat.souvenirs),
+        links: this.formatLinks(this.props.toFormat.noeuds),
         width: 0, height : 0,
         zoom : 0.5,
       };
     };
 
+
+    // data formatting 
+    formatNodes(noeuds, souvenirs){
+      let nodes = [];
+      noeuds.forEach( noeud => {
+        let foundSouvenir = souvenirs.find( souv => souv.id === noeud.souvenir_id)
+        //const foundParcours = parcours.find( el => el.id === foundSouvenir.parcours_id)
+        let obj = {};
+        if (foundSouvenir){
+          obj.id = noeud.id
+          obj.name = foundSouvenir.title
+          obj.parcours = []
+          obj.path = "2019_27 août_Le conte de Raiponce.mp3"
+          obj.nature = "audio"
+          obj.x = noeud.x
+          obj.y = noeud.y
+          obj.visited = false
+          obj.visible = true
+          obj.zoom = 0.1
+          nodes.push(obj)
+          //format data 
+        }
+        foundSouvenir= {}
+      })
+      console.log(nodes);
+      return nodes;
+    }
+
+    formatLinks(noeuds){
+      let links = [];
+      noeuds.forEach( noeud => {
+        if (noeud.target_id)
+          links.push({source : noeud.id, target : noeud.target_id})
+      })
+      console.log(links);
+      return links;
+    }
     // ************************************************************* RESIZING
     componentWillMount () {
       window.addEventListener('resize', this.measure, false);
@@ -69,13 +98,21 @@ class Trails extends Component {
 
     // ************************************************************* EVENT
     nodeClick = (nodeId, e) => {
-      //visited node
-      let visitedNode = [...this.state.nodes]
-      let currentNodeVisited = {...visitedNode[nodeId]}
-      //let currentNodeVisited = visitedNode.filter(node => node.id === nodeId)
-      console.log(currentNodeVisited)
+      //copy array of obj 
+      let visitedNode = []
+      this.state.nodes.forEach((node) => visitedNode.push({...node}))
+
+      //find current node
+      let id = visitedNode.findIndex(node => node.id === Number(nodeId))
+      let currentNodeVisited = visitedNode[id];
+
+      // set it to visited
       currentNodeVisited.visited = true
-      visitedNode[nodeId] = currentNodeVisited
+      
+      //change obj in copy
+      visitedNode[id] = currentNodeVisited
+
+      //set state
       this.setState({nodes:visitedNode})
       this.props.nodeClick(nodeId)
 

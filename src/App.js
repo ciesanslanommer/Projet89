@@ -15,40 +15,59 @@ class App extends Component {
     super(props)
     const idFirstMem = Math.floor(Math.random() * data.nodes.length);
     this.state = {
-      isLoaded: false,
-      // history : [idFirstSouvenir],
+      noeudsLoaded: false,
+      souvenirsLoaded: false,
       currentMemory : idFirstMem,
       docOpen : false,
       WelcomeOpen: true,
+      noeuds : [],
+      souvenirs : []
+      //parcours
     };
   }
 
   // exemple from https://reactjs.org/docs/faq-ajax.html
   // To be adapted to our app
   componentDidMount (){
+    
+    // TODO display a loader when not loaded yet?
+    console.log(`Fetching souvenirs from ${ENDPOINT_API}/noeuds/`);
+    fetch(ENDPOINT_API + '/noeuds')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log("Success! noeuds = ", result);
+          this.setState({
+            noeuds : result,
+            noeudsLoaded : true
+          });
+        },
+        (error) => {
+          console.error("Oops, something wrong happened when loading noeuds", error);
+          // TODO maybe display an error for the user?
+
+        }
+      )
+
     console.log(`Fetching souvenirs from ${ENDPOINT_API}/souvenirs/`);
     fetch(ENDPOINT_API + '/souvenirs')
       .then(res => res.json())
       .then(
         (result) => {
-          console.log("Success! Souvenirs = ", result);
+          console.log("Success! souvenirs = ", result);
           this.setState({
-            isLoaded: true, // TODO display a loader when not loaded yet?
-            // souvenirs: result, // to be adapted to our data!
+            souvenirs : result,
+            souvenirsLoaded : true
           });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           console.error("Oops, something wrong happened when loading souvenirs", error);
           // TODO maybe display an error for the user?
-          this.setState({
-            isLoaded: true,
-          });
+
         }
       )
   }
+
 
   closeMemory = e => {
     this.setState({docOpen: false});
@@ -185,13 +204,18 @@ class App extends Component {
 
   render() {
     const memory = data.nodes[this.state.currentMemory]
+    const loaded = this.state.noeudsLoaded && this.state.souvenirsLoaded;
     return (
       <div className= "App">
       {this.state.WelcomeOpen && <Welcome onCrossClick = {this.closeWelcome} />}
+
         {<Nav />}
-        <Trails
-          nodeClick = {this.changeDoc}
-        />
+        {loaded &&
+          <Trails
+            nodeClick = {this.changeDoc}
+            toFormat = {{noeuds : this.state.noeuds, souvenirs : this.state.souvenirs}}
+          /> 
+        }
         {this.state.docOpen ?
           <Document 
             key = {memory.id}
