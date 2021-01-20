@@ -5,6 +5,7 @@ import data from './souvenirs.json';
 import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
+import AdminForm from './AdminForm.js';
 // import History from './History.js'
 import Welcome from './Welcome.js';
 
@@ -207,8 +208,7 @@ class App extends Component {
     const loaded = this.state.noeudsLoaded && this.state.souvenirsLoaded;
     return (
       <div className= "App">
-      {this.state.WelcomeOpen && <Welcome onCrossClick = {this.closeWelcome} />}
-
+        <AdminForm />
         {<Nav />}
         {loaded &&
           <Trails
