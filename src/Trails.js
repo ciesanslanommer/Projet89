@@ -42,7 +42,7 @@ class Trails extends Component {
         nodes: data.nodes,
         links: data.links,
         width: 0, height : 0,
-        zoom : 1,
+        zoom : 0.5,
       };
     };
 
@@ -98,6 +98,9 @@ class Trails extends Component {
     }
 
     customNodeGenerator = (node) =>{
+      // if(node.highlighted) {
+      //   return <Node cx = {node.x} cy = {node.y} fill='green' size = '2000' type = 'square' className = 'node'/>
+      // }
       return <CustomNode 
               name = {node.name}
               nature = {node.nature}
