@@ -148,9 +148,6 @@ class Trails extends Component {
         if (parcoursMouseOvered != null) {
           this.highlightParcours(parcoursMouseOvered.concat(this.state.currentParcours));
         }
-        else {
-          this.removeAllHighlightParcours();
-        }
       }
     }
 
