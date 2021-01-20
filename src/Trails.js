@@ -114,9 +114,13 @@ class Trails extends Component {
     onMouseOverNode = (nodeId, node) => {
       // window.alert(`Mouse over node ${nodeId} in position (${node.x}, ${node.y})`);
       this.props.onMouseOverNode(node);
-      console.log("in Trails");
+      
     };
-    
+
+  onMouseOutNode = (nodeId, node) => {
+    this.props.onMouseOutNode(node);
+  };
+
 
     // ************************************************************* 
 
@@ -138,6 +142,7 @@ class Trails extends Component {
               onZoomChange = {this.zoomChange}
               onClickLink = {this.onClickLink}
               onMouseOverNode={this.onMouseOverNode}
+              onMouseOutNode={this.onMouseOutNode}
             />
           </div>
         )

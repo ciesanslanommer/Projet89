@@ -145,7 +145,7 @@ class App extends Component {
 
 
     }
-    console.log('in App');
+    
   }
 
   highlightParcours(currentNode) {
@@ -183,7 +183,6 @@ class App extends Component {
   }
 
   removeHighlightParcours() {
-
     /* Remove node highlighting */
     data.nodes.forEach( (node) => {
       let htmlNode = d3.select(`[id="${node.id}"] section`);
@@ -213,6 +212,7 @@ class App extends Component {
         <Trails
           nodeClick = {this.changeDoc}
           onMouseOverNode = {this.handleHighlightParcours}
+          onMouseOutNode = {this.removeHighlightParcours}
         />
         {this.state.docOpen ?
           <Document 
