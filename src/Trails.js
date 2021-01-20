@@ -1,4 +1,4 @@
-import { Graph, Node } from "react-d3-graph";
+import { Graph } from "react-d3-graph";
 import {React, Component} from 'react';
 import data from './souvenirs.json'
 import Background from './assets/fond.png';
