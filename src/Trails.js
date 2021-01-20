@@ -78,12 +78,13 @@ class Trails extends Component {
       let visitedNode = [...this.state.nodes]
       let currentNodeVisited = {...visitedNode[nodeId]}
       //let currentNodeVisited = visitedNode.filter(node => node.id === nodeId)
-      console.log(currentNodeVisited)
+      // console.log(currentNodeVisited)
       currentNodeVisited.visited = true
       visitedNode[nodeId] = currentNodeVisited
       this.setState({nodes:visitedNode})
-      this.props.nodeClick(nodeId)
-
+      if(this.state.nodes[nodeId].visible) {
+        this.props.nodeClick(nodeId)
+      }
     }
 
     zoomChange = (prevZoom, newZoom, e) => {
@@ -101,6 +102,15 @@ class Trails extends Component {
       this.setState({nodes : copy});
     }
 
+    changeNodeVisibility(nodeId, nodeZoom) {
+      const nodes = this.state.nodes.slice();
+      console.log('VISIBILITY CHANGED');
+      console.log(nodeId);
+      nodes[nodeId].visible = this.state.zoom > nodeZoom ? true : false;
+      this.setState({nodes : nodes});
+    }
+    
+
     customNodeGenerator = (node) => {
       // if(node.highlighted) {
       //   return <Node cx = {node.x} cy = {node.y} fill='green' size = '2000' type = 'square' className = 'node'/>
@@ -111,7 +121,9 @@ class Trails extends Component {
               highlighted = {node.highlighted}
               visited = {node.visited}
               zoom = {this.state.zoom}
-              nodeZoom = {node.zoom}
+              // nodeZoom = {node.zoom}
+              visible = {node.visible}
+              // changeNodeVisibility = { () => this.changeNodeVisibility(node.id, node.zoom) } 
             />
     }
 
@@ -131,11 +143,16 @@ class Trails extends Component {
 
         /** Highlights currentNode **/
         this.removeAllHighlightCurrentNode();
-        console.log(this.props.currentMemory);
         if(this.props.currentMemory != null) { 
           this.highlightCurrentNode(this.props.currentMemory);
         }
 
+      }
+
+      if (prevState.zoom !== this.state.zoom) {
+        this.state.nodes.forEach((node) => {
+          this.changeNodeVisibility(node.id, node.zoom);
+        });
       }
     }
 
@@ -143,6 +160,8 @@ class Trails extends Component {
       /** If document isn't open **/
       /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
       /** If document is open, mouse over shouldn't highlight parcours **/
+
+      console.log(node);
       if (!this.props.docOpen) {
         const parcoursMouseOvered = this.state.nodes[nodeId].parcours;
         if (parcoursMouseOvered != null) {
@@ -215,8 +234,6 @@ class Trails extends Component {
     highlightCurrentNode(nodeId) {
       let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
       htmlNode.classList.add('currentNode');
-      console.log('HERE');
-      console.log(htmlNode);
     }
 
     removeAllHighlightCurrentNode() {
