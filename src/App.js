@@ -3,6 +3,7 @@ import data from './souvenirs.json';
 import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
+import AdminForm from './AdminForm.js';
 // import History from './History.js'
 import {React, Component} from 'react';
 import * as d3 from "d3";
@@ -152,6 +153,7 @@ class App extends Component {
     const memory = data.nodes[this.state.currentMemory]
     return (
       <div className= "App">
+        <AdminForm />
         {<Nav />}
         <Trails
           nodeClick = {this.callApi}
