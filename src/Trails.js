@@ -14,7 +14,9 @@ const myConfig = {
     staticGraphWithDragAndDrop : true,
     //staticGraph : true,
     highlightDegree : 0,
-    focusZoom : 1,
+    minZoom: 0,
+    maxZoom: 2,
+    focusZoom : 3,
     focusAnimationDuration : 0.75,
     directed : true,
     node: {
@@ -44,7 +46,7 @@ class Trails extends Component {
       this.state = {
         nodes: data.nodes,
         links: data.links,
-        //focusedNodeId: "10",
+        focusedNodeId: "10",
         width: 0, height : 0,
         zoom : 0.5,
         currentParcours : null,
@@ -84,6 +86,12 @@ class Trails extends Component {
       this.setState({nodes:visitedNode})
       this.props.nodeClick(nodeId)
 
+
+      this.setState({
+        focusedNodeId: this.state.focusedNodeId !== nodeId ? nodeId : null
+      });
+
+      console.log("focused : " + this.state.focusedNodeId);
     }
 
     zoomChange = (prevZoom, newZoom, e) => {
@@ -131,11 +139,14 @@ class Trails extends Component {
 
         /** Highlights currentNode **/
         this.removeAllHighlightCurrentNode();
-        console.log(this.props.currentMemory);
         if(this.props.currentMemory != null) { 
           this.highlightCurrentNode(this.props.currentMemory);
         }
 
+      }
+
+      if(prevState.zoom !== this.state.zoom) {
+        console.log("zoom : " + this.state.zoom);
       }
     }
 
@@ -215,8 +226,6 @@ class Trails extends Component {
     highlightCurrentNode(nodeId) {
       let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
       htmlNode.classList.add('currentNode');
-      console.log('HERE');
-      console.log(htmlNode);
     }
 
     removeAllHighlightCurrentNode() {
@@ -239,7 +248,7 @@ class Trails extends Component {
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
             <Graph
               id = 'id'
-              data = {{nodes : this.state.nodes, links: this.state.links/*, focusedNodeId: "10"*/}}
+              data = {{nodes : this.state.nodes, links: this.state.links, focusedNodeId: this.state.focusedNodeId}}
               config = {myConfig}
               onClickNode = {this.nodeClick}
               onNodePositionChange = {this.savePosition}
