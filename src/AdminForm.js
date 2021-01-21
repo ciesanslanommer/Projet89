@@ -1,4 +1,5 @@
 import {React, Component} from 'react';
+import './AdminForm.css'
 
 class AdminForm extends Component {
 
@@ -41,11 +42,16 @@ class AdminForm extends Component {
     render() {
         const {title, content} = this.state
         return (
-            <form>
+            <form className = 'adminForm'> 
                 <label>Titre du souvenir : </label>
                 <input value = {this.state.title} type='text' placeholder='Chute du mur' onChange = {this.handleChangeTitle}/>
                 <label>Description : </label>
                 <input value = {this.state.content} type='text' placeholder='Description' onChange = {this.handleChangeContent}/>
+                <label>Choix du parcours :</label>
+                <select name = "trail" id = "trail_select">
+                    <option value = "Ruine">Ruine</option>
+                    <option value = "Passage">Passage</option>
+                </select>
                 <button type="button" onClick = {() => this.postRequest(title, content)}>Ajouter</button>
             </form>
         )

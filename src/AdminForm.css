@@ -1,0 +1,19 @@
+.adminForm{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    margin: 20%;
+    height: 30vh;
+  }
+
+.adminForm label{
+    margin: 2%;
+}
+
+.adminForm button{
+    margin: 4%;
+}
+  

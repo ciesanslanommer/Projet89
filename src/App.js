@@ -208,8 +208,8 @@ class App extends Component {
     const loaded = this.state.noeudsLoaded && this.state.souvenirsLoaded;
     return (
       <div className= "App">
-        <AdminForm />
-        {<Nav />}
+        <Nav />
+        <AdminForm/>
         {loaded &&
           <Trails
             nodeClick = {this.changeDoc}
