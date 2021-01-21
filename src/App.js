@@ -102,6 +102,8 @@ class App extends Component {
           nodeClick = {this.changeDoc}
           docOpen = {this.state.docOpen}
           currentMemory = {this.state.currentMemory}
+          previewOpen = {this.openPreview}
+          previewClose = {this.closePreview}
         />
         {this.state.docOpen ?
           <Document 
