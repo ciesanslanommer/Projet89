@@ -6,6 +6,7 @@ import Trails from './Trails.js';
 import Nav from './Nav.js';
 // import History from './History.js'
 import Welcome from './Welcome.js';
+import Zoom from './Zoom.js';
 
 import { ENDPOINT_API } from './constants/endpoints';
 
@@ -88,6 +89,7 @@ class App extends Component {
       <div className= "App">
       {this.state.WelcomeOpen && <Welcome onCrossClick = {this.closeWelcome} />}
         {<Nav />}
+        {<Zoom />}
         <Trails
           nodeClick = {this.changeDoc}
           docOpen = {this.state.docOpen}
