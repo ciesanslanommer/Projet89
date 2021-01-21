@@ -4,12 +4,26 @@ body{
 
 .App {
   text-align: center;
+  display: grid;
+  grid-template-columns: 100vw;
+  grid-template-rows: 100vh;
+}
+
+.displayDoc {
+  grid-template-columns: 40vw auto !important;
+  grid-template-rows: 100vh !important;
 }
 
 .Graph{
-  height : 100vh;
-  width:100%
-}
+  /* height : 100vh;
+  width: 100vw; */
+  grid-column: 1 / 2;
+} 
+
+#id-graph-wrapper svg {
+  height: 100vh;
+  width: 100vw;
+} 
 
 .example-enter {
   opacity: 0.01;

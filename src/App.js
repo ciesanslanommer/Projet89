@@ -51,9 +51,12 @@ class App extends Component {
 
   closeMemory = e => {
     this.setState({docOpen: false});
+    document.querySelector('.App').classList.remove('displayDoc');
   }
   openMemory = e => {
     this.setState({docOpen: true});
+    
+
   }
 
   getLinks(nodeId) {
@@ -71,7 +74,11 @@ class App extends Component {
   }
 
   changeDoc = (nodeId,visible,e) => {
-    //console.log(nodeId);
+
+    /* Graph must be reduced before changing the state of current memory */
+    /* Else the current node will be centered on the full window and not the reduced graph */
+    document.querySelector('.App').classList.add('displayDoc');
+
     const nextMem = nodeId;
     this.setState({ currentMemory : nextMem })
     data.nodes[nextMem].visited = true
