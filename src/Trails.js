@@ -27,9 +27,9 @@ const myConfig = {
       color : "rgba(255, 255, 255, 1)",
       type : "CURVE_SMOOTH",
     }
-  }; 
+  };
 
-   
+
 class Trails extends Component {
     constructor(props){
       super(props)
@@ -65,12 +65,12 @@ class Trails extends Component {
       let rect = {width : document.getElementsByClassName("Graph")[0].clientWidth, height: document.getElementsByClassName("Graph")[0].clientHeight};
       if(this.state.width !== rect.width || this.state.height !== rect.height){
         this.setState({
-          width: rect.width, 
+          width: rect.width,
           height: rect.height
         });
       }
     }
-    // ************************************************************* 
+    // *************************************************************
 
     // ************************************************************* EVENT
     nodeClick = (nodeId, e) => {
@@ -90,7 +90,10 @@ class Trails extends Component {
     zoomChange = (prevZoom, newZoom, e) => {
       // console.log(newZoom);
       this.setState({zoom : newZoom});
-      
+
+      this.state.nodes.forEach((node) => {
+        this.changeNodeVisibility(node.id, node.zoom);
+      });
     }
 
     savePosition = (nodeId, x,y, e) => {
@@ -109,13 +112,13 @@ class Trails extends Component {
       nodes[nodeId].visible = this.state.zoom > nodeZoom ? true : false;
       this.setState({nodes : nodes});
     }
-    
+
 
     customNodeGenerator = (node) => {
       // if(node.highlighted) {
       //   return <Node cx = {node.x} cy = {node.y} fill='green' size = '2000' type = 'square' className = 'node'/>
       // }
-      return <CustomNode 
+      return <CustomNode
               name = {node.name}
               nature = {node.nature}
               highlighted = {node.highlighted}
@@ -123,7 +126,7 @@ class Trails extends Component {
               zoom = {this.state.zoom}
               // nodeZoom = {node.zoom}
               visible = {node.visible}
-              // changeNodeVisibility = { () => this.changeNodeVisibility(node.id, node.zoom) } 
+              // changeNodeVisibility = { () => this.changeNodeVisibility(node.id, node.zoom) }
             />
     }
 
@@ -143,16 +146,10 @@ class Trails extends Component {
 
         /** Highlights currentNode **/
         this.removeAllHighlightCurrentNode();
-        if(this.props.currentMemory != null) { 
+        if(this.props.currentMemory != null) {
           this.highlightCurrentNode(this.props.currentMemory);
         }
 
-      }
-
-      if (prevState.zoom !== this.state.zoom) {
-        this.state.nodes.forEach((node) => {
-          this.changeNodeVisibility(node.id, node.zoom);
-        });
       }
     }
 
@@ -175,13 +172,13 @@ class Trails extends Component {
       /* Remove parcours highlight from all nodes and links */
       this.removeAllHighlightParcours();
       /* Re-highlight the nodes of currentParcours if currentParcours not null*/
-      if(this.state.currentParcours != null) { 
+      if(this.state.currentParcours != null) {
         this.highlightParcours(this.state.currentParcours);
       };
     }
 
     /***** HIGHLIGHT FUNCTIONS *****/
-    
+
     highlightParcours(parcours) {
 
       const nodes = this.state.nodes;
@@ -219,15 +216,15 @@ class Trails extends Component {
       /* Remove node highlighting */
       data.nodes.forEach( (node) => {
         let htmlNode = document.querySelector(`[id="${node.id}"] section`);
-        htmlNode.classList.remove("notInParcours"); 
-        htmlNode.classList.remove("inParcours"); 
+        htmlNode.classList.remove("notInParcours");
+        htmlNode.classList.remove("inParcours");
       });
-    
+
       /* Remove link highlighting */
       data.links.forEach( (link) => {
         let htmlLink = document.querySelector(`[id="${link.source},${link.target}"]`);
-        htmlLink.classList.remove("notInParcours"); 
-        htmlLink.classList.remove("inParcours"); 
+        htmlLink.classList.remove("notInParcours");
+        htmlLink.classList.remove("inParcours");
       });
     }
 
@@ -244,7 +241,7 @@ class Trails extends Component {
     }
 
 
-    // ************************************************************* 
+    // *************************************************************
 
     render() {
       myConfig.width = this.state.width;
@@ -275,5 +272,5 @@ class Trails extends Component {
 
 
 
-    
+
 export default Trails
