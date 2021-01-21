@@ -8,15 +8,14 @@ import CustomNode from './CustomNode.js';
 
 const myConfig = {
     nodeHighlightBehavior: true,
-    disableLinkForce: true,
     width:400,
     initialZoom: 1,
-    staticGraphWithDragAndDrop : true,
+    staticGraphWithDragAndDrop : false,
     //staticGraph : true,
     highlightDegree : 0,
     focusZoom : 1,
     focusAnimationDuration : 0.75,
-    directed : true,
+    directed : false,
     node: {
       color: "lightgreen",
       size: 1600,
@@ -26,6 +25,10 @@ const myConfig = {
     link: {
       color : "rgba(255, 255, 255, 1)",
       type : "CURVE_SMOOTH",
+    },
+    d3: {
+      disableLinkForce: false,
+      gravity: -1000,
     }
   }; 
 
@@ -33,9 +36,13 @@ const myConfig = {
 class Trails extends Component {
     constructor(props){
       super(props)
-      data.nodes.forEach( node => { //randomize nodes position
-        // node.x = Math.floor(Math.random()* 1000)
-        // node.y = Math.floor(Math.random()* 1000)
+      data.nodes.forEach( node => { 
+        //randomize nodes without position
+        if(!node.x){
+          node.x = Math.floor(Math.random()* 1000)
+          node.y = Math.floor(Math.random()* 1000)
+        }
+        //
         node.visited = false
         node.visible = true
         if (!node.zoom)
