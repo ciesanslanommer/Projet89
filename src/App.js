@@ -20,7 +20,7 @@ class App extends Component {
       currentMemory : idFirstMem,
       docOpen : false,
       WelcomeOpen: true,
-      previewopen : false,
+      previewOpen : null,
     };
   }
 
@@ -58,12 +58,14 @@ class App extends Component {
     this.setState({docOpen: true});
   }
 
-  openPreview = e => {
-    this.setState({previewOpen : true});
+  openPreview = (x, y, e) => {
+    this.setState({previewOpen : {x: x, y: y,}});
+    console.log('open');
   }
 
   closePreview = e => {
-    this.setState({previewOpen : false});
+    this.setState({previewOpen : null});
+    console.log('close');
   }
 
   getLinks(nodeId) {
@@ -102,7 +104,7 @@ class App extends Component {
           nodeClick = {this.changeDoc}
           docOpen = {this.state.docOpen}
           currentMemory = {this.state.currentMemory}
-          previewOpen = {this.openPreview}
+          previewOpen = { this.openPreview}
           previewClose = {this.closePreview}
         />
         {this.state.docOpen ?
@@ -119,6 +121,7 @@ class App extends Component {
           />
           : null
         }
+        { this.state.previewOpen != null && <Preview pos={this.state.previewOpen} />}
       </div>
     );
   }

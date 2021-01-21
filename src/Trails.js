@@ -14,8 +14,8 @@ const myConfig = {
     staticGraphWithDragAndDrop : true,
     //staticGraph : true,
     highlightDegree : 0,
-    focusZoom : 1,
-    focusAnimationDuration : 0.75,
+    // focusZoom : 1,
+    // focusAnimationDuration : 0.75,
     directed : true,
     node: {
       color: "lightgreen",
@@ -54,12 +54,27 @@ class Trails extends Component {
     // ************************************************************* RESIZING
     componentWillMount () {
       window.addEventListener('resize', this.measure, false);
+      console.log("WILL MOUNT");
+      console.log(this.props);
     }
     componentWillUnmount () {
       window.removeEventListener('resize', this.measure, false);
     }
     componentDidMount () {
       this.measure();
+
+      document.querySelectorAll('.node').forEach( (node) => {
+        const props = this.props;
+        node.addEventListener("mouseover", function (event) {
+          props.previewOpen(event.clientX, event.clientY);
+        });
+        node.addEventListener("mouseout", function (event) {
+          props.previewClose();
+        });
+      });
+      // console.log("DID MOUNT");
+      // console.log(this.props);
+
     }
     measure = e => {
       let rect = {width : document.getElementsByClassName("Graph")[0].clientWidth, height: document.getElementsByClassName("Graph")[0].clientHeight};
@@ -78,7 +93,7 @@ class Trails extends Component {
       let visitedNode = [...this.state.nodes]
       let currentNodeVisited = {...visitedNode[nodeId]}
       //let currentNodeVisited = visitedNode.filter(node => node.id === nodeId)
-      console.log(currentNodeVisited)
+      // console.log(currentNodeVisited)
       currentNodeVisited.visited = true
       visitedNode[nodeId] = currentNodeVisited
       this.setState({nodes:visitedNode})
@@ -131,7 +146,6 @@ class Trails extends Component {
 
         /** Highlights currentNode **/
         this.removeAllHighlightCurrentNode();
-        console.log(this.props.currentMemory);
         if(this.props.currentMemory != null) { 
           this.highlightCurrentNode(this.props.currentMemory);
         }
@@ -139,7 +153,7 @@ class Trails extends Component {
       }
     }
 
-    onMouseOverNode = (nodeId, node) => {
+    onMouseOverNode = (nodeId, node, e) => {
       /** If document isn't open **/
       /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
       /** If document is open, mouse over shouldn't highlight parcours **/
@@ -149,6 +163,8 @@ class Trails extends Component {
           this.highlightParcours(parcoursMouseOvered.concat(this.state.currentParcours));
         }
       }
+      
+      // this.props.previewOpen(node.x, node.y);
     }
 
     onMouseOutNode = (nodeId, node) => {
@@ -159,6 +175,9 @@ class Trails extends Component {
       if(this.state.currentParcours != null) { 
         this.highlightParcours(this.state.currentParcours);
       };
+      //console.log('mouse out');
+
+      //this.props.previewClose();
     }
 
     /***** HIGHLIGHT FUNCTIONS *****/
@@ -215,8 +234,6 @@ class Trails extends Component {
     highlightCurrentNode(nodeId) {
       let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
       htmlNode.classList.add('currentNode');
-      console.log('HERE');
-      console.log(htmlNode);
     }
 
     removeAllHighlightCurrentNode() {
@@ -226,7 +243,6 @@ class Trails extends Component {
       });
     }
 
-
     // ************************************************************* 
 
     render() {
@@ -234,6 +250,7 @@ class Trails extends Component {
       myConfig.height = this.state.height;
       myConfig.node.viewGenerator = this.customNodeGenerator;
       myConfig.initialZoom = this.state.zoom;
+
 
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
