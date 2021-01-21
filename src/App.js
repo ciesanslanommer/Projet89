@@ -8,6 +8,7 @@ import Nav from './Nav.js';
 import Welcome from './Welcome.js';
 
 import { ENDPOINT_API } from './constants/endpoints';
+import Preview from './Preview';
 
 class App extends Component {
   constructor(props){
@@ -19,6 +20,7 @@ class App extends Component {
       currentMemory : idFirstMem,
       docOpen : false,
       WelcomeOpen: true,
+      previewopen : false,
     };
   }
 
@@ -54,6 +56,14 @@ class App extends Component {
   }
   openMemory = e => {
     this.setState({docOpen: true});
+  }
+
+  openPreview = e => {
+    this.setState({previewOpen : true});
+  }
+
+  closePreview = e => {
+    this.setState({previewOpen : false});
   }
 
   getLinks(nodeId) {

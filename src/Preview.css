@@ -1,11 +1,8 @@
 .resume {
-    width: 200px;
-    height: auto;
-    color: white;
-    border: 2px solid white; 
     position: absolute;
-    left: 50%;
-    right: 50%;
-    top: auto;
+    /* width: 100%;
+    color: white;
+    top : 0;
+    left: 0; */
     text-align: center;
 }
