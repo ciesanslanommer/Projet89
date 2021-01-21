@@ -4,6 +4,7 @@ import data from './souvenirs.json';
 import Background from './assets/fond.png';
 import "./Trails.css";
 import CustomNode from './CustomNode.js';
+import Zoom from './Zoom.js';
 
 
 const myConfig = {
@@ -36,6 +37,7 @@ const myConfig = {
 class Trails extends Component {
     constructor(props){
       super(props)
+      //this.zoomCursorValue = this.getZoomValue.bind(this);
       data.nodes.forEach( node => { 
         //randomize nodes without position
         if(!node.x){
@@ -53,7 +55,7 @@ class Trails extends Component {
         links: data.links,
         //focusedNodeId: "10",
         width: 0, height : 0,
-        zoom : 0.5,
+        zoom : 0,
         currentParcours : null,
       };
     };
@@ -97,6 +99,11 @@ class Trails extends Component {
       // console.log(newZoom);
       this.setState({zoom : newZoom});
       
+    }
+
+    zoomCursorValue = (zoomValue) => {
+      console.log("zoomCursorValue : ");
+      this.setState({zoom : zoomValue}); 
     }
 
     savePosition = (nodeId, x,y, e) => {
@@ -244,6 +251,10 @@ class Trails extends Component {
 
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
+            {<Zoom data={
+              {zoom:this.state.zoom, zoomCursorValue: this.zoomCursorValue.bind(this) }
+            }
+            />}
             <Graph
               id = 'id'
               data = {{nodes : this.state.nodes, links: this.state.links/*, focusedNodeId: "10"*/}}
