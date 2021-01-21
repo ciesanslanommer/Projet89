@@ -9,6 +9,10 @@ class Zoom extends Component{
         return zoomValue;
     }
 
+    componentDidMount(){
+       document.getElementById("myRange").value = 0.2; //au lancement de la page, place le curseur
+    }
+
     render(){
         return (
             <div id="slideContainer">

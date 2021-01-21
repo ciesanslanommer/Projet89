@@ -55,7 +55,7 @@ class Trails extends Component {
         links: data.links,
         //focusedNodeId: "10",
         width: 0, height : 0,
-        zoom : 0,
+        zoom : 0.2,
         currentParcours : null,
       };
     };
@@ -98,7 +98,6 @@ class Trails extends Component {
     zoomChange = (prevZoom, newZoom, e) => {
       // console.log(newZoom);
       this.setState({zoom : newZoom});
-      
     }
 
     zoomCursorValue = (zoomValue) => {
