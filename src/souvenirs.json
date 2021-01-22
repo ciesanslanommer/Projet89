@@ -26,8 +26,6 @@
         "parcours": ["Ruines"],
         "path": "2_Terrasse.txt",
         "nature": "texte",
-        "x": 504,
-        "y": 689.5,
         "zoom": 1
       },
       {
@@ -36,8 +34,6 @@
         "parcours": ["Ruines"],
         "path": "3_FuturCentreCommercial.jpg",
         "nature": "image",
-        "x": 939.5,
-        "y": 556.5,
         "zoom": 1
       },
       {
@@ -46,8 +42,6 @@
         "parcours": ["Ruines"],
         "path": "4_Mur.jpg",
         "nature": "image",
-        "x": 722.5,
-        "y": 354,
         "zoom": 1
       },
       {
@@ -56,8 +50,6 @@
         "parcours": ["Ruines"],
         "path": "5_DianeScott.txt",
         "nature": "texte",
-        "x": 275.5,
-        "y": 556,
         "zoom": 1
       },
       {
@@ -76,8 +68,6 @@
         "parcours": ["Ruines"],
         "path": "7_Manège.jpg",
         "nature": "image",
-        "x": -118,
-        "y": 213.5,
         "zoom": 2
       },
       {
@@ -106,8 +96,6 @@
         "parcours": ["Passage"],
         "path": "10_StephenJaffe.jpg",
         "nature": "image",
-        "x": 150,
-        "y": 148.5,
         "zoom": 1
       },
       {
@@ -116,8 +104,6 @@
         "parcours": ["Passage"],
         "path": "11_Christophe.png",
         "nature": "image",
-        "x": 325.5,
-        "y": 310,
         "zoom": 1
       },
       {
@@ -126,8 +112,6 @@
         "parcours": ["Passage"],
         "path": "12_ClaudeBernard.txt",
         "nature": "texte",
-        "x": -77,
-        "y": 673.5,
         "zoom": 1
       },
       {
@@ -136,8 +120,6 @@
         "parcours": ["Passage"],
         "path": "13_CyrilleBregere.txt",
         "nature": "texte",
-        "x": -455.5,
-        "y": 544,
         "zoom": 1
       },
       {
@@ -146,8 +128,6 @@
         "parcours":[ "Passage"],
         "path": "14_PlaceTienanmenDidierLeglise.jpg",
         "nature": "image",
-        "x": -305,
-        "y": 391,
         "zoom": 2
       },
       {
@@ -156,8 +136,6 @@
         "parcours": ["Passage"],
         "path": "15_MaisonIsolePinos.jpg",
         "nature": "image",
-        "x": -597.5,
-        "y": 343,
         "zoom": 2
       },
       {
@@ -165,8 +143,6 @@
         "name": "Maillots",
         "path": "Les maillots de bains de l'été 1989 _ Archive INA.mp4",
         "nature": "video",
-        "x": 813,
-        "y": 828,
         "zoom": 2
       },
       {
@@ -174,8 +150,6 @@
         "name": "Conte de raiponce",
         "path": "2019_27 août_Le conte de Raiponce.mp3",
         "nature": "audio",
-        "x": 719,
-        "y": 84.5,
         "zoom" : 2,
         "subs": [
               {   
