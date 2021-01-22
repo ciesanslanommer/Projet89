@@ -1,7 +1,7 @@
 #myRange {
     -webkit-appearance: none;
     position: absolute;
-    right: 1vw;
+    left: 1vw;
     top: 40vh;
     width: 80px;
     height: 15px;
