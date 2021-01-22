@@ -92,7 +92,7 @@ class Trails extends Component {
     // ************************************************************* EVENT
     nodeClick = (nodeId, e) => {
 
-      if(nodeId == this.props.currentMemory) {
+      if(nodeId === this.props.currentMemory) {
         console.log("TEST")
         this.focusOnNode(this.props.currentMemory);
       }
