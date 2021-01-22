@@ -13,6 +13,7 @@ class Zoom extends Component{
         if(prevProps.zoom !== this.props.zoom){
             document.getElementById("myRange").value = this.props.zoom;
         }
+        
     }
 
     render(){
