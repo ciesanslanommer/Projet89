@@ -225,12 +225,12 @@ class Trails extends Component {
       });
     }
     
-    // onClickGraph = (event, e) => {
-    //   console.log('click graph');
-    //   if (!this.props.docOpen) {
-    //     this.removeAllHighlightParcours();
-    //   }
-    // };
+    onClickGraph = (event, e) => {
+      console.log('click graph');
+      if (!this.props.docOpen) {
+        this.removeAllHighlightParcours();
+      }
+    };
 
     // ************************************************************* 
 
@@ -254,7 +254,7 @@ class Trails extends Component {
               onClickLink = {this.onClickLink}
               onMouseOverNode={this.onMouseOverNode}
               onMouseOutNode={this.onMouseOutNode}
-              // onClickGraph = {this.onClickGraph}
+              onClickGraph = {this.onClickGraph}
             />
           </div>
         )
