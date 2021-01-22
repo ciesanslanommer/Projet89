@@ -298,11 +298,10 @@ class Trails extends Component {
 
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
-            {<Zoom data={
-              {zoomCursorValue: this.zoomCursorValue.bind(this) }
-            }
-            zoom = {this.state.zoom}
-            />}
+            <Zoom 
+              zoomCursorValue = {this.zoomCursorValue}
+              zoom = {this.state.zoom}
+            />
             <Graph
               id = 'id'
               data = {{nodes : this.state.nodes, links: this.state.links, focusedNodeId: this.state.focusedNodeId}}
