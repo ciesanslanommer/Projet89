@@ -53,8 +53,8 @@ class App extends Component {
 
         
     document.querySelectorAll('.node').forEach((node) => {
-      console.log('htmlNodeIdHovered : ' + node.id);
-      node.addEventListener("mouseover", (event) => this.openPreview(event.clientX, event.clientY, node.id));
+      const dataNode = data.nodes[node.id];
+      node.addEventListener("mouseover", (event) => this.openPreview(event.clientX, event.clientY, dataNode));
       node.addEventListener("mouseout", this.closePreview);
     });
 
@@ -75,8 +75,8 @@ class App extends Component {
     this.setState({docOpen: true});
   }
 
-  openPreview = (x, y, nodeId, e) => {
-    this.setState({previewOpen : {x: x, y: y, id: nodeId,}});
+  openPreview = (x, y, node, e) => {
+    this.setState({previewOpen : {x: x, y: y, node: node,}});
     //console.log('open ' + x + ' ' + y);
   }
 
@@ -121,8 +121,6 @@ class App extends Component {
           nodeClick = {this.changeDoc}
           docOpen = {this.state.docOpen}
           currentMemory = {this.state.currentMemory}
-          // previewOpen = { this.openPreview}
-          // previewClose = {this.closePreview}
         />
         {this.state.docOpen ?
           <Document 
@@ -141,7 +139,7 @@ class App extends Component {
         { this.state.previewOpen != null && 
           <Preview 
             pos={{x: this.state.previewOpen.x, y: this.state.previewOpen.y,}} 
-            nodeId={this.state.previewOpen.id}
+            node={this.state.previewOpen.node}
           />
         }
       </div>

@@ -160,6 +160,8 @@ class Trails extends Component {
       };
     }
 
+    
+
     /***** HIGHLIGHT FUNCTIONS *****/
     
     highlightParcours(parcours) {
@@ -222,7 +224,13 @@ class Trails extends Component {
         htmlNode.classList.remove('currentNode');
       });
     }
-
+    
+    // onClickGraph = (event, e) => {
+    //   console.log('click graph');
+    //   if (!this.props.docOpen) {
+    //     this.removeAllHighlightParcours();
+    //   }
+    // };
 
     // ************************************************************* 
 
@@ -241,12 +249,12 @@ class Trails extends Component {
               config = {myConfig}
               onClickNode = {this.nodeClick}
               onNodePositionChange = {this.savePosition}
-              onClickGraph = {() => {console.log(this.state.nodes);}}
+              // onClickGraph = {() => {console.log(this.state.nodes);}}
               onZoomChange = {this.zoomChange}
               onClickLink = {this.onClickLink}
               onMouseOverNode={this.onMouseOverNode}
               onMouseOutNode={this.onMouseOutNode}
-              onClickGraph = {this.onClickGraph}
+              // onClickGraph = {this.onClickGraph}
             />
           </div>
         )

@@ -22,7 +22,7 @@
       },
       {
         "id": 2,
-        "name": "terrasse",
+        "name": "Terrasse",
         "parcours": ["Ruines"],
         "path": "2_Terrasse.txt",
         "nature": "texte",
