@@ -54,8 +54,6 @@ class Trails extends Component {
     // ************************************************************* RESIZING
     componentWillMount () {
       window.addEventListener('resize', this.measure, false);
-      console.log("WILL MOUNT");
-      console.log(this.props);
     }
     componentWillUnmount () {
       window.removeEventListener('resize', this.measure, false);
@@ -63,17 +61,15 @@ class Trails extends Component {
     componentDidMount () {
       this.measure();
 
-      document.querySelectorAll('.node').forEach( (node) => {
-        const props = this.props;
-        node.addEventListener("mouseover", function (event) {
-          props.previewOpen(event.clientX, event.clientY);
-        });
-        node.addEventListener("mouseout", function (event) {
-          props.previewClose();
-        });
-      });
-      // console.log("DID MOUNT");
-      // console.log(this.props);
+      // document.querySelectorAll('.node').forEach( (node) => {
+      //   const props = this.props;
+      //   node.addEventListener("mouseover", function (event) {
+      //     props.previewOpen(event.clientX, event.clientY);
+      //   });
+      //   node.addEventListener("mouseout", function (event) {
+      //     props.previewClose();
+      //   });
+      // });
 
     }
     measure = e => {
@@ -153,7 +149,7 @@ class Trails extends Component {
       }
     }
 
-    onMouseOverNode = (nodeId, node, e) => {
+    onMouseOverNode = (nodeId, node) => {
       /** If document isn't open **/
       /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
       /** If document is open, mouse over shouldn't highlight parcours **/
@@ -243,6 +239,7 @@ class Trails extends Component {
       });
     }
 
+
     // ************************************************************* 
 
     render() {
@@ -265,6 +262,7 @@ class Trails extends Component {
               onClickLink = {this.onClickLink}
               onMouseOverNode={this.onMouseOverNode}
               onMouseOutNode={this.onMouseOutNode}
+              onClickGraph = {this.onClickGraph}
             />
           </div>
         )

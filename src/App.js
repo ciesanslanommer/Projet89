@@ -17,10 +17,10 @@ class App extends Component {
     this.state = {
       isLoaded: false,
       // history : [idFirstSouvenir],
-      currentMemory : idFirstMem,
-      docOpen : false,
+      currentMemory: idFirstMem,
+      docOpen: false,
       WelcomeOpen: true,
-      previewOpen : null,
+      previewOpen: null,
     };
   }
 
@@ -49,6 +49,23 @@ class App extends Component {
           });
         }
       )
+
+
+        
+    document.querySelectorAll('.node').forEach((node) => {
+      console.log('htmlNodeIdHovered : ' + node.id);
+      node.addEventListener("mouseover", (event) => this.openPreview(event.clientX, event.clientY, node.id));
+      node.addEventListener("mouseout", this.closePreview);
+    });
+
+
+  }
+
+  componentWillUnmount() {
+    document.querySelectorAll('.node').forEach((node) => {
+      node.removeEventListener("mouseover", this.openPreview);
+      node.removeEventListener("mouseout", this.closePreview);
+    });
   }
 
   closeMemory = e => {
@@ -58,9 +75,9 @@ class App extends Component {
     this.setState({docOpen: true});
   }
 
-  openPreview = (x, y, e) => {
-    this.setState({previewOpen : {x: x, y: y,}});
-    console.log('open');
+  openPreview = (x, y, nodeId, e) => {
+    this.setState({previewOpen : {x: x, y: y, id: nodeId,}});
+    //console.log('open ' + x + ' ' + y);
   }
 
   closePreview = e => {
@@ -104,8 +121,8 @@ class App extends Component {
           nodeClick = {this.changeDoc}
           docOpen = {this.state.docOpen}
           currentMemory = {this.state.currentMemory}
-          previewOpen = { this.openPreview}
-          previewClose = {this.closePreview}
+          // previewOpen = { this.openPreview}
+          // previewClose = {this.closePreview}
         />
         {this.state.docOpen ?
           <Document 
@@ -121,7 +138,12 @@ class App extends Component {
           />
           : null
         }
-        { this.state.previewOpen != null && <Preview pos={this.state.previewOpen} />}
+        { this.state.previewOpen != null && 
+          <Preview 
+            pos={{x: this.state.previewOpen.x, y: this.state.previewOpen.y,}} 
+            nodeId={this.state.previewOpen.id}
+          />
+        }
       </div>
     );
   }
