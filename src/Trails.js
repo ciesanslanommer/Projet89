@@ -93,7 +93,7 @@ class Trails extends Component {
   // *************************************************************
 
   // ************************************************************* EVENT
-  nodeClick = (nodeId, e) => {
+  nodeClick = (nodeId, node, e) => {
     
     if(node.entry) {
       console.log(node.id);
@@ -250,7 +250,7 @@ class Trails extends Component {
 
   highlightParcours(parcours) {
 
-    const nodes = this.state.nodes;
+    const nodes = this.state.nodes.concat(data.trails);
     console.log(nodes);
 
     /*** Initialization: set notInParcours state for all ***/

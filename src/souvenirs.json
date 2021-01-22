@@ -167,6 +167,26 @@
           ]
       }
     ],
+    "trails" : [
+      {
+        "id" : 18,
+        "path" : "ruines.png",
+        "parcours" : "Ruines",
+        "x" : 600,
+        "y" : 300,
+        "zoom" : 0.1,
+        "entry" : true
+      },
+      {
+        "id" : 19,
+        "path" : "passage.png",
+        "parcours" : "Passage",
+        "x" : 400,
+        "y" : 400,
+        "zoom" : 0.1,
+        "entry" : true
+      }
+    ],
     "links" : [
         {
             "source" : 0,
@@ -227,6 +247,14 @@
         {
             "source" : 14,
             "target" : 15
+        },
+        {
+          "source" : 18,
+          "target" : 0
+        },
+        {
+          "source" : 19,
+          "target" : 8
         }
     ]
 }

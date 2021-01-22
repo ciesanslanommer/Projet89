@@ -75,8 +75,6 @@ class App extends Component {
   }
   openMemory = e => {
     this.setState({docOpen: true});
-    
-
   }
 
   openPreview = (x, y, node, e) => {
@@ -90,8 +88,12 @@ class App extends Component {
   }
 
   getLinks(nodeId) {
+
+    const allNodes = data.nodes.concat(data.trails);
+    //console.log(allNodes);
+
     let sources = data.links.map((el) => {
-      if (el.target === nodeId)
+      if (el.target === nodeId && !allNodes[el.source].entry)
         return {id : el.source, parcours : data.nodes[el.source].parcours}
       return ""
     }).filter( el => el !== "")
@@ -101,6 +103,7 @@ class App extends Component {
       return ""
     }).filter( el => el !== "")
     return {sources, targets}
+  
   }
 
   changeDoc = (nodeId,visible,e) => {
