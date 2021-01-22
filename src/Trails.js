@@ -4,19 +4,19 @@ import data from './souvenirs.json';
 import Background from './assets/fond.png';
 import "./Trails.css";
 import CustomNode from './CustomNode.js';
+import Zoom from './Zoom.js';
 
 
 const myConfig = {
     nodeHighlightBehavior: true,
-    disableLinkForce: true,
     width:400,
     initialZoom: 1,
-    staticGraphWithDragAndDrop : true,
+    staticGraphWithDragAndDrop : false,
     //staticGraph : true,
     highlightDegree : 0,
     focusZoom : 1,
     focusAnimationDuration : 0.75,
-    directed : true,
+    directed : false,
     node: {
       color: "lightgreen",
       size: 1600,
@@ -26,6 +26,10 @@ const myConfig = {
     link: {
       color : "rgba(255, 255, 255, 1)",
       type : "CURVE_SMOOTH",
+    },
+    d3: {
+      disableLinkForce: false,
+      gravity: -1000,
     }
   }; 
 
@@ -33,9 +37,14 @@ const myConfig = {
 class Trails extends Component {
     constructor(props){
       super(props)
-      data.nodes.forEach( node => { //randomize nodes position
-        // node.x = Math.floor(Math.random()* 1000)
-        // node.y = Math.floor(Math.random()* 1000)
+      //this.zoomCursorValue = this.getZoomValue.bind(this);
+      data.nodes.forEach( node => { 
+        //randomize nodes without position
+        if(!node.x){
+          node.x = Math.floor(Math.random()* 1000)
+          node.y = Math.floor(Math.random()* 1000)
+        }
+        //
         node.visited = false
         node.visible = true
         if (!node.zoom)
@@ -46,7 +55,7 @@ class Trails extends Component {
         links: data.links,
         //focusedNodeId: "10",
         width: 0, height : 0,
-        zoom : 0.5,
+        zoom : 0.2,
         currentParcours : null,
       };
     };
@@ -89,7 +98,10 @@ class Trails extends Component {
     zoomChange = (prevZoom, newZoom, e) => {
       // console.log(newZoom);
       this.setState({zoom : newZoom});
-      
+    }
+
+    zoomCursorValue = (zoomValue) => {
+      this.setState({zoom : zoomValue}); 
     }
 
     savePosition = (nodeId, x,y, e) => {
@@ -237,6 +249,10 @@ class Trails extends Component {
 
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
+            {<Zoom data={
+              {zoom:this.state.zoom, zoomCursorValue: this.zoomCursorValue.bind(this) }
+            }
+            />}
             <Graph
               id = 'id'
               data = {{nodes : this.state.nodes, links: this.state.links/*, focusedNodeId: "10"*/}}
