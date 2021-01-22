@@ -60,17 +60,6 @@ class Trails extends Component {
     }
     componentDidMount () {
       this.measure();
-
-      // document.querySelectorAll('.node').forEach( (node) => {
-      //   const props = this.props;
-      //   node.addEventListener("mouseover", function (event) {
-      //     props.previewOpen(event.clientX, event.clientY);
-      //   });
-      //   node.addEventListener("mouseout", function (event) {
-      //     props.previewClose();
-      //   });
-      // });
-
     }
     measure = e => {
       let rect = {width : document.getElementsByClassName("Graph")[0].clientWidth, height: document.getElementsByClassName("Graph")[0].clientHeight};
@@ -159,8 +148,6 @@ class Trails extends Component {
           this.highlightParcours(parcoursMouseOvered.concat(this.state.currentParcours));
         }
       }
-      
-      // this.props.previewOpen(node.x, node.y);
     }
 
     onMouseOutNode = (nodeId, node) => {
@@ -171,9 +158,6 @@ class Trails extends Component {
       if(this.state.currentParcours != null) { 
         this.highlightParcours(this.state.currentParcours);
       };
-      //console.log('mouse out');
-
-      //this.props.previewClose();
     }
 
     /***** HIGHLIGHT FUNCTIONS *****/
