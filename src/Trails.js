@@ -14,9 +14,12 @@ const myConfig = {
     staticGraphWithDragAndDrop : false,
     //staticGraph : true,
     highlightDegree : 0,
+    // minZoom: 0,
+    // maxZoom: 2,
     focusZoom : 1,
     focusAnimationDuration : 0.75,
-    directed : false,
+    // directed : true,
+    freezeAllDragEvents: false,
     node: {
       color: "lightgreen",
       size: 1600,
@@ -53,10 +56,11 @@ class Trails extends Component {
       this.state = {
         nodes: data.nodes,
         links: data.links,
-        //focusedNodeId: "10",
+        focusedNodeId: null,
         width: 0, height : 0,
         zoom : 0.2,
         currentParcours : null,
+        freeze: false,
       };
     };
 
@@ -72,17 +76,26 @@ class Trails extends Component {
     }
     measure = e => {
       let rect = {width : document.getElementsByClassName("Graph")[0].clientWidth, height: document.getElementsByClassName("Graph")[0].clientHeight};
+
       if(this.state.width !== rect.width || this.state.height !== rect.height){
         this.setState({
           width: rect.width, 
           height: rect.height
         });
       }
+      console.log('MEASURE');
+      console.log('html graph: ' + rect.width);
+      console.log('state width: ' + this.state.width);
     }
     // ************************************************************* 
 
     // ************************************************************* EVENT
     nodeClick = (nodeId, e) => {
+
+      if(nodeId == this.props.currentMemory) {
+        console.log("TEST")
+        this.focusOnNode(this.props.currentMemory);
+      }
       //visited node
       let visitedNode = [...this.state.nodes]
       let currentNodeVisited = {...visitedNode[nodeId]}
@@ -92,6 +105,7 @@ class Trails extends Component {
       visitedNode[nodeId] = currentNodeVisited
       this.setState({nodes:visitedNode})
       this.props.nodeClick(nodeId)
+
 
     }
 
@@ -143,12 +157,48 @@ class Trails extends Component {
 
         /** Highlights currentNode **/
         this.removeAllHighlightCurrentNode();
-        console.log(this.props.currentMemory);
         if(this.props.currentMemory != null) { 
           this.highlightCurrentNode(this.props.currentMemory);
         }
 
+        /* Handle focus on current node */
+        this.focusOnNode(this.props.currentMemory);
+
       }
+
+      /*** After opening a doc, if resize window then close doc ***/
+      /*** Graph does not resize ***/
+      /*** So added below to solve the problem ***/
+      if(prevProps.docOpen !== this.props.docOpen) {
+        this.measure();
+      }
+
+    }
+
+    focusOnNode(nodeId) { 
+      
+      /* The svg container size isn't updated yet ? So use measure method */
+      /* Position of node is centered from the get go but animation is cut */
+      console.log("MEASURE 1");
+      this.measure();
+      console.log("FOCUS");
+      console.log('myconfig : ' + myConfig.width);
+      console.log('state : ' + this.state.width);
+      console.log('html : ' + document.querySelector('#id-graph-wrapper svg').style.width);
+
+      /* Must disable user zoom before setting focus*/
+      this.setState({ freeze: true });
+      /** Change Node focus **/
+      this.setState({ focusedNodeId: nodeId });
+      /* Wait the duration of the focusAnimation before setting focus to null */
+      /* Else when user zoom, it will create problem */
+      setTimeout(() => {
+        if (this.state.focusedNodeId !== null) {
+          this.setState({ zoom: myConfig.focusZoom });
+          this.setState({ focusedNodeId: null });
+          this.setState({ freeze: false });
+        }
+      }, myConfig.focusAnimationDuration + 1000);
     }
 
     onMouseOverNode = (nodeId, node) => {
@@ -227,8 +277,6 @@ class Trails extends Component {
     highlightCurrentNode(nodeId) {
       let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
       htmlNode.classList.add('currentNode');
-      console.log('HERE');
-      console.log(htmlNode);
     }
 
     removeAllHighlightCurrentNode() {
@@ -246,6 +294,7 @@ class Trails extends Component {
       myConfig.height = this.state.height;
       myConfig.node.viewGenerator = this.customNodeGenerator;
       myConfig.initialZoom = this.state.zoom;
+      myConfig.freezeAllDragEvents = this.state.freeze;
 
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
@@ -255,7 +304,7 @@ class Trails extends Component {
             />}
             <Graph
               id = 'id'
-              data = {{nodes : this.state.nodes, links: this.state.links/*, focusedNodeId: "10"*/}}
+              data = {{nodes : this.state.nodes, links: this.state.links, focusedNodeId: this.state.focusedNodeId}}
               config = {myConfig}
               onClickNode = {this.nodeClick}
               onNodePositionChange = {this.savePosition}

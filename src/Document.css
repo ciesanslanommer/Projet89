@@ -3,13 +3,12 @@
   max-height: 80vh;
 }
 .souvenir {
-  position: absolute;
+  /* position: absolute; */
   display: flex;
-  /* width: 100%; */
-  width: 60%;
-  height: 100%;
+  /* width: 60%;
+  height: 100%; 
   top: 0px;
-  left: 0px;
+  left: 0px; */
   background-color: rgb(40, 40, 40);
   color: white;
   align-items: center;
@@ -17,6 +16,7 @@
   margin-right: auto; */
   box-shadow: 10px 0px 10px rgb(30, 30, 30);
   overflow: auto;
+  grid-column: 2 / 3;
 }
 
 .souvenir p {
