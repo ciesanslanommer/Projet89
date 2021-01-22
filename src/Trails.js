@@ -37,7 +37,7 @@ const myConfig = {
     }
   }; 
 
-   
+  
 class Trails extends Component {
     constructor(props){
       super(props)
@@ -51,9 +51,11 @@ class Trails extends Component {
         //
         node.visited = false
         node.visible = true
-        if (!node.zoom)
+        if (!node.zoom) {
           node.zoom = 0.1
-        })
+        }
+
+      })
       this.state = {
         nodes: data.nodes,
         links: data.links,
@@ -91,8 +93,13 @@ class Trails extends Component {
     // ************************************************************* 
 
     // ************************************************************* EVENT
-    nodeClick = (nodeId, e) => {
+    nodeClick = (nodeId, node, e) => {
 
+      if(node.entry) {
+        console.log(node.id);
+        return;
+      }
+      
       if(nodeId === this.props.currentMemory) {
         this.focusOnNode(this.props.currentMemory);
       }
@@ -119,6 +126,11 @@ class Trails extends Component {
     }
 
     savePosition = (nodeId, x,y, e) => {
+
+      const allNodes = this.state.nodes.concat(data.trails);
+      if(allNodes[nodeId].entry) {
+        return;
+      }
       var copy = [...this.state.nodes]
       var item = {...copy[nodeId]};
       item.x = x;
@@ -136,7 +148,7 @@ class Trails extends Component {
         <div>
         {
             node.entry ? <Entry 
-              name = {node.name}
+              name = {node.parcours}
               path = {node.path}
             /> :
             <CustomNode 
@@ -238,7 +250,8 @@ class Trails extends Component {
     
     highlightParcours(parcours) {
 
-      const nodes = this.state.nodes;
+      const nodes = this.state.nodes.concat(data.trails);
+      console.log(nodes);
 
       /*** Initialization: set notInParcours state for all ***/
       nodes.forEach((node) => document.querySelector(`[id="${node.id}"] section`).classList.add("notInParcours"));
@@ -267,6 +280,7 @@ class Trails extends Component {
           }
         });
       });
+
     }
 
     removeAllHighlightParcours() {
@@ -321,7 +335,7 @@ class Trails extends Component {
               onNodePositionChange = {this.savePosition}
               onClickGraph = {() => {console.log(this.state.nodes);}}
               onZoomChange = {this.zoomChange}
-              onClickLink = {this.onClickLink}
+              // onClickLink = {this.onClickLink}
               onMouseOverNode={this.onMouseOverNode}
               onMouseOutNode={this.onMouseOutNode}
             />

@@ -171,7 +171,7 @@
       {
         "id" : 18,
         "path" : "ruines.png",
-        "name" : "Ruines",
+        "parcours" : "Ruines",
         "x" : 600,
         "y" : 300,
         "zoom" : 0.1,
@@ -180,7 +180,7 @@
       {
         "id" : 19,
         "path" : "passage.png",
-        "name" : "Passage",
+        "parcours" : "Passage",
         "x" : 400,
         "y" : 400,
         "zoom" : 0.1,
