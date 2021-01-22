@@ -101,7 +101,6 @@ class Trails extends Component {
     }
 
     zoomCursorValue = (zoomValue) => {
-      console.log("zoomCursorValue : ");
       this.setState({zoom : zoomValue}); 
     }
 

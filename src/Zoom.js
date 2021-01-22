@@ -5,7 +5,6 @@ class Zoom extends Component{
 
     getZoomValue = (event) => {
         var zoomValue = document.getElementById("myRange").value;
-        console.log("valeur de cursorZoom : " + zoomValue);
         return zoomValue;
     }
 
