@@ -23,7 +23,6 @@ class App extends Component {
       WelcomeOpen: true,
       noeuds : [],
       souvenirs : []
-      //parcours
     };
   }
 

@@ -47,7 +47,6 @@ class Trails extends Component {
           node.x = Math.floor(Math.random()* 1000)
           node.y = Math.floor(Math.random()* 1000)
         }
-        //
         node.visited = false
         node.visible = true
         if (!node.zoom)
@@ -137,7 +136,7 @@ class Trails extends Component {
       let currentNodeVisited = visitedNode[id];
 
       // set it to visited
-      if(nodeId == this.props.currentMemory) {
+      if(nodeId === this.props.currentMemory) {
         console.log("TEST")
         this.focusOnNode(this.props.currentMemory);
       }
