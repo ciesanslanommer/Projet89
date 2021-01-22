@@ -5,6 +5,7 @@ import Background from './assets/fond.png';
 import "./Trails.css";
 import CustomNode from './CustomNode.js';
 import Zoom from './Zoom.js';
+import Entry from './Entry.js';
 
 
 const myConfig = {
@@ -92,8 +93,7 @@ class Trails extends Component {
     // ************************************************************* EVENT
     nodeClick = (nodeId, e) => {
 
-      if(nodeId == this.props.currentMemory) {
-        console.log("TEST")
+      if(nodeId === this.props.currentMemory) {
         this.focusOnNode(this.props.currentMemory);
       }
       //visited node
@@ -131,7 +131,15 @@ class Trails extends Component {
       // if(node.highlighted) {
       //   return <Node cx = {node.x} cy = {node.y} fill='green' size = '2000' type = 'square' className = 'node'/>
       // }
-      return <CustomNode 
+    
+      return (
+        <div>
+        {
+            node.entry ? <Entry 
+              name = {node.name}
+              path = {node.path}
+            /> :
+            <CustomNode 
               name = {node.name}
               nature = {node.nature}
               highlighted = {node.highlighted}
@@ -139,6 +147,9 @@ class Trails extends Component {
               zoom = {this.state.zoom}
               nodeZoom = {node.zoom}
             />
+          }
+        </div>
+      )
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -205,7 +216,7 @@ class Trails extends Component {
       /** If document isn't open **/
       /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
       /** If document is open, mouse over shouldn't highlight parcours **/
-      if (!this.props.docOpen) {
+      if (!this.props.docOpen && !node.entry) {
         const parcoursMouseOvered = this.state.nodes[nodeId].parcours;
         if (parcoursMouseOvered != null) {
           this.highlightParcours(parcoursMouseOvered.concat(this.state.currentParcours));
@@ -304,7 +315,7 @@ class Trails extends Component {
             />}
             <Graph
               id = 'id'
-              data = {{nodes : this.state.nodes, links: this.state.links, focusedNodeId: this.state.focusedNodeId}}
+              data = {{nodes : this.state.nodes.concat(data.trails), links: this.state.links, focusedNodeId: this.state.focusedNodeId}}
               config = {myConfig}
               onClickNode = {this.nodeClick}
               onNodePositionChange = {this.savePosition}
