@@ -3,19 +3,23 @@ import './Zoom.css';
 
 class Zoom extends Component{
 
-    getZoomValue = (event) => {
+    getZoomValue = () => {
+        console.log(this.props.zoom);
         var zoomValue = document.getElementById("myRange").value;
-        return zoomValue;
+        this.props.zoomCursorValue(zoomValue);
     }
 
-    componentDidMount(){
-       document.getElementById("myRange").value = 0.2; //au lancement de la page, place le curseur
+    componentDidUpdate(prevProps, prevState){
+        if(prevProps.zoom !== this.props.zoom){
+            document.getElementById("myRange").value = this.props.zoom;
+        }
     }
 
     render(){
+        const zoomScrollValue = this.props.zoom
         return (
-            <div id="slideContainer">
-                <input className="slider" id="myRange" type="range" min="0" max="3" step="0.1" onMouseUp={() => this.props.data.zoomCursorValue(this.getZoomValue)}></input>
+            <div id="sliderContainer">
+                <input className="slider" id="myRange" defaultValue='0.2' type="range" min="0" max="3" step="0.1" onMouseUp={this.getZoomValue}></input>
             </div>
         )
     };

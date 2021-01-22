@@ -92,7 +92,7 @@ class Trails extends Component {
     // ************************************************************* EVENT
     nodeClick = (nodeId, e) => {
 
-      if(nodeId == this.props.currentMemory) {
+      if(nodeId === this.props.currentMemory) {
         console.log("TEST")
         this.focusOnNode(this.props.currentMemory);
       }
@@ -298,10 +298,10 @@ class Trails extends Component {
 
         return(
           <div className="Graph" style = {{backgroundImage :  "url(" + Background + ")"}}>
-            {<Zoom data={
-              {zoom:this.state.zoom, zoomCursorValue: this.zoomCursorValue.bind(this) }
-            }
-            />}
+            <Zoom 
+              zoomCursorValue = {this.zoomCursorValue}
+              zoom = {this.state.zoom}
+            />
             <Graph
               id = 'id'
               data = {{nodes : this.state.nodes, links: this.state.links, focusedNodeId: this.state.focusedNodeId}}
