@@ -5,15 +5,23 @@
     justify-content: space-around;
     align-items: center;
     color: white;
-    margin: 20%;
-    height: 30vh;
+    margin-top: 25%;
+    height: 50vh;
   }
 
 .adminForm label{
-    margin: 2%;
+    margin: 1%;
 }
 
 .adminForm button{
-    margin: 4%;
+    margin: 1%;
+}
+
+.adminForm input{
+    margin: 1%;
+}
+
+.inputFichier {
+    padding: 8%;
 }
   
