@@ -1,5 +1,4 @@
 import {React, Component} from 'react';
-import * as d3 from "d3";
 import './App.css';
 import data from './souvenirs.json';
 import Document from './Document.js';
@@ -8,6 +7,7 @@ import Nav from './Nav.js';
 import AdminForm from './AdminForm.js';
 // import History from './History.js'
 import Welcome from './Welcome.js';
+//import Zoom from './Zoom.js';
 
 import { ENDPOINT_API } from './constants/endpoints';
 
@@ -72,9 +72,12 @@ class App extends Component {
 
   closeMemory = e => {
     this.setState({docOpen: false});
+    document.querySelector('.App').classList.remove('displayDoc');
   }
   openMemory = e => {
     this.setState({docOpen: true});
+    
+
   }
 
   getLinks(nodeId) {
@@ -92,21 +95,15 @@ class App extends Component {
   }
 
   changeDoc = (nodeId,visible,e) => {
-    //console.log(nodeId);
+
+    /* Graph must be reduced before changing the state of current memory */
+    /* Else the current node will be centered on the full window and not the reduced graph */
+    document.querySelector('.App').classList.add('displayDoc');
+
     const nextMem = nodeId;
     this.setState({ currentMemory : nextMem })
     data.nodes[nextMem].visited = true
     this.openMemory();
-
-    /** Handle parcours highlighting **/
-    const currentNode = data.nodes[nodeId];
-    /* Initialization: clean parcours highlight */
-    this.removeHighlightParcours();
-    /* If the current node is in a parcours, highlight all nodes in the parcours */
-    if (currentNode.parcours != null) {
-      this.highlightParcours(currentNode);
-    }
-
   }
 
   callApi(){
@@ -202,13 +199,13 @@ class App extends Component {
     this.setState({WelcomeOpen: false});
   }
 
-
   render() {
     const memory = data.nodes[this.state.currentMemory]
     const loaded = this.state.noeudsLoaded && this.state.souvenirsLoaded;
     return (
       <div className= "App">
-        <Nav />
+      {this.state.WelcomeOpen && <Welcome onCrossClick = {this.closeWelcome} />}
+        {<Nav />}
         <AdminForm/>
         {loaded &&
           <Trails
