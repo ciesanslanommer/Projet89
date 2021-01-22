@@ -16,7 +16,7 @@ class Zoom extends Component{
     }
 
     render(){
-        
+        const zoomScrollValue = this.props.zoom
         return (
             <div id="sliderContainer">
                 <input className="slider" id="myRange" defaultValue='0.2' type="range" min="0" max="3" step="0.1" onMouseUp={this.getZoomValue}></input>
