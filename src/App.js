@@ -1,15 +1,14 @@
-import {React, Component} from 'react';
-import './App.css';
-import data from './souvenirs.json';
-import Document from './Document.js';
-import Trails from './Trails.js';
-import Nav from './Nav.js';
+import {React, Component} from 'react'
+import './App.css'
+import data from './souvenirs.json'
+import Document from './Document.js'
+import Trails from './Trails.js'
+import Nav from './Nav.js'
 // import History from './History.js'
-import Welcome from './Welcome.js';
-//import Zoom from './Zoom.js';
+import Welcome from './Welcome.js'
 
-import { ENDPOINT_API } from './constants/endpoints';
-import Preview from './Preview';
+import { ENDPOINT_API } from './constants/endpoints'
+import Preview from './Preview'
 
 class App extends Component {
   constructor(props){

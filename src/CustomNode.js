@@ -1,5 +1,4 @@
-import {React, Component} from 'react';
-import Preview from './Preview.js'
+import {React, Component} from 'react'
 import './CustomNode.css'
 
 class CustomNode extends Component{
@@ -19,11 +18,7 @@ class CustomNode extends Component{
             <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, 'visited': visited, 'highlighted': highlighted})}>
                 {/* {highlighted ? <Preview resume = {this.props.name} /> : ""} */}
                 {visited?  "" : <img className="icons" src={require('./assets/work.svg').default} alt="icon"></img>}
-                
-               
-               
-
-             </div>
+            </div>
          );
     };
 }
