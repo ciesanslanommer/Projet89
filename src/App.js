@@ -55,7 +55,7 @@ class App extends Component {
     document.querySelectorAll('.node').forEach((node) => {
       const dataNode = data.nodes.concat(data.trails)[node.id];
       //node.addEventListener("mouseenter", (event) => this.openPreview(event.clientX, event.clientY, dataNode.name, dataNode.entry));
-      node.addEventListener("mouseenter", (event) => this.openPreview(event.clientX, event.clientY, node, dataNode.name, dataNode.entry));
+      node.addEventListener("mouseenter", (event) => this.openPreview(node, dataNode.name, dataNode.entry));
       node.addEventListener("mouseleave", this.closePreview);
     });
 
@@ -77,7 +77,7 @@ class App extends Component {
     this.setState({docOpen: true});
   }
 
-  openPreview = (x, y, node, name, entry, e) => {
+  openPreview = (node, name, entry, e) => {
     if(entry) {
       return;
     }

@@ -227,11 +227,6 @@ class Trails extends Component {
         this.highlightParcours(parcoursMouseOvered.concat(currentParcours));
       }
     }
-
-    const mouseovered = document.querySelector(`[id="${nodeId}"]`);
-    const boundMouseOvered = mouseovered.getBoundingClientRect();
-    //alert(boundMouseOvered.top);
-    //console.log("mouse over");
   }
 
   onMouseOutNode = (nodeId, node) => {
@@ -325,8 +320,6 @@ class Trails extends Component {
     myConfig.node.viewGenerator = this.customNodeGenerator;
     myConfig.initialZoom = this.state.zoom;
     myConfig.freezeAllDragEvents = this.state.freeze;
-    
-    //console.log('RENDER TRAILS');
 
     return (
       <div className="Graph" style={{ backgroundImage: "url(" + Background + ")" }}>
