@@ -9,7 +9,7 @@ class Preview extends Component {
         const y = this.props.pos.y + 5;  /* + 5 Else issue bcse mouse continuously mouse over and out */
         const translateX = this.props.sizeNode + this.props.sizeNode*0.2;
         const translateY = 0;
-        console.log("render");
+
         return (
                 <div className = 'resume' style={{top: y + 'px', left: x + 'px', transform: `translate(${translateX}px, ${translateY}px)`}}>
                     <h2>{title}</h2>
