@@ -54,8 +54,9 @@ class App extends Component {
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
       const dataNode = data.nodes.concat(data.trails)[node.id];
-      node.addEventListener("mouseover", (event) => this.openPreview(event.clientX, event.clientY, dataNode));
-      node.addEventListener("mouseout", this.closePreview);
+      //node.addEventListener("mouseenter", (event) => this.openPreview(event.clientX, event.clientY, dataNode.name, dataNode.entry));
+      node.addEventListener("mouseenter", (event) => this.openPreview(event.clientX, event.clientY, node, dataNode.name, dataNode.entry));
+      node.addEventListener("mouseleave", this.closePreview);
     });
 
 
@@ -76,11 +77,13 @@ class App extends Component {
     this.setState({docOpen: true});
   }
 
-  openPreview = (x, y, node, e) => {
-    if(node.entry) {
+  openPreview = (x, y, node, name, entry, e) => {
+    if(entry) {
       return;
     }
-    this.setState({previewOpen : {x: x, y: y, node: node,}});
+    
+    const boundNode = node.getBoundingClientRect();
+    this.setState({previewOpen : {x: boundNode.x, y: boundNode.y, sizeNode: boundNode.width, name: name,}});
   }
 
   closePreview = e => {
@@ -150,7 +153,8 @@ class App extends Component {
         { this.state.previewOpen != null && 
           <Preview 
             pos={{x: this.state.previewOpen.x, y: this.state.previewOpen.y,}} 
-            node={this.state.previewOpen.node}
+            name={this.state.previewOpen.name}
+            sizeNode={this.state.previewOpen.sizeNode}
           />
         }
       </div>

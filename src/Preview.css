@@ -11,6 +11,7 @@
     background-color: white;
     /* box-shadow: 0 0 2px 5px white; */
     width: 100px;
+    /* transform: translate(calc(-25% - 5px), -100%); */
     padding: 5px;
 }
 .resume h2 {
