@@ -115,7 +115,7 @@ class Trails extends Component {
   }
 
   zoomChange = (prevZoom, newZoom, e) => {
-    // console.log(newZoom);
+    console.log(newZoom);
     this.setState({ zoom: newZoom });
   }
 
@@ -305,7 +305,7 @@ class Trails extends Component {
   highlightNode(nodeId) {
     console.log('highlightnode');
     let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
-    if(nodeId == this.props.currentMemory) {
+    if(nodeId === this.props.currentMemory) {
       htmlNode.classList.add('currentNode');
     }
     else {
@@ -355,7 +355,7 @@ class Trails extends Component {
           onZoomChange={this.zoomChange}
           onMouseOverNode={this.onMouseOverNode}
           onMouseOutNode={this.onMouseOutNode}
-          onClickGraph={this.onClickGraph}
+          //onClickGraph={this.onClickGraph}
         />
       </div>
     )
