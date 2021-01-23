@@ -77,7 +77,7 @@ class Trails extends Component {
     setTimeout(() => {
       myConfig.staticGraph = true;
       myConfig.freeze = false;
-    }, 100);
+    }, 1000);
   }
   measure = (e) => {
     let rect = {width: document.getElementsByClassName('Graph')[0].clientWidth, height: document.getElementsByClassName('Graph')[0].clientHeight};
