@@ -18,12 +18,14 @@ class App extends Component {
     this.state = {
       nodeLoaded: false,
       linkLoaded: false,
+      trailLoaded : false,
       currentMemory: idFirstMem,
       docOpen: false,
       WelcomeOpen: true,
       previewOpen: null,
       node: [],
       link: [],
+      trail: [],
     };
   }
 
@@ -69,6 +71,27 @@ class App extends Component {
           );
           // TODO maybe display an error for the user?
         }
+      );
+
+      console.log(`Fetching trail from ${ENDPOINT_API}/trail/`);
+      fetch(ENDPOINT_API + '/trail')
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            console.log('Success! trail = ', result);
+            this.setState({
+              trail: result,
+              trailLoaded: true,
+            });
+          },
+          (error) => {
+            console.error(
+              'Oops, something wrong happened when loading trail',
+              error
+            );
+            // TODO maybe display an error for the user?
+          }
+        );
       )
 
 
@@ -167,11 +190,16 @@ class App extends Component {
   render() {
     const memory = data.nodes[this.state.currentMemory];
     const loaded = this.state.nodeLoaded && this.state.linkLoaded;
+    const adminLoaded = this.state.trailLoaded;
     return (
       <div className='App'>
         {this.state.WelcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
         {<Nav />}
-        <AdminForm />
+        {adminLoaded && (
+          <AdminForm
+          trails={this.state.trail}
+          />
+        )}
         {loaded && (
           <Trails
             nodeClick={this.changeDoc}
