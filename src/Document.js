@@ -83,22 +83,47 @@ class Document extends Component {
     this.state = {
       sources: [],
       targets: [],
+      loadedMemory: false,
+      loadedLinks: false,
     };
   }
 
   componentDidMount() {
     // TODO display a loader when not loaded yet?
     console.log(
-      `Fetching souvenirs from ${ENDPOINT_API}/linkfrommemory/ ${this.props.key}`
+      `Fetching souvenirs from ${ENDPOINT_API}/linkfrommemory/ ${this.props.id}`
     );
-    fetch(ENDPOINT_API + '/linkfrommemory/' + this.props.key)
+    fetch(ENDPOINT_API + '/linkfrommemory/' + this.props.id)
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! node = ', result);
+          console.log(`Success! link from memory ${this.props.id} = `, result);
           this.setState({
-            sources: result.sources,
+            sources: result.source,
             targets: result.target,
+            loadedLinks: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading node',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+
+    console.log(
+      `Fetching souvenirs from ${ENDPOINT_API}/memory/ ${this.props.id}`
+    );
+    fetch(ENDPOINT_API + '/memory/' + this.props.id)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(`Success! memory ${this.props.id} = `, result);
+          this.setState({
+            memory: result,
+            loadedMemory: true,
           });
         },
         (error) => {
@@ -129,37 +154,44 @@ class Document extends Component {
   render() {
     let doc = this.displayDoc('main_doc', this.props.nature, this.props.path); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
+    const loaded = this.state.loadedMemory && this.state.loadedLinks;
     return (
       <div className='souvenir'>
-        <div className='buttons'>
-          {this.state.sources.map((source) => (
-            <DocumentButton
-              key={source.id}
-              onClick={() => this.props.onNextClick(source.id)}
-              type='previous'
-              parcours={source.parcours}
-            />
-          ))}
-        </div>
-        <div className='document'>
-          <h1>{this.props.desc}</h1>
-          {doc}
-          {subs != null && (
-            <div className='sub_docs'>
-              {subs.map((sub) => this.displayDoc(sub.id, sub.nature, sub.path))}
+        {loaded && (
+          <div>
+            <div className='buttons'>
+              {this.state.sources.map((source) => (
+                <DocumentButton
+                  key={source.id}
+                  onClick={() => this.props.onNextClick(source.id)}
+                  type='previous'
+                  parcours={source.parcours}
+                />
+              ))}
             </div>
-          )}
-        </div>
-        <div className='buttons'>
-          {this.state.targets.map((target) => (
-            <DocumentButton
-              key={target.id}
-              onClick={() => this.props.onNextClick(target.id)}
-              type='next'
-              parcours={target.parcours}
-            />
-          ))}
-        </div>
+            <div className='document'>
+              <h1>{this.props.desc}</h1>
+              {doc}
+              {subs != null && (
+                <div className='sub_docs'>
+                  {subs.map((sub) =>
+                    this.displayDoc(sub.id, sub.nature, sub.path)
+                  )}
+                </div>
+              )}
+            </div>
+            <div className='buttons'>
+              {this.state.targets.map((target) => (
+                <DocumentButton
+                  key={target.id}
+                  onClick={() => this.props.onNextClick(target.id)}
+                  type='next'
+                  parcours={target.parcours}
+                />
+              ))}
+            </div>
+          </div>
+        )}
         <img
           id='cross'
           src={require('./assets/close.png').default}

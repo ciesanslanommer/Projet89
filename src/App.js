@@ -1,6 +1,6 @@
 import { React, Component } from 'react';
 import './App.css';
-import data from './souvenirs.json';
+//import data from './souvenirs.json';
 import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
@@ -14,18 +14,18 @@ import { ENDPOINT_API } from './constants/endpoints';
 class App extends Component {
   constructor(props) {
     super(props);
-    const idFirstMem = Math.floor(Math.random() * data.nodes.length);
     this.state = {
       nodeLoaded: false,
       linkLoaded: false,
       trailLoaded: false,
-      currentMemory: idFirstMem,
+      trailByMemoryLoaded: false,
       docOpen: false,
       welcomeOpen: true,
       previewOpen: null,
       node: [],
       link: [],
       trail: [],
+      trailByMemory: [],
     };
   }
 
@@ -93,9 +93,29 @@ class App extends Component {
         }
       );
 
+    console.log(`Fetching trail from ${ENDPOINT_API}/trailbymemory/`);
+    fetch(ENDPOINT_API + '/trailbymemory')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! trail by memory = ', result);
+          this.setState({
+            trailByMemory: result,
+            trailByMemoryLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading trail',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
-      const dataNode = data.nodes.concat(data.trails)[node.id];
+      const dataNode = this.node.nodes.concat(this.trail.trails)[node.id];
       //node.addEventListener("mouseenter", (event) => this.openPreview(event.clientX, event.clientY, dataNode.name, dataNode.entry));
       node.addEventListener('mouseenter', (event) =>
         this.openPreview(node, dataNode.name, dataNode.entry)
@@ -162,9 +182,9 @@ class App extends Component {
     /* Graph must be reduced before changing the state of current memory */
     /* Else the current node will be centered on the full window and not the reduced graph */
     document.querySelector('.App').classList.add('displayDoc');
-
+    console.log(nodeId);
     const nextMem = nodeId;
-    this.setState({ currentMemory: nextMem });
+    this.setState({ currentMemory: nodeId });
     // data.nodes[nextMem].visited = true;
     this.openMemory();
   };
@@ -213,11 +233,15 @@ class App extends Component {
     this.state.node.forEach((node) => cpyNode.push({ ...node }));
     //find current node
     let id = cpyNode.findIndex(
-      (node) => node.id === Number(this.state.currentMemory)
+      (node) => Number(node.id) === Number(this.state.currentMemory)
     );
     let memory = cpyNode[id];
-    console.log(memory);
-    const loaded = this.state.nodeLoaded && this.state.linkLoaded;
+
+    const trailloaded =
+      this.state.nodeLoaded &&
+      this.state.linkLoaded &&
+      this.state.trailByMemoryLoaded &&
+      this.state.trailLoaded;
     const adminLoaded = this.state.trailLoaded;
 
     return (
@@ -225,29 +249,20 @@ class App extends Component {
         {this.state.WelcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
         {<Nav />}
         {adminLoaded && <AdminForm trails={this.state.trail} />}
-        {loaded && (
+        {trailloaded && (
           <Trails
             nodeClick={this.changeDoc}
             nodes={this.state.node}
             links={this.state.link}
+            trailsByMemory={this.state.trailByMemory}
+            trails={this.state.trail}
             currentMemory={this.state.currentMemory}
-            trail={{
-              1: [
-                { id: 2, name: 'parcours 1' },
-                { id: 3, name: 'parcours 2' },
-              ],
-            }}
           />
         )}
         {this.state.docOpen ? (
           <Document
             key={memory.id}
-            path={'IMG_20190804_180228.jpg'}
-            parcours={memory.trails}
-            // links={this.getLinks(memory.id)}
-            desc={memory.name}
-            nature={'image'}
-            subs={memory.subs}
+            id={memory.id}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
           />
