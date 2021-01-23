@@ -12,12 +12,12 @@ class CustomNode extends Component{
         //console.log("this.props.nodeZoom : " + this.props.nodeZoom)
         //console.log("visible : " + visible)
 
-        if(!visible) return <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, 'visited': visited})}></div>
+        if(!visible) return <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, 'invisibleVisited': !visible && visited})}></div>
         
         return(
-            <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited, 'visited': visited, 'highlighted': highlighted})}>
+            <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited,'invisibleVisited': !visible && visited, 'highlighted': highlighted})}>
                 {/* {highlighted ? <Preview resume = {this.props.name} /> : ""} */}
-                {visited?  "" : <img className="icons" src={require('./assets/work.svg').default} alt="icon"></img>}
+                {visited?  <img className="icons" src={require('./assets/work_visited.svg').default} alt="icon"></img> : <img className="icons" src={require('./assets/work.svg').default} alt="icon"></img>}
             </div>
          );
     };
