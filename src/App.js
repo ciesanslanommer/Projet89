@@ -1,16 +1,16 @@
-import {React, Component} from 'react'
+import {React, PureComponent} from 'react'
 import './App.css'
 import data from './souvenirs.json'
 import Document from './Document.js'
 import Trails from './Trails.js'
 import Nav from './Nav.js'
-// import History from './History.js'
+
 import Welcome from './Welcome.js'
 
 import { ENDPOINT_API } from './constants/endpoints'
 import Preview from './Preview'
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props){
     super(props)
     //const idFirstMem = Math.floor(Math.random() * data.nodes.length);

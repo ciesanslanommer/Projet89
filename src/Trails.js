@@ -1,5 +1,5 @@
 import { Graph } from 'react-d3-graph';
-import { React, Component } from 'react';
+import { React, PureComponent } from 'react';
 import data from './souvenirs.json';
 import Background from './assets/fond.png';
 import './Trails.css';
@@ -15,8 +15,8 @@ const myConfig = {
   //staticGraphWithDragAndDrop: false,
   staticGraph : false,
   highlightDegree: 0,
-  // minZoom: 0,
-  // maxZoom: 2,
+  minZoom: 0.1,
+  maxZoom: 3,
   focusZoom: 1,
   focusAnimationDuration: 0.75,
   freezeAllDragEvents: true,
@@ -36,11 +36,9 @@ const myConfig = {
   },
 };
 
-
-class Trails extends Component {
+class Trails extends PureComponent {
   constructor(props) {
     super(props);
-    //this.zoomCursorValue = this.getZoomValue.bind(this);
     data.nodes.forEach((node) => {
       //randomize nodes without position
       if (!node.x) {
@@ -62,6 +60,7 @@ class Trails extends Component {
       width: 0, height: 0,
       zoom: 0.2,
       freeze: false,
+      customZoomsToIgnore: []
     };
   }
 
@@ -112,15 +111,6 @@ class Trails extends Component {
     this.props.nodeClick(nodeId);
 
 
-  }
-
-  zoomChange = (prevZoom, newZoom, e) => {
-    // console.log(newZoom);
-    this.setState({ zoom: newZoom });
-  }
-
-  zoomCursorValue = (zoomValue) => {
-    this.setState({ zoom: zoomValue });
   }
 
   savePosition = (nodeId, x, y, e) => {
@@ -329,10 +319,58 @@ class Trails extends Component {
     }
   }
 
+  // event handler for zoom changed from the slider
+  onCustomZoomChange = (event) => {
+    console.log("onCustomZoomChange", event.target.value)
+    if (!this.state.deactivateReactZoom) {
+      this.setState(prevState => ({
+        zoom: parseFloat(event.target.value),
+         // remember this zoom value so that we can prevent double event handling in d3 handler
+        customZoomsToIgnore: [...this.state.customZoomsToIgnore, event.target.value],
+      }));
+    }
+  }
+
+  // event handler for zoom changed from d3 (wheel)
+  onD3ZoomChange = (prevZoom, newZoom, e) => {
+    console.log("onD3ZoomChange:", prevZoom, "=>", newZoom)
+    const strZoom = ""+newZoom;
+    // if this zoom value was already handled by the slider, do not set new zoom value to prevent infinite re-rendering
+    if (this.state.customZoomsToIgnore.includes(strZoom)) {
+      this.setState(prevState => ({
+        customZoomsToIgnore: prevState.customZoomsToIgnore.filter(customZoom => customZoom !== strZoom)
+      }))
+    } else if (!this.state.deactivateD3Zoom) {
+      this.setState({
+        deactivateReactZoom: true,
+        zoom: newZoom,
+      });
+    }
+  };
+
+  // event handler for slider zoom start:  disable d3 zoom
+  onCustomZoomMouseDown = (event) => {
+    console.log("onCustomZoomMouseDown", event.target.value)
+    this.setState({
+      deactivateReactZoom: false,
+      deactivateD3Zoom: true,
+      customZoomsToIgnore: [],
+    })
+  }
+
+  // event handler for slider zoom end: re-enable d3 zoom
+  onCustomZoomMouseUp = (event) => {
+    console.log("onCustomZoomMouseUp", event.target.value)
+    this.setState({
+      deactivateReactZoom: true,
+      deactivateD3Zoom: false,
+    })
+  }
 
     // ************************************************************* 
 
   render() {
+    console.log("trails render")
     myConfig.width = this.state.width;
     myConfig.height = this.state.height;
     myConfig.node.viewGenerator = this.customNodeGenerator;
@@ -342,8 +380,10 @@ class Trails extends Component {
     return (
       <div className="Graph" style={{ backgroundImage: "url(" + Background + ")" }}>
         <Zoom
-          zoomCursorValue={this.zoomCursorValue}
           zoom={this.state.zoom}
+          onChange={this.onCustomZoomChange}
+          onMouseDown={this.onCustomZoomMouseDown}
+          onMouseUp={this.onCustomZoomMouseUp}
         />
         <Graph
           id='id'
@@ -352,7 +392,7 @@ class Trails extends Component {
           onClickNode={this.nodeClick}
           onNodePositionChange={this.savePosition}
           // // onClickGraph = {() => {console.log(this.state.nodes);}}
-          onZoomChange={this.zoomChange}
+          onZoomChange={this.onD3ZoomChange}
           onMouseOverNode={this.onMouseOverNode}
           onMouseOutNode={this.onMouseOutNode}
           onClickGraph={this.onClickGraph}

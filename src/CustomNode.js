@@ -1,10 +1,10 @@
-import {React, Component} from 'react'
+import {React, PureComponent} from 'react'
 import './CustomNode.css'
+const classNames = require('classnames');
 
-class CustomNode extends Component{
+class CustomNode extends PureComponent{
 
     render () {
-        var classNames = require('classnames');
         const highlighted = this.props.highlighted
         const visited = this.props.visited
         const visible = this.props.zoom > this.props.nodeZoom ? true : false

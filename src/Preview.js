@@ -1,7 +1,7 @@
 import './Preview.css'
-import {React, Component} from 'react'
+import {React, PureComponent} from 'react';
 
-class Preview extends Component {
+class Preview extends PureComponent {
     
     render() {
         const title = this.props.name;
