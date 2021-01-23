@@ -22,6 +22,7 @@ class App extends Component {
       currentMemory: idFirstMem,
       docOpen: false,
       WelcomeOpen: true,
+      adminFormOpen: true,
       node: [],
       link: [],
       trail: [],
