@@ -4,7 +4,7 @@ import './Zoom.css';
 class Zoom extends Component{
 
     getZoomValue = () => {
-        console.log(this.props.zoom);
+        console.log("getZoomValue" + this.props.zoom);
         var zoomValue = document.getElementById("myRange").value;
         this.props.zoomCursorValue(zoomValue);
     }
