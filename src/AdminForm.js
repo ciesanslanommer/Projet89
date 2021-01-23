@@ -112,7 +112,7 @@ class AdminForm extends Component {
 
     postRequest(name, description, format, date, icon_id) {
         /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
-        fetch("http://localhost:3001/memory", {
+        fetch(ENDPOINT_API + '/memory', {
             method: 'POST',
             body: JSON.stringify({
                 name: name,
