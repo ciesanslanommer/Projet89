@@ -6,10 +6,10 @@ import Trails from './Trails.js';
 import Nav from './Nav.js';
 import AdminForm from './AdminForm.js';
 // import History from './History.js'
-import Welcome from './Welcome.js';
-//import Zoom from './Zoom.js';
+import Welcome from './Welcome.js'
 
-import { ENDPOINT_API } from './constants/endpoints';
+import { ENDPOINT_API } from './constants/endpoints'
+import Preview from './Preview'
 
 class App extends Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class App extends Component {
       currentMemory: idFirstMem,
       docOpen: false,
       WelcomeOpen: true,
+      previewOpen: null,
       node: [],
       link: [],
     };
@@ -68,7 +69,24 @@ class App extends Component {
           );
           // TODO maybe display an error for the user?
         }
-      );
+      )
+
+
+    /** Handle open/close preview **/
+    document.querySelectorAll('.node').forEach((node) => {
+      const dataNode = data.nodes.concat(data.trails)[node.id];
+      node.addEventListener("mouseover", (event) => this.openPreview(event.clientX, event.clientY, dataNode));
+      node.addEventListener("mouseout", this.closePreview);
+    });
+
+
+  }
+
+  componentWillUnmount() {
+    document.querySelectorAll('.node').forEach((node) => {
+      node.removeEventListener("mouseover", this.openPreview);
+      node.removeEventListener("mouseout", this.closePreview);
+    });
   }
 
   closeMemory = (e) => {
@@ -174,6 +192,12 @@ class App extends Component {
             onNextClick={this.changeDoc}
           />
         ) : null}
+        { this.state.previewOpen != null && 
+          <Preview 
+            pos={{x: this.state.previewOpen.x, y: this.state.previewOpen.y,}} 
+            node={this.state.previewOpen.node}
+          />
+        }
       </div>
     );
   }

@@ -1,11 +1,22 @@
 .resume {
-    width: 200px;
-    height: auto;
-    color: white;
-    border: 2px solid white; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
-    left: 50%;
-    right: 50%;
-    top: auto;
+    /* width: 100%;
+    color: white;
+    top : 0;
+    left: 0; */
     text-align: center;
+    background-color: white;
+    /* box-shadow: 0 0 2px 5px white; */
+    width: 100px;
+    padding: 5px;
+}
+.resume h2 {
+    font-size: 13px;
+    margin: 2px;
+}
+.resume p {
+    font-size: 10px;
 }

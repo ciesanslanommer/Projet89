@@ -5,36 +5,38 @@ import Background from './assets/fond.png';
 import './Trails.css';
 import CustomNode from './CustomNode.js';
 import Zoom from './Zoom.js';
+import Entry from './Entry.js';
 
 const myConfig = {
-  nodeHighlightBehavior: true,
-  width: 400,
-  initialZoom: 1,
-  staticGraphWithDragAndDrop: false,
-  //staticGraph : true,
-  highlightDegree: 0,
-  // minZoom: 0,
-  // maxZoom: 2,
-  focusZoom: 1,
-  focusAnimationDuration: 0.75,
-  // directed : true,
-  freezeAllDragEvents: false,
-  node: {
-    color: 'lightgreen',
-    size: 1600,
-    highlightStrokeColor: 'blue',
-    renderLabel: false,
-  },
-  link: {
-    color: 'rgba(255, 255, 255, 1)',
-    type: 'CURVE_SMOOTH',
-  },
-  d3: {
-    disableLinkForce: false,
-    gravity: -1000,
-  },
-};
+    nodeHighlightBehavior: true,
+    width:400,
+    initialZoom: 1,
+    staticGraphWithDragAndDrop : false,
+    //staticGraph : true,
+    highlightDegree : 0,
+    // minZoom: 0,
+    // maxZoom: 2,
+    focusZoom : 1,
+    focusAnimationDuration : 0.75,
+    // directed : true,
+    freezeAllDragEvents: false,
+    node: {
+      color: "lightgreen",
+      size: 1600,
+      highlightStrokeColor: "blue",
+      renderLabel : false,
+    },
+    link: {
+      color : "rgba(255, 255, 255, 1)",
+      type : "CURVE_SMOOTH",
+    },
+    d3: {
+      disableLinkForce: false,
+      gravity: -1000,
+    }
+  }; 
 
+   
 class Trails extends Component {
   constructor(props) {
     super(props);
@@ -137,6 +139,10 @@ class Trails extends Component {
     //find current node
     let id = visitedNode.findIndex((node) => node.id === Number(nodeId));
     let currentNodeVisited = visitedNode[id];
+  zoomChange = (prevZoom, newZoom, e) => {
+    // console.log(newZoom);
+    this.setState({ zoom: newZoom });
+  }
 
     // set it to visited
     if (nodeId === this.props.currentMemory) {
@@ -144,60 +150,67 @@ class Trails extends Component {
       this.focusOnNode(this.props.currentMemory);
     }
     currentNodeVisited.visited = true;
+  }
+    this.setState({ zoom: zoomValue });
+  zoomCursorValue = (zoomValue) => {
+  savePosition = (nodeId, x, y, e) => {
+
 
     //change obj in copy
     visitedNode[id] = currentNodeVisited;
-
-    //set state
-    this.setState({ nodes: visitedNode });
-    this.props.nodeClick(nodeId);
-  };
-
-  zoomChange = (prevZoom, newZoom, e) => {
-    // console.log(newZoom);
-    this.setState({ zoom: newZoom });
-  };
-
-  zoomCursorValue = (zoomValue) => {
-    this.setState({ zoom: zoomValue });
-  };
-
-  savePosition = (nodeId, x, y, e) => {
+    const allNodes = this.state.nodes.concat(data.trails);
+    if (allNodes[nodeId].entry) {
+      return;
+    }
     var copy = [...this.state.nodes];
     var item = { ...copy[nodeId] };
     item.x = x;
     item.y = y;
     copy[nodeId] = item;
     this.setState({ nodes: copy });
-  };
+  }
 
+    //set state
+    this.setState({ nodes: visitedNode });
+    this.props.nodeClick(nodeId);
+  };
   customNodeGenerator = (node) => {
     // if(node.highlighted) {
     //   return <Node cx = {node.x} cy = {node.y} fill='green' size = '2000' type = 'square' className = 'node'/>
     // }
+
     return (
-      <CustomNode
-        name={node.name}
-        nature={node.nature}
-        highlighted={node.highlighted}
-        visited={node.visited}
-        zoom={this.state.zoom}
-        nodeZoom={node.zoom}
-      />
-    );
-  };
+      <div>
+        {
+          node.entry ? 
+            <Entry
+              name={node.parcours}
+              path={node.path}
+            /> :
+            <CustomNode
+              name={node.name}
+              nature={node.nature}
+              highlighted={node.highlighted}
+              visited={node.visited}
+              zoom={this.state.zoom}
+              nodeZoom={node.zoom}
+            />
+        }
+      </div>
+    )
+  }
 
   componentDidUpdate(prevProps, prevState) {
     /*** If currentMemory changes  ***/
     if (prevProps.currentMemory !== this.props.currentMemory) {
-      const currentParcours = this.state.nodes[this.props.currentMemory]
-        .parcours;
+      const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
 
       /** Handle parcours highlighting **/
       /* Initialization: clean parcours highlight and set currentParcours to currentMemory's parcours */
-      this.setState({ currentParcours: currentParcours });
+      // this.setState({ currentParcours: currentParcours });
       this.removeAllHighlightParcours();
       /* If the current node is in a parcours, highlight all nodes in the parcours */
+      
       if (currentParcours != null) {
         this.highlightParcours(currentParcours);
       }
@@ -218,19 +231,12 @@ class Trails extends Component {
     if (prevProps.docOpen !== this.props.docOpen) {
       this.measure();
     }
-  }
 
   focusOnNode(nodeId) {
+
     /* The svg container size isn't updated yet ? So use measure method */
     /* Position of node is centered from the get go but animation is cut */
-    console.log('MEASURE 1');
     this.measure();
-    console.log('FOCUS');
-    console.log('myconfig : ' + myConfig.width);
-    console.log('state : ' + this.state.width);
-    console.log(
-      'html : ' + document.querySelector('#id-graph-wrapper svg').style.width
-    );
 
     /* Must disable user zoom before setting focus*/
     this.setState({ freeze: true });
@@ -251,67 +257,56 @@ class Trails extends Component {
     /** If document isn't open **/
     /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
     /** If document is open, mouse over shouldn't highlight parcours **/
-    if (!this.props.docOpen) {
+    if (!this.props.docOpen && !node.entry) {
       const parcoursMouseOvered = this.state.nodes[nodeId].parcours;
+      const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
       if (parcoursMouseOvered != null) {
-        this.highlightParcours(
-          parcoursMouseOvered.concat(this.state.currentParcours)
-        );
+        this.highlightParcours(parcoursMouseOvered.concat(currentParcours));
       }
     }
-  };
+  }
 
   onMouseOutNode = (nodeId, node) => {
     /** Only currentParcours should stays highlighted **/
     /* Remove parcours highlight from all nodes and links */
     this.removeAllHighlightParcours();
     /* Re-highlight the nodes of currentParcours if currentParcours not null*/
-    if (this.state.currentParcours != null) {
-      this.highlightParcours(this.state.currentParcours);
-    }
-  };
+    const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
+    if (currentParcours != null) {
+      this.highlightParcours(currentParcours);
+    };
+  }
 
   /***** HIGHLIGHT FUNCTIONS *****/
 
   highlightParcours(parcours) {
-    const nodes = this.state.nodes;
+
+    const nodes = this.state.nodes.concat(data.trails);
 
     /*** Initialization: set notInParcours state for all ***/
-    nodes.forEach((node) =>
-      document
-        .querySelector(`[id="${node.id}"] section`)
-        .classList.add('notInParcours')
-    );
-    data.links.forEach((link) =>
-      document
-        .querySelector(`[id="${link.source},${link.target}"]`)
-        .classList.add('notInParcours')
-    );
+    nodes.forEach((node) => document.querySelector(`[id="${node.id}"] section`).classList.add("notInParcours"));
+    data.links.forEach((link) => document.querySelector(`[id="${link.source},${link.target}"]`).classList.add("notInParcours"));
 
     /*** Change to inParcours state only if conditions met ***/
     parcours.forEach((element) => {
       /** Handle node highlighting **/
       nodes.forEach((node) => {
         let htmlNode = document.querySelector(`[id="${node.id}"] section`);
-        if (node.parcours != null && node.parcours.indexOf(element) !== -1) {
-          // if node is in the parcours
+        if (node.parcours != null && node.parcours.indexOf(element) !== -1) { // if node is in the parcours
           htmlNode.classList.remove('notInParcours');
           htmlNode.classList.add('inParcours');
         }
       });
       /** Handle link highlighting **/
       data.links.forEach((link) => {
-        let htmlLink = document.querySelector(
-          `[id="${link.source},${link.target}"]`
-        );
-        if (
-          nodes[link.source].parcours != null && // if source node is in a parcours
-          nodes[link.target].parcours != null && // if target node is in a parcours
-          nodes[link.source].parcours.indexOf(element) !== -1 && // if current node's parcours matches one of source's parcours
-          nodes[link.target].parcours.indexOf(element) !== -1 // if current node's parcours matches one of target's parcours
+        let htmlLink = document.querySelector(`[id="${link.source},${link.target}"]`);
+        if (nodes[link.source].parcours != null // if source node is in a parcours
+          && nodes[link.target].parcours != null // if target node is in a parcours
+          && nodes[link.source].parcours.indexOf(element) !== -1 // if current node's parcours matches one of source's parcours
+          && nodes[link.target].parcours.indexOf(element) !== -1 // if current node's parcours matches one of target's parcours
         ) {
-          htmlLink.classList.remove('notInParcours');
-          htmlLink.classList.add('inParcours');
+          htmlLink.classList.remove("notInParcours");
+          htmlLink.classList.add("inParcours");
         }
       });
     });
@@ -333,6 +328,12 @@ class Trails extends Component {
       htmlLink.classList.remove('notInParcours');
       htmlLink.classList.remove('inParcours');
     });
+  }
+  onClickGraph = (event, e) => {
+    console.log('click graph');
+    if (!this.props.docOpen) {
+      this.removeAllHighlightParcours();
+    }
   }
 
   highlightCurrentNode(nodeId) {
