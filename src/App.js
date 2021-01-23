@@ -53,7 +53,7 @@ class App extends Component {
 
         
     document.querySelectorAll('.node').forEach((node) => {
-      const dataNode = data.nodes[node.id];
+      const dataNode = data.nodes.concat(data.trails)[node.id];
       node.addEventListener("mouseover", (event) => this.openPreview(event.clientX, event.clientY, dataNode));
       node.addEventListener("mouseout", this.closePreview);
     });
@@ -77,13 +77,14 @@ class App extends Component {
   }
 
   openPreview = (x, y, node, e) => {
+    if(node.entry) {
+      return;
+    }
     this.setState({previewOpen : {x: x, y: y, node: node,}});
-    //console.log('open ' + x + ' ' + y);
   }
 
   closePreview = e => {
     this.setState({previewOpen : null});
-    console.log('close');
   }
 
   getLinks(nodeId) {

@@ -4,9 +4,9 @@ import {React, Component} from 'react'
 class Preview extends Component {
     
     render() {
-        // const title = this.props.node.name;
-        const title = "nothing";
-        console.log(this.props.node);
+        const title = this.props.node.name;
+        // const title = "nothing";
+        // console.log(this.props.node);
         const x = this.props.pos.x + 5; /* + 5 Else issue bcse mouse continuously mouse over and out */
         const y = this.props.pos.y + 5;  /* + 5 Else issue bcse mouse continuously mouse over and out */
         return (
