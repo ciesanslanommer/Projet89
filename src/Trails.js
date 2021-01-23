@@ -5,6 +5,7 @@ import Background from './assets/fond.png';
 import './Trails.css';
 import CustomNode from './CustomNode.js';
 import Zoom from './Zoom.js';
+import Entry from './Entry.js';
 
 const myConfig = {
   nodeHighlightBehavior: true,
@@ -126,17 +127,20 @@ class Trails extends Component {
     console.log('html graph: ' + rect.width);
     console.log('state width: ' + this.state.width);
   };
-  // *************************************************************
+  // ************************************************************* UTILS
+  getNodesAndId = (nodeId) => {
+    let nodes = [];
+    this.state.nodes.forEach((node) => nodes.push({ ...node }));
+
+    //find current node
+    let id = nodes.findIndex((node) => node.id === Number(nodeId));
+    return { cpy: nodes, id: id };
+  };
 
   // ************************************************************* EVENT
   nodeClick = (nodeId, e) => {
-    //copy array of obj
-    let visitedNode = [];
-    this.state.nodes.forEach((node) => visitedNode.push({ ...node }));
-
-    //find current node
-    let id = visitedNode.findIndex((node) => node.id === Number(nodeId));
-    let currentNodeVisited = visitedNode[id];
+    let { cpy, id } = this.getNodesAndId(nodeId);
+    let currentNodeVisited = cpy[id];
 
     // set it to visited
     if (nodeId === this.props.currentMemory) {
@@ -146,10 +150,10 @@ class Trails extends Component {
     currentNodeVisited.visited = true;
 
     //change obj in copy
-    visitedNode[id] = currentNodeVisited;
+    cpy[id] = currentNodeVisited;
 
     //set state
-    this.setState({ nodes: visitedNode });
+    this.setState({ nodes: cpy });
     this.props.nodeClick(nodeId);
   };
 
@@ -163,6 +167,10 @@ class Trails extends Component {
   };
 
   savePosition = (nodeId, x, y, e) => {
+    const allNodes = this.state.nodes.concat(data.trails);
+    if (allNodes[nodeId].entry) {
+      return;
+    }
     var copy = [...this.state.nodes];
     var item = { ...copy[nodeId] };
     item.x = x;
@@ -175,15 +183,22 @@ class Trails extends Component {
     // if(node.highlighted) {
     //   return <Node cx = {node.x} cy = {node.y} fill='green' size = '2000' type = 'square' className = 'node'/>
     // }
+
     return (
-      <CustomNode
-        name={node.name}
-        nature={node.nature}
-        highlighted={node.highlighted}
-        visited={node.visited}
-        zoom={this.state.zoom}
-        nodeZoom={node.zoom}
-      />
+      <div>
+        {node.entry ? (
+          <Entry name={node.parcours} path={node.path} />
+        ) : (
+          <CustomNode
+            name={node.name}
+            nature={node.nature}
+            highlighted={node.highlighted}
+            visited={node.visited}
+            zoom={this.state.zoom}
+            nodeZoom={node.zoom}
+          />
+        )}
+      </div>
     );
   };
 
@@ -195,9 +210,10 @@ class Trails extends Component {
 
       /** Handle parcours highlighting **/
       /* Initialization: clean parcours highlight and set currentParcours to currentMemory's parcours */
-      this.setState({ currentParcours: currentParcours });
+      // this.setState({ currentParcours: currentParcours });
       this.removeAllHighlightParcours();
       /* If the current node is in a parcours, highlight all nodes in the parcours */
+
       if (currentParcours != null) {
         this.highlightParcours(currentParcours);
       }
@@ -223,14 +239,7 @@ class Trails extends Component {
   focusOnNode(nodeId) {
     /* The svg container size isn't updated yet ? So use measure method */
     /* Position of node is centered from the get go but animation is cut */
-    console.log('MEASURE 1');
     this.measure();
-    console.log('FOCUS');
-    console.log('myconfig : ' + myConfig.width);
-    console.log('state : ' + this.state.width);
-    console.log(
-      'html : ' + document.querySelector('#id-graph-wrapper svg').style.width
-    );
 
     /* Must disable user zoom before setting focus*/
     this.setState({ freeze: true });
@@ -248,15 +257,16 @@ class Trails extends Component {
   }
 
   onMouseOverNode = (nodeId, node) => {
+    let { cpy, id } = this.getNodesAndId(nodeId);
+
     /** If document isn't open **/
     /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
     /** If document is open, mouse over shouldn't highlight parcours **/
-    if (!this.props.docOpen) {
-      const parcoursMouseOvered = this.state.nodes[nodeId].parcours;
+    if (!this.props.docOpen && !node.entry) {
+      const parcoursMouseOvered = cpy[id].parcours;
+      const currentParcours = cpy[this.props.currentMemory].parcours;
       if (parcoursMouseOvered != null) {
-        this.highlightParcours(
-          parcoursMouseOvered.concat(this.state.currentParcours)
-        );
+        this.highlightParcours(parcoursMouseOvered.concat(currentParcours));
       }
     }
   };
@@ -266,15 +276,16 @@ class Trails extends Component {
     /* Remove parcours highlight from all nodes and links */
     this.removeAllHighlightParcours();
     /* Re-highlight the nodes of currentParcours if currentParcours not null*/
-    if (this.state.currentParcours != null) {
-      this.highlightParcours(this.state.currentParcours);
+    const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
+    if (currentParcours != null) {
+      this.highlightParcours(currentParcours);
     }
   };
 
   /***** HIGHLIGHT FUNCTIONS *****/
 
   highlightParcours(parcours) {
-    const nodes = this.state.nodes;
+    const nodes = this.state.nodes.concat(data.trails);
 
     /*** Initialization: set notInParcours state for all ***/
     nodes.forEach((node) =>
@@ -334,6 +345,12 @@ class Trails extends Component {
       htmlLink.classList.remove('inParcours');
     });
   }
+  onClickGraph = (event, e) => {
+    console.log('click graph');
+    if (!this.props.docOpen) {
+      this.removeAllHighlightParcours();
+    }
+  };
 
   highlightCurrentNode(nodeId) {
     let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
@@ -361,31 +378,22 @@ class Trails extends Component {
         className='Graph'
         style={{ backgroundImage: 'url(' + Background + ')' }}
       >
-        {
-          <Zoom
-            data={{
-              zoom: this.state.zoom,
-              zoomCursorValue: this.zoomCursorValue.bind(this),
-            }}
-          />
-        }
+        <Zoom zoomCursorValue={this.zoomCursorValue} zoom={this.state.zoom} />
         <Graph
           id='id'
           data={{
-            nodes: this.state.nodes,
+            nodes: this.state.nodes.concat(data.trails),
             links: this.state.links,
             focusedNodeId: this.state.focusedNodeId,
           }}
           config={myConfig}
           onClickNode={this.nodeClick}
           onNodePositionChange={this.savePosition}
-          onClickGraph={() => {
-            console.log(this.state.nodes);
-          }}
+          // // onClickGraph = {() => {console.log(this.state.nodes);}}
           onZoomChange={this.zoomChange}
-          onClickLink={this.onClickLink}
           onMouseOverNode={this.onMouseOverNode}
           onMouseOutNode={this.onMouseOutNode}
+          onClickGraph={this.onClickGraph}
         />
       </div>
     );
