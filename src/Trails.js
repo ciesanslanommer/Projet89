@@ -19,7 +19,7 @@ const myConfig = {
   // maxZoom: 2,
   focusZoom: 1,
   focusAnimationDuration: 0.75,
-  freezeAllDragEvents: false,
+  freezeAllDragEvents: true,
   node: {
     color: 'lightgreen',
     size: 1600,
@@ -74,7 +74,10 @@ class Trails extends Component {
   }
   componentDidMount() {
     this.measure();
-    setTimeout(() => {myConfig.staticGraph = true}, 5000);
+    setTimeout(() => {
+      myConfig.staticGraph = true;
+      myConfig.freeze = false;
+    }, 1000);
   }
   measure = (e) => {
     let rect = {width: document.getElementsByClassName('Graph')[0].clientWidth, height: document.getElementsByClassName('Graph')[0].clientHeight};
@@ -163,26 +166,24 @@ class Trails extends Component {
   componentDidUpdate(prevProps, prevState) {
     /*** If currentMemory changes  ***/
     if (prevProps.currentMemory !== this.props.currentMemory) {
-      const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
 
-      /** Handle parcours highlighting **/
-      /* Initialization: clean parcours highlight and set currentParcours to currentMemory's parcours */
-      // this.setState({ currentParcours: currentParcours });
+      /** Initialization: clean all highlight **/
       this.removeAllHighlightParcours();
-      /* If the current node is in a parcours, highlight all nodes in the parcours */
-      
-      if (currentParcours != null) {
-        this.highlightParcours(currentParcours);
-      }
-
-      /** Highlights currentNode **/
       this.removeAllHighlightCurrentNode();
-      if (this.props.currentMemory != null) {
-        this.highlightCurrentNode(this.props.currentMemory);
-      }
 
-      /* Handle focus on current node */
-      this.focusOnNode(this.props.currentMemory);
+      if (this.props.currentMemory != null) {
+
+        /** Highlights and focus on currentNode **/
+        this.highlightNode(this.props.currentMemory);
+        this.focusOnNode(this.props.currentMemory);
+
+        /** Handle parcours highlighting **/
+        /* If the current node is in a parcours, highlight all nodes in the parcours */
+        const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
+        if(currentParcours != null) {
+          this.highlightParcours(currentParcours);
+        }
+      }
 
     }
 
@@ -208,11 +209,9 @@ class Trails extends Component {
     /* Wait the duration of the focusAnimation before setting focus to null */
     /* Else when user zoom, it will create problem */
     setTimeout(() => {
-      if (this.state.focusedNodeId !== null) {
         this.setState({ zoom: myConfig.focusZoom });
         this.setState({ focusedNodeId: null });
         this.setState({ freeze: false });
-      }
     }, myConfig.focusAnimationDuration + 1000);
   }
 
@@ -222,10 +221,17 @@ class Trails extends Component {
     /** If document is open, mouse over shouldn't highlight parcours **/
     if (!this.props.docOpen && !node.entry) {
       const parcoursMouseOvered = this.state.nodes[nodeId].parcours;
-      const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
-      if (parcoursMouseOvered != null) {
+      const currentParcours = this.props.currentMemory == null ? null : this.state.nodes[this.props.currentMemory].parcours;
+      
+      if(parcoursMouseOvered != null) {
+        /* Must do concatenation else only one parcours will be highlighted */
+        /* So all parcours we want highlighted must be done with one call to the function */
         this.highlightParcours(parcoursMouseOvered.concat(currentParcours));
       }
+      else {
+        this.highlightNode(nodeId);
+      }
+
     }
   }
 
@@ -234,7 +240,7 @@ class Trails extends Component {
     /* Remove parcours highlight from all nodes and links */
     this.removeAllHighlightParcours();
     /* Re-highlight the nodes of currentParcours if currentParcours not null*/
-    const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
+    const currentParcours = this.props.currentMemory == null ? null : this.state.nodes[this.props.currentMemory].parcours;
     if (currentParcours != null) {
       this.highlightParcours(currentParcours);
     };
@@ -243,6 +249,10 @@ class Trails extends Component {
   /***** HIGHLIGHT FUNCTIONS *****/
 
   highlightParcours(parcours) {
+
+    if(parcours == null){
+      return;
+    }
 
     const nodes = this.state.nodes.concat(data.trails);
 
@@ -292,9 +302,17 @@ class Trails extends Component {
     });
   }
 
-  highlightCurrentNode(nodeId) {
+  highlightNode(nodeId) {
+    console.log('highlightnode');
     let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
-    htmlNode.classList.add('currentNode');
+    if(nodeId == this.props.currentMemory) {
+      htmlNode.classList.add('currentNode');
+    }
+    else {
+      htmlNode.classList.remove('notInParcours');
+      htmlNode.classList.add('inParcours');
+    }
+    
   }
 
   removeAllHighlightCurrentNode() {
@@ -305,9 +323,9 @@ class Trails extends Component {
   }
 
   onClickGraph = (event, e) => {
-    console.log('click graph');
     if (!this.props.docOpen) {
       this.removeAllHighlightParcours();
+      this.props.unsetCurrentMemory();
     }
   }
 

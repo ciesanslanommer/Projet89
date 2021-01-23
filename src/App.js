@@ -13,11 +13,12 @@ import Preview from './Preview'
 class App extends Component {
   constructor(props){
     super(props)
-    const idFirstMem = Math.floor(Math.random() * data.nodes.length);
+    //const idFirstMem = Math.floor(Math.random() * data.nodes.length);
     this.state = {
       isLoaded: false,
       // history : [idFirstSouvenir],
-      currentMemory: idFirstMem,
+      //currentMemory: idFirstMem,
+      currentMemory: null,
       docOpen: false,
       WelcomeOpen: true,
       previewOpen: null,
@@ -125,8 +126,13 @@ class App extends Component {
     this.setState({WelcomeOpen: false});
   }
 
+  unsetCurrentMemory = e => {
+    this.setState({currentMemory: null});
+  }
+
   render() {
-    const memory = data.nodes[this.state.currentMemory]
+    const memory = data.nodes[this.state.currentMemory];
+
     return (
       <div className= "App">
       {this.state.WelcomeOpen && <Welcome onCrossClick = {this.closeWelcome} />}
@@ -135,6 +141,7 @@ class App extends Component {
           nodeClick = {this.changeDoc}
           docOpen = {this.state.docOpen}
           currentMemory = {this.state.currentMemory}
+          unsetCurrentMemory = {this.unsetCurrentMemory}
         />
         {this.state.docOpen ?
           <Document 
