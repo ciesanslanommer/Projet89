@@ -51,21 +51,21 @@ class App extends Component {
       )
 
 
-        
-    document.querySelectorAll('.node').forEach((node) => {
-      const dataNode = data.nodes.concat(data.trails)[node.id];
-      node.addEventListener("mouseover", (event) => this.openPreview(event.clientX, event.clientY, dataNode));
-      node.addEventListener("mouseout", this.closePreview);
-    });
+    /** Handle open/close preview **/
+    // document.querySelectorAll('.node').forEach((node) => {
+    //   const dataNode = data.nodes.concat(data.trails)[node.id];
+    //   node.addEventListener("mouseover", (event) => this.openPreview(event.clientX, event.clientY, dataNode));
+    //   node.addEventListener("mouseout", this.closePreview);
+    // });
 
 
   }
 
   componentWillUnmount() {
-    document.querySelectorAll('.node').forEach((node) => {
-      node.removeEventListener("mouseover", this.openPreview);
-      node.removeEventListener("mouseout", this.closePreview);
-    });
+    // document.querySelectorAll('.node').forEach((node) => {
+    //   node.removeEventListener("mouseover", this.openPreview);
+    //   node.removeEventListener("mouseout", this.closePreview);
+    // });
   }
 
   closeMemory = e => {

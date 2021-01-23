@@ -61,7 +61,6 @@ class Trails extends Component {
       focusedNodeId: null,
       width: 0, height: 0,
       zoom: 0.2,
-      currentParcours: null,
       freeze: false,
     };
   }
@@ -167,9 +166,10 @@ class Trails extends Component {
 
       /** Handle parcours highlighting **/
       /* Initialization: clean parcours highlight and set currentParcours to currentMemory's parcours */
-      this.setState({ currentParcours: currentParcours });
+      // this.setState({ currentParcours: currentParcours });
       this.removeAllHighlightParcours();
       /* If the current node is in a parcours, highlight all nodes in the parcours */
+      
       if (currentParcours != null) {
         this.highlightParcours(currentParcours);
       }
@@ -221,8 +221,9 @@ class Trails extends Component {
     /** If document is open, mouse over shouldn't highlight parcours **/
     if (!this.props.docOpen && !node.entry) {
       const parcoursMouseOvered = this.state.nodes[nodeId].parcours;
+      const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
       if (parcoursMouseOvered != null) {
-        this.highlightParcours(parcoursMouseOvered.concat(this.state.currentParcours));
+        this.highlightParcours(parcoursMouseOvered.concat(currentParcours));
       }
     }
   }
@@ -232,8 +233,9 @@ class Trails extends Component {
     /* Remove parcours highlight from all nodes and links */
     this.removeAllHighlightParcours();
     /* Re-highlight the nodes of currentParcours if currentParcours not null*/
-    if (this.state.currentParcours != null) {
-      this.highlightParcours(this.state.currentParcours);
+    const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
+    if (currentParcours != null) {
+      this.highlightParcours(currentParcours);
     };
   }
 
