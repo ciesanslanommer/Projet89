@@ -12,8 +12,8 @@ const myConfig = {
   nodeHighlightBehavior: true,
   width: 400,
   initialZoom: 1,
-  staticGraphWithDragAndDrop: false,
-  //staticGraph : true,
+  //staticGraphWithDragAndDrop: false,
+  staticGraph : false,
   highlightDegree: 0,
   // minZoom: 0,
   // maxZoom: 2,
@@ -74,6 +74,7 @@ class Trails extends Component {
   }
   componentDidMount() {
     this.measure();
+    setTimeout(() => {myConfig.staticGraph = true}, 5000);
   }
   measure = (e) => {
     let rect = {width: document.getElementsByClassName('Graph')[0].clientWidth, height: document.getElementsByClassName('Graph')[0].clientHeight};
@@ -101,7 +102,7 @@ class Trails extends Component {
     let visitedNode = [...this.state.nodes];
     let currentNodeVisited = { ...visitedNode[nodeId] };
     //let currentNodeVisited = visitedNode.filter(node => node.id === nodeId)
-    console.log(currentNodeVisited);
+    //console.log(currentNodeVisited);
     currentNodeVisited.visited = true;
     visitedNode[nodeId] = currentNodeVisited;
     this.setState({ nodes: visitedNode });
@@ -191,7 +192,7 @@ class Trails extends Component {
     if (prevProps.docOpen !== this.props.docOpen) {
       this.measure();
     }
-
+    
   }
 
   focusOnNode(nodeId) {
@@ -319,6 +320,8 @@ class Trails extends Component {
     myConfig.node.viewGenerator = this.customNodeGenerator;
     myConfig.initialZoom = this.state.zoom;
     myConfig.freezeAllDragEvents = this.state.freeze;
+    
+    console.log('RENDER TRAILS');
 
     return (
       <div className="Graph" style={{ backgroundImage: "url(" + Background + ")" }}>
@@ -332,7 +335,7 @@ class Trails extends Component {
           config={myConfig}
           onClickNode={this.nodeClick}
           onNodePositionChange={this.savePosition}
-          // onClickGraph = {() => {console.log(this.state.nodes);}}
+          // // onClickGraph = {() => {console.log(this.state.nodes);}}
           onZoomChange={this.zoomChange}
           onMouseOverNode={this.onMouseOverNode}
           onMouseOutNode={this.onMouseOutNode}
