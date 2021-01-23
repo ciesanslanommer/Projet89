@@ -22,7 +22,7 @@ const myConfig = {
   freezeAllDragEvents: true,
   node: {
     color: 'lightgreen',
-    size: 1600,
+    size: 1200,
     highlightStrokeColor: 'blue',
     renderLabel: false,
   },
@@ -58,7 +58,7 @@ class Trails extends PureComponent {
       links: data.links,
       focusedNodeId: null,
       width: 0, height: 0,
-      zoom: 0.2,
+      zoom: 1,
       freeze: false,
       customZoomsToIgnore: []
     };
@@ -295,7 +295,7 @@ class Trails extends PureComponent {
   highlightNode(nodeId) {
     console.log('highlightnode');
     let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
-    if(nodeId == this.props.currentMemory) {
+    if(nodeId === this.props.currentMemory) {
       htmlNode.classList.add('currentNode');
     }
     else {

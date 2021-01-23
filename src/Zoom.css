@@ -2,14 +2,13 @@
   transform: rotate(-90deg);
   width: 100px;
   height: 15px;
-
 }
 
 #myRange {
   -webkit-appearance: none;
-  width: 400px;
+  width: 350px;
   position: absolute;
-  right: 200px;
+  right: 250px;
   border-radius: 50px;  
   background: #ffffff;
   outline: none;
