@@ -6,10 +6,10 @@ import Trails from './Trails.js';
 import Nav from './Nav.js';
 import AdminForm from './AdminForm.js';
 // import History from './History.js'
-import Welcome from './Welcome.js'
+import Welcome from './Welcome.js';
+import Preview from './Preview';
 
-import { ENDPOINT_API } from './constants/endpoints'
-import Preview from './Preview'
+import { ENDPOINT_API } from './constants/endpoints';
 
 class App extends Component {
   constructor(props) {
@@ -18,10 +18,10 @@ class App extends Component {
     this.state = {
       nodeLoaded: false,
       linkLoaded: false,
-      trailLoaded : false,
+      trailLoaded: false,
       currentMemory: idFirstMem,
       docOpen: false,
-      WelcomeOpen: true,
+      welcomeOpen: true,
       previewOpen: null,
       node: [],
       link: [],
@@ -73,43 +73,41 @@ class App extends Component {
         }
       );
 
-      console.log(`Fetching trail from ${ENDPOINT_API}/trail/`);
-      fetch(ENDPOINT_API + '/trail')
-        .then((res) => res.json())
-        .then(
-          (result) => {
-            console.log('Success! trail = ', result);
-            this.setState({
-              trail: result,
-              trailLoaded: true,
-            });
-          },
-          (error) => {
-            console.error(
-              'Oops, something wrong happened when loading trail',
-              error
-            );
-            // TODO maybe display an error for the user?
-          }
-        );
-      )
-
+    console.log(`Fetching trail from ${ENDPOINT_API}/trail/`);
+    fetch(ENDPOINT_API + '/trail')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! trail = ', result);
+          this.setState({
+            trail: result,
+            trailLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading trail',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
 
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
       const dataNode = data.nodes.concat(data.trails)[node.id];
       //node.addEventListener("mouseenter", (event) => this.openPreview(event.clientX, event.clientY, dataNode.name, dataNode.entry));
-      node.addEventListener("mouseenter", (event) => this.openPreview(node, dataNode.name, dataNode.entry));
-      node.addEventListener("mouseleave", this.closePreview);
+      node.addEventListener('mouseenter', (event) =>
+        this.openPreview(node, dataNode.name, dataNode.entry)
+      );
+      node.addEventListener('mouseleave', this.closePreview);
     });
-
-
   }
 
   componentWillUnmount() {
     document.querySelectorAll('.node').forEach((node) => {
-      node.removeEventListener("mouseover", this.openPreview);
-      node.removeEventListener("mouseout", this.closePreview);
+      node.removeEventListener('mouseover', this.openPreview);
+      node.removeEventListener('mouseout', this.closePreview);
     });
   }
 
@@ -117,49 +115,57 @@ class App extends Component {
     this.setState({ docOpen: false });
     document.querySelector('.App').classList.remove('displayDoc');
   };
+
   openMemory = (e) => {
     this.setState({ docOpen: true });
   };
 
   openPreview = (node, name, entry, e) => {
-    if(entry) {
+    if (entry) {
       return;
     }
-    
+
     const boundNode = node.getBoundingClientRect();
-    this.setState({previewOpen : {x: boundNode.x, y: boundNode.y, sizeNode: boundNode.width, name: name,}});
-  }
+    this.setState({
+      previewOpen: {
+        x: boundNode.x,
+        y: boundNode.y,
+        sizeNode: boundNode.width,
+        name: name,
+      },
+    });
+  };
 
-  closePreview = e => {
-    this.setState({previewOpen : null});
-  }
+  closePreview = (e) => {
+    this.setState({ previewOpen: null });
+  };
 
-  getLinks(nodeId) {
-    let sources = data.links
-      .map((el) => {
-        if (el.target === nodeId)
-          return { id: el.source, parcours: data.nodes[el.source].parcours };
-        return '';
-      })
-      .filter((el) => el !== '');
-    let targets = data.links
-      .map((el) => {
-        if (el.source === nodeId)
-          return { id: el.target, parcours: data.nodes[el.target].parcours };
-        return '';
-      })
-      .filter((el) => el !== '');
-    return { sources, targets };
-  }
+  // getLinks(nodeId) {
+  //   let sources = this.state.links
+  //     .map((el) => {
+  //       if (el.target === nodeId)
+  //         return { id: el.source, parcours: data.nodes[el.source].parcours };
+  //       return '';
+  //     })
+  //     .filter((el) => el !== '');
+  //   let targets = this.state.links
+  //     .map((el) => {
+  //       if (el.source === nodeId)
+  //         return { id: el.target, parcours: data.nodes[el.target].parcours };
+  //       return '';
+  //     })
+  //     .filter((el) => el !== '');
+  //   return { sources, targets };
+  // }
 
-  changeDoc = (nodeId, visible, e) => {
+  changeDoc = (nodeId, e) => {
     /* Graph must be reduced before changing the state of current memory */
     /* Else the current node will be centered on the full window and not the reduced graph */
     document.querySelector('.App').classList.add('displayDoc');
 
     const nextMem = nodeId;
     this.setState({ currentMemory: nextMem });
-    data.nodes[nextMem].visited = true;
+    // data.nodes[nextMem].visited = true;
     this.openMemory();
   };
 
@@ -198,49 +204,60 @@ class App extends Component {
   }
 
   closeWelcome = (e) => {
-    this.setState({ WelcomeOpen: false });
+    this.setState({ welcomeOpen: false });
   };
 
   render() {
-    const memory = data.nodes[this.state.currentMemory];
+    //copy array of obj
+    let cpyNode = [];
+    this.state.node.forEach((node) => cpyNode.push({ ...node }));
+    //find current node
+    let id = cpyNode.findIndex(
+      (node) => node.id === Number(this.state.currentMemory)
+    );
+    let memory = cpyNode[id];
+    console.log(memory);
     const loaded = this.state.nodeLoaded && this.state.linkLoaded;
     const adminLoaded = this.state.trailLoaded;
+
     return (
       <div className='App'>
         {this.state.WelcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
         {<Nav />}
-        {adminLoaded && (
-          <AdminForm
-          trails={this.state.trail}
-          />
-        )}
+        {adminLoaded && <AdminForm trails={this.state.trail} />}
         {loaded && (
           <Trails
             nodeClick={this.changeDoc}
             nodes={this.state.node}
             links={this.state.link}
+            currentMemory={this.state.currentMemory}
+            trail={{
+              1: [
+                { id: 2, name: 'parcours 1' },
+                { id: 3, name: 'parcours 2' },
+              ],
+            }}
           />
         )}
         {this.state.docOpen ? (
           <Document
             key={memory.id}
-            path={memory.path}
-            parcours={memory.parcours}
-            links={this.getLinks(memory.id)}
+            path={'IMG_20190804_180228.jpg'}
+            parcours={memory.trails}
+            // links={this.getLinks(memory.id)}
             desc={memory.name}
-            nature={memory.nature}
+            nature={'image'}
             subs={memory.subs}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
           />
         ) : null}
-        { this.state.previewOpen != null && 
-          <Preview 
-            pos={{x: this.state.previewOpen.x, y: this.state.previewOpen.y,}} 
-            name={this.state.previewOpen.name}
-            sizeNode={this.state.previewOpen.sizeNode}
+        {this.state.previewOpen != null && (
+          <Preview
+            pos={{ x: this.state.previewOpen.x, y: this.state.previewOpen.y }}
+            node={this.state.previewOpen.node}
           />
-        }
+        )}
       </div>
     );
   }
