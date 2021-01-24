@@ -108,8 +108,9 @@ class Document extends PureComponent {
     render() {
         let doc = this.displayDoc('main_doc', this.props.nature, this.props.path); // Main document
         let subs = this.props.subs; // Array of secondary documents associated with the main one
+        // style={{ backgroundImage: "url(" + doc_background + ")" }}
         return(
-            <div className="souvenir" style={{ backgroundImage: "url(" + doc_background + ")" }}>
+            <div className="souvenir">
                 <div id="memory_info">
                     <div id="date">
                         <p>25/05/20</p>

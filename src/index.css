@@ -13,7 +13,8 @@ body {
   /* font-family: 'Dancing Script', cursive; */
   /* font-family: 'Satisfy', serif; */
   font-size: 1em;
-  color: rgb(76, 64, 50);
+  /* color: rgb(76, 64, 50); */
+  color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
