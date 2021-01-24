@@ -141,6 +141,8 @@ class Trails extends PureComponent {
     let { cpy, id } = this.getNodesAndId(nodeId);
     let currentNodeVisited = cpy[id];
 
+    if (currentNodeVisited.entry) return;
+
     // set it to visited
     if (nodeId === this.props.currentMemory) {
       console.log('TEST');
