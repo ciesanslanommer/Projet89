@@ -1,4 +1,5 @@
 #sliderContainer{
+  position: absolute;
   transform: rotate(-90deg);
   width: 100px;
   height: 15px;

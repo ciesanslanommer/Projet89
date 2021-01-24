@@ -1,46 +1,103 @@
-.souvenir img {
-  max-width: 80%;
+.document > *, .sub_docs > * {
+  width: 100%;
   max-height: 80vh;
 }
+
 .souvenir {
-  /* position: absolute; */
-  display: flex;
-  /* width: 60%;
-  height: 100%; 
-  top: 0px;
-  left: 0px; */
-  background-color: rgb(40, 40, 40);
-  color: white;
+  /* background-color: rgb(40, 40, 40); */
+  box-shadow: 0 0 8px 8px white inset;
+  /* color: white; */
   align-items: center;
-  /* margin-left: auto;
-  margin-right: auto; */
   box-shadow: 10px 0px 10px rgb(30, 30, 30);
-  overflow: auto;
+  /* overflow: auto; */
   grid-column: 2 / 3;
+  padding: 50px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#memory_info {
+  overflow: auto;
+  height: 100vh;
+  display: grid;
+  grid-template-areas: 
+    "date contributor"
+    "document document";
+  grid-template-rows: 1em auto;
+}
+
+#memory_info > *, .buttons {
+  margin-right: 40px;
+}
+
+#date {
+  grid-area: date;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#contributor {
+  grid-area: contributor;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#date p, #contributor p {
+  margin: 0;
+}
+
+.buttons {
+  bottom: 0;
+  display: flex;
+  /* max-height: 100px; */
+  width: 100%;
+}
+
+.trail_img > img {
+  width: 80px;
+}
+
+.trail_img {
+  display: flex;
+  flex-direction: column;
+}
+
+.arrowbutton_img {
+  width: 40px;
+  height: 40px;
 }
 
 .souvenir p {
   text-align: center;
   text-align: justify;
+}
+
+.document p {
   text-indent: 10%;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .souvenir h1 {
   text-transform: capitalize;
-  color: white;
+  /* color: white; */
+  margin-bottom: 0;
 }
 .document {
-  width: 60%;
+  grid-area: document;
+  /* width: 60%; */
+}
+
+.document * {
+  margin-top: 20px;
 }
 
 #cross {
-  width: 2vw;
-  height: 2hv;
+  width: 15px;
+  height: 15px;
   position: absolute;
-  top: 3vh;
-  right: 2vw;
+  top: 15px;
+  right: 15px;
 }
 
 .sub_docs {
@@ -50,29 +107,25 @@
   margin: auto;
 }
 
-.sub_docs * {
-  padding: 10px;
-  margin: auto;
-}
-
 audio {
   outline: none;
-  padding-top: 2vh;
-}
-
-.previous {
-  justify-content: flex-start;
-}
-
-.next {
-  justify-content: flex-end;
 }
 
 .button {
   display: flex;
-  height: 9vh;
+  align-items: center;
 }
 
-.buttons {
-  width: 20%;
+.all_previous, .all_next {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+}
+
+.next {
+  justify-content: flex-start;
+}
+.previous {
+  justify-content: flex-end;
 }
