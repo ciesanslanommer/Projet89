@@ -1,18 +1,19 @@
 #welcome {
     z-index: 99;
     width: 500px;
-    background-color: rgb(63, 63, 63);
+    /* background-color: rgb(63, 63, 63); */
     padding: 40px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); 
-    box-shadow: 5px 5px 10px rgb(30, 30, 30);
+    /* box-shadow: 5px 5px 10px rgb(30, 30, 30); */
+    box-shadow: 0 0 5px 5px #d5bf9e;
 }
 
-#welcome p, #welcome h2{
+/* #welcome p, #welcome h2{
     color: white;
-}
+} */
 
 #welcome_wrap {
     width: 100%;

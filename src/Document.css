@@ -4,11 +4,9 @@
 }
 
 .souvenir {
-  background-color: rgb(40, 40, 40);
-  /* box-shadow: 0 0 8px 8px white inset; */
-  /* color: white; */
+  /* background-color: rgb(40, 40, 40); */
+  box-shadow: 0 0 5px 5px #d5bf9e;
   align-items: center;
-  /* overflow: auto; */
   grid-column: 2 / 3;
   padding: 50px;
   padding-bottom: 10px;
@@ -50,8 +48,8 @@
 .buttons {
   bottom: 0;
   display: flex;
-  /* max-height: 100px; */
   width: 100%;
+  margin-top: 10px;
 }
 
 .trail_img > img {
@@ -79,12 +77,10 @@
 
 .souvenir h1 {
   text-transform: capitalize;
-  /* color: white; */
   margin-bottom: 0;
 }
 .document {
   grid-area: document;
-  /* width: 60%; */
 }
 
 .document * {
@@ -127,4 +123,30 @@ audio {
 }
 .previous {
   justify-content: flex-end;
+}
+
+.next > img {
+  transform: scaleX(-1);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(175, 155, 132);
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(76, 64, 50); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(58, 47, 35); 
 }
