@@ -1,6 +1,6 @@
 import './Document.css';
 import raw from 'raw.macro';
-import { React, PureComponent } from 'react';
+import {React, PureComponent} from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import leftArrow from './assets/arrowL.png';
 import rightArrow from './assets/arrowR.png';
