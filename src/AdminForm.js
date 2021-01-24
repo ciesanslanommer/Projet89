@@ -41,7 +41,6 @@ class AdminForm extends Component {
 
     getValue = (stateKey, event) => {
         let value = event.target.value
-        console.log(value)
         this.setState({ [stateKey]: value })
   }
 
@@ -115,7 +114,6 @@ class AdminForm extends Component {
   render() {
     const { name, description, format, date, icon_id } = this.state;
     let icon = this.state.icon;
-    console.log(this.props.trails)
     return (
       <form className='adminForm'>
         <label>Titre du souvenir <abbr> * </abbr></label>
@@ -155,7 +153,6 @@ class AdminForm extends Component {
           Choix du parcours : (un souvenir peut en avoir 0 ou plusieurs){' '}
         </label>
         {this.props.trails.map((trail) => {
-            console.log(trail)
           return (
             <div>
               <input
