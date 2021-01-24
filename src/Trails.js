@@ -64,7 +64,7 @@ class Trails extends PureComponent {
       zoom: 1,
       currentParcours: null,
       freeze: false,
-      customZoomsToIgnore: []
+      customZoomsToIgnore: [],
     };
   }
 
@@ -204,19 +204,16 @@ class Trails extends PureComponent {
       this.removeAllHighlightCurrentNode();
 
       if (this.props.currentMemory != null) {
-
         /** Highlights and focus on currentNode **/
         this.highlightNode(this.props.currentMemory);
         this.focusOnNode(this.props.currentMemory);
 
         /** Handle parcours highlighting **/
         /* If the current node is in a parcours, highlight all nodes in the parcours */
-        const currentParcours = this.state.nodes[this.props.currentMemory].parcours;
-        if(currentParcours != null) {
+        if (currentParcours != null) {
           this.highlightParcours(currentParcours);
         }
       }
-
     }
 
     /*** After opening a doc, if resize window then close doc ***/
@@ -239,9 +236,9 @@ class Trails extends PureComponent {
     /* Wait the duration of the focusAnimation before setting focus to null */
     /* Else when user zoom, it will create problem */
     setTimeout(() => {
-        this.setState({ zoom: myConfig.focusZoom });
-        this.setState({ focusedNodeId: null });
-        this.setState({ freeze: false });
+      this.setState({ zoom: myConfig.focusZoom });
+      this.setState({ focusedNodeId: null });
+      this.setState({ freeze: false });
     }, myConfig.focusAnimationDuration + 1000);
   }
 
@@ -260,11 +257,9 @@ class Trails extends PureComponent {
         /* Must do concatenation else only one parcours will be highlighted */
         /* So all parcours we want highlighted must be done with one call to the function */
         this.highlightParcours(parcoursMouseOvered.concat(currentParcours));
-      }
-      else {
+      } else {
         this.highlightNode(nodeId);
       }
-
     }
   };
 
@@ -285,7 +280,7 @@ class Trails extends PureComponent {
   /***** HIGHLIGHT FUNCTIONS *****/
 
   highlightParcours(parcours) {
-    if(parcours == null){
+    if (parcours == null) {
       return;
     }
 
@@ -361,14 +356,12 @@ class Trails extends PureComponent {
   highlightNode(nodeId) {
     console.log('highlightnode');
     let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
-    if(nodeId === this.props.currentMemory) {
+    if (nodeId === this.props.currentMemory) {
       htmlNode.classList.add('currentNode');
-    }
-    else {
+    } else {
       htmlNode.classList.remove('notInParcours');
       htmlNode.classList.add('inParcours');
     }
-    
   }
 
   removeAllHighlightCurrentNode() {
@@ -382,25 +375,30 @@ class Trails extends PureComponent {
 
   // event handler for zoom changed from the slider
   onCustomZoomChange = (event) => {
-    console.log("onCustomZoomChange", event.target.value)
+    console.log('onCustomZoomChange', event.target.value);
     if (!this.state.deactivateReactZoom) {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         zoom: parseFloat(event.target.value),
-         // remember this zoom value so that we can prevent double event handling in d3 handler
-        customZoomsToIgnore: [...this.state.customZoomsToIgnore, event.target.value],
+        // remember this zoom value so that we can prevent double event handling in d3 handler
+        customZoomsToIgnore: [
+          ...this.state.customZoomsToIgnore,
+          event.target.value,
+        ],
       }));
     }
-  }
+  };
 
   // event handler for zoom changed from d3 (wheel)
   onD3ZoomChange = (prevZoom, newZoom, e) => {
-    console.log("onD3ZoomChange:", prevZoom, "=>", newZoom)
-    const strZoom = ""+newZoom;
+    console.log('onD3ZoomChange:', prevZoom, '=>', newZoom);
+    const strZoom = '' + newZoom;
     // if this zoom value was already handled by the slider, do not set new zoom value to prevent infinite re-rendering
     if (this.state.customZoomsToIgnore.includes(strZoom)) {
-      this.setState(prevState => ({
-        customZoomsToIgnore: prevState.customZoomsToIgnore.filter(customZoom => customZoom !== strZoom)
-      }))
+      this.setState((prevState) => ({
+        customZoomsToIgnore: prevState.customZoomsToIgnore.filter(
+          (customZoom) => customZoom !== strZoom
+        ),
+      }));
     } else if (!this.state.deactivateD3Zoom) {
       this.setState({
         deactivateReactZoom: true,
@@ -411,27 +409,27 @@ class Trails extends PureComponent {
 
   // event handler for slider zoom start:  disable d3 zoom
   onCustomZoomMouseDown = (event) => {
-    console.log("onCustomZoomMouseDown", event.target.value)
+    console.log('onCustomZoomMouseDown', event.target.value);
     this.setState({
       deactivateReactZoom: false,
       deactivateD3Zoom: true,
       customZoomsToIgnore: [],
-    })
-  }
+    });
+  };
 
   // event handler for slider zoom end: re-enable d3 zoom
   onCustomZoomMouseUp = (event) => {
-    console.log("onCustomZoomMouseUp", event.target.value)
+    console.log('onCustomZoomMouseUp', event.target.value);
     this.setState({
       deactivateReactZoom: true,
       deactivateD3Zoom: false,
-    })
-  }
+    });
+  };
 
-    // ************************************************************* 
+  // *************************************************************
 
   render() {
-    console.log("trails render")
+    console.log('trails render');
     myConfig.width = this.state.width;
     myConfig.height = this.state.height;
     myConfig.node.viewGenerator = this.customNodeGenerator;
@@ -439,7 +437,10 @@ class Trails extends PureComponent {
     myConfig.freezeAllDragEvents = this.state.freeze;
 
     return (
-      <div className="Graph" style={{ backgroundImage: "url(" + Background + ")" }}>
+      <div
+        className='Graph'
+        style={{ backgroundImage: 'url(' + Background + ')' }}
+      >
         <Zoom
           zoom={this.state.zoom}
           onChange={this.onCustomZoomChange}

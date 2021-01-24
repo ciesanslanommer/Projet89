@@ -1,6 +1,6 @@
 import './Document.css';
 import raw from 'raw.macro';
-import { React, Component } from 'react';
+import { React, PureComponent } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import leftArrow from './assets/arrowL.png';
 import rightArrow from './assets/arrowR.png';
@@ -87,12 +87,13 @@ class Document extends PureComponent {
       loadedLinks: false,
     };
   }
+
   getTrailById(trailbymemory) {
     let trail = [];
     if (trailbymemory[this.props.id]) {
       trailbymemory[this.props.id].forEach((el) => {
-      });
         trail.push(el.name);
+      });
     }
     return trail;
   }
