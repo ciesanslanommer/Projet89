@@ -4,7 +4,8 @@ import './Entry.css'
 class Entry extends Component{
     render(){
         return(
-            <img className="iconstrails" src={require('./assets/' + this.props.path).default} alt="icontrails"></img>
+            // <img className="iconstrails" src={require('./assets/' + this.props.path).default} alt="icontrails"></img>
+            <div>Hello</div>
         )
     }
 }

@@ -9,10 +9,9 @@ class AdminForm extends Component {
     this.state = {
       name: '',
       description: '',
-      format: '',
+      format: 'texte',
       date: '',
       icon_id: '',
-      trails: this.props.trails,
       icon: [],
       iconLoaded: false,
     };
@@ -40,23 +39,11 @@ class AdminForm extends Component {
       );
   }
 
-  // getValue = (event) => {
-  //     let value = event.target.value
-  //     console.log(value)
-  //     return (value)
-  // }
-
-  handleChangeTitle = (event) => {
-    let value = event.target.value;
-    console.log(value);
-    this.setState({ name: value });
-  };
-
-  handleChangeContent = (event) => {
-    let value = event.target.value;
-    console.log(value);
-    this.setState({ description: value });
-  };
+    getValue = (stateKey, event) => {
+        let value = event.target.value
+        console.log(value)
+        this.setState({ [stateKey]: value })
+  }
 
   displayDoc = (format) => {
     switch (format) {
@@ -91,25 +78,11 @@ class AdminForm extends Component {
     }
   };
 
-  getFormat = (event) => {
-    let value = event.target.value;
-    console.log(value);
-    this.setState({ format: value });
-  };
-
-  getDate = (event) => {
-    let value = event.target.value;
-    console.log(event.target.value);
-    this.setState({ date: value });
-  };
-
-  getIcon = (event) => {
-    let value = event.target.value;
-    console.log(event.target.value);
-    this.setState({ icon_id: value });
-  };
-
   postRequest(name, description, format, date, icon_id) {
+      if(name === '' || description === '' || date === ''){
+          alert('Des champs obligatoires ne sont pas remplis')
+          return;
+      }
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
     fetch(ENDPOINT_API + '/memory', {
       method: 'POST',
@@ -140,35 +113,36 @@ class AdminForm extends Component {
   }
 
   render() {
-    const { title, content } = this.state;
+    const { name, description, format, date, icon_id } = this.state;
     let icon = this.state.icon;
+    console.log(this.props.trails)
     return (
       <form className='adminForm'>
-        <label>Titre du souvenir : </label>
+        <label>Titre du souvenir <abbr> * </abbr></label>
         <input
-          value={this.state.title}
-          type='text'
-          placeholder='Chute du mur'
-          onChange={this.handleChangeTitle}
+            required
+            className = "require"
+            value={this.state.name}
+            type='text'
+            placeholder='Chute du mur'
+            onChange={(e) => this.getValue("name", e)}
         />
-        <label>Résumé : </label>
-        <input
-          value={this.state.content}
-          type='text'
-          placeholder='ex : mur de Berlin'
-          onChange={this.handleChangeContent}
-        />
-        <label>Format du fichier : </label>
-        <select name='format' id='format_id'>
-          <option value='image'>Image</option>
+        <label>Description <abbr> * </abbr></label>
+        <textarea required className = "require" name="description" row="3" cols="33" placeholder='ex : mur de Berlin' maxlength="95" onChange={(e) => this.getValue("description", e)}></textarea>
+        <label>Format du fichier <abbr> * </abbr></label>
+        <select required className="require" name='format' id='format_id' onChange={(e) => this.getValue("format", e)}>
+          <option value='texte'>Texte</option>
           <option value='video'>Vidéo</option>
           <option value='youtube'>Lien Youtube</option>
-          <option value='texte'>Texte</option>
+          <option value='image'>Image</option>
         </select>
-        <label>Date du souvenir : </label>
-        <input className='inputFichier' type='date' />
-        <label>Icone de souvenir : </label>
-        <select name='icons' id='icon_id'>
+        {
+            this.displayDoc(this.state.format)
+        }
+        <label>Date du souvenir <abbr> * </abbr></label>
+        <input required className = "require"  type='date' onChange={(e) => this.getValue("date", e)}/>
+        <label>Icone de souvenir </label>
+        <select name='icons' id='icon_id' onChange={(e) => this.getValue("icon_id", e)}>
           {icon.map((icon) => {
             return (
               <option key={icon.id} value={icon.id}>
@@ -181,23 +155,22 @@ class AdminForm extends Component {
           Choix du parcours : (un souvenir peut en avoir 0 ou plusieurs){' '}
         </label>
         {this.props.trails.map((trail) => {
+            console.log(trail)
           return (
             <div>
               <input
                 type='checkbox'
                 id={trail.id}
                 key={trail.id}
-                name={trail.name}
-                value={trail.name}
+                name={trail.parcours}
+                value={trail.parcours}
               />
-              <label for={trail.id}>{trail.name}</label>
+              <label for={trail.id}>{trail.parcours}</label>
             </div>
           );
         })}
-        <label>Ajouter un fichier au souvenir :</label>
-        <input className='inputFichier' type='file' name='blobcontain' />
-        <button type='button' onClick={() => this.postRequest(title, content)}>
-          Ajouter
+        <button type='button' onClick={() => this.postRequest(name, description, format, date, icon_id)}>
+          Créer un souvenir
         </button>
       </form>
     );

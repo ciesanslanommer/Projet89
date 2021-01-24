@@ -248,7 +248,7 @@ class App extends Component {
       <div className='App'>
         {this.state.WelcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
         {<Nav />}
-        {/* {adminLoaded && <AdminForm trails={this.state.trail} />} */}
+        {trailloaded && <AdminForm trails={this.state.trail} />}
         {trailloaded && (
           <Trails
             nodeClick={this.changeDoc}
