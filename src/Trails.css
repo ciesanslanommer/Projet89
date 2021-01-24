@@ -1,6 +1,6 @@
 .notInParcours {
     /* opacity: 0.2 !important;  */
-    filter: blur(8px) !important; 
+    filter: blur(3px) !important; 
 }
 
 .inParcours {

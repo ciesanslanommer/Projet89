@@ -209,8 +209,9 @@ class Trails extends PureComponent {
     /** If document isn't open **/
     /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
     /** If document is open, mouse over shouldn't highlight parcours **/
-    if (!this.props.docOpen && !node.entry) {
-      const parcoursMouseOvered = this.state.nodes[nodeId].parcours;
+    if (!this.props.docOpen) {
+      const allNodes = this.state.nodes.concat(data.trails);
+      const parcoursMouseOvered = !node.entry ? this.state.nodes[nodeId].parcours : [allNodes[nodeId].parcours];
       const currentParcours = this.props.currentMemory == null ? null : this.state.nodes[this.props.currentMemory].parcours;
       
       if(parcoursMouseOvered != null) {
@@ -278,7 +279,8 @@ class Trails extends PureComponent {
 
   removeAllHighlightParcours() {
     /* Remove node highlighting */
-    data.nodes.forEach((node) => {
+    const allNodes = this.state.nodes.concat(data.trails);
+    allNodes.forEach((node) => {
       let htmlNode = document.querySelector(`[id="${node.id}"] section`);
       htmlNode.classList.remove('notInParcours');
       htmlNode.classList.remove('inParcours');
