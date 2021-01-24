@@ -1,6 +1,5 @@
 import { Graph } from 'react-d3-graph';
 import { React, Component } from 'react';
-// import data from './souvenirs.json';
 import Background from './assets/fond.png';
 import './Trails.css';
 import CustomNode from './CustomNode.js';
@@ -392,7 +391,6 @@ class Trails extends Component {
           config={myConfig}
           onClickNode={this.nodeClick}
           onNodePositionChange={this.savePosition}
-          // // onClickGraph = {() => {console.log(this.state.nodes);}}
           onZoomChange={this.zoomChange}
           onMouseOverNode={this.onMouseOverNode}
           onMouseOutNode={this.onMouseOutNode}

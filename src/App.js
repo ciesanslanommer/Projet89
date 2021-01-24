@@ -144,7 +144,7 @@ class App extends Component {
     if (entry) {
       return;
     }
-
+    console.log('openpreview');
     const boundNode = node.getBoundingClientRect();
     this.setState({
       previewOpen: {
@@ -159,24 +159,6 @@ class App extends Component {
   closePreview = (e) => {
     this.setState({ previewOpen: null });
   };
-
-  // getLinks(nodeId) {
-  //   let sources = this.state.links
-  //     .map((el) => {
-  //       if (el.target === nodeId)
-  //         return { id: el.source, parcours: data.nodes[el.source].parcours };
-  //       return '';
-  //     })
-  //     .filter((el) => el !== '');
-  //   let targets = this.state.links
-  //     .map((el) => {
-  //       if (el.source === nodeId)
-  //         return { id: el.target, parcours: data.nodes[el.target].parcours };
-  //       return '';
-  //     })
-  //     .filter((el) => el !== '');
-  //   return { sources, targets };
-  // }
 
   changeDoc = (nodeId, e) => {
     /* Graph must be reduced before changing the state of current memory */
