@@ -18,7 +18,7 @@ const myConfig = {
   // maxZoom: 2,
   focusZoom: 1,
   focusAnimationDuration: 0.75,
-  // directed : true,
+  directed: true,
   freezeAllDragEvents: false,
   node: {
     color: 'lightgreen',

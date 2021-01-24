@@ -183,7 +183,7 @@ class App extends Component {
     /* Else the current node will be centered on the full window and not the reduced graph */
     document.querySelector('.App').classList.add('displayDoc');
     console.log(nodeId);
-    const nextMem = nodeId;
+    // const nextMem = nodeId;
     this.setState({ currentMemory: nodeId });
     // data.nodes[nextMem].visited = true;
     this.openMemory();
@@ -242,13 +242,13 @@ class App extends Component {
       this.state.linkLoaded &&
       this.state.trailByMemoryLoaded &&
       this.state.trailLoaded;
-    const adminLoaded = this.state.trailLoaded;
+    // const adminLoaded = this.state.trailLoaded;
 
     return (
       <div className='App'>
         {this.state.WelcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
         {<Nav />}
-        {adminLoaded && <AdminForm trails={this.state.trail} />}
+        {/* {adminLoaded && <AdminForm trails={this.state.trail} />} */}
         {trailloaded && (
           <Trails
             nodeClick={this.changeDoc}
@@ -263,6 +263,7 @@ class App extends Component {
           <Document
             key={memory.id}
             id={memory.id}
+            trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
           />

@@ -8,10 +8,10 @@ import rightArrow from './assets/arrowR.png';
 import { ENDPOINT_API } from './constants/endpoints';
 
 const Image = (props) => {
-  var path = props.parcours ? props.parcours[0] + '/' : '';
+  // var path = props.parcours ? props.parcours[0] + '/' : '';
   return (
     <img
-      src={require('./souvenirs/' + path + props.path).default}
+      src={require('./souvenirs/' + props.path).default}
       alt={props.desc}
     ></img>
   );
@@ -19,19 +19,19 @@ const Image = (props) => {
 
 function Text(props) {
   const path = props.path;
-  const dir = props.parcours ? props.parcours[0] : null;
-  if (dir) {
-    return <p>{raw(`./souvenirs/${dir}/${path}`)}</p>;
-  } else {
-    return <p>{raw(`./souvenirs/${path}`)}</p>;
-  }
+  // const dir = props.parcours ? props.parcours[0] : null;
+  // if (dir) {
+  //   return <p>{raw(`./souvenirs/${dir}/${path}`)}</p>;
+  // } else {
+  return <p>{raw(`./souvenirs/${path}`)}</p>;
+  // }
 }
 
 function Audio(props) {
-  var path = props.parcours ? props.parcours[0] + '/' : '';
+  // var path = props.parcours ? props.parcours[0] + '/' : '';
   return (
     <ReactAudioPlayer
-      src={require('./souvenirs/' + path + props.path).default}
+      src={require('./souvenirs/' + props.path).default}
       autoPlay
       controls
     />
@@ -39,11 +39,11 @@ function Audio(props) {
 }
 
 function Video(props) {
-  var path = props.parcours ? props.parcours + '/' : '';
+  // var path = props.parcours ? props.parcours + '/' : '';
   return (
     <video controls>
       <source
-        src={require('./souvenirs/' + path + props.path).default}
+        src={require('./souvenirs/' + props.path).default}
         type='video/mp4'
       ></source>
       Sorry, your browser doesn't support embedded videos.
@@ -64,15 +64,11 @@ function DocumentButton(props) {
   var type = props.type;
   return (
     <div onClick={props.onClick} className={'button ' + type}>
-      {type === 'previous' && <img alt='previous' src={leftArrow} />}
-      {props.parcours.map((el) => (
-        <img
-          key={el}
-          src={require('./assets/' + el.toLowerCase() + '.png').default}
-          alt={el}
-        />
-      ))}
-      {type === 'next' && <img alt='previous' src={rightArrow} />}
+      {type === 'previous' ? (
+        <img alt='previous' src={leftArrow} />
+      ) : (
+        <img alt='previous' src={rightArrow} />
+      )}
     </div>
   );
 }
@@ -83,15 +79,29 @@ class Document extends Component {
     this.state = {
       sources: [],
       targets: [],
+      memory: {},
+      trails: this.getTrailById(this.props.trailByMemory),
+      subs: [],
+      loadedSubs: false,
       loadedMemory: false,
       loadedLinks: false,
     };
   }
 
+  getTrailById(trailbymemory) {
+    let trail = [];
+    if (trailbymemory[this.props.id]) {
+      trailbymemory[this.props.id].forEach((el) => {
+        trail.push(el.name);
+      });
+    }
+    return trail;
+  }
+
   componentDidMount() {
     // TODO display a loader when not loaded yet?
     console.log(
-      `Fetching souvenirs from ${ENDPOINT_API}/linkfrommemory/ ${this.props.id}`
+      `Fetching souvenirs from ${ENDPOINT_API}/linkfrommemory/${this.props.id}`
     );
     fetch(ENDPOINT_API + '/linkfrommemory/' + this.props.id)
       .then((res) => res.json())
@@ -114,7 +124,7 @@ class Document extends Component {
       );
 
     console.log(
-      `Fetching souvenirs from ${ENDPOINT_API}/memory/ ${this.props.id}`
+      `Fetching souvenirs from ${ENDPOINT_API}/memory/${this.props.id}`
     );
     fetch(ENDPOINT_API + '/memory/' + this.props.id)
       .then((res) => res.json())
@@ -134,27 +144,57 @@ class Document extends Component {
           // TODO maybe display an error for the user?
         }
       );
+
+    console.log(
+      `Fetching souvenirs from ${ENDPOINT_API}/submemoryfrommemory/${this.props.id}`
+    );
+    fetch(ENDPOINT_API + '/submemoryfrommemory/' + this.props.id)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(`Success! memory ${this.props.id} = `, result);
+          this.setState({
+            subs: result,
+            loadedSubs: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading node',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
   }
 
   displayDoc(id, nature, path) {
     switch (nature) {
       case 'image':
-        return <Image key={id} path={path} parcours={this.props.parcours} />;
+        return <Image key={id} path={path} parcours={this.state.trails} />;
       case 'texte':
-        return <Text key={id} path={path} parcours={this.props.parcours} />;
+        return <Text key={id} path={path} parcours={this.state.trails} />;
       case 'audio':
-        return <Audio key={id} path={path} parcours={this.props.parcours} />;
+        return <Audio key={id} path={path} parcours={this.state.trails} />;
       case 'video':
-        return <Video key={id} path={path} parcours={this.props.parcours} />;
+        return <Video key={id} path={path} parcours={this.state.trails} />;
       default:
-        return <p key={id}>{this.props.nature}</p>;
+        return <p key={id}>{this.state.memory.format}</p>;
     }
   }
 
   render() {
-    let doc = this.displayDoc('main_doc', this.props.nature, this.props.path); // Main document
+    //display doc to adapt with new data
+    let doc = this.displayDoc(
+      'main_doc',
+      'image',
+      '2019_5 juin 14h34_distribution alimentaire_roumanie.jpg'
+    ); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
-    const loaded = this.state.loadedMemory && this.state.loadedLinks;
+    const loaded =
+      this.state.loadedMemory &&
+      this.state.loadedLinks &&
+      this.state.loadedSubs;
     return (
       <div className='souvenir'>
         {loaded && (
@@ -162,10 +202,10 @@ class Document extends Component {
             <div className='buttons'>
               {this.state.sources.map((source) => (
                 <DocumentButton
-                  key={source.id}
-                  onClick={() => this.props.onNextClick(source.id)}
+                  key={source}
+                  id={source}
+                  onClick={() => this.props.onNextClick(source)}
                   type='previous'
-                  parcours={source.parcours}
                 />
               ))}
             </div>
@@ -183,10 +223,10 @@ class Document extends Component {
             <div className='buttons'>
               {this.state.targets.map((target) => (
                 <DocumentButton
-                  key={target.id}
-                  onClick={() => this.props.onNextClick(target.id)}
+                  key={target}
+                  id={target}
+                  onClick={() => this.props.onNextClick(target)}
                   type='next'
-                  parcours={target.parcours}
                 />
               ))}
             </div>
