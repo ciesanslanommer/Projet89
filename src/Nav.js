@@ -37,7 +37,7 @@ class Nav extends PureComponent {
         const icons = this.state.boolean ? "loupe" : "close"
         
         return (
-            <form className = "form" onSubmit={this.collectInfo}>
+            <form className = "searchForm" onSubmit={this.collectInfo}>
                 <img 
                     src={require('./../src/assets/' + icons + '.png').default} 
                     alt={desc} 

@@ -1,0 +1,49 @@
+.adminForm{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    /* margin-top: 25%;
+    height: 50vh; */
+    z-index: 99;
+    width: 500px;
+    background-color: rgb(63, 63, 63);
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    box-shadow: 5px 5px 10px rgb(30, 30, 30);
+  }
+
+.adminForm label{
+    margin: 1%;
+}
+
+.adminForm button{
+    margin: 1%;
+}
+
+.adminForm input{
+    margin: 1%;
+}
+
+.require:invalid {
+    border: 2px solid red;
+}
+  
+.require:valid {
+    border: 1px solid black;
+}
+
+.require:focus {
+    border: 1px solid black;
+}
+
+textarea{
+ resize : none;
+}
+
+  
