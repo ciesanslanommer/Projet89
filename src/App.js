@@ -20,6 +20,7 @@ class App extends Component {
       trailLoaded: false,
       trailByMemoryLoaded: false,
       docOpen: false,
+      adminOpen: false,
       welcomeOpen: true,
       previewOpen: null,
       node: [],
@@ -230,7 +231,9 @@ class App extends Component {
       <div className='App'>
         {this.state.WelcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
         {<Nav />}
-        {trailloaded && <AdminForm trails={this.state.trail} />}
+        {trailloaded && this.state.adminOpen && (
+          <AdminForm trails={this.state.trail} />
+        )}
         {trailloaded && (
           <Trails
             nodeClick={this.changeDoc}
