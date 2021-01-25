@@ -112,7 +112,7 @@ class AdminForm extends Component {
     console.log(stateKey)
     this.setState({ [stateKey]: true })
     if(stateKey === "createKeyword") this.closeButtonK()
-    this.closeButtonT()
+    if(stateKey === "createTrail") this.closeButtonT()
   }
 
   displayDoc = (format) => {
