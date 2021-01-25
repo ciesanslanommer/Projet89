@@ -21,6 +21,8 @@ class AdminForm extends Component {
       keyword_id: '',
       newTrailName: '',
       subFormat: '',
+      memories: [],
+      memoriesLoaded: false,
       checkedTrails: [],
       checkedKeywords: [],
       trails: [],
@@ -59,15 +61,15 @@ class AdminForm extends Component {
         }
       );
 
-    console.log(`Fetching submemory from ${ENDPOINT_API}/submemory/`);
-    fetch(ENDPOINT_API + '/submemory')
+    console.log(`Fetching memory from ${ENDPOINT_API}/memories/`);
+    fetch(ENDPOINT_API + '/memories')
       .then((res) => res.json())
       .then(
         (result) => {
           console.log('Success! submemory = ', result);
           this.setState({
-            submemories: result,
-            submemoryLoaded: true,
+            memories: [...result],
+            memoriesLoaded: true,
           });
         },
         (error) => {
@@ -151,24 +153,21 @@ class AdminForm extends Component {
   };
 
   isChecked = (stateKey, e) => {
+    console.log(stateKey);
     let isChecked = e.target.checked;
     let id = e.target.id;
-    console.log(isChecked, id)
-    let tabTrails = this.state[stateKey];
+    console.log(isChecked, id);
+    let tab = [...this.state[stateKey]];
     if (isChecked) {
-      tabTrails.push(id);
-      console.log("Tab trails push : " + tabTrails)
-      this.setState({ [stateKey]: tabTrails })
-
+      tab.push(id);
+      console.log('Tab trails push : ' + tab);
+      this.setState({ [stateKey]: tab });
+    } else {
+      tab = tab.filter((el) => el !== id);
+      console.log(tab);
+      this.setState({ [stateKey]: tab });
     }
-    else {
-      tabTrails = tabTrails.filter(el => el !== id)
-      console.log(tabTrails)
-      this.setState({ [stateKey]: tabTrails })
-    }
-    console.log("CheckedTrails : " + this.state[stateKey])
-
-  }
+  };
 
   displayDoc = (format) => {
     switch (format) {
@@ -203,47 +202,18 @@ class AdminForm extends Component {
     }
   };
 
-  postRequest(
-    name,
-    description,
-    format,
-    content,
-    icon_id,
-    contributeur,
-    contribution_date,
-    priority,
-    trails, // tableau d'id
-    keywords, // tableau d'id
-    targets, //tableau d'id
-    subs // tableau d'objet de type {name, format, desc, texte ou image ou audio ou yt}
-  ) {
-    if (name === '' || description === '' || contribution_date === '') {
-      alert('Des champs obligatoires ne sont pas remplis');
-      return;
-    }
+  postRequest(request) {
+    // if (name === '' || description === '' || contribution_date === '') {
+    //   alert('Des champs obligatoires ne sont pas remplis');
+    //   return;
+    // }
 
-    let request = {
-      name: name,
-      description: description,
-      format: format,
-      icon_id: icon_id,
-    };
+    if (request.format === 'image') request.image = request.content;
+    if (request.format === 'audio') request.audio = request.content;
+    if (request.format === 'youtube') request.youtube = request.content;
+    if (request.format === 'texte') request.texte = request.content;
 
-    if (contributeur) request.contributeur = contributeur;
-    if (contribution_date) request.contribution_date = contribution_date;
-    if (priority) request.priority = priority;
-    else request.priority = 1;
-    if (format === 'image') request.image = content;
-    if (format === 'audio') request.audio = content;
-    if (format === 'youtube') request.youtube = content;
-    if (format === 'texte') request.texte = content;
-
-    if (subs) request.subs = subs;
-    if (trails) request.trails = trails;
-    if (targets) request.targets = targets;
-    if (keywords) request.keywords = keywords;
-
-    console.log(request)
+    console.log(request);
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
     fetch(ENDPOINT_API + '/memory', {
       method: 'POST',
@@ -255,33 +225,36 @@ class AdminForm extends Component {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        const value = '';
-        this.setState({
-          name: value,
-          description: value,
-          format: value,
-          date: value,
-        });
+        // const value = '';
+        // this.setState({
+        //   name: value,
+        //   description: value,
+        //   format: value,
+        //   date: value,
+        // });
         alert('Votre souvenir a bien été en registré !');
       });
   }
 
   render() {
-    const { name,
-      description,
-      format,
-      content,
-      icon_id,
-      contributeur,
-      contribution_date,
-      priority,
-      checkedTrails, 
-      checkedKeywords, 
-      targets, 
-      subs }= this.state;
+    const request = {
+      name: this.state.name,
+      description: this.state.description,
+      format: this.state.format,
+      content: 'ugfvkdjvb',
+      icon_id: this.state.icon_id,
+      contributeur: this.state.contributeur,
+      contribution_date: this.state.contribution_date,
+      priority: this.state.priority,
+      checkedTrails: this.state.checkedTrails,
+      checkedKeywords: this.state.checkedKeywords,
+      targets_id: [],
+      subs: [],
+    };
+
     let icons = this.state.icons;
-    let submemories = this.state.submemories;
     let keywords = this.state.keywords;
+
     return (
       //****************************Formulaire d'ajout de souvenir**************************************** */
       <div className='mainContainer'>
@@ -392,10 +365,10 @@ class AdminForm extends Component {
               id='target_id'
               onChange={(e) => this.getValue('target_id', e)}
             >
-              {submemories.map((submemory) => {
+              {this.state.memories.map((memory) => {
                 return (
-                  <option key={submemory.id} value={submemory.id}>
-                    {submemory.name}
+                  <option key={memory.id} value={memory.id}>
+                    {memory.name}
                   </option>
                 );
               })}
@@ -407,21 +380,21 @@ class AdminForm extends Component {
           <div className='sousForm keywords' id='KeyWords'>
             <div className='divKeywords'>
               <label>Taguer le souvenir d'un ou plusieurs mots-clés</label>
-                {keywords.map((keyword) => {
-                  return (
-                    <div>
-                      <input
-                        type='checkbox'
-                        id={keyword.id}
-                        key={keyword.id}
-                        name={keyword.word}
-                        value={keyword.word}
-                        onChange={(e) => this.isChecked('checkedTrails', e)}
-                      />
-                      <label for={keyword.id}>{keyword.word}</label>
-                    </div>
-                  );
-                })}
+              {keywords.map((keyword) => {
+                return (
+                  <div>
+                    <input
+                      type='checkbox'
+                      id={keyword.id}
+                      key={keyword.id}
+                      name={keyword.word}
+                      value={keyword.word}
+                      onChange={(e) => this.isChecked('checkedKeywords', e)}
+                    />
+                    <label for={keyword.id}>{keyword.word}</label>
+                  </div>
+                );
+              })}
             </div>
             {this.state.closeButtonK && (
               <button
@@ -491,24 +464,7 @@ class AdminForm extends Component {
             {this.displayDoc(this.state.subFormat)}
           </div>
         </form>
-        <button
-          type='button'
-          onClick={() =>
-            this.postRequest(
-              name,
-              description,
-              format,
-              content,
-              icon_id,
-              contributeur,
-              contribution_date,
-              priority,
-              checkedTrails, 
-              checkedKeywords,
-              targets,
-              subs 
-            )}
-        >
+        <button type='button' onClick={() => this.postRequest(request)}>
           Créer un souvenir
         </button>
       </div>

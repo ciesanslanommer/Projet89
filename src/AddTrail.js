@@ -61,14 +61,15 @@ class AddTrail extends Component {
           id='icon_id'
           onChange={(e) => this.getValue('icon_id', e)}
         >
-          { this.props.icon.map((icon) => {
-            if(icon.istrailicon)
-                return (
-                  <option key={icon.id} value={icon.id}>
-                    {icon.name}
-                  </option>
-                );
-              })}
+          {this.props.icon.map((icon) => {
+            if (icon.istrailicon)
+              return (
+                <option key={icon.id} value={icon.id}>
+                  {icon.name}
+                </option>
+              );
+            else return null;
+          })}
         </select>
         <button type='button' onClick={this.postTrail}>
           Ajouter ce parcours au souvenir

@@ -1,6 +1,6 @@
 import './Document.css';
 import raw from 'raw.macro';
-import {React, PureComponent} from 'react';
+import { React, PureComponent } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import leftArrow from './assets/arrowL.png';
 import rightArrow from './assets/arrowR.png';
@@ -132,7 +132,7 @@ class Document extends PureComponent {
         (result) => {
           console.log(`Success! memory ${this.props.id} = `, result);
           this.setState({
-            memory: result,
+            memory: { ...result },
             loadedMemory: true,
           });
         },
@@ -195,6 +195,7 @@ class Document extends PureComponent {
       this.state.loadedMemory &&
       this.state.loadedLinks &&
       this.state.loadedSubs;
+    console.log(this.state.memory);
     return (
       <div className='souvenir'>
         {loaded && (
@@ -210,8 +211,11 @@ class Document extends PureComponent {
               ))}
             </div>
             <div className='document'>
-              <h1>{this.props.desc}</h1>
+              <h1>{this.state.memory.name}</h1>
+              <p>{this.state.memory.description}</p>
               {doc}
+              <p>{this.state.memory.texte}</p>
+              <p>{this.state.memory.youtube}</p>
               {subs != null && (
                 <div className='sub_docs'>
                   {subs.map((sub) =>
