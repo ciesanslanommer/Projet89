@@ -1,0 +1,19 @@
+object {
+    fill: red;
+    stroke: red;
+}
+
+object * {
+    fill: red;
+    stroke: red;
+}
+
+path {
+    fill: red;
+    stroke: red;
+}
+
+object > path {
+    fill: red;
+    stroke: red;
+}

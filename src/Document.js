@@ -70,7 +70,7 @@ function DocumentButton(props) {
                 {props.parcours.map( el => 
                     <img
                         key = {el}
-                        src = {require("./assets/" + el.toLowerCase() +"_brown.png" ).default}
+                        src = {require("./assets/" + el.toLowerCase() +"_brown.svg" ).default}
                         alt = {el}
                     />
                 )}

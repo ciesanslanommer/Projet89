@@ -170,7 +170,7 @@
     "trails" : [
       {
         "id" : 18,
-        "path" : "ruines.png",
+        "path" : "ruines.svg",
         "parcours" : "Ruines",
         "x" : 600,
         "y" : 300,
@@ -179,7 +179,7 @@
       },
       {
         "id" : 19,
-        "path" : "passage.png",
+        "path" : "passage.svg",
         "parcours" : "Passage",
         "x" : 200,
         "y" : 200,

@@ -36,3 +36,7 @@
 .currentNode img {
     filter: drop-shadow(0px 0px 5px gold) !important;
 }
+
+.Graph {
+    background-color: rgb(47 25 26);
+}

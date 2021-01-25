@@ -4,11 +4,12 @@ import data from './souvenirs.json'
 import Document from './Document.js'
 import Trails from './Trails.js'
 import Nav from './Nav.js'
-
 import Welcome from './Welcome.js'
 
 import { ENDPOINT_API } from './constants/endpoints'
 import Preview from './Preview'
+
+import './svg.css'
 
 class App extends PureComponent {
   constructor(props){

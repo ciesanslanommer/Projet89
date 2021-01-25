@@ -378,9 +378,9 @@ class Trails extends PureComponent {
     myConfig.node.viewGenerator = this.customNodeGenerator;
     myConfig.initialZoom = this.state.zoom;
     myConfig.freezeAllDragEvents = this.state.freeze;
-
+    // style={{ backgroundImage: "url(" + Background + ")" }}
     return (
-      <div className="Graph" style={{ backgroundImage: "url(" + Background + ")" }}>
+      <div className="Graph" >
         <Zoom
           zoom={this.state.zoom}
           onChange={this.onCustomZoomChange}
