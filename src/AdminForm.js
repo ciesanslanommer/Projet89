@@ -9,11 +9,21 @@ class AdminForm extends Component {
     this.state = {
       name: '',
       description: '',
-      format: 'texte',
+      format: '',
       date: '',
       icon_id: '',
-      icon: [],
+      target_id: '',
+      contributeur: '',
+      keyword_id: '',
+      keyword: '',
+      newTrailName: '',
+      subFormat: '',
+      icons: [],
       iconLoaded: false,
+      submemories: [],
+      submemoryLoaded: false,
+      keywords: [],
+      keywordLoaded: false,
     };
   }
   componentDidMount() {
@@ -25,7 +35,7 @@ class AdminForm extends Component {
         (result) => {
           console.log('Success! icon = ', result);
           this.setState({
-            icon: result,
+            icons: result,
             iconLoaded: true,
           });
         },
@@ -37,20 +47,62 @@ class AdminForm extends Component {
           // TODO maybe display an error for the user?
         }
       );
+
+    console.log(`Fetching submemory from ${ENDPOINT_API}/submemory/`);
+    fetch(ENDPOINT_API + '/submemory')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! submemory = ', result);
+          this.setState({
+            submemories: result,
+            submemoryLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading submemory',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+
+    console.log(`Fetching keyword from ${ENDPOINT_API}/keyword/`);
+    fetch(ENDPOINT_API + '/keyword')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! keyword = ', result);
+          this.setState({
+            keywords: result,
+            keywordLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading keyword',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
   }
 
-    getValue = (stateKey, event) => {
-        let value = event.target.value
-        this.setState({ [stateKey]: value })
+  getValue = (stateKey, event) => {
+    let value = event.target.value
+    console.log()
+    console.log(value)
+    this.setState({ [stateKey]: value })
   }
 
   displayDoc = (format) => {
     switch (format) {
-      case 'image':
+      case 'texte':
         return (
           <div>
-            <label>Ajouter une image au souvenir :</label>
-            <input type='file' name='blobcontain' />
+            <label>Quel est votre texte ? :</label>
+            <textarea name='textArea' rows='15' cols='70'></textarea>
           </div>
         );
       case 'video':
@@ -70,18 +122,18 @@ class AdminForm extends Component {
       default:
         return (
           <div>
-            <label>Quel est votre texte ? :</label>
-            <textarea name='textArea' rows='15' cols='70'></textarea>
+            <label>Ajouter une image au souvenir :</label>
+            <input type='file' name='blobcontain' />
           </div>
         );
     }
   };
 
   postRequest(name, description, format, date, icon_id) {
-      if(name === '' || description === '' || date === ''){
-          alert('Des champs obligatoires ne sont pas remplis')
-          return;
-      }
+    if (name === '' || description === '' || date === '') {
+      alert('Des champs obligatoires ne sont pas remplis')
+      return;
+    }
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
     fetch(ENDPOINT_API + '/memory', {
       method: 'POST',
@@ -113,63 +165,153 @@ class AdminForm extends Component {
 
   render() {
     const { name, description, format, date, icon_id } = this.state;
-    let icon = this.state.icon;
+    let icons = this.state.icons;
+    let submemories = this.state.submemories;
+    let keywords = this.state.keywords;
     return (
-      <form className='adminForm'>
-        <label>Titre du souvenir <abbr> * </abbr></label>
-        <input
-            required
-            className = "require"
-            value={this.state.name}
-            type='text'
-            placeholder='Chute du mur'
-            onChange={(e) => this.getValue("name", e)}
-        />
-        <label>Description <abbr> * </abbr></label>
-        <textarea required className = "require" name="description" row="3" cols="33" placeholder='ex : mur de Berlin' maxlength="95" onChange={(e) => this.getValue("description", e)}></textarea>
-        <label>Format du fichier <abbr> * </abbr></label>
-        <select required className="require" name='format' id='format_id' onChange={(e) => this.getValue("format", e)}>
-          <option value='texte'>Texte</option>
-          <option value='video'>Vidéo</option>
-          <option value='youtube'>Lien Youtube</option>
-          <option value='image'>Image</option>
-        </select>
-        {
-            this.displayDoc(this.state.format)
-        }
-        <label>Date du souvenir <abbr> * </abbr></label>
-        <input required className = "require"  type='date' onChange={(e) => this.getValue("date", e)}/>
-        <label>Icone de souvenir </label>
-        <select name='icons' id='icon_id' onChange={(e) => this.getValue("icon_id", e)}>
-          {icon.map((icon) => {
-            return (
-              <option key={icon.id} value={icon.id}>
-                {icon.name}
-              </option>
-            );
-          })}
-        </select>
-        <label>
-          Choix du parcours : (un souvenir peut en avoir 0 ou plusieurs){' '}
-        </label>
-        {this.props.trails.map((trail) => {
-          return (
-            <div>
-              <input
-                type='checkbox'
-                id={trail.id}
-                key={trail.id}
-                name={trail.parcours}
-                value={trail.parcours}
-              />
-              <label for={trail.id}>{trail.parcours}</label>
+      //****************************Formulaire d'ajout de souvenir**************************************** */
+      <div className="mainContainer">
+        <form className='adminForm'>
+
+      {/* *************************************************************** AJOUT DU SOUVENIR *************************************************************** */}
+         
+          <div className="sousForm">
+            <label>Titre du souvenir <abbr> * </abbr></label>
+            <input
+              required
+              className="require"
+              value={this.state.name}
+              type='text'
+              placeholder='Chute du mur'
+              onChange={(e) => this.getValue("name", e)}
+            />
+            <label>Description <abbr> * </abbr></label>
+            <textarea required className="require" name="description" row="3" cols="33" placeholder='ex : mur de Berlin' maxlength="95" onChange={(e) => this.getValue("description", e)}></textarea>
+            <label>Format du fichier <abbr> * </abbr></label>
+            <select required className="require" name='format' id='format_id' onChange={(e) => this.getValue("format", e)}>
+              <option value='image'>Image</option>
+              <option value='video'>Vidéo</option>
+              <option value='youtube'>Lien Youtube</option>
+              <option value='texte'>Texte</option>
+            </select>
+            {
+              this.displayDoc(this.state.format)
+            }
+            <label>Date de contribution <abbr> * </abbr></label>
+            <input required className="require" type='date' onChange={(e) => this.getValue("date", e)} />
+            <label>Contributeurs (séparer les noms par des virgules) </label>
+            <input
+              type='text'
+              placeholder='Jean Dupont'
+              onChange={(e) => this.getValue("contributeur", e)}
+            />
+            <label>Icone de souvenir </label>
+            <select name='icons' id='icon_id' onChange={(e) => this.getValue("icon_id", e)}>
+              {icons.map((icon) => {
+                return (
+                  <option key={icon.id} value={icon.id}>
+                    {icon.name}
+                  </option>
+                );
+              })}
+            </select>
+            <label>À quel souvenir est-il relié ? (peut être indépendant) </label>
+            <select name='target' id='target_id' onChange={(e) => this.getValue("target_id", e)}>
+              {submemories.map((submemory) => {
+                return (
+                  <option key={submemory.id} value={submemory.id}>
+                    {submemory.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+
+        {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
+        
+          <div className="sousForm keywords" id="KeyWords">
+            <div className="divKeywords">
+              <label>
+                Taguer le souvenir d'un ou plusieurs mots-clés
+          </label>
+              <select name='keywords' id='keyword_id' onChange={(e) => this.getValue("keyword_id", e)}>
+                {keywords.map((keyword) => {
+                  return (
+                    <option key={keyword.id} value={keyword.id}>
+                      {keyword.name}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
-          );
-        })}
+
+            <div className="divKeywords">
+              <label>Nouveau mot-clé</label>
+              <input
+                value={this.state.keyword}
+                type='text'
+                placeholder='bicentenaire'
+                onChange={(e) => this.getValue("keyword", e)}
+              />
+            </div>
+
+            <div className="divKeywords">
+              <button type="button">Ajouter ce mot clé à la liste</button>
+            </div>
+          </div>
+      {/* *************************************************************** AJOUT PARCOURS *************************************************************** */}
+
+          <div className="sousForm">
+          <label>
+            Choix du parcours (un souvenir peut en avoir 0 ou plusieurs)
+          </label>
+            {this.props.trails.map((trail) => {
+              return (
+                <div>
+                  <input
+                    type='checkbox'
+                    id={trail.id}
+                    key={trail.id}
+                    name={trail.parcours}
+                    value={trail.parcours}
+                  />
+                  <label for={trail.id}>{trail.parcours}</label>
+                </div>
+              );
+            })}
+
+            <div className="newTrail">
+                    <label>Créer un nouveau parcours</label>
+                    <input
+                      value={this.state.newTrailName}
+                      type='text'
+                      placeholder='Ruines'
+                      onChange={(e) => this.getValue("newTrailName", e)}
+                    />
+                  </div>
+          </div>
+
+        {/* *************************************************************** AJOUT SUBMEMORY *************************************************************** */}
+
+          <div className="sousForm">
+            <label>Ajouter un document au souvenir</label>
+            <label>Format du fichier <abbr> * </abbr></label>
+            <select required className="require" name='subFormat' id='subFormat_id' onChange={(e) => this.getValue("subFormat", e)}>
+              <option value='image'>Image</option>
+              <option value='video'>Vidéo</option>
+              <option value='youtube'>Lien Youtube</option>
+              <option value='texte'>Texte</option>
+            </select>
+            {
+              this.displayDoc(this.state.subFormat)
+            }
+          </div>
+          
+        </form>
         <button type='button' onClick={() => this.postRequest(name, description, format, date, icon_id)}>
           Créer un souvenir
         </button>
-      </form>
+      </div>
     );
   }
 }

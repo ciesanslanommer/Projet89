@@ -1,21 +1,29 @@
-.adminForm{
-    position: absolute;
+.mainContainer{
+    width: 100%;
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    color: white;
-    /* margin-top: 25%;
-    height: 50vh; */
-    z-index: 99;
-    width: 500px;
-    background-color: rgb(63, 63, 63);
-    padding: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
-    box-shadow: 5px 5px 10px rgb(30, 30, 30);
+    align-items: center;   
+}
+
+.adminForm{
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;   
+  }
+
+.sousForm{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 50%;
+      align-items: center;
+      border: 1px solid white;
+      margin: 2%;
+      padding: 2%;
   }
 
 .adminForm label{
@@ -46,4 +54,18 @@ textarea{
  resize : none;
 }
 
+.keywords{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.divKeywords {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
   
