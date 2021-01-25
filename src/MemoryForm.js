@@ -15,12 +15,12 @@ class MemoryForm extends Component {
                     value={this.props.name}
                     type='text'
                     placeholder='Chute du mur'
-                    onChange={(e) => this.getValue("name", e)}
+                    onChange={(e) => this.props.onChange("name", e)}
                 />
                 <label>Description <abbr> * </abbr></label>
                 <textarea required className="require" name="description" row="3" cols="33" placeholder='ex : mur de Berlin' maxlength="95" onChange={(e) => this.getValue("description", e)}></textarea>
                 <label>Format du fichier <abbr> * </abbr></label>
-                <select required className="require" name='format' id='format_id' onChange={(e) => this.getValue("format", e)}>
+                <select required className="require" name='format' id='format_id' onChange={(e) => this.props.onChange("format", e)}>
                     <option value='image'>Image</option>
                     <option value='video'>Vidéo</option>
                     <option value='youtube'>Lien Youtube</option>
@@ -30,7 +30,7 @@ class MemoryForm extends Component {
                     this.displayDoc(this.state.format)
                 }
                 <label>Date de contribution <abbr> * </abbr></label>
-                <input required className="require" type='date' onChange={(e) => this.getValue("date", e)} />
+                <input required className="require" type='date' onChange={(e) => this.props.onChange("date", e)} />
                 <label>Contributeurs (séparer les noms par des virgules) </label>
                 <input
                     type='text'
@@ -38,7 +38,7 @@ class MemoryForm extends Component {
                     onChange={(e) => this.getValue("contributeur", e)}
                 />
                 <label>Icone de souvenir </label>
-                <select name='icons' id='icon_id' onChange={(e) => this.getValue("icon_id", e)}>
+                <select name='icons' id='icon_id' onChange={(e) => this.props.onChange("icon_id", e)}>
                     {this.props.icons.map((icon) => {
                         return (
                             <option key={icon.id} value={icon.id}>
@@ -48,7 +48,7 @@ class MemoryForm extends Component {
                     })}
                 </select>
                 <label>À quel souvenir est-il relié ? (peut être indépendant) </label>
-                <select name='target' id='target_id' onChange={(e) => this.getValue("target_id", e)}>
+                <select name='target' id='target_id' onChange={(e) => this.props.onChange("target_id", e)}>
                     {this.props.submemories.map((submemory) => {
                         return (
                             <option key={submemory.id} value={submemory.id}>

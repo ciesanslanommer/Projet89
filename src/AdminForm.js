@@ -24,6 +24,10 @@ class AdminForm extends Component {
       submemoryLoaded: false,
       keywords: [],
       keywordLoaded: false,
+      createKeyword: false,
+      closeButtonK: true,
+      closeButtonT: true,
+      createTrail: false,
     };
   }
   componentDidMount() {
@@ -94,6 +98,21 @@ class AdminForm extends Component {
     console.log()
     console.log(value)
     this.setState({ [stateKey]: value })
+  }
+
+  closeButtonK = () => {
+    this.setState({ closeButtonK: false })
+  }
+
+  closeButtonT = () => {
+    this.setState({ closeButtonT: false })
+  }
+
+  addElements = (stateKey) => {
+    console.log(stateKey)
+    this.setState({ [stateKey]: true })
+    if(stateKey === "createKeyword") this.closeButtonK()
+    this.closeButtonT()
   }
 
   displayDoc = (format) => {
@@ -173,8 +192,20 @@ class AdminForm extends Component {
       <div className="mainContainer">
         <form className='adminForm'>
 
-      {/* *************************************************************** AJOUT DU SOUVENIR *************************************************************** */}
-         
+          {/* *************************************************************** AJOUT DU SOUVENIR *************************************************************** */}
+          {/* <MemoryForm 
+            onChange={this.getValue}
+            name={this.state.name}
+            description={this.state.description}
+            format={this.state.format}
+            date={this.state.date}
+            icon_id={this.state.icon_id}
+            target_id={this.state.target_id}
+            contributeur={this.state.contributeur}
+            icons={this.state.icons}
+            submemories={this.state.submemories}
+
+          /> */}
           <div className="sousForm">
             <label>Titre du souvenir <abbr> * </abbr></label>
             <input
@@ -227,8 +258,8 @@ class AdminForm extends Component {
             </select>
           </div>
 
-        {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
-        
+          {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
+
           <div className="sousForm keywords" id="KeyWords">
             <div className="divKeywords">
               <label>
@@ -244,26 +275,29 @@ class AdminForm extends Component {
                 })}
               </select>
             </div>
-
-            <div className="divKeywords">
-              <label>Nouveau mot-clé</label>
-              <input
-                value={this.state.keyword}
-                type='text'
-                placeholder='bicentenaire'
-                onChange={(e) => this.getValue("keyword", e)}
-              />
-            </div>
-
-            <div className="divKeywords">
-              <button type="button">Ajouter ce mot clé à la liste</button>
-            </div>
+            {
+              this.state.closeButtonK &&
+                <button type="button" onClick={() => this.addElements('createKeyword')} >Ajouter un mot-clé</button>
+            }
+            {
+              this.state.createKeyword &&
+              <div className="divKeywords">
+                <label>Nouveau mot-clé</label>
+                <input
+                  value={this.state.keyword}
+                  type='text'
+                  placeholder='bicentenaire'
+                  onChange={(e) => this.getValue("keyword", e)}
+                />
+                <button type="button">Ajouter ce mot clé à la liste</button>
+              </div>
+            }
           </div>
-      {/* *************************************************************** AJOUT PARCOURS *************************************************************** */}
+          {/* *************************************************************** AJOUT PARCOURS *************************************************************** */}
 
           <div className="sousForm">
-          <label>
-            Choix du parcours (un souvenir peut en avoir 0 ou plusieurs)
+            <label>
+              Choix du parcours (un souvenir peut en avoir 0 ou plusieurs)
           </label>
             {this.props.trails.map((trail) => {
               return (
@@ -278,20 +312,28 @@ class AdminForm extends Component {
                   <label for={trail.id}>{trail.parcours}</label>
                 </div>
               );
-            })}
-
-            <div className="newTrail">
-                    <label>Créer un nouveau parcours</label>
-                    <input
-                      value={this.state.newTrailName}
-                      type='text'
-                      placeholder='Ruines'
-                      onChange={(e) => this.getValue("newTrailName", e)}
-                    />
-                  </div>
+            })
+            }
+            {
+              this.state.closeButtonT &&
+                <button type="button" onClick={() => this.addElements('createTrail')} >Créer un parcours</button>
+            }
+            {
+              this.state.createTrail &&
+              <div className="newTrail">
+                <label>Créer un nouveau parcours</label>
+                <input
+                  value={this.state.newTrailName}
+                  type='text'
+                  placeholder='Ruines'
+                  onChange={(e) => this.getValue("newTrailName", e)}
+                />
+                <button type="button">Ajouter ce parcours au souvenir</button>
+              </div>
+            }
           </div>
 
-        {/* *************************************************************** AJOUT SUBMEMORY *************************************************************** */}
+          {/* *************************************************************** AJOUT SUBMEMORY *************************************************************** */}
 
           <div className="sousForm">
             <label>Ajouter un document au souvenir</label>
@@ -306,7 +348,7 @@ class AdminForm extends Component {
               this.displayDoc(this.state.subFormat)
             }
           </div>
-          
+
         </form>
         <button type='button' onClick={() => this.postRequest(name, description, format, date, icon_id)}>
           Créer un souvenir
