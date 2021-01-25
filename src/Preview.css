@@ -6,7 +6,8 @@
     text-align: center;
     /* background-color: white; */
     /* color: black; */
-    box-shadow: 0 0 2px 2px #d5bf9e;
+    /* box-shadow: 0 0 2px 2px #d5bf9e; */
+    box-shadow: -1px -1px 5px 1px #514635 inset;
     width: 100px;
     padding: 5px;
 }
