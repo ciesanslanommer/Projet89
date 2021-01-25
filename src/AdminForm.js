@@ -15,10 +15,14 @@ class AdminForm extends Component {
       date: '',
       icon_id: '',
       target_id: '',
+      contribution_date: '',
       contributeur: '',
+      priority: '',
       keyword_id: '',
       newTrailName: '',
       subFormat: '',
+      checkedTrails: [],
+      checkedKeywords: [],
       trails: [],
       trailsLoaded: false,
       icons: [],
@@ -146,6 +150,26 @@ class AdminForm extends Component {
     if (stateKey === 'createTrail') this.closeButtonT();
   };
 
+  isChecked = (stateKey, e) => {
+    let isChecked = e.target.checked;
+    let id = e.target.id;
+    console.log(isChecked, id)
+    let tabTrails = this.state[stateKey];
+    if (isChecked) {
+      tabTrails.push(id);
+      console.log("Tab trails push : " + tabTrails)
+      this.setState({ [stateKey]: tabTrails })
+
+    }
+    else {
+      tabTrails = tabTrails.filter(el => el !== id)
+      console.log(tabTrails)
+      this.setState({ [stateKey]: tabTrails })
+    }
+    console.log("CheckedTrails : " + this.state[stateKey])
+
+  }
+
   displayDoc = (format) => {
     switch (format) {
       case 'texte':
@@ -184,7 +208,6 @@ class AdminForm extends Component {
     description,
     format,
     content,
-    date,
     icon_id,
     contributeur,
     contribution_date,
@@ -220,6 +243,7 @@ class AdminForm extends Component {
     if (targets) request.targets = targets;
     if (keywords) request.keywords = keywords;
 
+    console.log(request)
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
     fetch(ENDPOINT_API + '/memory', {
       method: 'POST',
@@ -243,7 +267,18 @@ class AdminForm extends Component {
   }
 
   render() {
-    const { name, description, format, date, icon_id } = this.state;
+    const { name,
+      description,
+      format,
+      content,
+      icon_id,
+      contributeur,
+      contribution_date,
+      priority,
+      checkedTrails, 
+      checkedKeywords, 
+      targets, 
+      subs }= this.state;
     let icons = this.state.icons;
     let submemories = this.state.submemories;
     let keywords = this.state.keywords;
@@ -313,7 +348,7 @@ class AdminForm extends Component {
               required
               className='require'
               type='date'
-              onChange={(e) => this.getValue('date', e)}
+              onChange={(e) => this.getValue('contribution_date', e)}
             />
             <label>Contributeurs (séparer les noms par des virgules) </label>
             <input
@@ -334,6 +369,20 @@ class AdminForm extends Component {
                   </option>
                 );
               })}
+            </select>
+            <label>
+              Ordre d'apparence <abbr> * </abbr>
+            </label>
+            <select
+              required
+              className='require'
+              name='priority'
+              id='priority_id'
+              onChange={(e) => this.getValue('priority', e)}
+            >
+              <option value='1'>Premier</option>
+              <option value='2'>Deuxième</option>
+              <option value='3'>Troisième</option>
             </select>
             <label>
               À quel souvenir est-il relié ? (peut être indépendant){' '}
@@ -358,19 +407,21 @@ class AdminForm extends Component {
           <div className='sousForm keywords' id='KeyWords'>
             <div className='divKeywords'>
               <label>Taguer le souvenir d'un ou plusieurs mots-clés</label>
-              <select
-                name='keywords'
-                id='keyword_id'
-                onChange={(e) => this.getValue('keyword_id', e)}
-              >
                 {keywords.map((keyword) => {
                   return (
-                    <option key={keyword.id} value={keyword.id}>
-                      {keyword.word}
-                    </option>
+                    <div>
+                      <input
+                        type='checkbox'
+                        id={keyword.id}
+                        key={keyword.id}
+                        name={keyword.word}
+                        value={keyword.word}
+                        onChange={(e) => this.isChecked('checkedTrails', e)}
+                      />
+                      <label for={keyword.id}>{keyword.word}</label>
+                    </div>
                   );
                 })}
-              </select>
             </div>
             {this.state.closeButtonK && (
               <button
@@ -399,6 +450,7 @@ class AdminForm extends Component {
                     key={trail.id}
                     name={trail.parcours}
                     value={trail.parcours}
+                    onChange={(e) => this.isChecked('checkedTrails', e)}
                   />
                   <label for={trail.id}>{trail.parcours}</label>
                 </div>
@@ -442,8 +494,20 @@ class AdminForm extends Component {
         <button
           type='button'
           onClick={() =>
-            this.postRequest(name, description, format, date, icon_id)
-          }
+            this.postRequest(
+              name,
+              description,
+              format,
+              content,
+              icon_id,
+              contributeur,
+              contribution_date,
+              priority,
+              checkedTrails, 
+              checkedKeywords,
+              targets,
+              subs 
+            )}
         >
           Créer un souvenir
         </button>
