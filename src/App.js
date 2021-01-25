@@ -4,7 +4,6 @@ import './App.css';
 import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
-import AdminForm from './AdminForm.js';
 // import History from './History.js'
 import Welcome from './Welcome.js';
 import Preview from './Preview';
@@ -235,9 +234,6 @@ class App extends Component {
       <div className='App'>
         {this.state.WelcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
         {<Nav />}
-        {trailloaded && this.state.adminOpen && (
-          <AdminForm trails={this.state.trail} />
-        )}
         {trailloaded && (
           <Trails
             nodeClick={this.changeDoc}

@@ -170,7 +170,7 @@ class Admin extends Component {
     // const adminLoaded = this.state.trailLoaded;
 
     return (
-      <div>
+      <div className='adminBody'>
         {trailloaded && this.state.adminOpen && (
           <AdminForm trails={this.state.trail} />
         )}
