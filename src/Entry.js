@@ -4,7 +4,10 @@ import './Entry.css'
 class Entry extends Component{
     render(){
         return(
-            <img className="iconstrails" src={require('./assets/' + this.props.path).default} alt="icontrails"></img>
+            <div className="iconstrails">
+                <img src={require('./assets/' + this.props.path).default} alt="icontrails"></img>
+                <h2>{this.props.name}</h2>
+            </div>
         )
     }
 }

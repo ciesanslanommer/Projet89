@@ -1,15 +1,17 @@
 #sliderContainer{
   position: absolute;
-  transform: rotate(-90deg);
+  /* transform: rotate(-90deg);
   width: 100px;
-  height: 15px;
+  height: 15px; */
+  top: 50%;
+  transform: rotate(-90deg) translate(0, calc(-50% - 130px));
 }
 
 #myRange {
   -webkit-appearance: none;
   width: 350px;
-  position: absolute;
-  right: 250px;
+  /* position: absolute; */
+  /* right: 250px; */
   border-radius: 50px;  
   background: #ffffff;
   outline: none;

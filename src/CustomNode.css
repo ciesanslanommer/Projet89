@@ -1,39 +1,40 @@
 .visible{
     /* transition: 0.8s; */
     /* background-color : rgb(255, 222, 149);
-    box-shadow: 0px 0px 30px rgba(255, 204, 64, 0.671); */
-    border-radius : 50%;
+    box-shadow: 0px 0px 10px rgba(255, 204, 64, 0.671); */
+    /* border-radius : 50%;
     padding: 20%; 
-    margin: 30%;
+    margin: 30%; */
     animation: appear 2s;
     width: 100%;
     position: relative;
 }
 
-.highlighted{
-    /* background-color : rgb(255, 0, 200);
-    box-shadow: 0px 0px 30px rgba(255, 0, 106, 0.842); */
-    border-radius : 50%;
-    padding: 20%; 
-    margin: 30%;
-}
-
 .invisible{
-    transition: 0.8s;
+    /* transition: 0.8s; */
     background-color: rgb(174, 251, 255);
-    box-shadow: 0px 0px 30px rgba(114, 172, 247, 0.5);
-    border-radius : 50%;
+    box-shadow: 0px 0px 10px rgba(114, 172, 247, 0.5);
+    /* border-radius : 50%;
     padding: 20%; 
-    margin: 30%;
+    margin: 30%; */
 } 
 
 .invisibleVisited{
-    transition: 0.8s;
-    background-color : rgb(89, 93, 114);
-    border-radius : 50%;
-    border-radius : 50%;
+    /* transition: 0.8s; */
+    background-color: rgb(89, 93, 114);
+    /* border-radius : 50%;
     padding: 20%; 
-    margin: 30%;
+    margin: 30%; */
+}
+
+.invisible, .invisibleVisited {
+    transition: 0.8s;
+}
+
+.invisible, .invisibleVisited, .highlighted, .visible {
+    border-radius : 50%;
+    padding: 10%; 
+    margin: 40%;
 }
 
 .fadeOut{
@@ -42,11 +43,14 @@
 }
 
 .icons{
-    width: 10vw;
-    height: 7vh;
+    /* width: 10vw; */
+    /* height: 7vh; */
     position: relative;
-    left: -7vw;
-    top: -3vh;
+    /* left: -7vw;
+    top: -3vh; */
+    left: -50%;
+    top: -10px;
+    width: 20%;
 }
 
 @keyframes appear{

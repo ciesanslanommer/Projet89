@@ -181,8 +181,8 @@
         "id" : 19,
         "path" : "passage.png",
         "parcours" : "Passage",
-        "x" : 400,
-        "y" : 400,
+        "x" : 200,
+        "y" : 200,
         "zoom" : 0.1,
         "entry" : true
       }

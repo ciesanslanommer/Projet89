@@ -22,7 +22,7 @@ const myConfig = {
   freezeAllDragEvents: true,
   node: {
     color: 'lightgreen',
-    size: 1200,
+    size: 1800,
     highlightStrokeColor: 'blue',
     renderLabel: false,
   },
@@ -32,7 +32,7 @@ const myConfig = {
   },
   d3: {
     disableLinkForce: false,
-    gravity: -1000,
+    gravity: -800,
   },
 };
 
@@ -76,7 +76,7 @@ class Trails extends PureComponent {
     setTimeout(() => {
       myConfig.staticGraph = true;
       myConfig.freeze = false;
-    }, 1000);
+    }, 100);
   }
   measure = (e) => {
     let rect = {width: document.getElementsByClassName('Graph')[0].clientWidth, height: document.getElementsByClassName('Graph')[0].clientHeight};
@@ -133,7 +133,7 @@ class Trails extends PureComponent {
     // }
 
     return (
-      <div>
+      <div className='custom'>
         {
           node.entry ? 
             <Entry
