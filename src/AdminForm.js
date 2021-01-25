@@ -194,7 +194,7 @@ class AdminForm extends Component {
     targets, //tableau d'id
     subs // tableau d'objet de type {name, format, desc, texte ou image ou audio ou yt}
   ) {
-    if (name === '' || description === '' || date === '') {
+    if (name === '' || description === '' || contribution_date === '') {
       alert('Des champs obligatoires ne sont pas remplis');
       return;
     }
