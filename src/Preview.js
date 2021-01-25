@@ -6,8 +6,8 @@ class Preview extends PureComponent {
     
     render() {
         const title = this.props.name;
-        const x = this.props.pos.x + 5; /* + 5 Else issue bcse mouse continuously mouse over and out */
-        const y = this.props.pos.y + 5;  /* + 5 Else issue bcse mouse continuously mouse over and out */
+        const x = this.props.pos.x - 5; /* + 5 Else issue bcse mouse continuously mouse over and out */
+        const y = this.props.pos.y - 5;  /* + 5 Else issue bcse mouse continuously mouse over and out */
         const translateX = this.props.sizeNode + this.props.sizeNode*0.2;
         const translateY = 0;
 

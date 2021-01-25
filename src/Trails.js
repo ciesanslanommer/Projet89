@@ -17,7 +17,7 @@ const myConfig = {
   highlightDegree: 0,
   minZoom: 0.1,
   maxZoom: 3,
-  focusZoom: 1,
+  focusZoom: 2,
   focusAnimationDuration: 0.75,
   freezeAllDragEvents: true,
   node: {
