@@ -4,15 +4,17 @@
     align-items: center;
     position: absolute;
     text-align: center;
-    background-color: white;
-    /* box-shadow: 0 0 2px 5px white; */
-    width: 100px;
+    /* background-color: white; */
+    /* color: black; */
+    /* box-shadow: 0 0 2px 2px #d5bf9e; */
+    box-shadow: -1px -1px 5px 1px #514635 inset;
+    width: 150px;
     padding: 5px;
 }
 .resume h2 {
-    font-size: 13px;
+    font-size: 20px;
     margin: 2px;
 }
 .resume p {
-    font-size: 10px;
+    font-size: 15px;
 }

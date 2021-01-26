@@ -15,12 +15,12 @@ const myConfig = {
   highlightDegree: 0,
   minZoom: 0.1,
   maxZoom: 3,
-  focusZoom: 1,
+  focusZoom: 2,
   focusAnimationDuration: 0.75,
   freezeAllDragEvents: true,
   node: {
     color: 'lightgreen',
-    size: 1200,
+    size: 1800,
     highlightStrokeColor: 'blue',
     renderLabel: false,
   },
@@ -30,7 +30,7 @@ const myConfig = {
   },
   d3: {
     disableLinkForce: false,
-    gravity: -1000,
+    gravity: -800,
   },
 };
 
@@ -108,7 +108,7 @@ class Trails extends PureComponent {
     setTimeout(() => {
       myConfig.staticGraph = true;
       myConfig.freeze = false;
-    }, 1000);
+    }, 100);
   }
   measure = (e) => {
     let rect = {
@@ -437,7 +437,7 @@ class Trails extends PureComponent {
     myConfig.node.viewGenerator = this.customNodeGenerator;
     myConfig.initialZoom = this.state.zoom;
     myConfig.freezeAllDragEvents = this.state.freeze;
-
+    // style={{ backgroundImage: "url(" + Background + ")" }}
     return (
       <div
         className='Graph'

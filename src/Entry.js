@@ -1,17 +1,16 @@
 import { React, Component } from 'react';
 import './Entry.css';
 
-class Entry extends Component {
-  render() {
-    return (
-      <img
-        className='iconstrails'
-        // src={require('./assets/' + this.props.path).default}
-        src={require('./assets/ruines.png').default}
-        alt='icontrails'
-      ></img>
-    );
-  }
+class Entry extends Component{
+    render(){
+        return(
+            <div className="iconstrails">
+                {/* <img src={require('./assets/' + this.props.path).default} alt="icontrails"></img> */}
+                <object type="image/svg+xml" data={require('./assets/' + this.props.path).default}></object>
+                <h2>{this.props.name}</h2>
+            </div>
+        )
+    }
 }
 
 export default Entry;

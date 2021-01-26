@@ -1,18 +1,17 @@
-import { React, Component } from 'react';
+import {React, PureComponent} from 'react'
 import './App.css';
 //import data from './souvenirs.json';
 import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
-// import History from './History.js'
 import Welcome from './Welcome.js';
 import Preview from './Preview';
-
 import { ENDPOINT_API } from './constants/endpoints';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+import './svg.css'
+class App extends PureComponent {
+  constructor(props){
+    super(props)
     this.state = {
       nodeLoaded: false,
       linkLoaded: false,
