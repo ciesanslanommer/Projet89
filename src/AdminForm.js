@@ -12,9 +12,10 @@ class AdminForm extends Component {
       name: '',
       description: '',
       format: '',
+      content: '',
       date: '',
       icon_id: '',
-      target_id: '',
+      target_id: [],
       contribution_date: '',
       contributeur: '',
       priority: '',
@@ -137,6 +138,11 @@ class AdminForm extends Component {
     this.setState({ [stateKey]: value });
   };
 
+  getBlob = (e) => {
+    let files = e.target.files
+    console.log(files)
+  }
+
   closeButtonK = () => {
     this.setState({ closeButtonK: false });
   };
@@ -159,7 +165,7 @@ class AdminForm extends Component {
     console.log(isChecked, id);
     let tab = [...this.state[stateKey]];
     if (isChecked) {
-      tab.push(id);
+      tab.push(Number(id));
       console.log('Tab trails push : ' + tab);
       this.setState({ [stateKey]: tab });
     } else {
@@ -167,7 +173,24 @@ class AdminForm extends Component {
       console.log(tab);
       this.setState({ [stateKey]: tab });
     }
+    console.log(this.state[stateKey])
   };
+
+  createTabTarget = (e) => {
+    let value = Number(e.target.value);
+    let isInState = this.state.target_id.findIndex( (el) => el === value)
+    console.log(isInState)
+    if( isInState === -1) {
+      const tab = [...this.state.target_id, value]
+      this.setState({ target_id: tab });
+    }
+    else{
+      let tabFilter = this.state.target_id.filter((target) => target !== value )
+      console.log("else" + tabFilter)
+      this.setState({ target_id: tabFilter });
+    }
+    console.log(this.state.target_id)
+  }
 
   displayDoc = (format) => {
     switch (format) {
@@ -175,28 +198,21 @@ class AdminForm extends Component {
         return (
           <div>
             <label>Quel est votre texte ? :</label>
-            <textarea name='textArea' rows='15' cols='70'></textarea>
-          </div>
-        );
-      case 'video':
-        return (
-          <div>
-            <label>Ajouter une vidéo au souvenir :</label>
-            <input type='file' name='blobcontain' />
+            <textarea name='textArea' rows='15' cols='70' onChange={(e) => this.getValue('content', e)}></textarea>
           </div>
         );
       case 'youtube':
         return (
           <div>
             <label>Ajouter un lien vers la vidéo :</label>
-            <input type='text' name='linkToYoutube' />
+            <input type='text' name='linkToYoutube' placeholder="lien vers la vidéo Youtube"/>
           </div>
         );
       default:
         return (
           <div>
             <label>Ajouter une image au souvenir :</label>
-            <input type='file' name='blobcontain' />
+            <input type='file' name='blobcontain' onChange={(e) => this.getBlob(e)}/>
           </div>
         );
     }
@@ -248,10 +264,10 @@ class AdminForm extends Component {
       priority: this.state.priority,
       checkedTrails: this.state.checkedTrails,
       checkedKeywords: this.state.checkedKeywords,
-      targets_id: [],
+      targets_id: this.state.target_id,
       subs: [],
     };
-
+    //console.log(request)
     let icons = this.state.icons;
     let keywords = this.state.keywords;
 
@@ -309,8 +325,7 @@ class AdminForm extends Component {
               onChange={(e) => this.getValue('format', e)}
             >
               <option value='image'>Image</option>
-              <option value='video'>Vidéo</option>
-              <option value='youtube'>Lien Youtube</option>
+              <option value='youtube'>Vidéo</option>
               <option value='texte'>Texte</option>
             </select>
             {this.displayDoc(this.state.format)}
@@ -358,12 +373,13 @@ class AdminForm extends Component {
               <option value='3'>Troisième</option>
             </select>
             <label>
-              À quel souvenir est-il relié ? (peut être indépendant){' '}
+              À quel souvenir est-il relié ? (peut être indépendant)
             </label>
             <select
               name='target'
               id='target_id'
-              onChange={(e) => this.getValue('target_id', e)}
+              onClick={this.createTabTarget}
+              multiple
             >
               {this.state.memories.map((memory) => {
                 return (
@@ -373,6 +389,15 @@ class AdminForm extends Component {
                 );
               })}
             </select>
+            <ul>
+              {
+                this.state.target_id.map( (target) => {
+                  return (
+                    <li>{target}</li>
+                  ) 
+                })
+              }
+            </ul>
           </div>
 
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}

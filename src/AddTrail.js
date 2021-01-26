@@ -1,3 +1,4 @@
+import { least } from 'd3';
 import { React, Component } from 'react';
 import { ENDPOINT_API } from './constants/endpoints';
 
@@ -7,6 +8,9 @@ class AddTrail extends Component {
     this.state = {
       trail: '',
       icon_id: '',
+      memory_id: '',
+      memories: [],
+      memoriesLoaded: false,
     };
   }
 
@@ -16,6 +20,29 @@ class AddTrail extends Component {
     console.log(value);
     this.setState({ [stateKey]: value });
   };
+
+  componentDidMount() {
+    // TODO display a loader when not loaded yet?
+    console.log(`Fetching memories from ${ENDPOINT_API}/memories/`);
+    fetch(ENDPOINT_API + '/memories')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! memories = ', result);
+          this.setState({
+            memories: result,
+            memoriesLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading icons',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+    }
 
   postTrail = () => {
     if (this.state.trail === '') {
@@ -29,6 +56,7 @@ class AddTrail extends Component {
         icon_id: this.state.icon_id,
         pos_x: Math.random() * 1000,
         pos_y: Math.random() * 1000,
+        target_id: this.state.memory_id,
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -47,6 +75,7 @@ class AddTrail extends Component {
   };
 
   render() {
+    let memories = this.state.memories
     return (
       <div className='newTrail'>
         <label>Créer un nouveau parcours</label>
@@ -56,6 +85,7 @@ class AddTrail extends Component {
           placeholder='Ruines'
           onChange={(e) => this.getValue('trail', e)}
         />
+        <label>Choisir une icone <abbr> * </abbr></label>
         <select
           name='icons'
           id='icon_id'
@@ -71,6 +101,21 @@ class AddTrail extends Component {
             else return null;
           })}
         </select>
+        <label>Quel sera son premier souvenir ?</label>
+        <select
+              name='memories'
+              id='memories_id'
+              onChange={(e) => this.getValue('memory_id', e)}
+            >
+              {memories.map((memory) => {
+                return (
+                  <option key={memory.id} value={memory.id}>
+                    {memory.name}
+                  </option>
+                );
+              })}
+            </select>
+
         <button type='button' onClick={this.postTrail}>
           Ajouter ce parcours au souvenir
         </button>
