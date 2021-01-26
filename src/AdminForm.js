@@ -11,14 +11,14 @@ class AdminForm extends Component {
     this.state = {
       name: '',
       description: '',
-      format: '',
-      content: '',
+      format: 'image',
+      content: null,
       date: '',
       icon_id: '',
       target_id: [],
       contribution_date: '',
       contributeur: '',
-      priority: '',
+      priority: '1',
       keyword_id: '',
       newTrailName: '',
       subFormat: '',
@@ -133,14 +133,16 @@ class AdminForm extends Component {
 
   getValue = (stateKey, event) => {
     let value = event.target.value;
-    console.log();
-    console.log(value);
     this.setState({ [stateKey]: value });
   };
 
-  getBlob = (e) => {
-    let files = e.target.files;
-    console.log(files);
+  getFile = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      let arrayBuffer = reader.result;
+      this.setState({ content: arrayBuffer });
+    };
   };
 
   closeButtonK = () => {
@@ -223,7 +225,7 @@ class AdminForm extends Component {
             <input
               type='file'
               name='blobcontain'
-              onChange={(e) => this.getBlob(e)}
+              onChange={(e) => this.getFile(e)}
             />
           </div>
         );
@@ -236,12 +238,8 @@ class AdminForm extends Component {
     //   return;
     // }
 
-    if (request.format === 'image') request.image = request.content;
-    if (request.format === 'audio') request.audio = request.content;
     if (request.format === 'youtube') request.youtube = request.content;
-    if (request.format === 'texte') request.texte = request.content;
 
-    console.log(request);
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
     fetch(ENDPOINT_API + '/memory', {
       method: 'POST',
@@ -269,7 +267,7 @@ class AdminForm extends Component {
       name: this.state.name,
       description: this.state.description,
       format: this.state.format,
-      content: 'ugfvkdjvb',
+      content: this.state.content,
       icon_id: this.state.icon_id,
       contributeur: this.state.contributeur,
       contribution_date: this.state.contribution_date,
@@ -279,7 +277,7 @@ class AdminForm extends Component {
       targets_id: this.state.target_id,
       subs: [],
     };
-    //console.log(request)
+    // console.log(request);
     let icons = this.state.icons;
     let keywords = this.state.keywords;
 
@@ -334,6 +332,7 @@ class AdminForm extends Component {
               className='require'
               name='format'
               id='format_id'
+              value={this.state.format}
               onChange={(e) => this.getValue('format', e)}
             >
               <option value='image'>Image</option>
@@ -378,6 +377,7 @@ class AdminForm extends Component {
               className='require'
               name='priority'
               id='priority_id'
+              value={this.state.priority}
               onChange={(e) => this.getValue('priority', e)}
             >
               <option value='1'>Premier</option>

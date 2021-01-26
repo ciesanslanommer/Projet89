@@ -6,8 +6,8 @@ class Entry extends Component {
     return (
       <img
         className='iconstrails'
-        src={require('./assets/' + this.props.path).default}
-        // src={require('./assets/ruines.png').default}
+        // src={require('./assets/' + this.props.path).default}
+        src={require('./assets/ruines.png').default}
         alt='icontrails'
       ></img>
     );

@@ -4,7 +4,6 @@ import { React, PureComponent } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import leftArrow from './assets/arrowL.png';
 import rightArrow from './assets/arrowR.png';
-
 import { ENDPOINT_API } from './constants/endpoints';
 
 const Image = (props) => {
@@ -215,6 +214,9 @@ class Document extends PureComponent {
               {doc}
               <p>{this.state.memory.texte}</p>
               <p>{this.state.memory.youtube}</p>
+              {this.state.memory.format === 'image' && (
+                <img alt='blabla' src={this.state.memory.content} />
+              )}
               {subs != null && (
                 <div className='sub_docs'>
                   {subs.map((sub) =>
