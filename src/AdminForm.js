@@ -139,9 +139,9 @@ class AdminForm extends Component {
   };
 
   getBlob = (e) => {
-    let files = e.target.files
-    console.log(files)
-  }
+    let files = e.target.files;
+    console.log(files);
+  };
 
   closeButtonK = () => {
     this.setState({ closeButtonK: false });
@@ -173,24 +173,23 @@ class AdminForm extends Component {
       console.log(tab);
       this.setState({ [stateKey]: tab });
     }
-    console.log(this.state[stateKey])
+    console.log(this.state[stateKey]);
   };
 
   createTabTarget = (e) => {
     let value = Number(e.target.value);
-    let isInState = this.state.target_id.findIndex( (el) => el === value)
-    console.log(isInState)
-    if( isInState === -1) {
-      const tab = [...this.state.target_id, value]
+    let isInState = this.state.target_id.findIndex((el) => el === value);
+    console.log(isInState);
+    if (isInState === -1) {
+      const tab = [...this.state.target_id, value];
       this.setState({ target_id: tab });
-    }
-    else{
-      let tabFilter = this.state.target_id.filter((target) => target !== value )
-      console.log("else" + tabFilter)
+    } else {
+      let tabFilter = this.state.target_id.filter((target) => target !== value);
+      console.log('else' + tabFilter);
       this.setState({ target_id: tabFilter });
     }
-    console.log(this.state.target_id)
-  }
+    console.log(this.state.target_id);
+  };
 
   displayDoc = (format) => {
     switch (format) {
@@ -198,21 +197,34 @@ class AdminForm extends Component {
         return (
           <div>
             <label>Quel est votre texte ? :</label>
-            <textarea name='textArea' rows='15' cols='70' onChange={(e) => this.getValue('content', e)}></textarea>
+            <textarea
+              name='textArea'
+              rows='15'
+              cols='70'
+              onChange={(e) => this.getValue('content', e)}
+            ></textarea>
           </div>
         );
       case 'youtube':
         return (
           <div>
             <label>Ajouter un lien vers la vidéo :</label>
-            <input type='text' name='linkToYoutube' placeholder="lien vers la vidéo Youtube"/>
+            <input
+              type='text'
+              name='linkToYoutube'
+              placeholder='lien vers la vidéo Youtube'
+            />
           </div>
         );
       default:
         return (
           <div>
             <label>Ajouter une image au souvenir :</label>
-            <input type='file' name='blobcontain' onChange={(e) => this.getBlob(e)}/>
+            <input
+              type='file'
+              name='blobcontain'
+              onChange={(e) => this.getBlob(e)}
+            />
           </div>
         );
     }
@@ -390,13 +402,9 @@ class AdminForm extends Component {
               })}
             </select>
             <ul>
-              {
-                this.state.target_id.map( (target) => {
-                  return (
-                    <li>{target}</li>
-                  ) 
-                })
-              }
+              {this.state.target_id.map((target) => {
+                return <li>{target}</li>;
+              })}
             </ul>
           </div>
 

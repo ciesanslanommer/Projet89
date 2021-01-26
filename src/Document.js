@@ -95,6 +95,8 @@ class Document extends PureComponent {
         trail.push(el.name);
       });
     }
+    console.log('les parcours du doc');
+    console.log(trail);
     return trail;
   }
 
@@ -145,27 +147,27 @@ class Document extends PureComponent {
         }
       );
 
-    console.log(
-      `Fetching souvenirs from ${ENDPOINT_API}/submemoryfrommemory/${this.props.id}`
-    );
-    fetch(ENDPOINT_API + '/submemoryfrommemory/' + this.props.id)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(`Success! memory ${this.props.id} = `, result);
-          this.setState({
-            subs: result,
-            loadedSubs: true,
-          });
-        },
-        (error) => {
-          console.error(
-            'Oops, something wrong happened when loading node',
-            error
-          );
-          // TODO maybe display an error for the user?
-        }
-      );
+    // console.log(
+    //   `Fetching souvenirs from ${ENDPOINT_API}/submemoryfrommemory/${this.props.id}`
+    // );
+    // fetch(ENDPOINT_API + '/submemoryfrommemory/' + this.props.id)
+    //   .then((res) => res.json())
+    //   .then(
+    //     (result) => {
+    //       console.log(`Success! submemory ${this.props.id} = `, result);
+    //       this.setState({
+    //         subs: result,
+    //         loadedSubs: true,
+    //       });
+    //     },
+    //     (error) => {
+    //       console.error(
+    //         'Oops, something wrong happened when loading node',
+    //         error
+    //       );
+    //       // TODO maybe display an error for the user?
+    //     }
+    //   );
   }
 
   displayDoc(id, nature, path) {
@@ -191,10 +193,7 @@ class Document extends PureComponent {
       '2019_5 juin 14h34_distribution alimentaire_roumanie.jpg'
     ); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
-    const loaded =
-      this.state.loadedMemory &&
-      this.state.loadedLinks &&
-      this.state.loadedSubs;
+    const loaded = this.state.loadedMemory && this.state.loadedLinks;
     console.log(this.state.memory);
     return (
       <div className='souvenir'>
