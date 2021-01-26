@@ -3,7 +3,7 @@ import raw from 'raw.macro';
 import { React, PureComponent } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Arrow from './assets/arrow.png';
-import doc_background from './assets/document_background.jpg';
+// import doc_background from './assets/document_background.jpg';
 import { ENDPOINT_API } from './constants/endpoints';
 
 const Image = (props) => {
@@ -60,22 +60,26 @@ function Video(props) {
 }
 
 function DocumentButton(props) {
-    var type = props.type;
-    return (
-        <div onClick={props.onClick} className={"button " + type}>
-            {type === "previous" && <img className = "arrowbutton_img" alt="previous" src ={Arrow}/>}
-            <div className = "trail_img">
-                {props.parcours.map( el => 
-                    <img
-                        key = {el}
-                        src = {require("./assets/" + el.toLowerCase() +"_brown.svg" ).default}
-                        alt = {el}
-                    />
-                )}
-            </div>
-            {type === "next" && <img className = "arrowbutton_img" alt="next" src={Arrow} />}
-        </div>
-    );
+  var type = props.type;
+  return (
+    <div onClick={props.onClick} className={'button ' + type}>
+      {type === 'previous' && (
+        <img className='arrowbutton_img' alt='previous' src={Arrow} />
+      )}
+      <div className='trail_img'>
+        {props.parcours.map((el) => (
+          <img
+            key={el}
+            src={require('./assets/' + el.toLowerCase() + '_brown.svg').default}
+            alt={el}
+          />
+        ))}
+      </div>
+      {type === 'next' && (
+        <img className='arrowbutton_img' alt='next' src={Arrow} />
+      )}
+    </div>
+  );
 }
 
 class Document extends PureComponent {
@@ -190,76 +194,68 @@ class Document extends PureComponent {
     }
   }
 
-    render() {
-        let doc = this.displayDoc('main_doc', this.props.nature, this.props.path); // Main document
-        let subs = this.props.subs; // Array of secondary documents associated with the main one
-        return(
-            <div className="souvenir" >
-                <div id="memory_info">
-                    <div id="date">
-                        <p>25/05/20</p>
-                    </div>
-                    <div id="contributor">
-                        <p>Abraham Lincoln</p>
-                    </div>
-                    <div className="document">
-                        <h1>{this.props.desc}</h1>
-                        {doc}
-                    {subs!=null && 
-                        <div className="sub_docs"> 
-                            {subs.map( (sub) => this.displayDoc(sub.id, sub.nature, sub.path) )}
-                        </div>
-                    }
-                    </div>
-                </div>
-                <div className="buttons">
-                    <div className="all_previous">
-                        {this.state.sources.map(source =>
-                            <DocumentButton 
-                                key={source.id}
-                                onClick={() => this.props.onNextClick(source.id)} 
-                                type="previous" 
-                                parcours= {source.parcours}
-                            />
-                        )}
-                    </div>
-                    <div className="all_next">
-                        {this.state.targets.map(target =>
-                            <DocumentButton 
-                                key={target.id}
-                                onClick={() => this.props.onNextClick(target.id)} 
-                                type="next" 
-                                parcours={target.parcours}
-                            />
-                        )}
-                    </div>
-                </div>
-                <img 
-                    id='cross' 
-                    src={require('./assets/close_brown.png').default}
-                    alt='cross'
-                    onClick={this.props.onCrossClick}
-                >
-                </img> 
-            </div>
-            <div className='buttons'>
-              {this.state.targets.map((target) => (
-                <DocumentButton
-                  key={target}
-                  id={target}
-                  onClick={() => this.props.onNextClick(target)}
-                  type='next'
-                />
-              ))}
-            </div>
+  render() {
+    let doc = this.displayDoc('main_doc', this.props.nature, this.props.path); // Main document
+    let subs = this.props.subs; // Array of secondary documents associated with the main one
+    return (
+      <div className='souvenir'>
+        <div id='memory_info'>
+          <div id='date'>
+            <p>25/05/20</p>
           </div>
-        )}
+          <div id='contributor'>
+            <p>Abraham Lincoln</p>
+          </div>
+          <div className='document'>
+            <h1>{this.props.desc}</h1>
+            {doc}
+            {subs != null && (
+              <div className='sub_docs'>
+                {subs.map((sub) =>
+                  this.displayDoc(sub.id, sub.nature, sub.path)
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className='buttons'>
+          <div className='all_previous'>
+            {this.state.sources.map((source) => (
+              <DocumentButton
+                key={source.id}
+                onClick={() => this.props.onNextClick(source.id)}
+                type='previous'
+                parcours={source.parcours}
+              />
+            ))}
+          </div>
+          <div className='all_next'>
+            {this.state.targets.map((target) => (
+              <DocumentButton
+                key={target.id}
+                onClick={() => this.props.onNextClick(target.id)}
+                type='next'
+                parcours={target.parcours}
+              />
+            ))}
+          </div>
+        </div>
         <img
           id='cross'
-          src={require('./assets/close.png').default}
+          src={require('./assets/close_brown.png').default}
           alt='cross'
           onClick={this.props.onCrossClick}
         ></img>
+        <div className='buttons'>
+          {this.state.targets.map((target) => (
+            <DocumentButton
+              key={target}
+              id={target}
+              onClick={() => this.props.onNextClick(target)}
+              type='next'
+            />
+          ))}
+        </div>
       </div>
     );
   }
