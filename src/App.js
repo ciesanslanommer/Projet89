@@ -196,7 +196,7 @@ class App extends PureComponent {
     // const adminLoaded = this.state.trailLoaded;
     return (
       <div className='App'>
-        {this.state.WelcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
+        {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
         {<Nav />}
         {trailloaded && (
           <Trails
