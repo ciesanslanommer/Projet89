@@ -247,6 +247,7 @@ class App extends PureComponent {
           <Document
             key={memory.id}
             id={memory.id}
+            memory={memory}
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}

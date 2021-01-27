@@ -51,6 +51,11 @@
     left: -50%;
     top: -10px;
     width: 20%;
+    filter: brightness(100);
+}
+
+.visited {
+    filter: grayscale(100) brightness(0.5);
 }
 
 @keyframes appear{

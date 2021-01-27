@@ -10,20 +10,14 @@ const Image = (props) => {
   // var path = props.parcours ? props.parcours[0] + '/' : '';
   return (
     <img
-      src={require('./souvenirs/' + props.path).default}
+      src={props.path}
       alt={props.desc}
     ></img>
   );
 };
 
 function Text(props) {
-  const path = props.path;
-  // const dir = props.parcours ? props.parcours[0] : null;
-  // if (dir) {
-  //   return <p>{raw(`./souvenirs/${dir}/${path}`)}</p>;
-  // } else {
-  return <p>{raw(`./souvenirs/${path}`)}</p>;
-  // }
+  return <p>{props.content}</p>;
 }
 
 function Audio(props) {
@@ -66,15 +60,19 @@ function DocumentButton(props) {
       {type === 'previous' && (
         <img className='arrowbutton_img' alt='previous' src={Arrow} />
       )}
-      {/* <div className='trail_img'>
-        {props.parcours.map((el) => (
+      <div className='trails_img'>
+        {/* {props.parcours.map((el) => (
           <img
             key={el}
             src={require('./assets/' + el.toLowerCase() + '_brown.svg').default}
             alt={el}
           />
-        ))}
-      </div> */}
+        ))} */}
+        <div className='trail_img'>
+            <img src={require('./assets/trails/ruines.png').default} alt=""/>
+            <p>Ruines</p>
+        </div>
+      </div>
       {type === 'next' && (
         <img className='arrowbutton_img' alt='next' src={Arrow} />
       )}
@@ -179,27 +177,33 @@ class Document extends PureComponent {
     //   );
   }
 
-  displayDoc(id, nature, path) {
+  displayDoc(id, nature, content, desc) {
     switch (nature) {
       case 'image':
-        return <Image key={id} path={path} parcours={this.state.trails} />;
+        return <Image key={id} path={content} desc={desc} />;
       case 'texte':
-        return <Text key={id} path={path} parcours={this.state.trails} />;
+        return <Text key={id} content={content} />;
       case 'audio':
-        return <Audio key={id} path={path} parcours={this.state.trails} />;
+        return <Audio key={id} path={content} />;
       case 'video':
-        return <Video key={id} path={path} parcours={this.state.trails} />;
+        return <Video key={id} path={content} />;
       default:
         return <p key={id}>{this.state.memory.format}</p>;
     }
   }
 
   render() {
-    let doc = this.displayDoc('main_doc', this.props.nature, this.props.path); // Main document
-    let subs = this.props.subs; // Array of secondary documents associated with the main one
-    return (
-      <div className='souvenir'>
-            <div className='memory_and_navigation'>
+      let doc = this.displayDoc('main_doc', this.state.memory.format, this.state.memory.content, this.state.memory.description); // Main document
+      let subs = this.props.subs; // Array of secondary documents associated with the main one
+      
+      return (
+          <div className='souvenir'>
+              <div id='trail_info'>
+                <h1>{this.state.trails[0]}</h1>
+              </div>
+
+            <div id='memory_and_navigation'>
+
                 <div className='all_previous'>
                     {this.state.sources.map((source) => (
                         <DocumentButton
@@ -210,15 +214,16 @@ class Document extends PureComponent {
                         />
                     ))}
                 </div>
+
                 <div id='memory_info'>
                     <div id='date'>
-                        <p>25/05/20</p>
+                        <p>{this.state.memory.contribution_date && this.state.memory.contribution_date.split('T')[0]}</p>
                     </div>
                     <div id='contributor'>
-                        <p>Abraham Lincoln</p>
+                        <p>{this.state.memory.contributeur}</p>
                     </div>
                     <div className='document'>
-                        <h1>{this.props.desc}</h1>
+                        <h1>{this.props.name}</h1>
                         {doc}
                         {subs != null && (
                             <div className='sub_docs'>
@@ -229,7 +234,6 @@ class Document extends PureComponent {
                         )}
                     </div>
                 </div>
-
 
                 <div className='all_next'>
                     {this.state.targets.map((target) => (
@@ -243,22 +247,13 @@ class Document extends PureComponent {
                 </div>
             </div>
 
-            <img
+        <img
           id='cross'
           src={require('./assets/close_brown.png').default}
           alt='cross'
           onClick={this.props.onCrossClick}
         ></img>
-        <div className='buttons'>
-          {this.state.targets.map((target) => (
-            <DocumentButton
-              key={target}
-              id={target}
-              onClick={() => this.props.onNextClick(target)}
-              type='next'
-            />
-          ))}
-        </div>
+
       </div>
     );
   }
