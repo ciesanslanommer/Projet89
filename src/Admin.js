@@ -1,9 +1,10 @@
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 import AdminForm from './AdminForm.js';
 import './Admin.css';
 import ManageLink from './ManageLink.js';
 import AddTrail from './AddTrail.js';
 import ManageLinkMemory from './ManageLinkMemory.js';
+import Login from './Login.js';
 
 import { ENDPOINT_API } from './constants/endpoints';
 
@@ -22,6 +23,7 @@ class Admin extends Component {
       iconLoaded: false,
       trails: [],
       trailsLoaded: false,
+      token: '',
     };
   }
 
@@ -139,9 +141,17 @@ class Admin extends Component {
     this.componentDidMount();
   };
 
+  setToken = (token) => {
+    this.setState({ token });
+  }
+
   render() {
     const trailloaded = this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
+
+    if (!this.state.token) {
+      return <Login setToken={token => this.setToken(token)} />
+    }
 
     return (
       <div className='adminBody'>
