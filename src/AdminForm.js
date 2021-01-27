@@ -285,8 +285,8 @@ class AdminForm extends Component {
       contributeur: this.state.contributeur,
       contribution_date: this.state.contribution_date,
       priority: this.state.priority,
-      checkedTrails: this.state.checkedTrails,
-      checkedKeywords: this.state.checkedKeywords,
+      trails: this.state.checkedTrails,
+      keywords: this.state.checkedKeywords,
       targets_id: this.state.target_id,
       subs: [],
     };
@@ -448,22 +448,6 @@ class AdminForm extends Component {
                 </div>
               );
             })}
-            {this.state.closeButtonT && (
-              <button
-                type='button'
-                onClick={() => this.addElements('createTrail')}
-              >
-                Créer un parcours
-              </button>
-            )}
-            {this.state.createTrail && (
-              <AddTrail
-                icon={this.state.icons}
-                reloadTrail={this.loadTrail}
-                firstmemory={this.state.memories[0].id}
-                firsticon={this.state.icons[0].id}
-              />
-            )}
           </div>
 
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
