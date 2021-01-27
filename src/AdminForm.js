@@ -471,7 +471,12 @@ class AdminForm extends Component {
               </button>
             )}
             {this.state.createTrail && (
-              <AddTrail icon={this.state.icons} reloadTrail={this.loadTrail} />
+              <AddTrail
+                icon={this.state.icons}
+                reloadTrail={this.loadTrail}
+                firstmemory={this.state.memories[0].id}
+                firsticon={this.state.icons[0].id}
+              />
             )}
           </div>
 
