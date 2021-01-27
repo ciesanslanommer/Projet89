@@ -181,9 +181,12 @@ class AdminForm extends Component {
   };
 
   createTabTarget = (e) => {
+    console.log(e.target);
     let value = Number(e.target.value);
     let isInState = this.state.target_id.findIndex((el) => el === value);
     console.log(isInState);
+    console.log("this.state.target_id " + this.state.target_id);
+
     if (isInState === -1) {
       const tab = [...this.state.target_id, value];
       this.setState({ target_id: tab });
@@ -192,7 +195,7 @@ class AdminForm extends Component {
       console.log('else' + tabFilter);
       this.setState({ target_id: tabFilter });
     }
-    console.log(this.state.target_id);
+    
   };
 
   displayDoc = (format) => {
@@ -200,7 +203,7 @@ class AdminForm extends Component {
       case 'texte':
         return (
           <div>
-            <label>Quel est votre texte ? :</label>
+            <label>Quel est votre texte ? : </label>
             <textarea
               name='textArea'
               rows='15'
@@ -212,7 +215,7 @@ class AdminForm extends Component {
       case 'youtube':
         return (
           <div>
-            <label>Ajouter un lien vers la vidéo :</label>
+            <label>Ajouter un lien vers la vidéo : </label>
             <input
               type='text'
               name='linkToYoutube'
@@ -223,7 +226,7 @@ class AdminForm extends Component {
       default:
         return (
           <div>
-            <label>Ajouter une image au souvenir :</label>
+            <label>Ajouter une image au souvenir : </label>
             <input
               type='file'
               name='blobcontain'
@@ -296,9 +299,11 @@ class AdminForm extends Component {
     let icons = this.state.icons;
     let keywords = this.state.keywords;
 
+
     return (
       //****************************Formulaire d'ajout de souvenir**************************************** */
       <div className='mainContainer'>
+        
         <form className='adminForm'>
           {/* *************************************************************** AJOUT DU SOUVENIR *************************************************************** */}
           {/* <MemoryForm 
@@ -314,7 +319,8 @@ class AdminForm extends Component {
             submemories={this.state.submemories}
 
           /> */}
-          <div className='sousForm'>
+          <h2>Créer un souvenir</h2>
+          <div className='sousForm'>          
             <label>
               Titre du souvenir <abbr> * </abbr>
             </label>
@@ -409,6 +415,7 @@ class AdminForm extends Component {
               multiple
             >
               {this.state.memories.map((memory) => {
+                
                 return (
                   <option key={memory.id} value={memory.id}>
                     {memory.name}
@@ -416,16 +423,19 @@ class AdminForm extends Component {
                 );
               })}
             </select>
-            <ul>
+            <p>Le souvenir est relié à </p>
+            <div>
               {this.state.target_id.map((target) => {
-                return <li>{target}</li>;
-              })}
-            </ul>
+                let tabFilter = this.state.memories.filter((el) => el.id === target)
+                return <p>{tabFilter[0].name}<p className="comma">,</p> </p>;
+              })} 
+            </div>
           </div>
 
           {/* *************************************************************** AJOUT PARCOURS *************************************************************** */}
-
+          <h2>Choix du parcours</h2>
           <div className='sousForm'>
+          
             <label>
               Choix du parcours (un souvenir peut en avoir 0 ou plusieurs)
             </label>
@@ -445,7 +455,7 @@ class AdminForm extends Component {
               );
             })}
           </div>
-
+            <h2>Autres fonctionnalités</h2>
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
           <button
             type='button'
@@ -525,7 +535,7 @@ class AdminForm extends Component {
           )}
         </form>
         <button type='button' onClick={() => this.postRequest(request)}>
-          Créer un souvenir
+          <h3>Créer un souvenir</h3>
         </button>
       </div>
     );

@@ -45,51 +45,55 @@ class AddTrail extends Component {
   render() {
     let memories = this.state.memories;
     return (
-      <div className='newTrail mainContainer'>
-        <label>Créer un nouveau parcours</label>
-        <input
-          value={this.state.trail}
-          type='text'
-          placeholder='Ruines'
-          onChange={(e) => this.getValue('trail', e)}
-        />
-        <label>
-          Choisir une icone <abbr> * </abbr>
-        </label>
-        <select
-          name='icons'
-          id='icon_id'
-          onChange={(e) => this.getValue('icon_id', e)}
-        >
-          {this.props.icon.map((icon) => {
-            if (icon.istrailicon)
+      <div className='mainContainer'>
+        <h2>Créer un nouveau parcours</h2>
+        <div className='newTrail mainContainer'>
+         
+          <label>Nom du parcours</label>
+          <input
+            value={this.state.trail}
+            type='text'
+            placeholder='Ruines'
+            onChange={(e) => this.getValue('trail', e)}
+          />
+          <label>
+            Choisir une icone <abbr> * </abbr>
+          </label>
+          <select
+            name='icons'
+            id='icon_id'
+            onChange={(e) => this.getValue('icon_id', e)}
+          >
+            {this.props.icon.map((icon) => {
+              if (icon.istrailicon)
+                return (
+                  <option key={icon.id} value={icon.id}>
+                    {icon.name}
+                  </option>
+                );
+              else return null;
+            })}
+          </select>
+          {/* <label>Quel sera son premier souvenir ?</label>
+          <select
+            name='memories'
+            id='memories_id'
+            onChange={(e) => this.getValue('memory_id', e)}
+            select={this.state.memory_id}
+          >
+            {memories.map((memory) => {
               return (
-                <option key={icon.id} value={icon.id}>
-                  {icon.name}
+                <option key={memory.id} value={memory.id}>
+                  {memory.name}
                 </option>
               );
-            else return null;
-          })}
-        </select>
-        {/* <label>Quel sera son premier souvenir ?</label>
-        <select
-          name='memories'
-          id='memories_id'
-          onChange={(e) => this.getValue('memory_id', e)}
-          select={this.state.memory_id}
-        >
-          {memories.map((memory) => {
-            return (
-              <option key={memory.id} value={memory.id}>
-                {memory.name}
-              </option>
-            );
-          })}
-        </select> */}
+            })}
+          </select> */}
 
-        <button type='button' onClick={this.postTrail}>
-          Créer Parcours
-        </button>
+          <button type='button' onClick={this.postTrail}>
+            Créer Parcours
+          </button>
+        </div>
       </div>
     );
   }
