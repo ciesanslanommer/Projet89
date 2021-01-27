@@ -66,7 +66,7 @@ function DocumentButton(props) {
       {type === 'previous' && (
         <img className='arrowbutton_img' alt='previous' src={Arrow} />
       )}
-      <div className='trail_img'>
+      {/* <div className='trail_img'>
         {props.parcours.map((el) => (
           <img
             key={el}
@@ -74,7 +74,7 @@ function DocumentButton(props) {
             alt={el}
           />
         ))}
-      </div>
+      </div> */}
       {type === 'next' && (
         <img className='arrowbutton_img' alt='next' src={Arrow} />
       )}
@@ -199,48 +199,51 @@ class Document extends PureComponent {
     let subs = this.props.subs; // Array of secondary documents associated with the main one
     return (
       <div className='souvenir'>
-        <div id='memory_info'>
-          <div id='date'>
-            <p>25/05/20</p>
-          </div>
-          <div id='contributor'>
-            <p>Abraham Lincoln</p>
-          </div>
-          <div className='document'>
-            <h1>{this.props.desc}</h1>
-            {doc}
-            {subs != null && (
-              <div className='sub_docs'>
-                {subs.map((sub) =>
-                  this.displayDoc(sub.id, sub.nature, sub.path)
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-        <div className='buttons'>
-          <div className='all_previous'>
-            {this.state.sources.map((source) => (
-              <DocumentButton
-                key={source.id}
-                onClick={() => this.props.onNextClick(source.id)}
-                type='previous'
-                parcours={source.parcours}
-              />
-            ))}
-          </div>
-          <div className='all_next'>
-            {this.state.targets.map((target) => (
-              <DocumentButton
-                key={target.id}
-                onClick={() => this.props.onNextClick(target.id)}
-                type='next'
-                parcours={target.parcours}
-              />
-            ))}
-          </div>
-        </div>
-        <img
+            <div className='memory_and_navigation'>
+                <div className='all_previous'>
+                    {this.state.sources.map((source) => (
+                        <DocumentButton
+                            key={source}
+                            onClick={() => this.props.onNextClick(source)}
+                            type='previous'
+                        // parcours={source.parcours}
+                        />
+                    ))}
+                </div>
+                <div id='memory_info'>
+                    <div id='date'>
+                        <p>25/05/20</p>
+                    </div>
+                    <div id='contributor'>
+                        <p>Abraham Lincoln</p>
+                    </div>
+                    <div className='document'>
+                        <h1>{this.props.desc}</h1>
+                        {doc}
+                        {subs != null && (
+                            <div className='sub_docs'>
+                                {subs.map((sub) =>
+                                    this.displayDoc(sub.id, sub.nature, sub.path)
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+
+                <div className='all_next'>
+                    {this.state.targets.map((target) => (
+                        <DocumentButton
+                            key={target}
+                            onClick={() => this.props.onNextClick(target)}
+                            type='next'
+                        // parcours={target.parcours}
+                        />
+                    ))}
+                </div>
+            </div>
+
+            <img
           id='cross'
           src={require('./assets/close_brown.png').default}
           alt='cross'

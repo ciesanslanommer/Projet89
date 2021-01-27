@@ -290,7 +290,7 @@ class AdminForm extends Component {
     // console.log(request);
     let icons = this.state.icons;
     let keywords = this.state.keywords;
-
+    console.log(request);
     return (
       //****************************Formulaire d'ajout de souvenir**************************************** */
       <div className='mainContainer'>
