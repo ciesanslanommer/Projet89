@@ -3,7 +3,6 @@ import './AdminForm.css';
 import AddKeyword from './AddKeyword.js';
 
 import { ENDPOINT_API } from './constants/endpoints';
-import AddTrail from './AddTrail';
 
 class AdminForm extends Component {
   constructor(props) {
@@ -139,12 +138,17 @@ class AdminForm extends Component {
   };
 
   getFile = (e) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      let arrayBuffer = reader.result;
-      this.setState({ content: arrayBuffer });
-    };
+    if (e.target.files[0].size > 200000) {
+      alert('File is too large: limit is 200ko');
+      this.setState({ content: '' });
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = () => {
+        let arrayBuffer = reader.result;
+        this.setState({ content: arrayBuffer });
+      };
+    }
   };
 
   closeButtonK = () => {
@@ -185,7 +189,7 @@ class AdminForm extends Component {
     let value = Number(e.target.value);
     let isInState = this.state.target_id.findIndex((el) => el === value);
     console.log(isInState);
-    console.log("this.state.target_id " + this.state.target_id);
+    console.log('this.state.target_id ' + this.state.target_id);
 
     if (isInState === -1) {
       const tab = [...this.state.target_id, value];
@@ -195,7 +199,6 @@ class AdminForm extends Component {
       console.log('else' + tabFilter);
       this.setState({ target_id: tabFilter });
     }
-    
   };
 
   displayDoc = (format) => {
@@ -246,10 +249,14 @@ class AdminForm extends Component {
   };
 
   postRequest(request) {
-    // if (name === '' || description === '' || contribution_date === '') {
-    //   alert('Des champs obligatoires ne sont pas remplis');
-    //   return;
-    // }
+    if (
+      request.name === '' ||
+      request.description === '' ||
+      request.content === ''
+    ) {
+      alert('Des champs obligatoires ne sont pas remplis');
+      return;
+    }
 
     var result = new Date(request.contribution_date);
     result.setDate(result.getDate() + 1);
@@ -299,11 +306,9 @@ class AdminForm extends Component {
     let icons = this.state.icons;
     let keywords = this.state.keywords;
 
-
     return (
       //****************************Formulaire d'ajout de souvenir**************************************** */
       <div className='mainContainer'>
-        
         <form className='adminForm'>
           {/* *************************************************************** AJOUT DU SOUVENIR *************************************************************** */}
           {/* <MemoryForm 
@@ -320,7 +325,7 @@ class AdminForm extends Component {
 
           /> */}
           <h2>Créer un souvenir</h2>
-          <div className='sousForm'>          
+          <div className='sousForm'>
             <label>
               Titre du souvenir <abbr> * </abbr>
             </label>
@@ -415,7 +420,6 @@ class AdminForm extends Component {
               multiple
             >
               {this.state.memories.map((memory) => {
-                
                 return (
                   <option key={memory.id} value={memory.id}>
                     {memory.name}
@@ -426,16 +430,22 @@ class AdminForm extends Component {
             <p>Le souvenir est relié à </p>
             <div>
               {this.state.target_id.map((target) => {
-                let tabFilter = this.state.memories.filter((el) => el.id === target)
-                return <p>{tabFilter[0].name}<p className="comma">,</p> </p>;
-              })} 
+                let tabFilter = this.state.memories.filter(
+                  (el) => el.id === target
+                );
+                return (
+                  <p>
+                    {tabFilter[0].name}
+                    <p className='comma'>,</p>{' '}
+                  </p>
+                );
+              })}
             </div>
           </div>
 
           {/* *************************************************************** AJOUT PARCOURS *************************************************************** */}
           <h2>Choix du parcours</h2>
           <div className='sousForm'>
-          
             <label>
               Choix du parcours (un souvenir peut en avoir 0 ou plusieurs)
             </label>
@@ -455,7 +465,7 @@ class AdminForm extends Component {
               );
             })}
           </div>
-            <h2>Autres fonctionnalités</h2>
+          <h2>Autres fonctionnalités</h2>
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
           <button
             type='button'

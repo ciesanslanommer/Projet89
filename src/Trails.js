@@ -25,7 +25,7 @@ const myConfig = {
     renderLabel: false,
   },
   link: {
-    color: 'rgba(255, 255, 255, 1)',
+    color: 'rgba(255, 255, 255, 0.5)',
     type: 'CURVE_SMOOTH',
   },
   d3: {
@@ -349,7 +349,7 @@ class Trails extends PureComponent {
   onClickGraph = (event, e) => {
     if (!this.props.docOpen) {
       this.removeAllHighlightParcours();
-    }
+    } else this.props.closeDoc();
   };
 
   highlightNode(nodeId) {

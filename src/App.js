@@ -208,6 +208,7 @@ class App extends PureComponent {
             trails={this.state.trail}
             currentMemory={this.state.currentMemory}
             docOpen={this.state.docOpen}
+            closeDoc={this.closeMemory}
           />
         )}
         {this.state.docOpen ? (
