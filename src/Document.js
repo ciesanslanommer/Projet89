@@ -68,7 +68,7 @@ function DocumentButton(props) {
             }
             alt={el.parcours}
           />
-          <h2>Bouleversement</h2>
+          <h2>{el.parcours}</h2>
           </div>
         ))}
       </div>
