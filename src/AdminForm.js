@@ -39,6 +39,7 @@ class AdminForm extends Component {
       closeButtonT: true,
       createTrail: false,
       addSub: false,
+      addKeyword: false,
     };
   }
   componentDidMount() {
@@ -234,11 +235,11 @@ class AdminForm extends Component {
   };
 
   openDiv = (stateKey, e) => {
-    this.setState({[stateKey]: true})
+    this.setState({ [stateKey]: true })
   }
-  
+
   closeDiv = (stateKey, e) => {
-    this.setState({[stateKey]: false})
+    this.setState({ [stateKey]: false })
   }
 
   postRequest(request) {
@@ -418,38 +419,41 @@ class AdminForm extends Component {
           </div>
 
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
-
-          <div className='sousForm keywords' id='KeyWords'>
-            <div className='divKeywords'>
-              <label>Taguer le souvenir d'un ou plusieurs mots-clés</label>
-              {keywords.map((keyword) => {
-                return (
-                  <div>
-                    <input
-                      type='checkbox'
-                      id={keyword.id}
-                      key={keyword.id}
-                      name={keyword.word}
-                      value={keyword.word}
-                      onChange={(e) => this.isChecked('checkedKeywords', e)}
-                    />
-                    <label for={keyword.id}>{keyword.word}</label>
-                  </div>
-                );
-              })}
+          <button type="button" onClick={this.state.addKeyword ? (e) => this.closeDiv("addKeyword") : (e) => this.openDiv("addKeyword")}>Ajouter un mot clé</button>
+          {
+            this.state.addKeyword &&
+            <div className='sousForm keywords' id='KeyWords'>
+              <div className='divKeywords'>
+                <label>Taguer le souvenir d'un ou plusieurs mots-clés</label>
+                {keywords.map((keyword) => {
+                  return (
+                    <div>
+                      <input
+                        type='checkbox'
+                        id={keyword.id}
+                        key={keyword.id}
+                        name={keyword.word}
+                        value={keyword.word}
+                        onChange={(e) => this.isChecked('checkedKeywords', e)}
+                      />
+                      <label for={keyword.id}>{keyword.word}</label>
+                    </div>
+                  );
+                })}
+              </div>
+              {this.state.closeButtonK && (
+                <button
+                  type='button'
+                  onClick={() => this.addElements('createKeyword')}
+                >
+                  Ajouter un mot-clé
+                </button>
+              )}
+              {this.state.createKeyword && (
+                <AddKeyword reloadKeyword={this.loadKeyword} />
+              )}
             </div>
-            {this.state.closeButtonK && (
-              <button
-                type='button'
-                onClick={() => this.addElements('createKeyword')}
-              >
-                Ajouter un mot-clé
-              </button>
-            )}
-            {this.state.createKeyword && (
-              <AddKeyword reloadKeyword={this.loadKeyword} />
-            )}
-          </div>
+          }
           {/* *************************************************************** AJOUT PARCOURS *************************************************************** */}
 
           <div className='sousForm'>
