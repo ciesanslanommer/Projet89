@@ -45,6 +45,7 @@ class ManageLink extends Component {
         const memories = this.state.memories
         return (
             <div className="mainContainer">
+                <h2>Lier un parcours à un souvenir</h2>
                 <table>
                     <tr>
                         <th>Parcours</th>

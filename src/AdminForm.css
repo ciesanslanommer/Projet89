@@ -1,7 +1,31 @@
 body{
     width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
+    color: white;
+    background-image: url(./assets/fond.png);
+}
+
+.adminBody{
+    width: 100%;
+    height: 100%;
+    margin: 0; 
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.adminButtons{
+    width: 30%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
 }
 
 .mainContainer{
@@ -22,6 +46,7 @@ body{
     align-items: center;   
     text-align: center;
     width: 70vw;
+    height: 100%;
 }
     
 textarea, select, input{
@@ -34,6 +59,7 @@ div{
     padding-bottom: 15px;
     padding-top: 15px;
     width: 100%;
+    height: 100%;
 }
 
 p{
@@ -41,12 +67,15 @@ p{
 }
 
 #root{
+    width: 100%;
     padding-top: 0;
     padding-bottom: 0;
+    height: 100%;
 }
 
 label{
     padding-top: 15px;
+    padding-bottom: 10px;
 }
 
 button{
@@ -127,4 +156,23 @@ textarea{
     width: 50%;
 }
 
+.returnButton{
+    position: fixed;
+    left: 3vw;
+}
 
+table{
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 50px 100px 50px 100px;
+}
+
+td{
+    padding: 20px;
+}
+
+.newTrail{
+    width: 50%;
+    border: 1px solid white;
+    border-radius: 15px;
+}

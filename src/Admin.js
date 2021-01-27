@@ -143,16 +143,17 @@ class Admin extends Component {
 
     return (
       <div className='adminBody'>
+        <h1>Mode admin</h1>
         {
           !this.state.adminFormOpen && !this.state.manageLinkTrailOpen && !this.state.manageLinkMemoryOpen && !this.state.createTrail ?
-          <div>
+          <div className='adminButtons'>
             <button type="button" onClick={(e) => this.openComponent("adminFormOpen", e)}>Créer un souvenir</button>
             <button type="button" onClick={(e) => this.openComponent("manageLinkTrailOpen", e)}>Lier un parcours avec un souvenir</button>
             <button type="button" onClick={(e) => this.openComponent("manageLinkMemoryOpen", e)}>Lier un souvenir à un parcours</button>
             <button type="button" onClick={(e) => this.openComponent("createTrail", e)}>Créer un parcours</button>
           </div>
           :
-          <button type="button" onClick={this.backAdmin}>Retour</button>
+          <button type="button" className='returnButton' onClick={this.backAdmin}>Retour</button>
         }
         {trailloaded && this.state.adminFormOpen && (<AdminForm trails={this.state.trail} />)}
         {this.state.manageLinkTrailOpen && (<ManageLink trails={this.state.trails} memories={this.state.memories} />)}

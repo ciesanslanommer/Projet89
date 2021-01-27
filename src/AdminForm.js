@@ -298,8 +298,7 @@ class AdminForm extends Component {
     return (
       //****************************Formulaire d'ajout de souvenir**************************************** */
       <div className='mainContainer'>
-        <h1>Mode admin</h1>
-        <h2>Ajouter un souvenir</h2>
+        
         <form className='adminForm'>
           {/* *************************************************************** AJOUT DU SOUVENIR *************************************************************** */}
           {/* <MemoryForm 
@@ -315,7 +314,8 @@ class AdminForm extends Component {
             submemories={this.state.submemories}
 
           /> */}
-          <div className='sousForm'>
+          <h2>Créer un souvenir</h2>
+          <div className='sousForm'>          
             <label>
               Titre du souvenir <abbr> * </abbr>
             </label>
@@ -428,8 +428,9 @@ class AdminForm extends Component {
           </div>
 
           {/* *************************************************************** AJOUT PARCOURS *************************************************************** */}
-
+          <h2>Choix du parcours</h2>
           <div className='sousForm'>
+          
             <label>
               Choix du parcours (un souvenir peut en avoir 0 ou plusieurs)
             </label>
@@ -449,7 +450,7 @@ class AdminForm extends Component {
               );
             })}
           </div>
-
+            <h2>Autres fonctionnalités</h2>
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
           <button type="button" onClick={this.state.addKeyword ? (e) => this.closeDiv("addKeyword") : (e) => this.openDiv("addKeyword")}>Ajouter un mot clé</button>
           {
@@ -513,7 +514,7 @@ class AdminForm extends Component {
           }
         </form>
         <button type='button' onClick={() => this.postRequest(request)}>
-          Créer un souvenir
+          <h3>Créer un souvenir</h3>
         </button>
       </div>
     );
