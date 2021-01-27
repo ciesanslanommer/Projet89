@@ -36,6 +36,10 @@ div{
     width: 100%;
 }
 
+p{
+    display: inline;
+}
+
 #root{
     padding-top: 0;
     padding-bottom: 0;

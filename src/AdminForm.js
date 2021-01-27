@@ -181,9 +181,12 @@ class AdminForm extends Component {
   };
 
   createTabTarget = (e) => {
+    console.log(e.target);
     let value = Number(e.target.value);
     let isInState = this.state.target_id.findIndex((el) => el === value);
     console.log(isInState);
+    console.log("this.state.target_id " + this.state.target_id);
+
     if (isInState === -1) {
       const tab = [...this.state.target_id, value];
       this.setState({ target_id: tab });
@@ -192,10 +195,6 @@ class AdminForm extends Component {
       console.log('else' + tabFilter);
       this.setState({ target_id: tabFilter });
     }
-    console.log(this.state.target_id);
-  };
-
-  isSelect = () => {
     
   };
 
@@ -294,6 +293,7 @@ class AdminForm extends Component {
     // console.log(request);
     let icons = this.state.icons;
     let keywords = this.state.keywords;
+
 
     return (
       //****************************Formulaire d'ajout de souvenir**************************************** */
@@ -412,18 +412,19 @@ class AdminForm extends Component {
               {this.state.memories.map((memory) => {
                 
                 return (
-                  <option key={memory.id} class={this.isSelect} value={memory.id}>
+                  <option key={memory.id} value={memory.id}>
                     {memory.name}
                   </option>
                 );
               })}
             </select>
             <p>Le souvenir est relié à </p>
-            <ul>
+            <div>
               {this.state.target_id.map((target) => {
-                return <li>{target}</li>;
-              })}
-            </ul>
+                let tabFilter = this.state.memories.filter((el) => el.id === target)
+                return <p>{tabFilter[0].name}<p className="comma">,</p> </p>;
+              })} 
+            </div>
           </div>
 
           {/* *************************************************************** AJOUT PARCOURS *************************************************************** */}
