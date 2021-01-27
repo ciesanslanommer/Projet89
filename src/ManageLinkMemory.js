@@ -2,7 +2,7 @@ import { React, Component } from 'react';
 import './AdminForm.css';
 import { ENDPOINT_API } from './constants/endpoints';
 
-class ManageLink extends Component {
+class ManageLinkMemory extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,14 +11,21 @@ class ManageLink extends Component {
         };
     }
 
-      putRequest(trail_id, event) {
+    getValue = (event) => {
         let value = event.target.value;
         console.log(value)
+        this.setState({ target_id: value });
+      };
+
+      postRequest(memory_id, event) {
+        let value = event.target.value;
+        console.log(value)
+        console.log(memory_id)
 
         /*~~~~~~~~~~ Put Request ~~~~~~~~~*/
-        fetch(ENDPOINT_API + '/updatetargetid/' + trail_id, {
-          method: 'PUT',
-          body: JSON.stringify({ target_id :value}),
+        fetch(ENDPOINT_API + '/hastrail', {
+          method: 'POST',
+          body: JSON.stringify({ memory_id : Number(memory_id), trail_id : Number(value)}),
           headers: {
             'Content-type': 'application/json; charset=UTF-8',
           },
@@ -33,7 +40,7 @@ class ManageLink extends Component {
             //   format: value,
             //   date: value,
             // });
-            alert('Le souvenir a bien été en registré !');
+            alert('Le parcours a bien été en registré !');
           });
       }
     
@@ -47,25 +54,25 @@ class ManageLink extends Component {
             <div className="mainContainer">
                 <table>
                     <tr>
-                        <th>Parcours</th>
                         <th>Souvenirs</th>
+                        <th>Parcours</th>
                     </tr>
-                    {trails.map((trail) => {
+                    {memories.map((memory) => {
                         return (
                             <tr>
-                                <td key={trail.id}>
-                                    {trail.parcours}
+                                <td key={memory.id}>
+                                    {memory.name}
                                 </td>
                                 <td>
                                     <select
-                                        name='memories'
-                                        onChange={(e) => this.putRequest(trail.id, e)}
+                                        name='trails'
+                                        onChange={(e) => this.postRequest(memory.id, e)}
                                     >
                                         <option value="null">...</option>
-                                        {memories.map((memory) => {
+                                        {trails.map((trail) => {
                                             return (
-                                                <option key={memory.id} value={memory.id}>
-                                                    {memory.name}
+                                                <option key={trail.id} value={trail.id}>
+                                                    {trail.parcours}
                                                 </option>
                                             );
                                         })}
@@ -80,4 +87,4 @@ class ManageLink extends Component {
     }
 }
 
-export default ManageLink;
+export default ManageLinkMemory;
