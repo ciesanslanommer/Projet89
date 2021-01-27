@@ -60,22 +60,25 @@ function DocumentButton(props) {
       {type === 'previous' && (
         <img className='arrowbutton_img' alt='previous' src={Arrow} />
       )}
-      <div className='trail_img'>
-        {/* {props.parcours.map((el) => (
+      
+        {props.parcours.map((el) => (
+          <div className='trail_img'>
           <img
             key={el.parcours}
             src={
-              require('./assets/' + el.parcours.toLowerCase() + '_brown.svg')
+              require('./assets/trails/' + el.parcours.toLowerCase() + '.png')
                 .default
             }
-            alt={el.name}
+            alt={el.parcours}
           />
-        ))} */}
-        <div className='trail_img'>
+          <p>{el.parcours}</p>
+          </div>
+        ))}
+        {/* <div className='trail_img'>
           <img src={require('./assets/trails/ruines.png').default} alt="" />
           <p>Ruines</p>
-        </div>
-      </div>
+        </div> */}
+      
       {type === 'next' && (
         <img className='arrowbutton_img' alt='next' src={Arrow} />
       )}
@@ -106,8 +109,8 @@ class Document extends PureComponent {
         trail.push(obj);
       });
     }
-    console.log('les parcours du doc');
-    console.log(trail);
+    // console.log('les parcours du doc');
+    // console.log(trail);
     return trail;
   };
 
@@ -124,8 +127,8 @@ class Document extends PureComponent {
 
           result.source = result.source.map((id) => {
             const trail = this.getTrailById(id);
-            console.log(id);
-            console.log(trail);
+            // console.log(id);
+            // console.log(trail);
             return {
               id: id,
               parcours: trail,
@@ -134,7 +137,7 @@ class Document extends PureComponent {
 
           result.target = result.target.map((id) => {
             const trail = this.getTrailById(id);
-            console.log(trail);
+            // console.log(trail);
             return {
               id: id,
               parcours: trail,
@@ -219,11 +222,17 @@ class Document extends PureComponent {
   render() {
     let doc = this.displayDoc('main_doc', this.state.memory.format, this.state.memory.content, this.state.memory.description); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
+    let trail = "PARCOURS";
+    for(let i=0; i<this.state.trails.length; i++) {
+      trail += ' ' + this.state.trails[i].parcours.toUpperCase();
+    };
+
+
     return (
       <div className='souvenir'>
 
         <div id='trail_info'>
-          <h1>TRAIL</h1>
+          <h1>{trail}</h1>
         </div>
 
         <div id='memory_and_navigation'>
@@ -234,20 +243,20 @@ class Document extends PureComponent {
                 key={source.id}
                 onClick={() => this.props.onNextClick(source.id)}
                 type='previous'
-                // parcours={source.parcours}
+                parcours={source.parcours}
               />
             ))}
           </div>
 
           <div id='memory_info'>
             <div id='date'>
-              <p>{this.state.memory.contribution_date && this.state.memory.contribution_date.split('T')[0]}</p>
+              <p>{this.state.memory.contribution_date && this.state.memory.contribution_date.split('T')[0].split('-').reverse().join('/')}</p>
             </div>
             <div id='contributor'>
               <p>{this.state.memory.contributeur}</p>
             </div>
             <div className='document'>
-              <h1>TEMP</h1>
+              <h1>{this.state.memory.name}</h1>
               {doc}
               {subs != null && (
                 <div className='sub_docs'>
@@ -266,7 +275,7 @@ class Document extends PureComponent {
                   key={target.id}
                   onClick={() => this.props.onNextClick(target.id)}
                   type='next'
-                  // parcours={target.parcours}
+                  parcours={target.parcours}
                 />
               ))}
             </div>
