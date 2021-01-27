@@ -184,6 +184,7 @@ class Trails extends PureComponent {
             visited={node.visited}
             zoom={this.state.zoom}
             nodeZoom={node.zoom}
+            path={node.icon_path}
           />
         )}
       </div>
