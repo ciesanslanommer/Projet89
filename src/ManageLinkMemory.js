@@ -55,32 +55,36 @@ class ManageLinkMemory extends Component {
       <div className='mainContainer'>
         <h2>Lier un souvenir à un parcours</h2>
         <table>
-          <tr>
-            <th>Souvenirs</th>
-            <th>Parcours</th>
-          </tr>
-          {memories.map((memory) => {
-            return (
-              <tr>
-                <td key={memory.id}>{memory.name}</td>
-                <td>
-                  <select
-                    name='trails'
-                    onChange={(e) => this.postRequest(memory.id, e)}
-                  >
-                    <option value='null'>...</option>
-                    {trails.map((trail) => {
-                      return (
-                        <option key={trail.id} value={trail.id}>
-                          {trail.parcours}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-            );
-          })}
+          <thead>
+            <tr>
+              <th>Souvenirs</th>
+              <th>Parcours</th>
+            </tr>
+          </thead>
+          <tbody>
+            {memories.map((memory) => {
+              return (
+                <tr key={memory.id}>
+                  <td key={memory.id}>{memory.name}</td>
+                  <td>
+                    <select
+                      name='trails'
+                      onChange={(e) => this.postRequest(memory.id, e)}
+                    >
+                      <option value='null'>...</option>
+                      {trails.map((trail) => {
+                        return (
+                          <option key={trail.id} value={trail.id}>
+                            {trail.parcours}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     );

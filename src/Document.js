@@ -1,5 +1,4 @@
 import './Document.css';
-import raw from 'raw.macro';
 import { React, PureComponent } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Arrow from './assets/arrow.png';
@@ -46,17 +45,20 @@ function Video(props) {
 }
 
 function DocumentButton(props) {
-  var type = props.type;
+  console.log(props);
   return (
-    <div onClick={props.onClick} className={'button ' + type}>
-      {type === 'previous' && (
+    <div
+      key={props.id}
+      onClick={props.onClick}
+      className={'button ' + props.type}
+    >
+      {props.type === 'previous' && (
         <img className='arrowbutton_img' alt='previous' src={Arrow} />
       )}
       <div className='trails_img'>
         {props.parcours.map((el) => (
           <div className='trail_img'>
             <img
-              key={el.parcours}
               src={require('./assets/' + el.path).default}
               alt={el.parcours}
             />
@@ -65,7 +67,7 @@ function DocumentButton(props) {
         ))}
       </div>
 
-      {type === 'next' && (
+      {props.type === 'next' && (
         <img className='arrowbutton_img' alt='next' src={Arrow} />
       )}
     </div>
@@ -237,6 +239,7 @@ class Document extends PureComponent {
             {this.state.sources.map((source) => (
               <DocumentButton
                 key={source.id}
+                id={source.id}
                 onClick={() => this.props.onNextClick(source.id)}
                 type='previous'
                 parcours={source.parcours}
@@ -274,6 +277,7 @@ class Document extends PureComponent {
           <div className='all_next'>
             {this.state.targets.map((target) => (
               <DocumentButton
+                id={target.id}
                 key={target.id}
                 onClick={() => this.props.onNextClick(target.id)}
                 type='next'

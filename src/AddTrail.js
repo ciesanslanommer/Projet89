@@ -17,7 +17,6 @@ class AddTrail extends Component {
     this.setState({ [stateKey]: value });
   };
 
-
   postTrail = () => {
     if (this.state.trail === '') {
       alert(' le mot clef ne peut pas être vide');
@@ -43,12 +42,10 @@ class AddTrail extends Component {
   };
 
   render() {
-    let memories = this.state.memories;
     return (
       <div className='mainContainer'>
         <h2>Créer un nouveau parcours</h2>
         <div className='newTrail mainContainer'>
-         
           <label>Nom du parcours</label>
           <input
             value={this.state.trail}

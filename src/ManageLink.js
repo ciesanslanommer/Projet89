@@ -45,37 +45,37 @@ class ManageLink extends Component {
       <div className='mainContainer'>
         <h2>Lier un parcours avec un souvenir</h2>
         <table>
-          <tr>
-            <th>Parcours</th>
-            <th>Souvenirs</th>
-          </tr>
-          {trails.map((trail) => {
-            return (
-              <tr>
-                <td key={trail.id}>{trail.parcours}</td>
-                <td>
-                  <select
-                    name='memories'
-                    onChange={(e) => this.putRequest(trail.id, e)}
-                  >
-                    <option value='null'>...</option>
-                    {memories.map((memory) => {
-                      const selected = trail.target_id === memory.id;
-                      return (
-                        <option
-                          key={memory.id}
-                          value={memory.id}
-                          selected={selected}
-                        >
-                          {memory.name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-            );
-          })}
+          <thead>
+            <tr>
+              <th>Parcours</th>
+              <th>Souvenirs</th>
+            </tr>
+          </thead>
+          <tbody>
+            {trails.map((trail) => {
+              return (
+                <tr key={trail.id}>
+                  <td key={trail.id}>{trail.parcours}</td>
+                  <td>
+                    <select
+                      name='memories'
+                      onChange={(e) => this.putRequest(trail.id, e)}
+                      defaultValue={trail.target_id}
+                    >
+                      <option value='null'>...</option>
+                      {memories.map((memory) => {
+                        return (
+                          <option key={memory.id} value={memory.id}>
+                            {memory.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     );
