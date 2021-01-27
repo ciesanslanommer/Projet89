@@ -1,14 +1,12 @@
 import { React, Component } from 'react';
 import { ENDPOINT_API } from './constants/endpoints';
+import './AdminForm.css';
 
 class AddTrail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       icon_id: this.props.firsticon,
-      memory_id: this.props.firstmemory,
-      memories: [],
-      memoriesLoaded: false,
     };
   }
 
@@ -19,28 +17,6 @@ class AddTrail extends Component {
     this.setState({ [stateKey]: value });
   };
 
-  componentDidMount() {
-    // TODO display a loader when not loaded yet?
-    console.log(`Fetching memories from ${ENDPOINT_API}/memories/`);
-    fetch(ENDPOINT_API + '/memories')
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log('Success! memories = ', result);
-          this.setState({
-            memories: result,
-            memoriesLoaded: true,
-          });
-        },
-        (error) => {
-          console.error(
-            'Oops, something wrong happened when loading icons',
-            error
-          );
-          // TODO maybe display an error for the user?
-        }
-      );
-  }
 
   postTrail = () => {
     if (this.state.trail === '') {
@@ -54,7 +30,6 @@ class AddTrail extends Component {
         icon_id: this.state.icon_id,
         pos_x: Math.random() * 1000,
         pos_y: Math.random() * 1000,
-        target_id: this.state.memory_id,
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -63,11 +38,6 @@ class AddTrail extends Component {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        const value = '';
-        this.setState({
-          keyword: value,
-        });
-        this.props.reloadTrail();
         alert('parcours ajouté');
       });
   };
@@ -75,7 +45,7 @@ class AddTrail extends Component {
   render() {
     let memories = this.state.memories;
     return (
-      <div className='newTrail'>
+      <div className='newTrail mainContainer'>
         <label>Créer un nouveau parcours</label>
         <input
           value={this.state.trail}
@@ -101,7 +71,7 @@ class AddTrail extends Component {
             else return null;
           })}
         </select>
-        <label>Quel sera son premier souvenir ?</label>
+        {/* <label>Quel sera son premier souvenir ?</label>
         <select
           name='memories'
           id='memories_id'
@@ -115,10 +85,10 @@ class AddTrail extends Component {
               </option>
             );
           })}
-        </select>
+        </select> */}
 
         <button type='button' onClick={this.postTrail}>
-          Ajouter ce parcours au souvenir
+          Créer Parcours
         </button>
       </div>
     );

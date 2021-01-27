@@ -439,22 +439,6 @@ class AdminForm extends Component {
                 </div>
               );
             })}
-            {this.state.closeButtonT && (
-              <button
-                type='button'
-                onClick={() => this.addElements('createTrail')}
-              >
-                Créer un parcours
-              </button>
-            )}
-            {this.state.createTrail && (
-              <AddTrail
-                icon={this.state.icons}
-                reloadTrail={this.loadTrail}
-                firstmemory={this.state.memories[0].id}
-                firsticon={this.state.icons[0].id}
-              />
-            )}
           </div>
 
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
