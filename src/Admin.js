@@ -3,6 +3,7 @@ import AdminForm from './AdminForm.js';
 import './Admin.css';
 import ManageLink from './ManageLink.js'
 import AddTrail from './AddTrail.js'
+import ManageLinkMemory from './ManageLinkMemory.js'
 
 import { ENDPOINT_API } from './constants/endpoints';
 
@@ -12,7 +13,8 @@ class Admin extends Component {
     this.state = {
       linkLoaded: false,
       adminFormOpen: false,
-      manageLinkOpen: false,
+      manageLinkTrailOpen: false,
+      manageLinkMemoryOpen: false,
       createTrail: false,
       memories: [],
       memoriesLoaded: false,
@@ -126,6 +128,15 @@ class Admin extends Component {
     this.setState({ [stateKey]: false })
   }
 
+  backAdmin = () => {
+    this.setState({
+      adminFormOpen: false,
+      manageLinkTrailOpen: false,
+      manageLinkMemoryOpen: false,
+      createTrail: false
+    })
+  }
+
   render() {
     const trailloaded = this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
@@ -133,21 +144,25 @@ class Admin extends Component {
     return (
       <div className='adminBody'>
         {
-          !this.state.adminFormOpen && !this.state.manageLinkOpen && !this.state.createTrail &&
+          !this.state.adminFormOpen && !this.state.manageLinkTrailOpen && !this.state.manageLinkMemoryOpen && !this.state.createTrail ?
           <div>
             <button type="button" onClick={(e) => this.openComponent("adminFormOpen", e)}>Créer un souvenir</button>
-            <button type="button" onClick={(e) => this.openComponent("manageLinkOpen", e)}>Lier un parcours avec un souvenir</button>
+            <button type="button" onClick={(e) => this.openComponent("manageLinkTrailOpen", e)}>Lier un parcours avec un souvenir</button>
+            <button type="button" onClick={(e) => this.openComponent("manageLinkMemoryOpen", e)}>Lier un souvenir à un parcours</button>
             <button type="button" onClick={(e) => this.openComponent("createTrail", e)}>Créer un parcours</button>
           </div>
+          :
+          <button type="button" onClick={this.backAdmin}>Retour</button>
         }
-        { trailloaded && this.state.adminFormOpen && (<AdminForm trails={this.state.trail} />)}
-        { this.state.manageLinkOpen && (<ManageLink trails={this.state.trails} memories={this.state.memories}/>)}
+        {trailloaded && this.state.adminFormOpen && (<AdminForm trails={this.state.trail} />)}
+        {this.state.manageLinkTrailOpen && (<ManageLink trails={this.state.trails} memories={this.state.memories} />)}
+        {this.state.manageLinkMemoryOpen && (<ManageLinkMemory trails={this.state.trails} memories={this.state.memories}/>)}
         {this.state.createTrail && (
           <AddTrail
             icon={this.state.icons}
             firsticon={this.state.icons[0].id}
           />)}
-      </div>
+       </div>
     );
   }
 }
