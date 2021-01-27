@@ -17,7 +17,7 @@ class CustomNode extends PureComponent{
         return(
             <div className = {classNames({'visible': visible, 'invisible' : !visible && !visited,'invisibleVisited': !visible && visited, 'highlighted': highlighted})}>
                 {/* {highlighted ? <Preview resume = {this.props.name} /> : ""} */}
-                {visited?  <img className="icons visited" src={require('./assets/memories/tv.png').default} alt="icon"></img> : <img className="icons" src={require('./assets/memories/tv.png').default} alt="icon"></img>}
+                {visited?  <img className="icons visited" src={require('./assets/memories/arts_spectacle.png').default} alt="icon"></img> : <img className="icons" src={require('./assets/memories/arts_spectacle.png').default} alt="icon"></img>}
             </div>
          );
     };

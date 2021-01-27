@@ -84,9 +84,8 @@ audio {
   align-items: center;
   filter: brightness(56%) grayscale(1);
 }
-.button p {
+.button h2 {
   margin: 0;
-  font-size: 0.1em;
 }
 .trails_img {
   display: flex;
@@ -114,6 +113,12 @@ audio {
   width: 30px;
   height: auto;
 } 
+.next h2 {
+  font-size: 1em;
+}
+.previous h2 {
+  font-size: 0.6em;
+}
 .all_previous, .all_next {
   display: flex;
   flex-direction: column;
@@ -135,7 +140,7 @@ audio {
 }
 
 
-#cross {
+.cross {
   width: 15px;
   height: 15px;
   position: absolute;

@@ -231,7 +231,7 @@ class App extends PureComponent {
 
     return (
       <div className='App'>
-        {this.state.WelcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
+        {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
         {<Nav />}
         {trailloaded && (
           <Trails

@@ -7,7 +7,6 @@ import Arrow from './assets/arrow.png';
 import { ENDPOINT_API } from './constants/endpoints';
 
 const Image = (props) => {
-  // var path = props.parcours ? props.parcours[0] + '/' : '';
   return (
     <img
       src={props.path}
@@ -21,7 +20,6 @@ function Text(props) {
 }
 
 function Audio(props) {
-  // var path = props.parcours ? props.parcours[0] + '/' : '';
   return (
     <ReactAudioPlayer
       src={require('./souvenirs/' + props.path).default}
@@ -32,7 +30,6 @@ function Audio(props) {
 }
 
 function Video(props) {
-  // var path = props.parcours ? props.parcours + '/' : '';
   return (
     <video controls>
       <source
@@ -60,9 +57,9 @@ function DocumentButton(props) {
       {type === 'previous' && (
         <img className='arrowbutton_img' alt='previous' src={Arrow} />
       )}
-      
+      <div className="trails_img">
         {props.parcours.map((el) => (
-          <div className='trail_img'>
+          <div className='trail_img'> 
           <img
             key={el.parcours}
             src={
@@ -71,13 +68,10 @@ function DocumentButton(props) {
             }
             alt={el.parcours}
           />
-          <p>{el.parcours}</p>
+          <h2>Bouleversement</h2>
           </div>
         ))}
-        {/* <div className='trail_img'>
-          <img src={require('./assets/trails/ruines.png').default} alt="" />
-          <p>Ruines</p>
-        </div> */}
+      </div>
       
       {type === 'next' && (
         <img className='arrowbutton_img' alt='next' src={Arrow} />
@@ -284,7 +278,7 @@ class Document extends PureComponent {
         </div>      
 
         <img
-          id='cross'
+          className='cross'
           src={require('./assets/close_brown.png').default}
           alt='cross'
           onClick={this.props.onCrossClick}
