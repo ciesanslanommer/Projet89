@@ -38,6 +38,7 @@ class AdminForm extends Component {
       closeButtonK: true,
       closeButtonT: true,
       createTrail: false,
+      addSub: false,
     };
   }
   componentDidMount() {
@@ -231,6 +232,14 @@ class AdminForm extends Component {
         );
     }
   };
+
+  openDiv = (stateKey, e) => {
+    this.setState({[stateKey]: true})
+  }
+  
+  closeDiv = (stateKey, e) => {
+    this.setState({[stateKey]: false})
+  }
 
   postRequest(request) {
     // if (name === '' || description === '' || contribution_date === '') {
@@ -481,26 +490,29 @@ class AdminForm extends Component {
           </div>
 
           {/* *************************************************************** AJOUT SUBMEMORY *************************************************************** */}
-
-          <div className='sousForm'>
-            <label>Ajouter un document au souvenir</label>
-            <label>
-              Format du fichier <abbr> * </abbr>
-            </label>
-            <select
-              required
-              className='require'
-              name='subFormat'
-              id='subFormat_id'
-              onChange={(e) => this.getValue('subFormat', e)}
-            >
-              <option value='image'>Image</option>
-              <option value='video'>Vidéo</option>
-              <option value='youtube'>Lien Youtube</option>
-              <option value='texte'>Texte</option>
-            </select>
-            {this.displayDoc(this.state.subFormat)}
-          </div>
+          <button type="button" onClick={this.state.addSub ? (e) => this.closeDiv("addSub") : (e) => this.openDiv("addSub")}>Ajouter un sous-souvenir</button>
+          {
+            this.state.addSub &&
+            <div className='sousForm'>
+              <label>Ajouter un document au souvenir</label>
+              <label>
+                Format du fichier <abbr> * </abbr>
+              </label>
+              <select
+                required
+                className='require'
+                name='subFormat'
+                id='subFormat_id'
+                onChange={(e) => this.getValue('subFormat', e)}
+              >
+                <option value='image'>Image</option>
+                <option value='video'>Vidéo</option>
+                <option value='youtube'>Lien Youtube</option>
+                <option value='texte'>Texte</option>
+              </select>
+              {this.displayDoc(this.state.subFormat)}
+            </div>
+          }
         </form>
         <button type='button' onClick={() => this.postRequest(request)}>
           Créer un souvenir
