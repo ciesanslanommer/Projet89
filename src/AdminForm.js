@@ -235,12 +235,12 @@ class AdminForm extends Component {
   };
 
   openDiv = (stateKey, e) => {
-    this.setState({ [stateKey]: true })
-  }
+    this.setState({ [stateKey]: true });
+  };
 
   closeDiv = (stateKey, e) => {
-    this.setState({ [stateKey]: false })
-  }
+    this.setState({ [stateKey]: false });
+  };
 
   postRequest(request) {
     // if (name === '' || description === '' || contribution_date === '') {
@@ -248,6 +248,11 @@ class AdminForm extends Component {
     //   return;
     // }
 
+    var result = new Date(request.contribution_date);
+    result.setDate(result.getDate() + 1);
+    request.contribution_date = result;
+
+    console.log(request.contribution_date);
     if (request.format === 'youtube') request.youtube = request.content;
 
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
@@ -442,9 +447,17 @@ class AdminForm extends Component {
           </div>
 
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
-          <button type="button" onClick={this.state.addKeyword ? (e) => this.closeDiv("addKeyword") : (e) => this.openDiv("addKeyword")}>Ajouter un mot clé</button>
-          {
-            this.state.addKeyword &&
+          <button
+            type='button'
+            onClick={
+              this.state.addKeyword
+                ? (e) => this.closeDiv('addKeyword')
+                : (e) => this.openDiv('addKeyword')
+            }
+          >
+            Ajouter un mot clé
+          </button>
+          {this.state.addKeyword && (
             <div className='sousForm keywords' id='KeyWords'>
               <div className='divKeywords'>
                 <label>Taguer le souvenir d'un ou plusieurs mots-clés</label>
@@ -476,12 +489,20 @@ class AdminForm extends Component {
                 <AddKeyword reloadKeyword={this.loadKeyword} />
               )}
             </div>
-          }
+          )}
 
           {/* *************************************************************** AJOUT SUBMEMORY *************************************************************** */}
-          <button type="button" onClick={this.state.addSub ? (e) => this.closeDiv("addSub") : (e) => this.openDiv("addSub")}>Ajouter un sous-souvenir</button>
-          {
-            this.state.addSub &&
+          <button
+            type='button'
+            onClick={
+              this.state.addSub
+                ? (e) => this.closeDiv('addSub')
+                : (e) => this.openDiv('addSub')
+            }
+          >
+            Ajouter un sous-souvenir
+          </button>
+          {this.state.addSub && (
             <div className='sousForm'>
               <label>Ajouter un document au souvenir</label>
               <label>
@@ -501,7 +522,7 @@ class AdminForm extends Component {
               </select>
               {this.displayDoc(this.state.subFormat)}
             </div>
-          }
+          )}
         </form>
         <button type='button' onClick={() => this.postRequest(request)}>
           Créer un souvenir
