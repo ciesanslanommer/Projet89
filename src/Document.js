@@ -7,12 +7,7 @@ import Arrow from './assets/arrow.png';
 import { ENDPOINT_API } from './constants/endpoints';
 
 const Image = (props) => {
-  return (
-    <img
-      src={props.path}
-      alt={props.desc}
-    ></img>
-  );
+  return <img src={props.path} alt={props.desc}></img>;
 };
 
 function Text(props) {
@@ -57,22 +52,19 @@ function DocumentButton(props) {
       {type === 'previous' && (
         <img className='arrowbutton_img' alt='previous' src={Arrow} />
       )}
-      <div className="trails_img">
+      <div className='trails_img'>
         {props.parcours.map((el) => (
-          <div className='trail_img'> 
-          <img
-            key={el.parcours}
-            src={
-              require('./assets/trails/' + el.parcours.toLowerCase() + '.png')
-                .default
-            }
-            alt={el.parcours}
-          />
-          <h2>{el.parcours}</h2>
+          <div className='trail_img'>
+            <img
+              key={el.parcours}
+              src={require('./assets/' + el.path).default}
+              alt={el.parcours}
+            />
+            <h2>{el.parcours}</h2>
           </div>
         ))}
       </div>
-      
+
       {type === 'next' && (
         <img className='arrowbutton_img' alt='next' src={Arrow} />
       )}
@@ -98,13 +90,14 @@ class Document extends PureComponent {
   getTrailById = (id) => {
     let trail = [];
     if (this.props.trailByMemory[id]) {
+      console.log(this.props.trailByMemory[id]);
       this.props.trailByMemory[id].forEach((el) => {
         const obj = { parcours: el.name, path: el.path };
         trail.push(obj);
       });
     }
     // console.log('les parcours du doc');
-    // console.log(trail);
+    console.log(trail);
     return trail;
   };
 
@@ -201,7 +194,14 @@ class Document extends PureComponent {
   displayDoc(id, nature, content, desc) {
     switch (nature) {
       case 'image':
-        return <Image key={id} path={content} desc={desc} parcours={this.state.trails} />;
+        return (
+          <Image
+            key={id}
+            path={content}
+            desc={desc}
+            parcours={this.state.trails}
+          />
+        );
       case 'texte':
         return <Text key={id} content={content} parcours={this.state.trails} />;
       case 'audio':
@@ -214,23 +214,25 @@ class Document extends PureComponent {
   }
 
   render() {
-    let doc = this.displayDoc('main_doc', this.state.memory.format, this.state.memory.content, this.state.memory.description); // Main document
+    let doc = this.displayDoc(
+      'main_doc',
+      this.state.memory.format,
+      this.state.memory.content,
+      this.state.memory.description
+    ); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
-    let trail = "PARCOURS";
-    for(let i=0; i<this.state.trails.length; i++) {
+    let trail = 'PARCOURS';
+    for (let i = 0; i < this.state.trails.length; i++) {
       trail += ' ' + this.state.trails[i].parcours.toUpperCase();
-    };
-
+    }
 
     return (
       <div className='souvenir'>
-
         <div id='trail_info'>
           <h1>{trail}</h1>
         </div>
 
         <div id='memory_and_navigation'>
-
           <div className='all_previous'>
             {this.state.sources.map((source) => (
               <DocumentButton
@@ -244,7 +246,14 @@ class Document extends PureComponent {
 
           <div id='memory_info'>
             <div id='date'>
-              <p>{this.state.memory.contribution_date && this.state.memory.contribution_date.split('T')[0].split('-').reverse().join('/')}</p>
+              <p>
+                {this.state.memory.contribution_date &&
+                  this.state.memory.contribution_date
+                    .split('T')[0]
+                    .split('-')
+                    .reverse()
+                    .join('/')}
+              </p>
             </div>
             <div id='contributor'>
               <p>{this.state.memory.contributeur}</p>
@@ -262,20 +271,17 @@ class Document extends PureComponent {
             </div>
           </div>
 
-            
-            <div className='all_next'>
-              {this.state.targets.map((target) => (
-                <DocumentButton
-                  key={target.id}
-                  onClick={() => this.props.onNextClick(target.id)}
-                  type='next'
-                  parcours={target.parcours}
-                />
-              ))}
-            </div>
-
-
-        </div>      
+          <div className='all_next'>
+            {this.state.targets.map((target) => (
+              <DocumentButton
+                key={target.id}
+                onClick={() => this.props.onNextClick(target.id)}
+                type='next'
+                parcours={target.parcours}
+              />
+            ))}
+          </div>
+        </div>
 
         <img
           className='cross'
