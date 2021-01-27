@@ -222,6 +222,7 @@ class Trails extends PureComponent {
     /*** Graph does not resize ***/
     /*** So added below to solve the problem ***/
     if (prevProps.docOpen !== this.props.docOpen) {
+      console.log('measure');
       this.measure();
     }
   }
