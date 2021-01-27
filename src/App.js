@@ -1,4 +1,4 @@
-import {React, PureComponent} from 'react'
+import { React, PureComponent } from 'react';
 import './App.css';
 //import data from './souvenirs.json';
 import Document from './Document.js';
@@ -8,10 +8,10 @@ import Welcome from './Welcome.js';
 import Preview from './Preview';
 import { ENDPOINT_API } from './constants/endpoints';
 
-import './svg.css'
+import './svg.css';
 class App extends PureComponent {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       nodeLoaded: false,
       linkLoaded: false,
@@ -170,47 +170,13 @@ class App extends PureComponent {
     this.openMemory();
   };
 
-  callApi() {
-    /*~~~~~~~~~~ Get Request ~~~~~~~~~~*/
-    // fetch("http://localhost:3001/souvenirs", {
-    //   headers: {
-    //     "Content-type": "application/json; charset=UTF-8"
-    //   }
-    // })
-    //   .then(res => res.json())
-    //   .then(res => console.log(res));
-    /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
-    //   fetch("http://localhost:3001/souvenirs", {
-    //     method : 'POST',
-    //     body : JSON.stringify({
-    //       name:"Success",
-    //       path:"fgdgdfs.png",
-    //       nature:"texte"
-    //     }),
-    //     headers: {
-    //       "Content-type": "application/json; charset=UTF-8"
-    //     }
-    //   })
-    //     .then(res => res.json())
-    //     .then(res => console.log(res));
-    /*~~~~~~~~~~ Delete Request ~~~~~~~~~*/
-    // fetch("http://localhost:3001/souvenirs/"+ 28, {
-    //   method : 'DELETE',
-    //   headers: {
-    //     "Content-type": "application/json; charset=UTF-8"
-    //   }
-    // })
-    //   .then(res => res.json())
-    //   .then(res => console.log(res));
-  }
-
   closeWelcome = (e) => {
     this.setState({ welcomeOpen: false });
   };
 
-  unsetCurrentMemory = e => {
-    this.setState({currentMemory: null});
-  }
+  unsetCurrentMemory = (e) => {
+    this.setState({ currentMemory: null });
+  };
 
   render() {
     //copy array of obj
@@ -228,7 +194,6 @@ class App extends PureComponent {
       this.state.trailByMemoryLoaded &&
       this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
-
     return (
       <div className='App'>
         {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
@@ -241,6 +206,7 @@ class App extends PureComponent {
             trailsByMemory={this.state.trailByMemory}
             trails={this.state.trail}
             currentMemory={this.state.currentMemory}
+            docOpen={this.state.docOpen}
           />
         )}
         {this.state.docOpen ? (
