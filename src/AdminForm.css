@@ -1,70 +1,126 @@
+body{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .mainContainer{
     width: 100%;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;   
+    align-items: center;
+    background-image: url(./assets/fond.png);
 }
-
+    
 .adminForm{
     /* position: absolute; */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;   
-  }
-
-.sousForm{
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      width: 50%;
-      align-items: center;
-      border: 1px solid white;
-      margin: 2%;
-      padding: 2%;
-  }
-
-.adminForm label{
-    margin: 1%;
+    text-align: center;
+    width: 70vw;
+}
+    
+textarea, select, input{
+    border-radius: 5px;
+    outline: none;
+    padding: 5px;
 }
 
-.adminForm button{
-    margin: 1%;
-}
-
-.adminForm input{
-    margin: 1%;
-}
-
-.require:invalid {
-    border: 2px solid red;
-}
-  
-.require:valid {
-    border: 1px solid black;
-}
-
-.require:focus {
-    border: 1px solid black;
-}
-
-textarea{
- resize : none;
-}
-
-.keywords{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+div{
+    padding-bottom: 15px;
+    padding-top: 15px;
     width: 100%;
 }
 
+#root{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+label{
+    padding-top: 15px;
+}
+
+button{
+    border-radius: 5px;
+    border: none;
+    margin: 50px;
+    padding: 10px; 
+    font-family: 'Bree Serif', serif;
+    outline: none;
+    box-shadow: 5px 5px rgb(34, 7, 5);
+}
+
+button:hover{
+    background-color: rgb(199, 219, 228);
+}
+
+button, select{
+    color: rgb(51, 26, 6);
+}
+
+.sousForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80%;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    margin: 2%;
+    padding: 2%;
+}
+    
+.adminForm label{
+    margin: 1%;
+}
+    
+.adminForm button{
+    margin: 1%;
+}
+    
+.adminForm input{
+    margin: 1%;
+}
+    
+.require:invalid {
+    border: 3px solid rgb(57,234,234);
+    transition: 0.2s;
+}
+      
+.require:valid {
+    border: 1px solid black;
+    transition: 0.2s;
+}
+    
+.require:focus {
+    border: 1px solid black;
+}
+    
+textarea{
+    resize : none;
+}
+    
+.keywords{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-bottom: 50px;
+}
+    
 .divKeywords {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    width: 50%;
 }
+
+

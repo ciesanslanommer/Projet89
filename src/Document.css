@@ -153,17 +153,17 @@ audio {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgb(175, 155, 132);
+  background: rgb(236, 255, 255);
   border-radius: 10px;
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(76, 64, 50); 
+  background: rgb(57,234,234); 
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(58, 47, 35); 
+  background: rgb(41, 167, 167); 
 }

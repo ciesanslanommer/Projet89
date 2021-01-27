@@ -195,12 +195,16 @@ class AdminForm extends Component {
     console.log(this.state.target_id);
   };
 
+  isSelect = () => {
+    
+  };
+
   displayDoc = (format) => {
     switch (format) {
       case 'texte':
         return (
           <div>
-            <label>Quel est votre texte ? :</label>
+            <label>Quel est votre texte ? : </label>
             <textarea
               name='textArea'
               rows='15'
@@ -212,7 +216,7 @@ class AdminForm extends Component {
       case 'youtube':
         return (
           <div>
-            <label>Ajouter un lien vers la vidéo :</label>
+            <label>Ajouter un lien vers la vidéo : </label>
             <input
               type='text'
               name='linkToYoutube'
@@ -223,7 +227,7 @@ class AdminForm extends Component {
       default:
         return (
           <div>
-            <label>Ajouter une image au souvenir :</label>
+            <label>Ajouter une image au souvenir : </label>
             <input
               type='file'
               name='blobcontain'
@@ -294,6 +298,8 @@ class AdminForm extends Component {
     return (
       //****************************Formulaire d'ajout de souvenir**************************************** */
       <div className='mainContainer'>
+        <h1>Mode admin</h1>
+        <h2>Ajouter un souvenir</h2>
         <form className='adminForm'>
           {/* *************************************************************** AJOUT DU SOUVENIR *************************************************************** */}
           {/* <MemoryForm 
@@ -404,13 +410,15 @@ class AdminForm extends Component {
               multiple
             >
               {this.state.memories.map((memory) => {
+                
                 return (
-                  <option key={memory.id} value={memory.id}>
+                  <option key={memory.id} class={this.isSelect} value={memory.id}>
                     {memory.name}
                   </option>
                 );
               })}
             </select>
+            <p>Le souvenir est relié à </p>
             <ul>
               {this.state.target_id.map((target) => {
                 return <li>{target}</li>;
