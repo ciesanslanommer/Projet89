@@ -69,9 +69,12 @@ function DocumentButton(props) {
       <div className='trail_img'>
         {props.parcours.map((el) => (
           <img
-            key={el}
-            src={require('./assets/' + el.toLowerCase() + '_brown.svg').default}
-            alt={el}
+            key={el.parcours}
+            src={
+              require('./assets/' + el.parcours.toLowerCase() + '_brown.svg')
+                .default
+            }
+            alt={el.name}
           />
         ))}
       </div>
@@ -89,7 +92,7 @@ class Document extends PureComponent {
       sources: [],
       targets: [],
       memory: {},
-      trails: this.getTrailById(this.props.trailByMemory),
+      trails: this.getTrailById(this.props.id),
       subs: [],
       loadedSubs: false,
       loadedMemory: false,
@@ -97,17 +100,18 @@ class Document extends PureComponent {
     };
   }
 
-  getTrailById(trailbymemory) {
+  getTrailById = (id) => {
     let trail = [];
-    if (trailbymemory[this.props.id]) {
-      trailbymemory[this.props.id].forEach((el) => {
-        trail.push(el.name);
+    if (this.props.trailByMemory[id]) {
+      this.props.trailByMemory[id].forEach((el) => {
+        const obj = { parcours: el.name, path: el.path };
+        trail.push(obj);
       });
     }
     console.log('les parcours du doc');
     console.log(trail);
     return trail;
-  }
+  };
 
   componentDidMount() {
     // TODO display a loader when not loaded yet?
@@ -119,6 +123,26 @@ class Document extends PureComponent {
       .then(
         (result) => {
           console.log(`Success! link from memory ${this.props.id} = `, result);
+
+          result.source = result.source.map((id) => {
+            const trail = this.getTrailById(id);
+            console.log(id);
+            console.log(trail);
+            return {
+              id: id,
+              parcours: trail,
+            };
+          });
+
+          result.target = result.target.map((id) => {
+            const trail = this.getTrailById(id);
+            console.log(trail);
+            return {
+              id: id,
+              parcours: trail,
+            };
+          });
+
           this.setState({
             sources: result.source,
             targets: result.target,
@@ -245,17 +269,7 @@ class Document extends PureComponent {
           src={require('./assets/close_brown.png').default}
           alt='cross'
           onClick={this.props.onCrossClick}
-        ></img>
-        <div className='buttons'>
-          {this.state.targets.map((target) => (
-            <DocumentButton
-              key={target}
-              id={target}
-              onClick={() => this.props.onNextClick(target)}
-              type='next'
-            />
-          ))}
-        </div>
+        />
       </div>
     );
   }
