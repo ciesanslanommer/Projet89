@@ -77,6 +77,7 @@ class DocumentButton extends Component {
   render() {
     let props = this.props;
     var type = props.type;
+    this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
     return (
       <div onClick={props.onClick} className={'button ' + type}>
         {type === 'previous' && (
@@ -269,6 +270,7 @@ class Document extends PureComponent {
     for (let i = 0; i < this.state.trails.length; i++) {
       trail += ' ' + this.state.trails[i].parcours.toUpperCase();
     }
+
 
     return (
       <div className='souvenir'>
