@@ -1,5 +1,5 @@
 import './Document.css';
-import raw from 'raw.macro';
+// import raw from 'raw.macro';
 import { React, PureComponent, Component } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Arrow from './assets/arrow.png';
@@ -87,13 +87,14 @@ class DocumentButton extends Component {
         )}
         <div className='trails_img'>
           {props.parcours.map((el) => (
-            <div className='trail_img'>
+            <div className='trail_img' key={`div ${type} ${el.parcours}`}>
               <img
-                key={el.parcours}
+                key={`img ${type} ${el.parcours}`}
+                id={`img ${type} ${el.parcours}`}
                 src={require('./assets/' + el.path).default}
                 alt={el.parcours}
               />
-              <h2>{el.parcours}</h2>
+              <h2 key={`name ${type} ${el.parcours}`}>{el.parcours}</h2>
             </div>
           ))}
         </div>

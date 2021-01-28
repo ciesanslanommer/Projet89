@@ -13,7 +13,8 @@
 #memory_and_navigation {
   background-color:white;
   display: grid;
-  grid-template-columns: 10vw auto 10vw;
+  /* grid-template-columns: 10vw auto 10vw; */
+  grid-template-columns: minmax(10vh, max-content) auto minmax(10vh, max-content);
   align-items: center;
 }
 
