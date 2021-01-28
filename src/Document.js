@@ -269,8 +269,6 @@ class Document extends PureComponent {
     for (let i = 0; i < this.state.trails.length; i++) {
       trail += ' ' + this.state.trails[i].parcours.toUpperCase();
     }
-    console.log('doc render');
-    console.log(this.props);
 
     return (
       <div className='souvenir'>
@@ -335,12 +333,21 @@ class Document extends PureComponent {
           </div>
         </div>
 
+        {trail !== 'PARCOURS' ? 
         <img
           className='cross'
-          src={require('./assets/close_brown.png').default}
+          src={require('./assets/close.png').default}
           alt='cross'
           onClick={this.props.onCrossClick}
+        /> :
+        <img
+          className='cross'
+          src={require('./assets/close.png').default}
+          alt='cross'
+          onClick={this.props.onCrossClick}
+          style={{filter: "grayscale(1) brightness(0)"}}
         />
+        }
       </div>
     );
   }

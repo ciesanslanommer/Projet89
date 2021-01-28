@@ -16,6 +16,8 @@
   /* grid-template-columns: 10vw auto 10vw; */
   grid-template-columns: minmax(10vh, max-content) auto minmax(10vh, max-content);
   align-items: center;
+  gap: 5px;
+  padding: 0 5px;
 }
 
 
