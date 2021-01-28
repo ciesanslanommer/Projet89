@@ -1,5 +1,6 @@
 .iconstrails img {
     width: 90%;
+    filter: brightness(10);
 }
 
 .iconstrails h2 {

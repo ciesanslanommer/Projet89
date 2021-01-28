@@ -189,6 +189,11 @@ class Document extends PureComponent {
     //       // TODO maybe display an error for the user?
     //     }
     //   );
+
+    document.querySelectorAll('.button').forEach( (button) => {
+      button.addEventListener('mouseover', () => this.props.sendRelatedNodesId(this.state.sources, this.state.targets));
+    })
+    
   }
 
   displayDoc(id, nature, content, desc) {

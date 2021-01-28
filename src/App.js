@@ -178,6 +178,18 @@ class App extends PureComponent {
     this.setState({ currentMemory: null });
   };
 
+  getRelatedNodesId(sources, targets) {
+    console.log('Related Nodes get');
+    let related;
+    for(let i=0; i<sources.length; i++) {
+      related.push(sources[i].id);
+    }
+    for(let i=0; i<targets.length; i++) {
+      related.push(targets[i].id);
+    }
+    return related;
+  } 
+
   render() {
     //copy array of obj
     let cpyNode = [];
@@ -209,6 +221,7 @@ class App extends PureComponent {
             currentMemory={this.state.currentMemory}
             docOpen={this.state.docOpen}
             closeDoc={this.closeMemory}
+            unsetCurrentMemory = {this.unsetCurrentMemory}
           />
         )}
         {this.state.docOpen ? (
@@ -218,6 +231,7 @@ class App extends PureComponent {
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
+            sentRelatedNodesId = {this.getRelatedNodesId}
           />
         ) : null}
         {this.state.previewOpen != null && (

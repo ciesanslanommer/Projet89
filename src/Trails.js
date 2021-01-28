@@ -18,6 +18,7 @@ const myConfig = {
   focusZoom: 2,
   focusAnimationDuration: 0.75,
   freezeAllDragEvents: true,
+  directed: true,
   node: {
     color: 'lightgreen',
     size: 1800,
@@ -195,14 +196,14 @@ class Trails extends PureComponent {
     /*** If currentMemory changes  ***/
     // console.log(prevProps.currentMemory, this.props.currentMemory);
     if (prevProps.currentMemory !== this.props.currentMemory) {
-      const { cpy, id } = this.getNodesAndId(this.props.currentMemory);
-      const currentParcours = cpy[id].trails;
 
       /** Initialization: clean all highlight **/
       this.removeAllHighlightParcours();
       this.removeAllHighlightCurrentNode();
 
       if (this.props.currentMemory != null) {
+        const { cpy, id } = this.getNodesAndId(this.props.currentMemory);
+        const currentParcours = cpy[id].trails;
         /** Highlights and focus on currentNode **/
         this.highlightNode(this.props.currentMemory);
         this.focusOnNode(this.props.currentMemory);
@@ -224,6 +225,57 @@ class Trails extends PureComponent {
     }
   }
 
+  onMouseOverNode = (nodeId, node) => {
+    const { cpy, id } = this.getNodesAndId(nodeId);
+    const currentId = this.getNodesAndId(this.props.currentMemory).id;
+    // console.log(id);
+    /** If document isn't open **/
+    /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
+    /** If document is open, mouse over shouldn't highlight parcours **/
+    if (!this.props.docOpen) {
+      let parcoursMouseOvered;
+      if(node.entry) parcoursMouseOvered = [node.parcours];
+      else parcoursMouseOvered = cpy[id].trails;
+
+
+      let currentParcours = [];
+      if (currentId !== -1) currentParcours = cpy[currentId].trails;
+      if (parcoursMouseOvered != null) {
+        /* Must do concatenation else only one parcours will be highlighted */
+        /* So all parcours we want highlighted must be done with one call to the function */
+        this.highlightParcours(parcoursMouseOvered.concat(currentParcours));
+
+      } else {
+        this.highlightNode(nodeId);
+      }
+    }
+  }
+
+  onMouseOutNode = (nodeId, node) => {
+    const cpy = this.getNodesAndId(this.props.currentMemory).cpy;
+    const currentId = this.getNodesAndId(this.props.currentMemory).id;
+
+    /** Only currentParcours should stays highlighted **/
+    /* Remove parcours highlight from all nodes and links */
+    this.removeAllHighlightParcours();
+    /* Re-highlight the nodes of currentParcours if currentParcours not null*/
+    let currentParcours;
+    if (currentId!==-1) currentParcours = cpy[currentId].trails;
+
+    if (currentParcours) {
+      this.highlightParcours(currentParcours);
+    }
+  }
+
+  onClickGraph = (event, e) => {
+    if (!this.props.docOpen) {
+      this.removeAllHighlightParcours();
+      this.props.unsetCurrentMemory();
+    } else this.props.closeDoc();
+  }
+
+  // ************************************************************* FOCUS
+
   focusOnNode(nodeId) {
     /* The svg container size isn't updated yet ? So use measure method */
     /* Position of node is centered from the get go but animation is cut */
@@ -242,42 +294,7 @@ class Trails extends PureComponent {
     }, myConfig.focusAnimationDuration + 1000);
   }
 
-  onMouseOverNode = (nodeId, node) => {
-    const { cpy, id } = this.getNodesAndId(nodeId);
-    const currentId = this.getNodesAndId(this.props.currentMemory).id;
-    // console.log(currentId);
-    /** If document isn't open **/
-    /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
-    /** If document is open, mouse over shouldn't highlight parcours **/
-    if (!this.props.docOpen && !node.entry) {
-      const parcoursMouseOvered = cpy[id].trails;
-      let currentParcours = [];
-      if (currentId !== -1) currentParcours = cpy[currentId].trails;
-      if (parcoursMouseOvered != null) {
-        /* Must do concatenation else only one parcours will be highlighted */
-        /* So all parcours we want highlighted must be done with one call to the function */
-        this.highlightParcours(parcoursMouseOvered.concat(currentParcours));
-      } else {
-        this.highlightNode(nodeId);
-      }
-    }
-  };
-
-  onMouseOutNode = (nodeId, node) => {
-    const { cpy, currentId } = this.getNodesAndId(this.props.currentMemory);
-    // console.log(currentId);
-    /** Only currentParcours should stays highlighted **/
-    /* Remove parcours highlight from all nodes and links */
-    this.removeAllHighlightParcours();
-    /* Re-highlight the nodes of currentParcours if currentParcours not null*/
-    let currentParcours;
-    if (currentId) currentParcours = cpy[currentId].trails;
-    if (currentParcours) {
-      this.highlightParcours(currentParcours);
-    }
-  };
-
-  /***** HIGHLIGHT FUNCTIONS *****/
+  // ************************************************************* HIGHLIGHT
 
   highlightParcours(parcours) {
     if (parcours == null) {
@@ -303,7 +320,8 @@ class Trails extends PureComponent {
       /** Handle node highlighting **/
       nodes.forEach((node) => {
         let htmlNode = document.querySelector(`[id="${node.id}"] section`);
-        if (node.trails != null && node.trails.indexOf(element) !== -1) {
+        const trails = node.entry ? [node.parcours] : node.trails;
+        if (trails != null && trails.indexOf(element) !== -1) {
           // if node is in the parcours
           htmlNode.classList.remove('notInParcours');
           htmlNode.classList.add('inParcours');
@@ -316,11 +334,13 @@ class Trails extends PureComponent {
         );
         const sourceid = this.getNodesAndId(link.source).id;
         const targetid = this.getNodesAndId(link.target).id;
+        const sourcetrails = nodes[sourceid].entry ? [nodes[sourceid].parcours] : nodes[sourceid].trails;
+        const targettrails = nodes[targetid].entry ? [nodes[targetid].parcours] : nodes[targetid].trails;
         if (
-          nodes[sourceid].trails != null && // if source node is in a parcours
-          nodes[targetid].trails != null && // if target node is in a parcours
-          nodes[sourceid].trails.indexOf(element) !== -1 && // if current node's parcours matches one of source's parcours
-          nodes[targetid].trails.indexOf(element) !== -1 // if current node's parcours matches one of target's parcours
+          sourcetrails != null && // if source node is in a parcours
+          targettrails != null && // if target node is in a parcours
+          sourcetrails.indexOf(element) !== -1 && // if current node's parcours matches one of source's parcours
+          targettrails.indexOf(element) !== -1 // if current node's parcours matches one of target's parcours
         ) {
           htmlLink.classList.remove('notInParcours');
           htmlLink.classList.add('inParcours');
@@ -346,11 +366,6 @@ class Trails extends PureComponent {
       htmlLink.classList.remove('inParcours');
     });
   }
-  onClickGraph = (event, e) => {
-    if (!this.props.docOpen) {
-      this.removeAllHighlightParcours();
-    } else this.props.closeDoc();
-  };
 
   highlightNode(nodeId) {
     // console.log('highlightnode');
@@ -370,7 +385,12 @@ class Trails extends PureComponent {
     });
   }
 
-  // *************************************************************
+  highlightUpToTargetNode(nodeId) {
+    console.log("Suppose to highlight up to target node");
+
+  }
+
+  // ************************************************************* ZOOM
 
   // event handler for zoom changed from the slider
   onCustomZoomChange = (event) => {
@@ -427,43 +447,48 @@ class Trails extends PureComponent {
 
   // *************************************************************
 
-  render() {
-    // console.log('trails render');
-    myConfig.width = this.state.width;
-    myConfig.height = this.state.height;
-    myConfig.node.viewGenerator = this.customNodeGenerator;
-    myConfig.initialZoom = this.state.zoom;
-    myConfig.freezeAllDragEvents = this.state.freeze;
-    // style={{ backgroundImage: "url(" + Background + ")" }}
-    return (
-      <div
-        className='Graph'
-        style={{ backgroundImage: 'url(' + Background + ')' }}
-      >
-        <Zoom
-          zoom={this.state.zoom}
-          onChange={this.onCustomZoomChange}
-          onMouseDown={this.onCustomZoomMouseDown}
-          onMouseUp={this.onCustomZoomMouseUp}
-        />
-        <Graph
-          id='id'
-          data={{
-            nodes: this.state.nodes,
-            links: this.state.links,
-            focusedNodeId: this.state.focusedNodeId,
-          }}
-          config={myConfig}
-          onClickNode={this.nodeClick}
-          onNodePositionChange={this.savePosition}
-          onZoomChange={this.onD3ZoomChange}
-          onMouseOverNode={this.onMouseOverNode}
-          onMouseOutNode={this.onMouseOutNode}
-          onClickGraph={this.onClickGraph}
-        />
-      </div>
-    );
-  }
+    render() {
+      // console.log('trails render');
+      myConfig.width = this.state.width;
+      myConfig.height = this.state.height;
+      myConfig.node.viewGenerator = this.customNodeGenerator;
+      myConfig.initialZoom = this.state.zoom;
+      myConfig.freezeAllDragEvents = this.state.freeze;
+      // style={{ backgroundImage: "url(" + Background + ")" }}
+      return (
+        <div
+          className='Graph'
+          style={{ backgroundImage: 'url(' + Background + ')' }}
+        >
+          <Zoom
+            zoom={this.state.zoom}
+            onChange={this.onCustomZoomChange}
+            onMouseDown={this.onCustomZoomMouseDown}
+            onMouseUp={this.onCustomZoomMouseUp}
+          />
+          <Graph
+            id='id'
+            data={{
+              nodes: this.state.nodes,
+              links: this.state.links,
+              focusedNodeId: this.state.focusedNodeId,
+            }}
+            config={myConfig}
+            onClickNode={this.nodeClick}
+            onNodePositionChange={this.savePosition}
+            onZoomChange={this.onD3ZoomChange}
+            onMouseOverNode={this.onMouseOverNode}
+            onMouseOutNode={this.onMouseOutNode}
+            onClickGraph={this.onClickGraph}
+          />
+        </div>
+      );
+    }
 }
 
 export default Trails;
+
+
+function test() {
+  alert('It works !');
+}

@@ -16,7 +16,7 @@
 
 .inParcours img {
     /* filter: drop-shadow(0px 0px 5px rgba(98, 247, 255, 0.774)); */
-    filter: none;
+    filter: none !important;
 }
 
 .node {
