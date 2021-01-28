@@ -8,7 +8,7 @@ import Welcome from './Welcome.js';
 import Preview from './Preview';
 import { ENDPOINT_API } from './constants/endpoints';
 
-import './svg.css';
+
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -178,16 +178,10 @@ class App extends PureComponent {
     this.setState({ currentMemory: null });
   };
 
-  getRelatedNodesId(sources, targets) {
+  getRelatedNodesId = (nodeId, e) => {
     console.log('Related Nodes get');
-    let related;
-    for(let i=0; i<sources.length; i++) {
-      related.push(sources[i].id);
-    }
-    for(let i=0; i<targets.length; i++) {
-      related.push(targets[i].id);
-    }
-    return related;
+    console.log(nodeId);
+    return nodeId;
   } 
 
   render() {
@@ -231,7 +225,7 @@ class App extends PureComponent {
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
-            sentRelatedNodesId = {this.getRelatedNodesId}
+            sendRelatedNodesId = {this.getRelatedNodesId}
           />
         ) : null}
         {this.state.previewOpen != null && (

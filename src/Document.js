@@ -1,10 +1,11 @@
 import './Document.css';
 import raw from 'raw.macro';
-import { React, PureComponent } from 'react';
+import { React, PureComponent, Component } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Arrow from './assets/arrow.png';
 // import doc_background from './assets/document_background.jpg';
 import { ENDPOINT_API } from './constants/endpoints';
+
 
 const Image = (props) => {
   return <img src={props.path} alt={props.desc}></img>;
@@ -45,32 +46,71 @@ function Video(props) {
   );
 }
 
-function DocumentButton(props) {
-  var type = props.type;
-  return (
-    <div onClick={props.onClick} className={'button ' + type}>
-      {type === 'previous' && (
-        <img className='arrowbutton_img' alt='previous' src={Arrow} />
-      )}
-      <div className='trails_img'>
-        {props.parcours.map((el) => (
-          <div className='trail_img'>
-            <img
-              key={el.parcours}
-              src={require('./assets/' + el.path).default}
-              alt={el.parcours}
-            />
-            <h2>{el.parcours}</h2>
-          </div>
-        ))}
-      </div>
+class DocumentButton extends Component {
 
-      {type === 'next' && (
-        <img className='arrowbutton_img' alt='next' src={Arrow} />
-      )}
-    </div>
-  );
-}
+  highlightDirectionOfButton(currentId, nodeId) {
+    console.log('inside function ' + currentId + ' ' + nodeId);
+    const htmlNode = document.querySelector(`[id="${nodeId}"] section`);
+    const htmlLink = this.props.type === 'previous' ? 
+      document.querySelector(`[id="${nodeId},${currentId}"]`) :
+      document.querySelector(`[id="${currentId},${nodeId}"]`);
+    
+    htmlNode.classList.remove('inParcours');
+    htmlLink.classList.remove('inParcours');
+    htmlNode.classList.add('relatedtoButton');
+    htmlLink.classList.add('relatedtoButton');
+  }
+
+  removeHighlightDirectionOfButton(currentId, nodeId) {
+    console.log('remove');
+    const htmlNode = document.querySelector(`[id="${nodeId}"] section`);
+    const htmlLink = this.props.type === 'previous' ? 
+      document.querySelector(`[id="${nodeId},${currentId}"]`) :
+      document.querySelector(`[id="${currentId},${nodeId}"]`);
+    
+    htmlNode.classList.add('inParcours');
+    htmlLink.classList.add('inParcours');
+    htmlNode.classList.remove('relatedtoButton');
+    htmlLink.classList.remove('relatedtoButton');
+  }
+
+  render() {
+    let props = this.props;
+    var type = props.type;
+    return (
+      <div onClick={props.onClick} className={'button ' + type}>
+        {type === 'previous' && (
+          <img className='arrowbutton_img' alt='previous' src={Arrow} 
+            onMouseOver={ () => this.highlightDirectionOfButton(this.props.currentId, this.props.id)}
+            onMouseOut={ () => this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id)}
+          />
+        )}
+        <div className='trails_img'>
+          {props.parcours.map((el) => (
+            <div className='trail_img'>
+              <img
+                key={el.parcours}
+                src={require('./assets/' + el.path).default}
+                alt={el.parcours}
+              />
+              <h2>{el.parcours}</h2>
+            </div>
+          ))}
+        </div>
+  
+        {type === 'next' && (
+          <img className='arrowbutton_img' alt='next' src={Arrow} 
+          onMouseOver={ () => this.highlightDirectionOfButton(this.props.currentId, this.props.id)}
+          onMouseOut={ () => this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id)}
+          />
+        )}
+      </div>
+    );
+
+  };
+
+
+}; 
 
 class Document extends PureComponent {
   constructor(props) {
@@ -102,6 +142,7 @@ class Document extends PureComponent {
   };
 
   componentDidMount() {
+
     // TODO display a loader when not loaded yet?
     console.log(
       `Fetching souvenirs from ${ENDPOINT_API}/linkfrommemory/${this.props.id}`
@@ -189,10 +230,7 @@ class Document extends PureComponent {
     //       // TODO maybe display an error for the user?
     //     }
     //   );
-
-    document.querySelectorAll('.button').forEach( (button) => {
-      button.addEventListener('mouseover', () => this.props.sendRelatedNodesId(this.state.sources, this.state.targets));
-    })
+    
     
   }
 
@@ -230,12 +268,14 @@ class Document extends PureComponent {
     for (let i = 0; i < this.state.trails.length; i++) {
       trail += ' ' + this.state.trails[i].parcours.toUpperCase();
     }
+    console.log('doc render');
+    console.log(this.props);
 
     return (
       <div className='souvenir'>
-        <div id='trail_info'>
+        {trail !== 'PARCOURS' && <div id='trail_info'>
           <h1>{trail}</h1>
-        </div>
+        </div>}
 
         <div id='memory_and_navigation'>
           <div className='all_previous'>
@@ -245,6 +285,9 @@ class Document extends PureComponent {
                 onClick={() => this.props.onNextClick(source.id)}
                 type='previous'
                 parcours={source.parcours}
+                sendRelatedNodesId = {this.props.sendRelatedNodesId}
+                id={source.id}
+                currentId={this.props.id}
               />
             ))}
           </div>
@@ -283,6 +326,9 @@ class Document extends PureComponent {
                 onClick={() => this.props.onNextClick(target.id)}
                 type='next'
                 parcours={target.parcours}
+                sendRelatedNodesId = {this.props.sendRelatedNodesId}
+                id={target.id}
+                currentId={this.props.id}
               />
             ))}
           </div>

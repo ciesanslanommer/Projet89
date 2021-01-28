@@ -137,6 +137,7 @@ audio {
 .button:hover {
   filter: none;
   color: #39EAEA;
+  /* color: rgba(255, 98, 242, 0.774); */
 }
 
 
@@ -149,6 +150,11 @@ audio {
   filter: brightness(100);
 }
 
+
+.relatedtoButton {
+  filter: drop-shadow(0px 0px 5px rgba(255, 98, 242, 0.774));
+  stroke: rgba(255, 98, 242, 0.774) !important;
+}
 
 /** SCROLL BAR **/
 

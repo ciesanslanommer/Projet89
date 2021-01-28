@@ -110,6 +110,7 @@ class Trails extends PureComponent {
       myConfig.staticGraph = true;
       myConfig.freeze = false;
     }, 100);
+
   }
   measure = (e) => {
     let rect = {
