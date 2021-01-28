@@ -138,8 +138,8 @@ class AdminForm extends Component {
   };
 
   getFile = (e) => {
-    if (e.target.files[0].size > 200000) {
-      alert('File is too large: limit is 200ko');
+    if (e.target.files[0].size > 800000) {
+      alert('File is too large: limit is 100ko');
       this.setState({ content: '' });
     } else {
       const reader = new FileReader();
@@ -284,6 +284,7 @@ class AdminForm extends Component {
         //   date: value,
         // });
         alert('Votre souvenir a bien été en registré !');
+        this.componentDidMount();
       });
   }
 
