@@ -178,12 +178,6 @@ class App extends PureComponent {
     this.setState({ currentMemory: null });
   };
 
-  getRelatedNodesId = (nodeId, e) => {
-    console.log('Related Nodes get');
-    console.log(nodeId);
-    return nodeId;
-  } 
-
   render() {
     //copy array of obj
     let cpyNode = [];
@@ -225,7 +219,6 @@ class App extends PureComponent {
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
-            sendRelatedNodesId = {this.getRelatedNodesId}
           />
         ) : null}
         {this.state.previewOpen != null && (

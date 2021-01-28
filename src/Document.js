@@ -286,7 +286,6 @@ class Document extends PureComponent {
                 onClick={() => this.props.onNextClick(source.id)}
                 type='previous'
                 parcours={source.parcours}
-                sendRelatedNodesId = {this.props.sendRelatedNodesId}
                 id={source.id}
                 currentId={this.props.id}
               />
@@ -327,7 +326,6 @@ class Document extends PureComponent {
                 onClick={() => this.props.onNextClick(target.id)}
                 type='next'
                 parcours={target.parcours}
-                sendRelatedNodesId = {this.props.sendRelatedNodesId}
                 id={target.id}
                 currentId={this.props.id}
               />

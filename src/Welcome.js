@@ -12,7 +12,7 @@ const Welcome = (props) => {
                 <p>Pour naviguer dans la carte, utilisez le drag et le zoom.</p>
                 <img
                     className='cross'
-                    src={require('./assets/close_brown.png').default}
+                    src={require('./assets/close.png').default}
                     alt='cross'
                     onClick={props.onCrossClick}
                 >
