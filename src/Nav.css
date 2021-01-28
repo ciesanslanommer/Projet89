@@ -5,6 +5,7 @@
     width: 2%;
     height: auto;
     display: inline-block;
+    opacity: 0;
 }
 
 .searchForm img {
