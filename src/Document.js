@@ -283,6 +283,7 @@ class Document extends PureComponent {
             {this.state.sources.map((source) => (
               <DocumentButton
                 key={source.id}
+                id={source.id}
                 onClick={() => this.props.onNextClick(source.id)}
                 type='previous'
                 parcours={source.parcours}
@@ -322,6 +323,7 @@ class Document extends PureComponent {
           <div className='all_next'>
             {this.state.targets.map((target) => (
               <DocumentButton
+                id={target.id}
                 key={target.id}
                 onClick={() => this.props.onNextClick(target.id)}
                 type='next'

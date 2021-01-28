@@ -347,7 +347,7 @@ class AdminForm extends Component {
               row='3'
               cols='33'
               placeholder='ex : mur de Berlin'
-              maxlength='95'
+              maxLength='95'
               onChange={(e) => this.getValue('description', e)}
             ></textarea>
             <label>
@@ -434,7 +434,7 @@ class AdminForm extends Component {
                   (el) => el.id === target
                 );
                 return (
-                  <p>
+                  <p key={target.id}>
                     {tabFilter[0].name}
                     <p className='comma'>,</p>{' '}
                   </p>
@@ -451,16 +451,15 @@ class AdminForm extends Component {
             </label>
             {this.state.trails.map((trail) => {
               return (
-                <div>
+                <div key={trail.id}>
                   <input
                     type='checkbox'
                     id={trail.id}
-                    key={trail.id}
                     name={trail.parcours}
                     value={trail.parcours}
                     onChange={(e) => this.isChecked('checkedTrails', e)}
                   />
-                  <label for={trail.id}>{trail.parcours}</label>
+                  <label htmlFor={trail.id}>{trail.parcours}</label>
                 </div>
               );
             })}

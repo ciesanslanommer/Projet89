@@ -27,7 +27,6 @@ const myConfig = {
   },
   link: {
     color: 'rgba(255, 255, 255, 0.5)',
-    type: 'CURVE_SMOOTH',
   },
   d3: {
     disableLinkForce: false,
