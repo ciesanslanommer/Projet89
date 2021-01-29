@@ -64,7 +64,7 @@ input {
   height: 100%;
 }
 
-p {
+.adminForm p {
   display: inline;
 }
 
