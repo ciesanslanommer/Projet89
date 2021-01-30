@@ -194,7 +194,7 @@ class App extends PureComponent {
       this.state.trailByMemoryLoaded &&
       this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
-    console.log(trailloaded);
+    // console.log(trailloaded);
     return (
       <div className='App'>
         {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
