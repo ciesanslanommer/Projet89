@@ -10,8 +10,8 @@ const myConfig = {
   nodeHighlightBehavior: true,
   width: 400,
   initialZoom: 1,
-  staticGraphWithDragAndDrop: false,
-  //staticGraph : true,
+  // staticGraphWithDragAndDrop: false,
+  staticGraph : false,
   highlightDegree: 0,
   minZoom: 0.1,
   maxZoom: 3,
@@ -34,8 +34,8 @@ const myConfig = {
   },
 };
 
-let nodesInTrails = {};
-let linksInTrails = {};
+let nodesByTrails = {};
+let linksByTrails = {};
 
 class Trails extends PureComponent {
   constructor(props) {
@@ -116,8 +116,8 @@ class Trails extends PureComponent {
       myConfig.staticGraph = true;
       myConfig.freeze = false;
     }, 100);
-    /** Fill nodesInTrails object **/
-    this.fillNodesAndLinksInTrails();
+    /** Fill nodesByTrails object **/
+    this.fillNodesAndlinksByTrails();
     
   }
 
@@ -146,22 +146,21 @@ class Trails extends PureComponent {
     return { cpy: nodes, id: id };
   }
 
-  
-  fillNodesAndLinksInTrails() {
+  fillNodesAndlinksByTrails() {
     /** For each trail **/
     this.props.trails.forEach( (trail) => {
       /* Class nodes by trail*/
-      nodesInTrails[trail.parcours] = [];
-      nodesInTrails[trail.parcours].push(trail);
+      nodesByTrails[trail.parcours] = [];
+      nodesByTrails[trail.parcours].push(trail);
       this.props.nodes.forEach( (node) => {
         if(node.trails.indexOf(trail.parcours) !== -1) {
-          nodesInTrails[trail.parcours].push(node);
+          nodesByTrails[trail.parcours].push(node);
         }
       });
       /* Class links by trail */
-      linksInTrails[trail.parcours] = [];
+      linksByTrails[trail.parcours] = [];
       if(trail.id != null && trail.target_id != null) {
-        linksInTrails[trail.parcours].push({source: trail.id, target: trail.target_id});
+        linksByTrails[trail.parcours].push({source: trail.id, target: trail.target_id});
       }
       this.props.links.forEach( (link) => {
         const sourceIndex = this.getNodesAndId(link.source).id;
@@ -170,7 +169,7 @@ class Trails extends PureComponent {
         const targetTrails = targetIndex == -1 ? null : this.state.nodes[targetIndex].trails;
         if(sourceTrails != null && sourceTrails.indexOf(trail.parcours) !== -1 &&
         targetTrails != null && targetTrails.indexOf(trail.parcours) !== -1) {
-          linksInTrails[trail.parcours].push(link);
+          linksByTrails[trail.parcours].push(link);
         }
       });
     });
@@ -180,8 +179,8 @@ class Trails extends PureComponent {
     let nodes = [];
     let links = [];
     allTrails.forEach( (trail) => {
-      nodes.push(...nodesInTrails[trail]);
-      links.push(...linksInTrails[trail]);
+      nodes.push(...nodesByTrails[trail]);
+      links.push(...linksByTrails[trail]);
     });
     return {nodes: nodes, links: links};
   }
@@ -247,27 +246,23 @@ class Trails extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
 
-    /*** If currentMemory changes  ***/
+    /* If currentMemory changes that is click on node or arrow buttons  */
+    /* Clean all highlight first */
+    /* Highlight and focus on currentNode if not null */
+    /* And if belongs to a trail, highlight trail */
     if (prevProps.currentMemory !== this.props.currentMemory) {
-
-      /** Initialization: clean all highlight **/
       this.removeHighlight();
       if (this.props.currentMemory != null) {
         const { cpy, id } = this.getNodesAndId(this.props.currentMemory);
         const currentTrail = id !== -1 ? cpy[id].trails : null;
-        /** Highlight and focus on currentNode **/
         this.highlightNode(this.props.currentMemory);
         this.focusOnNode(this.props.currentMemory);
-        /** Handle trail highlighting **/
-        if (currentTrail != null) {
-          this.highlightTrail(currentTrail);
-        }
+        if (currentTrail != null) { this.highlightTrail(currentTrail) }
       }
     }
 
-    /*** After opening a doc, if resize window then close doc ***/
-    /*** Graph does not resize ***/
-    /*** So added below to solve the problem ***/
+    /* After opening a doc, if resize window then close doc */
+    /* Graph does not resize, so added below to solve the problem */
     if (prevProps.docOpen !== this.props.docOpen) {
       this.measure();
     }
@@ -282,11 +277,8 @@ class Trails extends PureComponent {
       const cpy = this.getNodesAndId(this.props.currentMemory).cpy;
       const currentId = this.getNodesAndId(this.props.currentMemory).id;
       const currentTrail = currentId !== -1 ? cpy[currentId].trails : [];
-      console.log('TRAIL MOUSEOVER : '+trailMouseOvered);
       if (trailMouseOvered.length !== 0) { this.highlightTrail(trailMouseOvered.concat(currentTrail)) } 
-      else { 
-        this.highlightNode(nodeId);
-      }
+      else { this.highlightNode(nodeId) }
     }
   }
  
@@ -464,8 +456,3 @@ class Trails extends PureComponent {
 }
 
 export default Trails;
-
-
-function test() {
-  alert('It works !');
-}
