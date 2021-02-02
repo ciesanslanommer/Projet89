@@ -117,7 +117,19 @@ class Trails extends PureComponent {
       myConfig.freeze = false;
     }, 100);
     /** Fill nodesByTrails object **/
-    this.fillNodesAndlinksByTrails();
+    this.fillNodesAndLinksByTrails();
+
+    /** Handle open/close preview **/
+    document.querySelectorAll('.node').forEach((node) => {
+      console.log(node.id);
+      const copy = this.props.nodes.slice();
+      const index = copy.findIndex((elt) => elt.id === Number(node.id));
+      const dataNode = copy[index];
+      if(dataNode) {
+        node.addEventListener('mouseenter', (event) => this.props.openPreview(node, dataNode.name, dataNode.description, dataNode.entry));
+        node.addEventListener('mouseleave', this.props.closePreview);
+      }
+    });
     
   }
 
@@ -146,7 +158,7 @@ class Trails extends PureComponent {
     return { cpy: nodes, id: id };
   }
 
-  fillNodesAndlinksByTrails() {
+  fillNodesAndLinksByTrails() {
     /** For each trail **/
     this.props.trails.forEach( (trail) => {
       /* Class nodes by trail*/
@@ -283,7 +295,7 @@ class Trails extends PureComponent {
   }
  
   onMouseOutNode = (nodeId, node) => {
-    /** Only currentTrail should stays highlighted if not null**/
+    /* Remove highlight for all except currentMemory and currentTrail */
     this.removeHighlight();
     const cpy = this.getNodesAndId(this.props.currentMemory).cpy;
     const index = this.getNodesAndId(this.props.currentMemory).id;

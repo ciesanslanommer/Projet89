@@ -112,16 +112,8 @@ class App extends PureComponent {
         }
       );
 
-    /** Handle open/close preview **/
-    document.querySelectorAll('.node').forEach((node) => {
-      const dataNode = this.node.nodes.concat(this.trail.trails)[node.id];
-      //node.addEventListener("mouseenter", (event) => this.openPreview(event.clientX, event.clientY, dataNode.name, dataNode.entry));
-      node.addEventListener('mouseenter', (event) =>
-        this.openPreview(node, dataNode.name, dataNode.entry)
-      );
-      node.addEventListener('mouseleave', this.closePreview);
-    });
   }
+  
 
   componentWillUnmount() {
     document.querySelectorAll('.node').forEach((node) => {
@@ -139,11 +131,10 @@ class App extends PureComponent {
     this.setState({ docOpen: true });
   };
 
-  openPreview = (node, name, entry, e) => {
+  openPreview = (node, name, desc, entry, e) => {
     if (entry) {
       return;
     }
-    console.log('openpreview');
     const boundNode = node.getBoundingClientRect();
     this.setState({
       previewOpen: {
@@ -151,6 +142,7 @@ class App extends PureComponent {
         y: boundNode.y,
         sizeNode: boundNode.width,
         name: name,
+        desc: desc,
       },
     });
   };
@@ -195,6 +187,8 @@ class App extends PureComponent {
       this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
     // console.log(trailloaded);
+    console.log('render app');
+    
     return (
       <div className='App'>
         {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
@@ -210,6 +204,8 @@ class App extends PureComponent {
             docOpen={this.state.docOpen}
             closeDoc={this.closeMemory}
             unsetCurrentMemory = {this.unsetCurrentMemory}
+            openPreview = {this.openPreview}
+            closePreview = {this.closePreview}
           />
         )}
         {this.state.docOpen ? (
@@ -224,7 +220,9 @@ class App extends PureComponent {
         {this.state.previewOpen != null && (
           <Preview
             pos={{ x: this.state.previewOpen.x, y: this.state.previewOpen.y }}
-            node={this.state.previewOpen.node}
+            name={this.state.previewOpen.name}
+            size={this.state.previewOpen.sizeNode}
+            desc={this.state.previewOpen.desc}
           />
         )}
       </div>
