@@ -6,7 +6,7 @@ import Trails from './Trails.js';
 import Nav from './Nav.js';
 import Welcome from './Welcome.js';
 import Preview from './Preview';
-import { ENDPOINT_API } from './constants/endpoints';
+// import { ENDPOINT_API } from './constants/endpoints';
 
 
 class App extends PureComponent {
@@ -25,7 +25,6 @@ class App extends PureComponent {
       node: [],
       link: [],
       trail: [],
-      trailByMemory: [],
       trailByMemory: [],
       memories: [],
     };

@@ -487,8 +487,3 @@ class Trails extends PureComponent {
 }
 
 export default Trails;
-
-
-function test() {
-  alert('It works !');
-}

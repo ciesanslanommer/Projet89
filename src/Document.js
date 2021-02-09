@@ -4,7 +4,7 @@ import { React, PureComponent, Component } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Arrow from './assets/arrow.png';
 // import doc_background from './assets/document_background.jpg';
-import { ENDPOINT_API } from './constants/endpoints';
+// import { ENDPOINT_API } from './constants/endpoints';
 
 
 const Image = (props) => {
@@ -318,7 +318,6 @@ class Document extends PureComponent {
                 onClick={() => this.props.onNextClick(source.id)}
                 type='previous'
                 parcours={source.parcours}
-                id={source.id}
                 currentId={this.props.id}
               />
             ))}
@@ -359,7 +358,6 @@ class Document extends PureComponent {
                 onClick={() => this.props.onNextClick(target.id)}
                 type='next'
                 parcours={target.parcours}
-                id={target.id}
                 currentId={this.props.id}
               />
             ))}
