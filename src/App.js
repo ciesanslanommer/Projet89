@@ -32,8 +32,15 @@ class App extends PureComponent {
   // To be adapted to our app
   componentDidMount() {
     // TODO display a loader when not loaded yet?
-    console.log(`Fetching souvenirs from ${ENDPOINT_API}/node/`);
-    fetch(ENDPOINT_API + '/node')
+
+    console.log('Fetching node.json');
+    fetch('data/node.json',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+      })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -52,8 +59,14 @@ class App extends PureComponent {
         }
       );
 
-    console.log(`Fetching souvenirs from ${ENDPOINT_API}/link/`);
-    fetch(ENDPOINT_API + '/link')
+    console.log('Fetching link.json');
+    fetch('data/link.json',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+      })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -72,8 +85,14 @@ class App extends PureComponent {
         }
       );
 
-    console.log(`Fetching trail from ${ENDPOINT_API}/trail/`);
-    fetch(ENDPOINT_API + '/trail')
+    console.log('Fetching trail.json');
+    fetch('data/trail.json',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+      })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -92,8 +111,14 @@ class App extends PureComponent {
         }
       );
 
-    console.log(`Fetching trail from ${ENDPOINT_API}/trailbymemory/`);
-    fetch(ENDPOINT_API + '/trailbymemory')
+    console.log('Fetching trailbymemory.json');
+    fetch('data/trailbymemory.json',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+      })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -105,7 +130,7 @@ class App extends PureComponent {
         },
         (error) => {
           console.error(
-            'Oops, something wrong happened when loading trail',
+            'Oops, something wrong happened when loading trailbymemory',
             error
           );
           // TODO maybe display an error for the user?
@@ -194,7 +219,7 @@ class App extends PureComponent {
       this.state.trailByMemoryLoaded &&
       this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
-    console.log(trailloaded);
+    console.log("trailloaded?", trailloaded);
     return (
       <div className='App'>
         {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
