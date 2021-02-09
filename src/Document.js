@@ -120,11 +120,11 @@ class Document extends PureComponent {
     this.state = {
       sources: [],
       targets: [],
-      memory: {},
+      // memory: {},
       trails: this.getTrailById(this.props.id),
       subs: [],
       loadedSubs: false,
-      loadedMemory: false,
+      // loadedMemory: false,
       loadedLinks: false,
     };
   }
@@ -144,72 +144,103 @@ class Document extends PureComponent {
   };
 
   componentDidMount() {
+    let target = [];
+    let source = [];
+    this.props.linksFromMemory.forEach((obj) => {
+      if (Number(obj.source) === Number(this.props.id))
+        target.push(obj.target);
+      if (Number(obj.target) === Number(this.props.id))
+        source.push(obj.source);
+    });
 
-    // TODO display a loader when not loaded yet?
-    console.log(
-      `Fetching souvenirs from ${ENDPOINT_API}/linkfrommemory/${this.props.id}`
-    );
-    fetch(ENDPOINT_API + '/linkfrommemory/' + this.props.id)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(`Success! link from memory ${this.props.id} = `, result);
+    source = source.map((id) => {
+      const trail = this.getTrailById(id);
+      return {
+        id: id,
+        parcours: trail,
+      };
+    });
 
-          result.source = result.source.map((id) => {
-            const trail = this.getTrailById(id);
-            // console.log(id);
-            // console.log(trail);
-            return {
-              id: id,
-              parcours: trail,
-            };
-          });
+    target = target.map((id) => {
+      const trail = this.getTrailById(id);
+      return {
+        id: id,
+        parcours: trail,
+      };
+    });
 
-          result.target = result.target.map((id) => {
-            const trail = this.getTrailById(id);
-            // console.log(trail);
-            return {
-              id: id,
-              parcours: trail,
-            };
-          });
+    this.setState({
+      sources: source,
+      targets: target,
+      loadedLinks: true,
+    });
 
-          this.setState({
-            sources: result.source,
-            targets: result.target,
-            loadedLinks: true,
-          });
-        },
-        (error) => {
-          console.error(
-            'Oops, something wrong happened when loading node',
-            error
-          );
-          // TODO maybe display an error for the user?
-        }
-      );
 
-    console.log(
-      `Fetching souvenirs from ${ENDPOINT_API}/memory/${this.props.id}`
-    );
-    fetch(ENDPOINT_API + '/memory/' + this.props.id)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(`Success! memory ${this.props.id} = `, result);
-          this.setState({
-            memory: { ...result },
-            loadedMemory: true,
-          });
-        },
-        (error) => {
-          console.error(
-            'Oops, something wrong happened when loading node',
-            error
-          );
-          // TODO maybe display an error for the user?
-        }
-      );
+    // // TODO display a loader when not loaded yet?
+    // console.log(
+    //   `Fetching souvenirs from ${ENDPOINT_API}/linkfrommemory/${this.props.id}`
+    // );
+    // fetch(ENDPOINT_API + '/linkfrommemory/' + this.props.id)
+    //   .then((res) => res.json())
+    //   .then(
+    //     (result) => {
+    //       console.log(`Success! link from memory ${this.props.id} = `, result);
+
+    //       result.source = result.source.map((id) => {
+    //         const trail = this.getTrailById(id);
+    //         // console.log(id);
+    //         // console.log(trail);
+    //         return {
+    //           id: id,
+    //           parcours: trail,
+    //         };
+    //       });
+
+    //       result.target = result.target.map((id) => {
+    //         const trail = this.getTrailById(id);
+    //         // console.log(trail);
+    //         return {
+    //           id: id,
+    //           parcours: trail,
+    //         };
+    //       });
+
+    //       this.setState({
+    //         sources: result.source,
+    //         targets: result.target,
+    //         loadedLinks: true,
+    //       });
+    //     },
+    //     (error) => {
+    //       console.error(
+    //         'Oops, something wrong happened when loading linkfrommemory',
+    //         error
+    //       );
+    //       // TODO maybe display an error for the user?
+    //     }
+    //   );
+
+    // console.log(
+    //   `Fetching souvenirs from ${ENDPOINT_API}/memory/${this.props.id}`
+    // );
+    // fetch(ENDPOINT_API + '/memory/' + this.props.id)
+    //   .then((res) => res.json())
+    //   .then(
+    //     (result) => {
+    //       console.log(`Success! memory ${this.props.id} = `, result);
+    //       this.setState({
+    //         memory: { ...result },
+    //         loadedMemory: true,
+    //       });
+    //     },
+    //     (error) => {
+    //       console.error(
+    //         'Oops, something wrong happened when loading memory',
+    //         error
+    //       );
+    //       // TODO maybe display an error for the user?
+    //     }
+    //   );
 
     // console.log(
     //   `Fetching souvenirs from ${ENDPOINT_API}/submemoryfrommemory/${this.props.id}`
@@ -226,7 +257,7 @@ class Document extends PureComponent {
     //     },
     //     (error) => {
     //       console.error(
-    //         'Oops, something wrong happened when loading node',
+    //         'Oops, something wrong happened when loading submemoryfrommemory',
     //         error
     //       );
     //       // TODO maybe display an error for the user?
@@ -254,16 +285,16 @@ class Document extends PureComponent {
       case 'video':
         return <Video key={id} path={content} parcours={this.state.trails} />;
       default:
-        return <p key={id}>{this.state.memory.format}</p>;
+        return <p key={id}>{this.props.memory.format}</p>;
     }
   }
 
   render() {
     let doc = this.displayDoc(
       'main_doc',
-      this.state.memory.format,
-      this.state.memory.content,
-      this.state.memory.description
+      this.props.memory.format,
+      this.props.memory.content,
+      this.props.memory.description
     ); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
     let trail = 'PARCOURS';
@@ -296,8 +327,8 @@ class Document extends PureComponent {
           <div id='memory_info'>
             <div id='date'>
               <p>
-                {this.state.memory.contribution_date &&
-                  this.state.memory.contribution_date
+                {this.props.memory.contribution_date &&
+                  this.props.memory.contribution_date
                     .split('T')[0]
                     .split('-')
                     .reverse()
@@ -305,10 +336,10 @@ class Document extends PureComponent {
               </p>
             </div>
             <div id='contributor'>
-              <p>{this.state.memory.contributeur}</p>
+              <p>{this.props.memory.contributeur}</p>
             </div>
             <div className='document'>
-              <h1>{this.state.memory.name}</h1>
+              <h1>{this.props.memory.name}</h1>
               {doc}
               {subs != null && (
                 <div className='sub_docs'>
