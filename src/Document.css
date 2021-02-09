@@ -1,78 +1,181 @@
-.souvenir img {
-  max-width: 80%;
-  max-height: 80vh;
-}
 .souvenir {
-  /* position: absolute; */
-  display: flex;
-  /* width: 60%;
-  height: 100%; 
-  top: 0px;
-  left: 0px; */
-  background-color: rgb(40, 40, 40);
-  color: white;
-  align-items: center;
-  /* margin-left: auto;
-  margin-right: auto; */
-  box-shadow: 10px 0px 10px rgb(30, 30, 30);
-  overflow: auto;
+  /* box-shadow: 0 0 5px 5px #d5bf9e; */
   grid-column: 2 / 3;
 }
-
 .souvenir p {
   text-align: center;
   text-align: justify;
-  text-indent: 10%;
-  margin-left: auto;
-  margin-right: auto;
 }
-
 .souvenir h1 {
   text-transform: capitalize;
+  margin-bottom: 0;
+}
+#memory_and_navigation {
+  background-color:white;
+  display: grid;
+  /* grid-template-columns: 10vw auto 10vw; */
+  grid-template-columns: minmax(10vh, max-content) auto minmax(10vh, max-content);
+  align-items: center;
+  gap: 5px;
+  padding: 0 5px;
+}
+
+
+/** TRAIL INFO **/
+
+#trail_info {
+  background-color: rgb(43, 43, 43);
+}
+#trail_info h1 {
   color: white;
+  margin: auto;
+  padding: 5px;
+}
+
+/** MEMORY INFO **/
+
+#memory_info {
+  overflow: auto;
+  height: 100vh;
+  margin: 20px 0;
+  display: grid;
+  grid-template-areas: 
+    "date contributor"
+    "document document";
+  grid-template-rows: min-content auto;
+}
+#date {
+  grid-area: date;
+  display: flex;
+  justify-content: flex-start;
+}
+#contributor {
+  grid-area: contributor;
+  display: flex;
+  justify-content: flex-end;
+}
+#date p, #contributor p {
+  margin: 0;
+}
+.document > *, .sub_docs > * {
+  width: 100%;
+  max-height: 80vh;
 }
 .document {
-  width: 60%;
+  grid-area: document;
 }
-
-#cross {
-  width: 2vw;
-  height: 2hv;
-  position: absolute;
-  top: 3vh;
-  right: 2vw;
+.document * {
+  margin-top: 20px;
 }
-
+.document p {
+  text-indent: 10%;
+}
 .sub_docs {
   display: flex;
   flex-direction: column;
   width: 500px;
   margin: auto;
 }
-
-.sub_docs * {
-  padding: 10px;
-  margin: auto;
-}
-
 audio {
   outline: none;
-  padding-top: 2vh;
 }
 
-.previous {
-  justify-content: flex-start;
-}
-
-.next {
-  justify-content: flex-end;
-}
+/** BUTTONS **/
 
 .button {
   display: flex;
-  height: 9vh;
+  align-items: center;
+  filter: brightness(56%) grayscale(1);
+}
+.button h2 {
+  margin: 0;
+}
+.trails_img {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.trails_img > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: rgb(43, 43, 43);
+  border-radius: 50%; */
+}
+.button * {
+  filter:inherit;
+  color: inherit;
+}
+.next img {
+  width: 50px;
+  height: auto;
+  max-width: 100%;
+}
+.previous img {
+  width: 30px;
+  height: auto;
+} 
+.next h2 {
+  font-size: 1em;
+}
+.previous h2 {
+  font-size: 0.6em;
+}
+.all_previous, .all_next {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.next {
+  justify-content: flex-end;
+}
+.previous {
+  justify-content: flex-start;
+}
+.next .arrowbutton_img {
+  transform: scaleX(-1);
+}
+.button:hover {
+  filter: none;
+  color: #39EAEA;
+  /* color: rgba(255, 98, 242, 0.774); */
 }
 
-.buttons {
-  width: 20%;
+
+.cross {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  filter: brightness(100);
+}
+
+
+.relatedtoButton {
+  filter: drop-shadow(0px 0px 5px rgba(255, 98, 242, 0.774));
+  stroke: rgba(255, 98, 242, 0.774) !important;
+}
+
+/** SCROLL BAR **/
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(236, 255, 255);
+  border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(57,234,234); 
+  border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(41, 167, 167); 
 }

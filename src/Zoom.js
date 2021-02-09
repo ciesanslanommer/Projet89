@@ -1,34 +1,24 @@
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import './Zoom.css';
 
-class Zoom extends Component{
-
-    getZoomValue = () => {
-        console.log(this.props.zoom);
-        var zoomValue = document.getElementById("myRange").value;
-        this.props.zoomCursorValue(zoomValue);
-    }
-
-    componentDidUpdate(prevProps, prevState){
-        if(prevProps.zoom !== this.props.zoom){
-            document.getElementById("myRange").value = this.props.zoom;
-        }
-        
-    }
-
+class Zoom extends PureComponent {
     render(){
-        
         return (
             <div id="sliderContainer">
-                <input className="slider" id="myRange" defaultValue='0.2' type="range" min="0" max="3" step="0.1" onMouseUp={this.getZoomValue}></input>
+                <input
+                    className="slider"
+                    id="myRange"
+                    type="range"
+                    min="0.5"
+                    max="2.5"
+                    step="0.1"
+                    value={this.props.zoom}
+                    onChange={this.props.onChange}
+                    onMouseUp={this.props.onMouseUp}
+                    onMouseDown={this.props.onMouseDown}
+                />
             </div>
         )
     };
 }
-
-
-
-
-
-
 export default Zoom;

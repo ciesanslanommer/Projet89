@@ -1,13 +1,14 @@
-.form {
+.searchForm {
     position : absolute;
     left: 2vw;
     top: 2vh;
     width: 2%;
     height: auto;
     display: inline-block;
+    opacity: 0;
 }
 
-.form img {
+.searchForm img {
     width: 1.5vw;
     height: 1%;
     padding-right:2vw;
