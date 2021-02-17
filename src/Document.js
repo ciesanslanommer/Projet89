@@ -111,7 +111,7 @@ class DocumentButton extends Component {
   };
 
 
-}; 
+} 
 
 class Document extends PureComponent {
   constructor(props) {
@@ -283,7 +283,7 @@ class Document extends PureComponent {
               <DocumentButton
                 key={source.id}
                 id={source.id}
-                onClick={() => this.props.onNextClick(source.id)}
+                onClick={() => this.props.onNextClick(source.id, 'memory')}
                 type='previous'
                 parcours={source.parcours}
                 id={source.id}

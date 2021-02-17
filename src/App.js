@@ -7,6 +7,7 @@ import Nav from './Nav.js';
 import Welcome from './Welcome.js';
 import Preview from './Preview';
 import { ENDPOINT_API } from './constants/endpoints';
+import TrailMessage from './TrailMessage';
 
 
 class App extends PureComponent {
@@ -127,8 +128,8 @@ class App extends PureComponent {
     document.querySelector('.App').classList.remove('displayDoc');
   };
 
-  openMemory = (e) => {
-    this.setState({ docOpen: true });
+  openMemory = (state, e) => {
+    this.setState({ docOpen: state });
   };
 
   openPreview = (node, name, desc, entry, e) => {
@@ -151,15 +152,14 @@ class App extends PureComponent {
     this.setState({ previewOpen: null });
   };
 
-  changeDoc = (nodeId, e) => {
+  changeDoc = (nodeId, state, e) => {
     /* Graph must be reduced before changing the state of current memory */
     /* Else the current node will be centered on the full window and not the reduced graph */
     document.querySelector('.App').classList.add('displayDoc');
-    console.log(nodeId);
     // const nextMem = nodeId;
     this.setState({ currentMemory: nodeId });
     // data.nodes[nextMem].visited = true;
-    this.openMemory();
+    this.openMemory(state);
   };
 
   closeWelcome = (e) => {
@@ -173,7 +173,7 @@ class App extends PureComponent {
   render() {
     //copy array of obj
     let cpyNode = [];
-    this.state.node.forEach((node) => cpyNode.push({ ...node }));
+    this.state.node.concat(this.state.trail).forEach((node) => cpyNode.push({ ...node }));
     //find current node
     let id = cpyNode.findIndex(
       (node) => Number(node.id) === Number(this.state.currentMemory)
@@ -187,7 +187,6 @@ class App extends PureComponent {
       this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
     // console.log(trailloaded);
-    console.log('render app');
     
     return (
       <div className='App'>
@@ -208,7 +207,7 @@ class App extends PureComponent {
             closePreview = {this.closePreview}
           />
         )}
-        {this.state.docOpen ? (
+        {this.state.docOpen === 'memory' ? (
           <Document
             key={memory.id}
             id={memory.id}
@@ -217,6 +216,12 @@ class App extends PureComponent {
             onNextClick={this.changeDoc}
           />
         ) : null}
+        {/* {this.state.docOpen === 'entry' &&
+          <TrailMessage
+            state={this.state.docOpen}
+            trail={memory.parcours}
+          />
+        } */}
         {this.state.previewOpen != null && (
           <Preview
             pos={{ x: this.state.previewOpen.x, y: this.state.previewOpen.y }}

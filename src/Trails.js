@@ -203,20 +203,25 @@ class Trails extends PureComponent {
     let { cpy, id } = this.getNodesAndId(nodeId);
     let currentNodeVisited = cpy[id];
 
-    if (currentNodeVisited.entry) return;
-
-    // set it to visited
-    if (nodeId === this.props.currentMemory) {
-      this.focusOnNode(this.props.currentMemory);
+    if (currentNodeVisited.entry) {
+      this.props.nodeClick(nodeId, 'entry');
     }
-    currentNodeVisited.visited = true;
+    else {
+      // set it to visited
+      if (nodeId === this.props.currentMemory) {
+        this.focusOnNode(this.props.currentMemory);
+      }
+      currentNodeVisited.visited = true;
 
-    //change obj in copy
-    cpy[id] = currentNodeVisited;
+      //change obj in copy
+      cpy[id] = currentNodeVisited;
 
-    //set state
-    this.setState({ nodes: cpy });
-    this.props.nodeClick(nodeId);
+      //set state
+      this.setState({ nodes: cpy });
+      this.props.nodeClick(nodeId, 'memory');
+    }
+
+    
   }
 
   savePosition = (nodeId, x, y, e) => {
@@ -336,6 +341,7 @@ class Trails extends PureComponent {
   highlightTrail(trails) {
     
     if (trails == null) { return };
+    console.log(trails);
 
     /* Search all nodes and links in trails */
     const arrayOfNodes = this.NodesAndLinksFromTrails(trails).nodes;
