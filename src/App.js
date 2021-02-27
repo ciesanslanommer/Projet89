@@ -8,7 +8,6 @@ import Welcome from './Welcome.js';
 import Preview from './Preview';
 // import { ENDPOINT_API } from './constants/endpoints';
 
-
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -36,13 +35,12 @@ class App extends PureComponent {
     // TODO display a loader when not loaded yet?
 
     console.log('Fetching node.json');
-    fetch('data/node.json',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }
-      })
+    fetch(`${process.env.PUBLIC_URL}/data/node.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -62,13 +60,12 @@ class App extends PureComponent {
       );
 
     console.log('Fetching link.json');
-    fetch('data/link.json',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }
-      })
+    fetch(`${process.env.PUBLIC_URL}/data/link.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -88,13 +85,12 @@ class App extends PureComponent {
       );
 
     console.log('Fetching trail.json');
-    fetch('data/trail.json',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }
-      })
+    fetch(`${process.env.PUBLIC_URL}/data/trail.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -114,13 +110,12 @@ class App extends PureComponent {
       );
 
     console.log('Fetching trailbymemory.json');
-    fetch('data/trailbymemory.json',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }
-      })
+    fetch(`${process.env.PUBLIC_URL}/data/trailbymemory.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -140,13 +135,12 @@ class App extends PureComponent {
       );
 
     console.log('Fetching memories.json');
-    fetch('data/memories.json',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }
-      })
+    fetch(`${process.env.PUBLIC_URL}/data/memories.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -248,7 +242,7 @@ class App extends PureComponent {
       this.state.trailLoaded &&
       this.state.memoriesLoaded;
     // const adminLoaded = this.state.trailLoaded;
-    console.log("trailloaded?", trailloaded);
+    console.log('trailloaded?', trailloaded);
     return (
       <div className='App'>
         {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
@@ -263,15 +257,17 @@ class App extends PureComponent {
             currentMemory={this.state.currentMemory}
             docOpen={this.state.docOpen}
             closeDoc={this.closeMemory}
-            unsetCurrentMemory = {this.unsetCurrentMemory}
+            unsetCurrentMemory={this.unsetCurrentMemory}
           />
         )}
         {this.state.docOpen ? (
           <Document
             key={memory.id}
             id={memory.id}
-            memory={this.state.memories.find(e => e.id === memory.id)}
-            linksFromMemory={this.state.link.filter(e => e.source === memory.id || e.target === memory.id)}
+            memory={this.state.memories.find((e) => e.id === memory.id)}
+            linksFromMemory={this.state.link.filter(
+              (e) => e.source === memory.id || e.target === memory.id
+            )}
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
