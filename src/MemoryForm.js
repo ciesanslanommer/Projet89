@@ -279,8 +279,48 @@ class MemoryForm extends Component {
     result.setDate(result.getDate() + 1);
     request.contribution_date = result;
 
-    console.log('Update request to implement');
     if (request.format === 'youtube') request.youtube = request.content;
+
+    /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
+    fetch(ENDPOINT_API + '/memory', {
+      method: 'POST',
+      body: JSON.stringify(request),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        // const value = '';
+        // this.setState({
+        //   name: value,
+        //   description: value,
+        //   format: value,
+        //   date: value,
+        // });
+        alert('Votre souvenir a bien été en registré !');
+        this.componentDidMount();
+      });
+  }
+
+  updateRequest(request) {
+    if (
+      request.name === '' ||
+      request.description === '' ||
+      request.content === ''
+    ) {
+      alert('Des champs obligatoires ne sont pas remplis');
+      return;
+    }
+
+    var result = new Date(request.contribution_date);
+    result.setDate(result.getDate() + 1);
+    request.contribution_date = result;
+
+    if (request.format === 'youtube') request.youtube = request.content;
+
+    console.log('update to do');
 
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
     // fetch(ENDPOINT_API + '/memory', {
@@ -569,7 +609,14 @@ class MemoryForm extends Component {
             </div>
           )}
         </form>
-        <button type='button' onClick={() => this.postRequest(request)}>
+        <button
+          type='button'
+          onClick={
+            this.state.update
+              ? () => this.updateRequest(request)
+              : () => this.postRequest(request)
+          }
+        >
           <h3>
             {this.state.update
               ? 'Mettre a jour le souvenir'
