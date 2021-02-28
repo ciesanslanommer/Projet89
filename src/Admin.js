@@ -15,6 +15,8 @@ class Admin extends Component {
       adminFormOpen: false,
       manageLinkTrailOpen: false,
       manageLinkMemoryOpen: false,
+      updateMemory: false,
+      idMemoryToUpdate: null,
       createTrail: false,
       memories: [],
       memoriesLoaded: false,
@@ -122,6 +124,10 @@ class Admin extends Component {
 
   openComponent = (stateKey, e) => {
     this.setState({ [stateKey]: true });
+    if (stateKey === 'updateMemory') {
+      console.log(e.target);
+      this.setState({ idMemoryToUpdate: e.target.value });
+    }
   };
 
   closeComponent = (stateKey, e) => {
@@ -134,6 +140,8 @@ class Admin extends Component {
       manageLinkTrailOpen: false,
       manageLinkMemoryOpen: false,
       createTrail: false,
+      updateMemory: false,
+      idMemoryToUpdate: null,
     });
 
     this.componentDidMount();
@@ -141,6 +149,7 @@ class Admin extends Component {
 
   render() {
     const trailloaded = this.state.trailLoaded;
+    const memoriesLoaded = this.state.memoriesLoaded;
     // const adminLoaded = this.state.trailLoaded;
 
     return (
@@ -149,22 +158,81 @@ class Admin extends Component {
         {!this.state.adminFormOpen &&
         !this.state.manageLinkTrailOpen &&
         !this.state.manageLinkMemoryOpen &&
-        !this.state.createTrail ? 
+        !this.state.updateMemory &&
+        !this.state.createTrail ? (
           <div className='adminButtons'>
-            <button type="button" onClick={(e) => this.openComponent("adminFormOpen", e)}>Créer un souvenir</button>
-            <button type="button" onClick={(e) => this.openComponent("manageLinkTrailOpen", e)}>Lier un parcours avec un souvenir</button>
-            <button type="button" onClick={(e) => this.openComponent("manageLinkMemoryOpen", e)}>Lier un souvenir à un parcours</button>
-            <button type="button" onClick={(e) => this.openComponent("createTrail", e)}>Créer un parcours</button>
+            <button
+              type='button'
+              onClick={(e) => this.openComponent('adminFormOpen', e)}
+            >
+              Créer un souvenir
+            </button>
+            <button
+              type='button'
+              onClick={(e) => this.openComponent('manageLinkTrailOpen', e)}
+            >
+              Lier un parcours avec un souvenir
+            </button>
+            <button
+              type='button'
+              onClick={(e) => this.openComponent('manageLinkMemoryOpen', e)}
+            >
+              Lier un souvenir à un parcours
+            </button>
+            <button
+              type='button'
+              onClick={(e) => this.openComponent('createTrail', e)}
+            >
+              Créer un parcours
+            </button>
+            <select onChange={(e) => this.openComponent('updateMemory', e)}>
+              <option value='null'>Modifier un souvenir</option>
+              {this.state.memories.map((memory) => {
+                return (
+                  <option key={memory.id} value={memory.id}>
+                    {memory.name}
+                  </option>
+                );
+              })}
+            </select>
           </div>
-          : <button type="button" className='returnButton' onClick={this.backAdmin}>Retour</button>
-        }
-        {trailloaded && this.state.adminFormOpen && (<AdminForm trails={this.state.trail} />)}
-        {this.state.manageLinkTrailOpen && (<ManageLink trails={this.state.trails} memories={this.state.memories} />)}
-        {this.state.manageLinkMemoryOpen && (<ManageLinkMemory trails={this.state.trails} memories={this.state.memories}/>)}
+        ) : (
+          <button
+            type='button'
+            className='returnButton'
+            onClick={this.backAdmin}
+          >
+            Retour
+          </button>
+        )}
+        {trailloaded && this.state.adminFormOpen && (
+          <AdminForm trails={this.state.trail} />
+        )}
+        {this.state.manageLinkTrailOpen && (
+          <ManageLink
+            trails={this.state.trails}
+            memories={this.state.memories}
+          />
+        )}
+        {this.state.manageLinkMemoryOpen && (
+          <ManageLinkMemory
+            trails={this.state.trails}
+            memories={this.state.memories}
+          />
+        )}
         {this.state.createTrail && (
           <AddTrail
             icon={this.state.icons}
             firsticon={this.state.icons[0].id}
+          />
+        )}
+
+        {trailloaded && memoriesLoaded && this.state.updateMemory && (
+          <AdminForm
+            trails={this.state.trail}
+            memory={this.state.memories.find(
+              (mem) => mem.id === Number(this.state.idMemoryToUpdate)
+            )}
           />
         )}
       </div>

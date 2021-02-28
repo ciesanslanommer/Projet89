@@ -7,19 +7,17 @@ import { ENDPOINT_API } from './constants/endpoints';
 class AdminForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    let state = {
       name: '',
       description: '',
       format: 'image',
       content: null,
-      date: '',
       icon_id: '',
       target_id: [],
       contribution_date: '',
       contributeur: '',
       priority: '1',
       keyword_id: '',
-      newTrailName: '',
       subFormat: '',
       memories: [],
       memoriesLoaded: false,
@@ -39,7 +37,12 @@ class AdminForm extends Component {
       createTrail: false,
       addSub: false,
       addKeyword: false,
+      update: false,
     };
+    if (this.props.memory) {
+      state = Object.assign(state, this.props.memory, { update: true });
+    }
+    this.state = state;
   }
   componentDidMount() {
     // TODO display a loader when not loaded yet?
@@ -219,7 +222,9 @@ class AdminForm extends Component {
               rows='15'
               cols='70'
               onChange={(e) => this.getValue('content', e)}
-            ></textarea>
+            >
+              {this.state.content}
+            </textarea>
           </div>
         );
       case 'youtube':
@@ -274,30 +279,30 @@ class AdminForm extends Component {
     result.setDate(result.getDate() + 1);
     request.contribution_date = result;
 
-    console.log(request.contribution_date);
+    console.log('Update request to implement');
     if (request.format === 'youtube') request.youtube = request.content;
 
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
-    fetch(ENDPOINT_API + '/memory', {
-      method: 'POST',
-      body: JSON.stringify(request),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        // const value = '';
-        // this.setState({
-        //   name: value,
-        //   description: value,
-        //   format: value,
-        //   date: value,
-        // });
-        alert('Votre souvenir a bien été en registré !');
-        this.componentDidMount();
-      });
+    // fetch(ENDPOINT_API + '/memory', {
+    //   method: 'POST',
+    //   body: JSON.stringify(request),
+    //   headers: {
+    //     'Content-type': 'application/json; charset=UTF-8',
+    //   },
+    // })
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     console.log(res);
+    //     // const value = '';
+    //     // this.setState({
+    //     //   name: value,
+    //     //   description: value,
+    //     //   format: value,
+    //     //   date: value,
+    //     // });
+    //     alert('Votre souvenir a bien été en registré !');
+    //     this.componentDidMount();
+    //   });
   }
 
   render() {
@@ -318,6 +323,9 @@ class AdminForm extends Component {
     // console.log(request);
     let icons = this.state.icons;
     let keywords = this.state.keywords;
+    const date = this.state.contribution_date
+      ? this.state.contribution_date.slice(0, 10)
+      : '';
 
     return (
       //****************************Formulaire d'ajout de souvenir**************************************** */
@@ -362,7 +370,9 @@ class AdminForm extends Component {
               placeholder='ex : mur de Berlin'
               maxLength='95'
               onChange={(e) => this.getValue('description', e)}
-            ></textarea>
+            >
+              {this.state.description}
+            </textarea>
             <label>
               Format du fichier <abbr> * </abbr>
             </label>
@@ -387,17 +397,20 @@ class AdminForm extends Component {
               className='require'
               type='date'
               onChange={(e) => this.getValue('contribution_date', e)}
+              value={date}
             />
             <label>Contributeurs (séparer les noms par des virgules) </label>
             <input
               type='text'
               placeholder='Jean Dupont'
               onChange={(e) => this.getValue('contributeur', e)}
+              value={this.state.contributeur}
             />
             <label>Icone de souvenir </label>
             <select
               name='icons'
               id='icon_id'
+              value={this.state.icon_id}
               onChange={(e) => this.getValue('icon_id', e)}
             >
               {icons.map((icon) => {
