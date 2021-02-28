@@ -138,16 +138,20 @@ class AdminForm extends Component {
   };
 
   getFile = (e) => {
-    if (e.target.files[0].size > 800000) {
-      alert('File is too large: limit is 100ko');
-      this.setState({ content: '' });
-    } else {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload = () => {
-        let arrayBuffer = reader.result;
-        this.setState({ content: arrayBuffer });
-      };
+    if (e.target.files[0]) {
+      const fsize = e.target.files[0].size;
+
+      if (Math.round(fsize / 1024) > 1024) {
+        alert('File is too large: limit is 1mb');
+        this.setState({ content: '' });
+      } else {
+        const reader = new FileReader();
+        reader.onload = () => {
+          let binaryString = reader.result;
+          this.setState({ content: btoa(binaryString) });
+        };
+        reader.readAsBinaryString(e.target.files[0]);
+      }
     }
   };
 
@@ -233,6 +237,11 @@ class AdminForm extends Component {
             <input
               type='file'
               name='blobcontain'
+              accept={
+                this.state.format === 'image'
+                  ? '.jpeg, .png, .jpg'
+                  : '.mp3, .wav, .ogg'
+              }
               onChange={(e) => this.getFile(e)}
             />
           </div>
