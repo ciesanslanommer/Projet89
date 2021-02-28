@@ -148,7 +148,10 @@ class AdminForm extends Component {
         const reader = new FileReader();
         reader.onload = () => {
           let binaryString = reader.result;
-          this.setState({ content: btoa(binaryString) });
+          // this.setState({ content: btoa(binaryString) });
+          this.setState({
+            content: 'data:image/jpeg;base64,' + btoa(binaryString),
+          });
         };
         reader.readAsBinaryString(e.target.files[0]);
       }
