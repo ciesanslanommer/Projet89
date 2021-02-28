@@ -1,5 +1,5 @@
 import { React, Component } from 'react';
-import AdminForm from './AdminForm.js';
+import MemoryForm from './MemoryForm.js';
 import './Admin.css';
 import ManageLink from './ManageLink.js';
 import AddTrail from './AddTrail.js';
@@ -12,7 +12,7 @@ class Admin extends Component {
     super(props);
     this.state = {
       linkLoaded: false,
-      adminFormOpen: false,
+      memoryFormOpen: false,
       manageLinkTrailOpen: false,
       manageLinkMemoryOpen: false,
       updateMemory: false,
@@ -136,7 +136,7 @@ class Admin extends Component {
 
   backAdmin = () => {
     this.setState({
-      adminFormOpen: false,
+      memoryFormOpen: false,
       manageLinkTrailOpen: false,
       manageLinkMemoryOpen: false,
       createTrail: false,
@@ -155,7 +155,7 @@ class Admin extends Component {
     return (
       <div className='adminBody'>
         <h1>Mode admin</h1>
-        {!this.state.adminFormOpen &&
+        {!this.state.memoryFormOpen &&
         !this.state.manageLinkTrailOpen &&
         !this.state.manageLinkMemoryOpen &&
         !this.state.updateMemory &&
@@ -163,7 +163,7 @@ class Admin extends Component {
           <div className='adminButtons'>
             <button
               type='button'
-              onClick={(e) => this.openComponent('adminFormOpen', e)}
+              onClick={(e) => this.openComponent('memoryFormOpen', e)}
             >
               Créer un souvenir
             </button>
@@ -205,8 +205,8 @@ class Admin extends Component {
             Retour
           </button>
         )}
-        {trailloaded && this.state.adminFormOpen && (
-          <AdminForm trails={this.state.trail} />
+        {trailloaded && this.state.memoryFormOpen && (
+          <MemoryForm trails={this.state.trail} />
         )}
         {this.state.manageLinkTrailOpen && (
           <ManageLink
@@ -228,7 +228,7 @@ class Admin extends Component {
         )}
 
         {trailloaded && memoriesLoaded && this.state.updateMemory && (
-          <AdminForm
+          <MemoryForm
             trails={this.state.trail}
             memory={this.state.memories.find(
               (mem) => mem.id === Number(this.state.idMemoryToUpdate)
