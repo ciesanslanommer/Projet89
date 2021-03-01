@@ -1,8 +1,8 @@
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import './Nav.css';
 
 
-class Nav extends Component {
+class Nav extends PureComponent {
     
     state = {
         request: "",
@@ -37,7 +37,7 @@ class Nav extends Component {
         const icons = this.state.boolean ? "loupe" : "close"
         
         return (
-            <form className = "form" onSubmit={this.collectInfo}>
+            <form className = "searchForm" onSubmit={this.collectInfo}>
                 <img 
                     src={require('./../src/assets/' + icons + '.png').default} 
                     alt={desc} 

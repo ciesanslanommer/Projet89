@@ -1,12 +1,23 @@
 import './Preview.css'
+import {React, PureComponent} from 'react';
+import doc_background from './assets/document_background.jpg';
 
-function Preview({name}){
-    let description = name
-    return (
-            <div className = 'resume'>
-                <p>{description}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat, metus in facilisis iaculis, magna orci eleifend augue, tincidunt sollicitudin quam quam quis arcu. Etiam facilisis neque id congue blandit. Phasellus in posuere arcu, ac porta nisl. Morbi vel sapien eros. Suspendisse potenti. Nam scelerisque eu tellus ac fermentum. In hac habitasse platea dictumst. Maecenas nisl dui, rhoncus sed nisl eget, malesuada accumsan erat. Maecenas vitae mauris id quam ullamcorper vulputate. Donec euismod ut ligula nec gravida.
+class Preview extends PureComponent {
+    
+    render() {
+        const title = this.props.name;
+        const x = this.props.pos.x - 5; /* + 5 Else issue bcse mouse continuously mouse over and out */
+        const y = this.props.pos.y - 5;  /* + 5 Else issue bcse mouse continuously mouse over and out */
+        const translateX = this.props.sizeNode + this.props.sizeNode*0.2;
+        const translateY = 0;
 
-Pellentesque ut urna id urna efficitur pellentesque eget vitae nibh. Suspendisse potenti. Quisque ac rhoncus neque, viverra aliquet nulla. Donec euismod mollis risus, non bibendum massa ultrices ac. Sed ut sapien urna. Nam aliquet erat faucibus neque egestas tincidunt. Phasellus lobortis lectus sed diam feugiat, placerat volutpat nulla scelerisque. Duis quis lacus sed ipsum mattis vulputate id eget nunc. Morbi et orci magna.</p>
-            </div>)
+        return (
+                <div className = 'resume' style={{top: y + 'px', left: x + 'px', transform: `translate(${translateX}px, ${translateY}px)`, backgroundImage: "url(" + doc_background + ")" }}>
+                    <h2>{title}</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat, metus in facilisis iaculis,magna orci eleifend augue.</p>
+                </div>
+        )
+    }
 }
+
 export default Preview;

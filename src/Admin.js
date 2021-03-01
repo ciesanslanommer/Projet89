@@ -1,0 +1,243 @@
+import { React, Component } from 'react';
+import MemoryForm from './MemoryForm.js';
+import './Admin.css';
+import ManageLink from './ManageLink.js';
+import AddTrail from './AddTrail.js';
+import ManageLinkMemory from './ManageLinkMemory.js';
+
+import { ENDPOINT_API } from './constants/endpoints';
+
+class Admin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      linkLoaded: false,
+      memoryFormOpen: false,
+      manageLinkTrailOpen: false,
+      manageLinkMemoryOpen: false,
+      updateMemory: false,
+      idMemoryToUpdate: null,
+      createTrail: false,
+      memories: [],
+      memoriesLoaded: false,
+      icons: [],
+      iconLoaded: false,
+      trails: [],
+      trailsLoaded: false,
+    };
+  }
+
+  // exemple from https://reactjs.org/docs/faq-ajax.html
+  // To be adapted to our app
+  componentDidMount() {
+    console.log(`Fetching trail from ${ENDPOINT_API}/trail/`);
+    fetch(ENDPOINT_API + '/trail')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! trail = ', result);
+          this.setState({
+            trail: result,
+            trailLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading trail',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+
+    console.log(`Fetching souvenirs from ${ENDPOINT_API}/icon/`);
+    fetch(ENDPOINT_API + '/icon')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! icon = ', result);
+          this.setState({
+            icons: result,
+            iconLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading icons',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+    console.log(`Fetching memory from ${ENDPOINT_API}/memories/`);
+    fetch(ENDPOINT_API + '/memories')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! memory = ', result);
+          this.setState({
+            memories: [...result],
+            memoriesLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading memory',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+    this.loadTrail();
+  }
+
+  loadTrail = () => {
+    this.setState({ trailsLoaded: false });
+    console.log(`Fetching keyword from ${ENDPOINT_API}/trail/`);
+    fetch(ENDPOINT_API + '/trail')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! trail = ', result);
+          this.setState({
+            trails: result,
+            trailsLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading trail',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+  };
+
+  closeWelcome = (e) => {
+    this.setState({ welcomeOpen: false });
+  };
+
+  unsetCurrentMemory = (e) => {
+    this.setState({ currentMemory: null });
+  };
+
+  openComponent = (stateKey, e) => {
+    this.setState({ [stateKey]: true });
+    if (stateKey === 'updateMemory') {
+      console.log(e.target);
+      this.setState({ idMemoryToUpdate: e.target.value });
+    }
+  };
+
+  closeComponent = (stateKey, e) => {
+    this.setState({ [stateKey]: false });
+  };
+
+  backAdmin = () => {
+    this.setState({
+      memoryFormOpen: false,
+      manageLinkTrailOpen: false,
+      manageLinkMemoryOpen: false,
+      createTrail: false,
+      updateMemory: false,
+      idMemoryToUpdate: null,
+    });
+
+    this.componentDidMount();
+  };
+
+  render() {
+    const trailloaded = this.state.trailLoaded;
+    const memoriesLoaded = this.state.memoriesLoaded;
+    // const adminLoaded = this.state.trailLoaded;
+
+    return (
+      <div className='adminBody'>
+        <h1>Mode admin</h1>
+        {!this.state.memoryFormOpen &&
+        !this.state.manageLinkTrailOpen &&
+        !this.state.manageLinkMemoryOpen &&
+        !this.state.updateMemory &&
+        !this.state.createTrail ? (
+          <div className='adminButtons'>
+            <button
+              type='button'
+              onClick={(e) => this.openComponent('memoryFormOpen', e)}
+            >
+              Créer un souvenir
+            </button>
+            <button
+              type='button'
+              onClick={(e) => this.openComponent('manageLinkTrailOpen', e)}
+            >
+              Lier un parcours avec un souvenir
+            </button>
+            <button
+              type='button'
+              onClick={(e) => this.openComponent('manageLinkMemoryOpen', e)}
+            >
+              Lier un souvenir à un parcours
+            </button>
+            <button
+              type='button'
+              onClick={(e) => this.openComponent('createTrail', e)}
+            >
+              Créer un parcours
+            </button>
+            <select onChange={(e) => this.openComponent('updateMemory', e)}>
+              <option value='null'>Modifier un souvenir</option>
+              {this.state.memories.map((memory) => {
+                return (
+                  <option key={memory.id} value={memory.id}>
+                    {memory.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        ) : (
+          <button
+            type='button'
+            className='returnButton'
+            onClick={this.backAdmin}
+          >
+            Retour
+          </button>
+        )}
+        {trailloaded && this.state.memoryFormOpen && (
+          <MemoryForm trails={this.state.trail} />
+        )}
+        {this.state.manageLinkTrailOpen && (
+          <ManageLink
+            trails={this.state.trails}
+            memories={this.state.memories}
+          />
+        )}
+        {this.state.manageLinkMemoryOpen && (
+          <ManageLinkMemory
+            trails={this.state.trails}
+            memories={this.state.memories}
+          />
+        )}
+        {this.state.createTrail && (
+          <AddTrail
+            icon={this.state.icons}
+            firsticon={this.state.icons[0].id}
+          />
+        )}
+
+        {trailloaded && memoriesLoaded && this.state.updateMemory && (
+          <MemoryForm
+            trails={this.state.trail}
+            memory={this.state.memories.find(
+              (mem) => mem.id === Number(this.state.idMemoryToUpdate)
+            )}
+          />
+        )}
+      </div>
+    );
+  }
+}
+
+export default Admin;

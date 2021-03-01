@@ -1,8 +1,5 @@
-body{
-  overflow:hidden;
-}
-
 .App {
+  overflow: hidden;
   text-align: center;
   display: grid;
   grid-template-columns: 100vw;
