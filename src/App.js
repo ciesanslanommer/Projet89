@@ -216,12 +216,12 @@ class App extends PureComponent {
             onNextClick={this.changeDoc}
           />
         ) : null}
-        {/* {this.state.docOpen === 'entry' &&
+        {this.state.docOpen === 'entry' &&
           <TrailMessage
             state={this.state.docOpen}
             trail={memory.parcours}
           />
-        } */}
+        }
         {this.state.previewOpen != null && (
           <Preview
             pos={{ x: this.state.previewOpen.x, y: this.state.previewOpen.y }}
