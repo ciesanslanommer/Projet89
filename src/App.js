@@ -6,7 +6,7 @@ import Trails from './Trails.js';
 import Nav from './Nav.js';
 import Welcome from './Welcome.js';
 import Preview from './Preview';
-import { ENDPOINT_API } from './constants/endpoints';
+// import { ENDPOINT_API } from './constants/endpoints';
 import TrailMessage from './TrailMessage';
 
 
@@ -18,6 +18,7 @@ class App extends PureComponent {
       linkLoaded: false,
       trailLoaded: false,
       trailByMemoryLoaded: false,
+      memoriesLoaded: false,
       docOpen: false,
       adminOpen: false,
       welcomeOpen: true,
@@ -26,6 +27,7 @@ class App extends PureComponent {
       link: [],
       trail: [],
       trailByMemory: [],
+      memories: [],
     };
   }
 
@@ -33,8 +35,14 @@ class App extends PureComponent {
   // To be adapted to our app
   componentDidMount() {
     // TODO display a loader when not loaded yet?
-    console.log(`Fetching souvenirs from ${ENDPOINT_API}/node/`);
-    fetch(ENDPOINT_API + '/node')
+
+    console.log('Fetching node.json');
+    fetch(`${process.env.PUBLIC_URL}/data/node.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -53,8 +61,13 @@ class App extends PureComponent {
         }
       );
 
-    console.log(`Fetching souvenirs from ${ENDPOINT_API}/link/`);
-    fetch(ENDPOINT_API + '/link')
+    console.log('Fetching link.json');
+    fetch(`${process.env.PUBLIC_URL}/data/link.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -73,8 +86,13 @@ class App extends PureComponent {
         }
       );
 
-    console.log(`Fetching trail from ${ENDPOINT_API}/trail/`);
-    fetch(ENDPOINT_API + '/trail')
+    console.log('Fetching trail.json');
+    fetch(`${process.env.PUBLIC_URL}/data/trail.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -93,8 +111,13 @@ class App extends PureComponent {
         }
       );
 
-    console.log(`Fetching trail from ${ENDPOINT_API}/trailbymemory/`);
-    fetch(ENDPOINT_API + '/trailbymemory')
+    console.log('Fetching trailbymemory.json');
+    fetch(`${process.env.PUBLIC_URL}/data/trailbymemory.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -106,7 +129,32 @@ class App extends PureComponent {
         },
         (error) => {
           console.error(
-            'Oops, something wrong happened when loading trail',
+            'Oops, something wrong happened when loading trailbymemory',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+
+    console.log('Fetching memories.json');
+    fetch(`${process.env.PUBLIC_URL}/data/memories.json`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! (memories)');
+          this.setState({
+            memories: result,
+            memoriesLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading memories',
             error
           );
           // TODO maybe display an error for the user?
@@ -184,10 +232,10 @@ class App extends PureComponent {
       this.state.nodeLoaded &&
       this.state.linkLoaded &&
       this.state.trailByMemoryLoaded &&
-      this.state.trailLoaded;
+      this.state.trailLoaded &&
+      this.state.memoriesLoaded;
     // const adminLoaded = this.state.trailLoaded;
-    // console.log(trailloaded);
-    
+    console.log('trailloaded?', trailloaded);
     return (
       <div className='App'>
         {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
@@ -211,6 +259,10 @@ class App extends PureComponent {
           <Document
             key={memory.id}
             id={memory.id}
+            memory={this.state.memories.find((e) => e.id === memory.id)}
+            linksFromMemory={this.state.link.filter(
+              (e) => e.source === memory.id || e.target === memory.id
+            )}
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
