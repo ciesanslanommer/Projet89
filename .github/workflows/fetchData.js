@@ -17,11 +17,13 @@ const ENDPOINTS = [
   ENDPOINT_API + '/memories',
 ];
 
-// just used for tests
+// // just used for tests
 // const ENDPOINTS = [
 //     'https://jsonplaceholder.typicode.com/posts',
 //     'https://jsonplaceholder.typicode.com/albums',
-//     'https://jsonplaceholder.typicode.com/users'
+//     'https://jsonplaceholder.typicode.com/users',
+//     'https://jsonplaceholder.typicode.com/users',
+//     'https://jsonplaceholder.typicode.com/users',
 // ];
 
 const requestAsync = function (url) {
@@ -34,8 +36,7 @@ const requestAsync = function (url) {
         // return reject(err, response, body);
       }
       console.log(' - Fetching', url, ': done.');
-      resolve(body);
-      // resolve(JSON.parse(body));
+      resolve(JSON.parse(body));
     });
   });
 };
@@ -52,12 +53,17 @@ const writeFile = (fileName, data) => {
 };
 
 const writeFiles = (data) => {
+  // remove and recreate memory/ folder
+  fs.rmdirSync('../../public/data/memory/', { recursive: true });
+  fs.mkdirSync('../../public/data/memory/');
+  // fetch all data
   const [node, link, trail, trailbymemory, memories] = data;
-  writeFile('../../public/data/node.json', node);
-  writeFile('../../public/data/link.json', link);
-  writeFile('../../public/data/trail.json', trail);
-  writeFile('../../public/data/trailbymemory.json', trailbymemory);
-  writeFile('../../public/data/memories.json', memories);
+  // write data on static json files
+  writeFile('../../public/data/node.json', JSON.stringify(node, 0, 4));
+  writeFile('../../public/data/link.json', JSON.stringify(link, 0, 4));
+  writeFile('../../public/data/trail.json', JSON.stringify(trail, 0, 4));
+  writeFile('../../public/data/trailbymemory.json', JSON.stringify(trailbymemory, 0, 4));
+  memories.forEach(memory => writeFile(`../../public/data/memory/${memory.id}.json`, JSON.stringify(memory, 0, 4)));
 };
 
 const fetchData = async () => {

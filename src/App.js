@@ -16,7 +16,6 @@ class App extends PureComponent {
       linkLoaded: false,
       trailLoaded: false,
       trailByMemoryLoaded: false,
-      memoriesLoaded: false,
       docOpen: false,
       adminOpen: false,
       welcomeOpen: true,
@@ -134,31 +133,6 @@ class App extends PureComponent {
         }
       );
 
-    console.log('Fetching memories.json');
-    fetch(`${process.env.PUBLIC_URL}/data/memories.json`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log('Success! (memories)');
-          this.setState({
-            memories: result,
-            memoriesLoaded: true,
-          });
-        },
-        (error) => {
-          console.error(
-            'Oops, something wrong happened when loading memories',
-            error
-          );
-          // TODO maybe display an error for the user?
-        }
-      );
-
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
       const dataNode = this.node.nodes.concat(this.trail.trails)[node.id];
@@ -239,8 +213,7 @@ class App extends PureComponent {
       this.state.nodeLoaded &&
       this.state.linkLoaded &&
       this.state.trailByMemoryLoaded &&
-      this.state.trailLoaded &&
-      this.state.memoriesLoaded;
+      this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
     console.log('trailloaded?', trailloaded);
     return (
@@ -264,7 +237,6 @@ class App extends PureComponent {
           <Document
             key={memory.id}
             id={memory.id}
-            memory={this.state.memories.find((e) => e.id === memory.id)}
             linksFromMemory={this.state.link.filter(
               (e) => e.source === memory.id || e.target === memory.id
             )}
