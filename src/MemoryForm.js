@@ -38,9 +38,12 @@ class MemoryForm extends Component {
       addSub: false,
       addKeyword: false,
       update: false,
+      id: 0,
     };
     if (this.props.memory) {
-      state = Object.assign(state, this.props.memory, { update: true });
+      state = Object.assign(state, this.props.memory, {
+        update: true,
+      });
     }
     this.state = state;
   }
@@ -321,28 +324,29 @@ class MemoryForm extends Component {
     if (request.format === 'youtube') request.youtube = request.content;
 
     console.log('update to do');
+    console.log(request);
 
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
-    // fetch(ENDPOINT_API + '/memory', {
-    //   method: 'POST',
-    //   body: JSON.stringify(request),
-    //   headers: {
-    //     'Content-type': 'application/json; charset=UTF-8',
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     console.log(res);
-    //     // const value = '';
-    //     // this.setState({
-    //     //   name: value,
-    //     //   description: value,
-    //     //   format: value,
-    //     //   date: value,
-    //     // });
-    //     alert('Votre souvenir a bien été en registré !');
-    //     this.componentDidMount();
-    //   });
+    fetch(ENDPOINT_API + '/memory/' + this.state.id, {
+      method: 'PUT',
+      body: JSON.stringify(request),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        // const value = '';
+        // this.setState({
+        //   name: value,
+        //   description: value,
+        //   format: value,
+        //   date: value,
+        // });
+        alert('Votre souvenir a bien été en registré !');
+        this.componentDidMount();
+      });
   }
 
   render() {
@@ -360,6 +364,7 @@ class MemoryForm extends Component {
       targets_id: this.state.target_id,
       subs: [],
     };
+
     // console.log(request);
     let icons = this.state.icons;
     let keywords = this.state.keywords;
@@ -437,7 +442,7 @@ class MemoryForm extends Component {
               className='require'
               type='date'
               onChange={(e) => this.getValue('contribution_date', e)}
-              value={date}
+              value={date.slice(0, 10)}
             />
             <label>Contributeurs (séparer les noms par des virgules) </label>
             <input
@@ -461,7 +466,7 @@ class MemoryForm extends Component {
                 );
               })}
             </select>
-            <label>
+            {/* <label>
               Ordre d'apparence <abbr> * </abbr>
             </label>
             <select
@@ -506,11 +511,11 @@ class MemoryForm extends Component {
                   </p>
                 );
               })}
-            </div>
+            </div> */}
           </div>
 
           {/* *************************************************************** AJOUT PARCOURS *************************************************************** */}
-          <h2>Choix du parcours</h2>
+          {/* <h2>Choix du parcours</h2>
           <div className='sousForm'>
             <label>
               Choix du parcours (un souvenir peut en avoir 0 ou plusieurs)
@@ -529,7 +534,7 @@ class MemoryForm extends Component {
                 </div>
               );
             })}
-          </div>
+          </div> */}
           <h2>Autres fonctionnalités</h2>
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
           <button
