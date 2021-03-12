@@ -301,6 +301,7 @@ class Document extends PureComponent {
       trail += ' ' + this.state.trails[i].parcours.toUpperCase();
     }
 
+    console.log("doc");
 
     return (
       <div className='souvenir'>
@@ -354,7 +355,7 @@ class Document extends PureComponent {
               <DocumentButton
                 id={target.id}
                 key={target.id}
-                onClick={() => this.props.onNextClick(target.id)}
+                onClick={() => this.props.onNextClick(target.id, 'memory')}
                 type='next'
                 parcours={target.parcours}
                 currentId={this.props.id}

@@ -190,9 +190,7 @@ class Trails extends PureComponent {
   NodesAndLinksFromTrails(allTrails) {
     let nodes = [];
     let links = [];
-    console.log(allTrails);
     allTrails.forEach( (trail) => {
-      console.log(trail);
       nodes.push(...nodesByTrails[trail]);
       links.push(...linksByTrails[trail]);
     });
@@ -295,14 +293,10 @@ class Trails extends PureComponent {
       const trailMouseOvered = node.entry ? [node.parcours] : node.trails;
       const cpy = this.getNodesAndId(this.props.currentMemory).cpy;
       const currentId = this.getNodesAndId(this.props.currentMemory).id;
-      // const currentTrail = currentId !== -1 ? cpy[currentId].trails : [];
       let currentTrail = [];
       if(currentId !== -1) {
         currentTrail = cpy[currentId].entry ? cpy[currentId].parcours : cpy[currentId].trails;
       }
-      console.log(currentId);
-      console.log(cpy);
-      console.log(cpy[currentId]);
       if (trailMouseOvered.length !== 0) { this.highlightTrail(trailMouseOvered.concat(currentTrail)) } 
       else { this.highlightNode(nodeId) }
     }
