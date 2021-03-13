@@ -1,6 +1,5 @@
 import { React, Component } from 'react';
-import { ENDPOINT_API } from './constants/endpoints';
-import './AdminForm.css';
+import { ENDPOINT_API } from '../constants/endpoints';
 
 class AddTrail extends Component {
   constructor(props) {

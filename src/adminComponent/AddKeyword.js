@@ -1,5 +1,5 @@
 import { React, Component } from 'react';
-import { ENDPOINT_API } from './constants/endpoints';
+import { ENDPOINT_API } from '../constants/endpoints';
 
 class AddKeyword extends Component {
   constructor(props) {

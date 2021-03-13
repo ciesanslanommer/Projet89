@@ -6,7 +6,7 @@ import Trails from './Trails.js';
 import Nav from './Nav.js';
 import Welcome from './Welcome.js';
 import Preview from './Preview';
-// import { ENDPOINT_API } from './constants/endpoints';
+import { ENDPOINT_API } from './constants/endpoints';
 
 class App extends PureComponent {
   constructor(props) {
@@ -16,7 +16,6 @@ class App extends PureComponent {
       linkLoaded: false,
       trailLoaded: false,
       trailByMemoryLoaded: false,
-      memoriesLoaded: false,
       docOpen: false,
       adminOpen: false,
       welcomeOpen: true,
@@ -32,10 +31,22 @@ class App extends PureComponent {
   // exemple from https://reactjs.org/docs/faq-ajax.html
   // To be adapted to our app
   componentDidMount() {
-    // TODO display a loader when not loaded yet?
+    let path =`${process.env.PUBLIC_URL}/data/`
+    let node = `node.json`
+    let link = 'link.json'
+    let trail = 'trail.json'
+    let trailByMem = 'trailbymemory.json'
 
-    console.log('Fetching node.json');
-    fetch(`${process.env.PUBLIC_URL}/data/node.json`, {
+    if (this.props.preview){
+      path = `${ENDPOINT_API}/`
+      node = 'node'
+      link = 'link'
+      trail = 'trail'
+      trailByMem = 'trailbymemory'
+    }
+
+    console.log('Fetching from' + node);
+    fetch(path + node, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -59,8 +70,8 @@ class App extends PureComponent {
         }
       );
 
-    console.log('Fetching link.json');
-    fetch(`${process.env.PUBLIC_URL}/data/link.json`, {
+    console.log('Fetching ' + link);
+    fetch(path + link, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -84,8 +95,8 @@ class App extends PureComponent {
         }
       );
 
-    console.log('Fetching trail.json');
-    fetch(`${process.env.PUBLIC_URL}/data/trail.json`, {
+    console.log('Fetching ' + trail);
+    fetch(path + trail, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -109,8 +120,8 @@ class App extends PureComponent {
         }
       );
 
-    console.log('Fetching trailbymemory.json');
-    fetch(`${process.env.PUBLIC_URL}/data/trailbymemory.json`, {
+    console.log('Fetching ' + trailByMem);
+    fetch(path + trailByMem, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -128,31 +139,6 @@ class App extends PureComponent {
         (error) => {
           console.error(
             'Oops, something wrong happened when loading trailbymemory',
-            error
-          );
-          // TODO maybe display an error for the user?
-        }
-      );
-
-    console.log('Fetching memories.json');
-    fetch(`${process.env.PUBLIC_URL}/data/memories.json`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log('Success! (memories)');
-          this.setState({
-            memories: result,
-            memoriesLoaded: true,
-          });
-        },
-        (error) => {
-          console.error(
-            'Oops, something wrong happened when loading memories',
             error
           );
           // TODO maybe display an error for the user?
@@ -239,8 +225,7 @@ class App extends PureComponent {
       this.state.nodeLoaded &&
       this.state.linkLoaded &&
       this.state.trailByMemoryLoaded &&
-      this.state.trailLoaded &&
-      this.state.memoriesLoaded;
+      this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
     console.log('trailloaded?', trailloaded);
     return (
@@ -262,9 +247,9 @@ class App extends PureComponent {
         )}
         {this.state.docOpen ? (
           <Document
+            isPreviewGraph = {this.props.preview}
             key={memory.id}
             id={memory.id}
-            memory={this.state.memories.find((e) => e.id === memory.id)}
             linksFromMemory={this.state.link.filter(
               (e) => e.source === memory.id || e.target === memory.id
             )}
