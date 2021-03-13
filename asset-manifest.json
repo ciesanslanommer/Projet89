@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Projet89/static/css/main.0fc0a8b2.chunk.css",
-    "main.js": "/Projet89/static/js/main.2f094ce6.chunk.js",
-    "main.js.map": "/Projet89/static/js/main.2f094ce6.chunk.js.map",
+    "main.css": "/Projet89/static/css/main.74b57a37.chunk.css",
+    "main.js": "/Projet89/static/js/main.bb6e62ea.chunk.js",
+    "main.js.map": "/Projet89/static/js/main.bb6e62ea.chunk.js.map",
     "runtime-main.js": "/Projet89/static/js/runtime-main.ab542dbe.js",
     "runtime-main.js.map": "/Projet89/static/js/runtime-main.ab542dbe.js.map",
-    "static/js/2.9bcd8191.chunk.js": "/Projet89/static/js/2.9bcd8191.chunk.js",
-    "static/js/2.9bcd8191.chunk.js.map": "/Projet89/static/js/2.9bcd8191.chunk.js.map",
+    "static/js/2.eb1a4bcf.chunk.js": "/Projet89/static/js/2.eb1a4bcf.chunk.js",
+    "static/js/2.eb1a4bcf.chunk.js.map": "/Projet89/static/js/2.eb1a4bcf.chunk.js.map",
     "static/js/3.cd2f5fc9.chunk.js": "/Projet89/static/js/3.cd2f5fc9.chunk.js",
     "static/js/3.cd2f5fc9.chunk.js.map": "/Projet89/static/js/3.cd2f5fc9.chunk.js.map",
     "index.html": "/Projet89/index.html",
-    "static/css/main.0fc0a8b2.chunk.css.map": "/Projet89/static/css/main.0fc0a8b2.chunk.css.map",
-    "static/js/2.9bcd8191.chunk.js.LICENSE.txt": "/Projet89/static/js/2.9bcd8191.chunk.js.LICENSE.txt",
+    "static/css/main.74b57a37.chunk.css.map": "/Projet89/static/css/main.74b57a37.chunk.css.map",
+    "static/js/2.eb1a4bcf.chunk.js.LICENSE.txt": "/Projet89/static/js/2.eb1a4bcf.chunk.js.LICENSE.txt",
     "static/media/0_SainteVictoire.txt": "/Projet89/static/media/0_SainteVictoire.b227234d.txt",
     "static/media/10_StephenJaffe.jpg": "/Projet89/static/media/10_StephenJaffe.811c995d.jpg",
     "static/media/11_Christophe.png": "/Projet89/static/media/11_Christophe.a42d1b51.png",
@@ -55,7 +55,7 @@
     "static/media/cabane.png": "/Projet89/static/media/cabane.ec670d5d.png",
     "static/media/document_background.jpg": "/Projet89/static/media/document_background.aa7b5a17.jpg",
     "static/media/drapeau.png": "/Projet89/static/media/drapeau.8cf05292.png",
-    "static/media/fond.png": "/Projet89/static/media/fond.935566c1.png",
+    "static/media/AdminForm.css": "/Projet89/static/media/fond.935566c1.png",
     "static/media/loupe.png": "/Projet89/static/media/loupe.5d7d2a7e.png",
     "static/media/oracle.png": "/Projet89/static/media/oracle.ea1b60ab.png",
     "static/media/ordinateur.png": "/Projet89/static/media/ordinateur.d4435b81.png",
@@ -67,8 +67,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.ab542dbe.js",
-    "static/js/2.9bcd8191.chunk.js",
-    "static/css/main.0fc0a8b2.chunk.css",
-    "static/js/main.2f094ce6.chunk.js"
+    "static/js/2.eb1a4bcf.chunk.js",
+    "static/css/main.74b57a37.chunk.css",
+    "static/js/main.bb6e62ea.chunk.js"
   ]
 }
