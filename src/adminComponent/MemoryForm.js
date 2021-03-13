@@ -1,8 +1,7 @@
 import { React, Component } from 'react';
-import './AdminForm.css';
 import AddKeyword from './AddKeyword.js';
 
-import { ENDPOINT_API } from './constants/endpoints';
+import { ENDPOINT_API } from '../constants/endpoints';
 
 class MemoryForm extends Component {
   constructor(props) {

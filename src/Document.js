@@ -180,7 +180,11 @@ class Document extends PureComponent {
     // console.log(
     //   `Fetching souvenirs from ${ENDPOINT_API}/memory/${this.props.id}`
     // );
-    fetch(`${process.env.PUBLIC_URL}/data/memory/${this.props.id}.json`, {
+    const memoryPath = (this.props.isPreviewGraph)
+          ? `${ENDPOINT_API}/memory/${this.props.id}` 
+          : `${process.env.PUBLIC_URL}/data/memory/${this.props.id}.json`
+
+    fetch(memoryPath, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -204,12 +208,12 @@ class Document extends PureComponent {
         }
       );
 
+    const submemPath = (this.props.isPreviewGraph)
+      ? ENDPOINT_API + '/submemoryfrommemory/' + this.props.id 
+      : ENDPOINT_API + '/submemoryfrommemory/' + this.props.id
 
     // TODO static data
-    console.log(
-      `Fetching souvenirs from ${ENDPOINT_API}/submemoryfrommemory/${this.props.id}`
-    );
-    fetch(ENDPOINT_API + '/submemoryfrommemory/' + this.props.id)
+    fetch(submemPath)
       .then((res) => res.json())
       .then(
         (result) => {
