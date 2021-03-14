@@ -10,8 +10,8 @@ const myConfig = {
   nodeHighlightBehavior: true,
   width: 400,
   initialZoom: 1,
-  staticGraphWithDragAndDrop: false,
-  //staticGraph : true,
+  // staticGraphWithDragAndDrop: false,
+  staticGraph : false,
   highlightDegree: 0,
   minZoom: 0.1,
   maxZoom: 3,
@@ -34,6 +34,9 @@ const myConfig = {
   },
 };
 
+let nodesByTrails = {};
+let linksByTrails = {};
+
 class Trails extends PureComponent {
   constructor(props) {
     super(props);
@@ -51,6 +54,7 @@ class Trails extends PureComponent {
 
     // console.log(this.props.nodes);
     // console.log(this.props.links);
+
     this.state = {
       nodes: this.formatNodes(
         this.props.nodes,
@@ -62,7 +66,6 @@ class Trails extends PureComponent {
       width: 0,
       height: 0,
       zoom: 1,
-      currentParcours: null,
       freeze: false,
       customZoomsToIgnore: [],
     };
@@ -97,20 +100,39 @@ class Trails extends PureComponent {
   }
 
   // ************************************************************* RESIZING
+
   componentWillMount() {
     window.addEventListener('resize', this.measure, false);
   }
+  
   componentWillUnmount() {
     window.removeEventListener('resize', this.measure, false);
   }
+
   componentDidMount() {
     this.measure();
+    /** After 100 ms, graph becomes static **/
     setTimeout(() => {
       myConfig.staticGraph = true;
       myConfig.freeze = false;
     }, 100);
+    /** Fill nodesByTrails object **/
+    this.fillNodesAndLinksByTrails();
 
+    /** Handle open/close preview **/
+    document.querySelectorAll('.node').forEach((node) => {
+      console.log(node.id);
+      const copy = this.props.nodes.slice();
+      const index = copy.findIndex((elt) => elt.id === Number(node.id));
+      const dataNode = copy[index];
+      if(dataNode) {
+        node.addEventListener('mouseenter', (event) => this.props.openPreview(node, dataNode.name, dataNode.description, dataNode.entry));
+        node.addEventListener('mouseleave', this.props.closePreview);
+      }
+    });
+    
   }
+
   measure = (e) => {
     let rect = {
       width: document.getElementsByClassName('Graph')[0].clientWidth,
@@ -123,8 +145,10 @@ class Trails extends PureComponent {
         height: rect.height,
       });
     }
-  };
+  }
+
   // ************************************************************* UTILS
+
   getNodesAndId = (nodeId) => {
     let nodes = [];
     this.state.nodes.forEach((node) => nodes.push({ ...node }));
@@ -132,28 +156,73 @@ class Trails extends PureComponent {
     //find current node
     let id = nodes.findIndex((node) => node.id === Number(nodeId));
     return { cpy: nodes, id: id };
-  };
+  }
+
+  fillNodesAndLinksByTrails() {
+    /** For each trail **/
+    this.props.trails.forEach( (trail) => {
+      /* Class nodes by trail*/
+      nodesByTrails[trail.parcours] = [];
+      nodesByTrails[trail.parcours].push(trail);
+      this.props.nodes.forEach( (node) => {
+        if(node.trails.indexOf(trail.parcours) !== -1) {
+          nodesByTrails[trail.parcours].push(node);
+        }
+      });
+      /* Class links by trail */
+      linksByTrails[trail.parcours] = [];
+      if(trail.id != null && trail.target_id != null) {
+        linksByTrails[trail.parcours].push({source: trail.id, target: trail.target_id});
+      }
+      this.props.links.forEach( (link) => {
+        const sourceIndex = this.getNodesAndId(link.source).id;
+        const targetIndex = this.getNodesAndId(link.target).id
+        const sourceTrails = sourceIndex == -1 ? null : this.state.nodes[sourceIndex].trails;
+        const targetTrails = targetIndex == -1 ? null : this.state.nodes[targetIndex].trails;
+        if(sourceTrails != null && sourceTrails.indexOf(trail.parcours) !== -1 &&
+        targetTrails != null && targetTrails.indexOf(trail.parcours) !== -1) {
+          linksByTrails[trail.parcours].push(link);
+        }
+      });
+    });
+  }
+  
+  NodesAndLinksFromTrails(allTrails) {
+    let nodes = [];
+    let links = [];
+    allTrails.forEach( (trail) => {
+      nodes.push(...nodesByTrails[trail]);
+      links.push(...linksByTrails[trail]);
+    });
+    return {nodes: nodes, links: links};
+  }
 
   // ************************************************************* EVENT
+
   nodeClick = (nodeId, e) => {
     let { cpy, id } = this.getNodesAndId(nodeId);
     let currentNodeVisited = cpy[id];
 
-    if (currentNodeVisited.entry) return;
-
-    // set it to visited
-    if (nodeId === this.props.currentMemory) {
-      this.focusOnNode(this.props.currentMemory);
+    if (currentNodeVisited.entry) {
+      this.props.nodeClick(nodeId, 'entry');
     }
-    currentNodeVisited.visited = true;
+    else {
+      // set it to visited
+      if (nodeId === this.props.currentMemory) {
+        this.focusOnNode(this.props.currentMemory);
+      }
+      currentNodeVisited.visited = true;
 
-    //change obj in copy
-    cpy[id] = currentNodeVisited;
+      //change obj in copy
+      cpy[id] = currentNodeVisited;
 
-    //set state
-    this.setState({ nodes: cpy });
-    this.props.nodeClick(nodeId);
-  };
+      //set state
+      this.setState({ nodes: cpy });
+      this.props.nodeClick(nodeId, 'memory');
+    }
+
+    
+  }
 
   savePosition = (nodeId, x, y, e) => {
     //const allNodes = this.state.nodes.concat(data.trails);
@@ -167,7 +236,7 @@ class Trails extends PureComponent {
     item.y = y;
     copy[nodeId] = item;
     this.setState({ nodes: copy });
-  };
+  }
 
   customNodeGenerator = (node) => {
     // if(node.highlighted) {
@@ -190,86 +259,62 @@ class Trails extends PureComponent {
         )}
       </div>
     );
-  };
+  }
 
   componentDidUpdate(prevProps, prevState) {
-    /*** If currentMemory changes  ***/
-    // console.log(prevProps.currentMemory, this.props.currentMemory);
+
+    /* If currentMemory changes that is click on node or arrow buttons  */
+    /* Clean all highlight first */
+    /* Highlight and focus on currentNode if not null */
+    /* And if belongs to a trail, highlight trail */
     if (prevProps.currentMemory !== this.props.currentMemory) {
-
-      /** Initialization: clean all highlight **/
-      this.removeAllHighlightParcours();
-      this.removeAllHighlightCurrentNode();
-
+      this.removeHighlight();
       if (this.props.currentMemory != null) {
         const { cpy, id } = this.getNodesAndId(this.props.currentMemory);
-        const currentParcours = cpy[id].trails;
-        /** Highlights and focus on currentNode **/
+        const currentTrail = id !== -1 ? cpy[id].trails : null;
         this.highlightNode(this.props.currentMemory);
         this.focusOnNode(this.props.currentMemory);
-
-        /** Handle parcours highlighting **/
-        /* If the current node is in a parcours, highlight all nodes in the parcours */
-        if (currentParcours != null) {
-          this.highlightParcours(currentParcours);
-        }
+        if (currentTrail != null) { this.highlightTrail(currentTrail) }
       }
     }
 
-    /*** After opening a doc, if resize window then close doc ***/
-    /*** Graph does not resize ***/
-    /*** So added below to solve the problem ***/
+    /* After opening a doc, if resize window then close doc */
+    /* Graph does not resize, so added below to solve the problem */
     if (prevProps.docOpen !== this.props.docOpen) {
-      console.log('measure');
       this.measure();
     }
   }
 
   onMouseOverNode = (nodeId, node) => {
-    const { cpy, id } = this.getNodesAndId(nodeId);
-    const currentId = this.getNodesAndId(this.props.currentMemory).id;
-    // console.log(id);
+  
     /** If document isn't open **/
-    /* currentParcours stays highlighted and parcours mouse overed becomes highlighted */
-    /** If document is open, mouse over shouldn't highlight parcours **/
+    /* highlight current trail and node or trail mouseovered */
     if (!this.props.docOpen) {
-      let parcoursMouseOvered;
-      if(node.entry) parcoursMouseOvered = [node.parcours];
-      else parcoursMouseOvered = cpy[id].trails;
-
-
-      let currentParcours = [];
-      if (currentId !== -1) currentParcours = cpy[currentId].trails;
-      if (parcoursMouseOvered != null) {
-        /* Must do concatenation else only one parcours will be highlighted */
-        /* So all parcours we want highlighted must be done with one call to the function */
-        this.highlightParcours(parcoursMouseOvered.concat(currentParcours));
-
-      } else {
-        this.highlightNode(nodeId);
+      const trailMouseOvered = node.entry ? [node.parcours] : node.trails;
+      const cpy = this.getNodesAndId(this.props.currentMemory).cpy;
+      const currentId = this.getNodesAndId(this.props.currentMemory).id;
+      let currentTrail = [];
+      if(currentId !== -1) {
+        currentTrail = cpy[currentId].entry ? cpy[currentId].parcours : cpy[currentId].trails;
       }
+      if (trailMouseOvered.length !== 0) { this.highlightTrail(trailMouseOvered.concat(currentTrail)) } 
+      else { this.highlightNode(nodeId) }
     }
   }
-
+ 
   onMouseOutNode = (nodeId, node) => {
+    /* Remove highlight for all except currentMemory and currentTrail */
+    this.removeHighlight();
     const cpy = this.getNodesAndId(this.props.currentMemory).cpy;
-    const currentId = this.getNodesAndId(this.props.currentMemory).id;
-
-    /** Only currentParcours should stays highlighted **/
-    /* Remove parcours highlight from all nodes and links */
-    this.removeAllHighlightParcours();
-    /* Re-highlight the nodes of currentParcours if currentParcours not null*/
-    let currentParcours;
-    if (currentId!==-1) currentParcours = cpy[currentId].trails;
-
-    if (currentParcours) {
-      this.highlightParcours(currentParcours);
-    }
+    const index = this.getNodesAndId(this.props.currentMemory).id;
+    const currentTrail = index !== -1 ? cpy[index].trails : null;
+    if(this.props.currentMemory) { this.highlightNode(nodeId) }
+    if(currentTrail) { this.highlightTrail(currentTrail) }
   }
 
   onClickGraph = (event, e) => {
     if (!this.props.docOpen) {
-      this.removeAllHighlightParcours();
+      this.removeHighlight();
       this.props.unsetCurrentMemory();
     } else this.props.closeDoc();
   }
@@ -296,100 +341,45 @@ class Trails extends PureComponent {
 
   // ************************************************************* HIGHLIGHT
 
-  highlightParcours(parcours) {
-    if (parcours == null) {
-      return;
-    }
+  highlightTrail(trails) {
+    
+    if (trails == null) { return };
+    console.log(trails);
 
-    const nodes = this.state.nodes;
+    /* Search all nodes and links in trails */
+    const arrayOfNodes = this.NodesAndLinksFromTrails(trails).nodes;
+    const arrayOfLinks = this.NodesAndLinksFromTrails(trails).links;
 
-    /*** Initialization: set notInParcours state for all ***/
-    nodes.forEach((node) =>
-      document
-        .querySelector(`[id="${node.id}"] section`)
-        .classList.add('notInParcours')
-    );
-    this.state.links.forEach((link) =>
-      document
-        .querySelector(`[id="${link.source},${link.target}"]`)
-        .classList.add('notInParcours')
-    );
-
-    /*** Change to inParcours state only if conditions met ***/
-    parcours.forEach((element) => {
-      /** Handle node highlighting **/
-      nodes.forEach((node) => {
-        let htmlNode = document.querySelector(`[id="${node.id}"] section`);
-        const trails = node.entry ? [node.parcours] : node.trails;
-        if (trails != null && trails.indexOf(element) !== -1) {
-          // if node is in the parcours
-          htmlNode.classList.remove('notInParcours');
-          htmlNode.classList.add('inParcours');
-        }
-      });
-      /** Handle link highlighting **/
-      this.state.links.forEach((link) => {
-        let htmlLink = document.querySelector(
-          `[id="${link.source},${link.target}"]`
-        );
-        const sourceid = this.getNodesAndId(link.source).id;
-        const targetid = this.getNodesAndId(link.target).id;
-        const sourcetrails = nodes[sourceid].entry ? [nodes[sourceid].parcours] : nodes[sourceid].trails;
-        const targettrails = nodes[targetid].entry ? [nodes[targetid].parcours] : nodes[targetid].trails;
-        if (
-          sourcetrails != null && // if source node is in a parcours
-          targettrails != null && // if target node is in a parcours
-          sourcetrails.indexOf(element) !== -1 && // if current node's parcours matches one of source's parcours
-          targettrails.indexOf(element) !== -1 // if current node's parcours matches one of target's parcours
-        ) {
-          htmlLink.classList.remove('notInParcours');
-          htmlLink.classList.add('inParcours');
-        }
-      });
+    /** Handle node highlighting **/
+    arrayOfNodes.forEach((node) => {
+      let htmlNode = document.querySelector(`[id="${node.id}"] section`);
+      htmlNode.classList.add('inTrail');
+    });
+    /** Handle link highlighting **/
+    arrayOfLinks.forEach((link) => {
+      let htmlLink = document.querySelector(`[id="${link.source},${link.target}"]`);
+      htmlLink.classList.add('inTrail');
     });
   }
 
-  removeAllHighlightParcours() {
+  removeHighlight() {
     /* Remove node highlighting */
-    this.state.nodes.forEach((node) => {
-      let htmlNode = document.querySelector(`[id="${node.id}"] section`);
-      htmlNode.classList.remove('notInParcours');
-      htmlNode.classList.remove('inParcours');
-    });
-
+    let htmlNodes = document.querySelectorAll('.node section');
+    htmlNodes.forEach((node) => { 
+      node.classList.remove('inTrail');
+      node.classList.remove('currentNode'); 
+    })
     /* Remove link highlighting */
-    this.state.links.forEach((link) => {
-      let htmlLink = document.querySelector(
-        `[id="${link.source},${link.target}"]`
-      );
-      htmlLink.classList.remove('notInParcours');
-      htmlLink.classList.remove('inParcours');
-    });
+    let htmlLinks = document.querySelectorAll('.link');
+    htmlLinks.forEach((link) => { link.classList.remove('inTrail') });
   }
 
   highlightNode(nodeId) {
-    // console.log('highlightnode');
     let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
-    if (nodeId === this.props.currentMemory) {
-      htmlNode.classList.add('currentNode');
-    } else {
-      htmlNode.classList.remove('notInParcours');
-      htmlNode.classList.add('inParcours');
-    }
+    if (nodeId === this.props.currentMemory) { htmlNode.classList.add('currentNode') } 
+    else { htmlNode.classList.add('inTrail') }
   }
-
-  removeAllHighlightCurrentNode() {
-    this.state.nodes.forEach((node) => {
-      let htmlNode = document.querySelector(`[id="${node.id}"] section`);
-      htmlNode.classList.remove('currentNode');
-    });
-  }
-
-  highlightUpToTargetNode(nodeId) {
-    console.log("Suppose to highlight up to target node");
-
-  }
-
+  
   // ************************************************************* ZOOM
 
   // event handler for zoom changed from the slider
@@ -405,7 +395,7 @@ class Trails extends PureComponent {
         ],
       }));
     }
-  };
+  }
 
   // event handler for zoom changed from d3 (wheel)
   onD3ZoomChange = (prevZoom, newZoom, e) => {
@@ -424,7 +414,7 @@ class Trails extends PureComponent {
         zoom: newZoom,
       });
     }
-  };
+  }
 
   // event handler for slider zoom start:  disable d3 zoom
   onCustomZoomMouseDown = (event) => {
@@ -434,7 +424,7 @@ class Trails extends PureComponent {
       deactivateD3Zoom: true,
       customZoomsToIgnore: [],
     });
-  };
+  }
 
   // event handler for slider zoom end: re-enable d3 zoom
   onCustomZoomMouseUp = (event) => {
@@ -443,7 +433,7 @@ class Trails extends PureComponent {
       deactivateReactZoom: true,
       deactivateD3Zoom: false,
     });
-  };
+  }
 
   // *************************************************************
 

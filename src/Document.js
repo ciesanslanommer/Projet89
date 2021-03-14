@@ -49,27 +49,26 @@ function Video(props) {
 class DocumentButton extends Component {
 
   highlightDirectionOfButton(currentId, nodeId) {
-    console.log('inside function ' + currentId + ' ' + nodeId);
+
     const htmlNode = document.querySelector(`[id="${nodeId}"] section`);
     const htmlLink = this.props.type === 'previous' ? 
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
     
-    htmlNode.classList.remove('inParcours');
-    htmlLink.classList.remove('inParcours');
+    htmlNode.classList.remove('inTrail');
+    htmlLink.classList.remove('inTrail');
     htmlNode.classList.add('relatedtoButton');
     htmlLink.classList.add('relatedtoButton');
   }
 
   removeHighlightDirectionOfButton(currentId, nodeId) {
-    console.log('remove');
     const htmlNode = document.querySelector(`[id="${nodeId}"] section`);
     const htmlLink = this.props.type === 'previous' ? 
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
     
-    htmlNode.classList.add('inParcours');
-    htmlLink.classList.add('inParcours');
+    htmlNode.classList.add('inTrail');
+    htmlLink.classList.add('inTrail');
     htmlNode.classList.remove('relatedtoButton');
     htmlLink.classList.remove('relatedtoButton');
   }
@@ -112,7 +111,7 @@ class DocumentButton extends Component {
   };
 
 
-}; 
+} 
 
 class Document extends PureComponent {
   constructor(props) {
@@ -132,14 +131,14 @@ class Document extends PureComponent {
   getTrailById = (id) => {
     let trail = [];
     if (this.props.trailByMemory[id]) {
-      console.log(this.props.trailByMemory[id]);
+      // console.log(this.props.trailByMemory[id]);
       this.props.trailByMemory[id].forEach((el) => {
         const obj = { parcours: el.name, path: el.path };
         trail.push(obj);
       });
     }
     // console.log('les parcours du doc');
-    console.log(trail);
+    // console.log(trail);
     return trail;
   };
 
@@ -269,6 +268,7 @@ class Document extends PureComponent {
       trail += ' ' + this.state.trails[i].parcours.toUpperCase();
     }
 
+    console.log("doc");
 
     return (
       <div className='souvenir'>
@@ -282,7 +282,7 @@ class Document extends PureComponent {
               <DocumentButton
                 key={source.id}
                 id={source.id}
-                onClick={() => this.props.onNextClick(source.id)}
+                onClick={() => this.props.onNextClick(source.id, 'memory')}
                 type='previous'
                 parcours={source.parcours}
                 currentId={this.props.id}
@@ -322,7 +322,7 @@ class Document extends PureComponent {
               <DocumentButton
                 id={target.id}
                 key={target.id}
-                onClick={() => this.props.onNextClick(target.id)}
+                onClick={() => this.props.onNextClick(target.id, 'memory')}
                 type='next'
                 parcours={target.parcours}
                 currentId={this.props.id}

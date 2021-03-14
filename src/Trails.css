@@ -1,8 +1,8 @@
-/* .notInParcours {
+/* .notinTrail {
     filter: blur(3px) !important; 
 } */
 
-.inParcours {
+.inTrail {
     opacity: 1 !important;
     /* filter: drop-shadow(0px 0px 10px #4444dd);
     stroke: #4444dd !important; */
@@ -10,11 +10,11 @@
     stroke: rgba(98, 247, 255, 0.774) !important;
 }
 
-.inParcours h2 {
+.inTrail h2 {
     color: rgba(98, 247, 255, 0.774) !important;
 }
 
-.inParcours img {
+.inTrail img {
     /* filter: drop-shadow(0px 0px 5px rgba(98, 247, 255, 0.774)); */
     filter: none !important;
 }
