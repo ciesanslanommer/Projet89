@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Admin from './Admin.js';
+import Admin from './adminComponent/Admin.js';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -12,10 +12,14 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route exact path="/Projet89">
-          <App />
+          <App preview = {false} />
         </Route>
         <Route path="/Projet89/admin">
           <Admin />
+        </Route>
+
+        <Route path="/Projet89/preview">
+          <App preview = {true} />
         </Route>
       </Switch>
     </BrowserRouter>

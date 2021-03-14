@@ -1,6 +1,5 @@
 import { React, Component } from 'react';
-import './AdminForm.css';
-import { ENDPOINT_API } from './constants/endpoints';
+import { ENDPOINT_API } from '../constants/endpoints';
 
 class ManageLinkMemory extends Component {
   constructor(props) {

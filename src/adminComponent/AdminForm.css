@@ -3,7 +3,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-image: url(./assets/fond.png);
+  background-image: url('../assets/fond.png');
 }
 
 .adminBody {
@@ -35,7 +35,7 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-image: url(./assets/fond.png);
+  background-image: url(../assets/fond.png);
 }
 
 .adminForm {
