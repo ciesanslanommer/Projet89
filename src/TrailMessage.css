@@ -1,0 +1,7 @@
+.message {
+    grid-column: 2/3;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

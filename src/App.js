@@ -6,6 +6,7 @@ import Trails from './Trails.js';
 import Nav from './Nav.js';
 import Welcome from './Welcome.js';
 import Preview from './Preview';
+import TrailMessage from './TrailMessage';
 import { ENDPOINT_API } from './constants/endpoints';
 
 class App extends PureComponent {
@@ -144,39 +145,28 @@ class App extends PureComponent {
           // TODO maybe display an error for the user?
         }
       );
-
-    /** Handle open/close preview **/
-    document.querySelectorAll('.node').forEach((node) => {
-      const dataNode = this.node.nodes.concat(this.trail.trails)[node.id];
-      //node.addEventListener("mouseenter", (event) => this.openPreview(event.clientX, event.clientY, dataNode.name, dataNode.entry));
-      node.addEventListener('mouseenter', (event) =>
-        this.openPreview(node, dataNode.name, dataNode.entry)
-      );
-      node.addEventListener('mouseleave', this.closePreview);
-    });
   }
-
+  
   componentWillUnmount() {
     document.querySelectorAll('.node').forEach((node) => {
       node.removeEventListener('mouseover', this.openPreview);
       node.removeEventListener('mouseout', this.closePreview);
     });
-  }
+  };
 
   closeMemory = (e) => {
     this.setState({ docOpen: false });
     document.querySelector('.App').classList.remove('displayDoc');
   };
 
-  openMemory = (e) => {
-    this.setState({ docOpen: true });
+  openMemory = (state, e) => {
+    this.setState({ docOpen: state });
   };
 
-  openPreview = (node, name, entry, e) => {
+  openPreview = (node, name, desc, entry, e) => {
     if (entry) {
       return;
     }
-    console.log('openpreview');
     const boundNode = node.getBoundingClientRect();
     this.setState({
       previewOpen: {
@@ -184,6 +174,7 @@ class App extends PureComponent {
         y: boundNode.y,
         sizeNode: boundNode.width,
         name: name,
+        desc: desc,
       },
     });
   };
@@ -192,15 +183,14 @@ class App extends PureComponent {
     this.setState({ previewOpen: null });
   };
 
-  changeDoc = (nodeId, e) => {
+  changeDoc = (nodeId, state, e) => {
     /* Graph must be reduced before changing the state of current memory */
     /* Else the current node will be centered on the full window and not the reduced graph */
     document.querySelector('.App').classList.add('displayDoc');
-    console.log(nodeId);
     // const nextMem = nodeId;
     this.setState({ currentMemory: nodeId });
     // data.nodes[nextMem].visited = true;
-    this.openMemory();
+    this.openMemory(state);
   };
 
   closeWelcome = (e) => {
@@ -214,7 +204,7 @@ class App extends PureComponent {
   render() {
     //copy array of obj
     let cpyNode = [];
-    this.state.node.forEach((node) => cpyNode.push({ ...node }));
+    this.state.node.concat(this.state.trail).forEach((node) => cpyNode.push({ ...node }));
     //find current node
     let id = cpyNode.findIndex(
       (node) => Number(node.id) === Number(this.state.currentMemory)
@@ -242,10 +232,12 @@ class App extends PureComponent {
             currentMemory={this.state.currentMemory}
             docOpen={this.state.docOpen}
             closeDoc={this.closeMemory}
-            unsetCurrentMemory={this.unsetCurrentMemory}
+            unsetCurrentMemory = {this.unsetCurrentMemory}
+            openPreview = {this.openPreview}
+            closePreview = {this.closePreview}
           />
         )}
-        {this.state.docOpen ? (
+        {this.state.docOpen === 'memory' ? (
           <Document
             isPreviewGraph = {this.props.preview}
             key={memory.id}
@@ -258,10 +250,18 @@ class App extends PureComponent {
             onNextClick={this.changeDoc}
           />
         ) : null}
+        {this.state.docOpen === 'entry' &&
+          <TrailMessage
+            state={this.state.docOpen}
+            trail={memory.parcours}
+          />
+        }
         {this.state.previewOpen != null && (
           <Preview
             pos={{ x: this.state.previewOpen.x, y: this.state.previewOpen.y }}
-            node={this.state.previewOpen.node}
+            name={this.state.previewOpen.name}
+            size={this.state.previewOpen.sizeNode}
+            desc={this.state.previewOpen.desc}
           />
         )}
       </div>
