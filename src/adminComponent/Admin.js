@@ -3,7 +3,7 @@ import MemoryForm from './MemoryForm.js';
 import '../Admin.css';
 import './AdminForm.css';
 import ManageLink from './ManageLink.js';
-import AddTrail from './AddTrail.js';
+import TrailForm from './TrailForm.js';
 import ManageLinkMemory from './ManageLinkMemory.js';
 
 import { ENDPOINT_API } from '../constants/endpoints';
@@ -17,7 +17,9 @@ class Admin extends Component {
       manageLinkTrailOpen: false,
       manageLinkMemoryOpen: false,
       updateMemory: false,
+      updateTrail : false,
       idMemoryToUpdate: null,
+      idTrailToUpdate : null,
       createTrail: false,
       memories: [],
       memoriesLoaded: false,
@@ -126,8 +128,9 @@ class Admin extends Component {
   openComponent = (stateKey, e) => {
     this.setState({ [stateKey]: true });
     if (stateKey === 'updateMemory') {
-      console.log(e.target);
       this.setState({ idMemoryToUpdate: e.target.value });
+    } else if (stateKey === 'updateTrail'){
+      this.setState({ idTrailToUpdate: e.target.value });
     }
   };
 
@@ -142,7 +145,9 @@ class Admin extends Component {
       manageLinkMemoryOpen: false,
       createTrail: false,
       updateMemory: false,
+      updateTrail: false,
       idMemoryToUpdate: null,
+      idTrailToUpdate: null,
     });
 
     this.componentDidMount();
@@ -160,6 +165,7 @@ class Admin extends Component {
         !this.state.manageLinkTrailOpen &&
         !this.state.manageLinkMemoryOpen &&
         !this.state.updateMemory &&
+        !this.state.updateTrail &&
         !this.state.createTrail ? (
           <div className='adminButtons'>
             <div>
@@ -238,9 +244,10 @@ class Admin extends Component {
           />
         )}
         {this.state.createTrail && (
-          <AddTrail
+          <TrailForm
             icon={this.state.icons}
             firsticon={this.state.icons[0].id}
+            update = {false}
           />
         )}
 
@@ -249,6 +256,18 @@ class Admin extends Component {
             trails={this.state.trail}
             memory={this.state.memories.find(
               (mem) => mem.id === Number(this.state.idMemoryToUpdate)
+            )}
+          />
+        )}
+
+        {trailloaded && memoriesLoaded && this.state.updateTrail && (
+          <TrailForm
+            icon = {this.state.icons}
+            update = {true}
+            // firsticon={this.state.icons[0].id}
+            // trails={this.state.trail}
+            trail={this.state.trail.find(
+              (trail) => trail.id === Number(this.state.idTrailToUpdate)
             )}
           />
         )}

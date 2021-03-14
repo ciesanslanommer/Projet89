@@ -1,11 +1,12 @@
 import { React, Component } from 'react';
 import { ENDPOINT_API } from '../constants/endpoints';
 
-class AddTrail extends Component {
+class TrailForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      icon_id: this.props.firsticon,
+      trail : this.props.trail.parcours,
+      icon_id: this.props.update ? this.props.trail.icon_id : this.props.firsticon,
     };
   }
 
@@ -40,6 +41,28 @@ class AddTrail extends Component {
       });
   };
 
+  updateTrail = () => {
+    if (this.state.trail === '') {
+      alert(' le mot clef ne peut pas être vide');
+      return;
+    }
+    fetch(ENDPOINT_API + '/trail/' + this.props.trail.id, {
+      method: 'PUT',
+      body: JSON.stringify({
+        name: this.state.trail,
+        icon_id: this.state.icon_id
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        alert('parcours mis a jour');
+      });
+  };
+
   render() {
     return (
       <div className='mainContainer'>
@@ -58,6 +81,7 @@ class AddTrail extends Component {
           <select
             name='icons'
             id='icon_id'
+            value = {this.state.icon_id}
             onChange={(e) => this.getValue('icon_id', e)}
           >
             {this.props.icon.map((icon) => {
@@ -85,14 +109,18 @@ class AddTrail extends Component {
               );
             })}
           </select> */}
-
+          {this.props.update ? 
+          <button type='button' onClick={this.updateTrail}>
+            Mettre à jour le Parcours
+          </button> :
           <button type='button' onClick={this.postTrail}>
             Créer Parcours
-          </button>
+          </button> 
+          }
         </div>
       </div>
     );
   }
 }
 
-export default AddTrail;
+export default TrailForm;
