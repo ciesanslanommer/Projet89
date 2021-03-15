@@ -26,6 +26,9 @@ const ENDPOINTS = [
 //     'https://jsonplaceholder.typicode.com/users',
 // ];
 
+const [,, argpath] = process.argv;
+const path = argpath || '../../public/data';
+
 const requestAsync = function (url) {
   console.log('Fetching', url);
   return new Promise((resolve, reject) => {
@@ -54,16 +57,16 @@ const writeFile = (fileName, data) => {
 
 const writeFiles = (data) => {
   // remove and recreate memory/ folder
-  fs.rmdirSync('../../public/data/memory/', { recursive: true });
-  fs.mkdirSync('../../public/data/memory/');
+  fs.rmdirSync(`${path}/memory/`, { recursive: true });
+  fs.mkdirSync(`${path}/memory/`);
   // fetch all data
   const [node, link, trail, trailbymemory, memories] = data;
   // write data on static json files
-  writeFile('../../public/data/node.json', JSON.stringify(node, 0, 4));
-  writeFile('../../public/data/link.json', JSON.stringify(link, 0, 4));
-  writeFile('../../public/data/trail.json', JSON.stringify(trail, 0, 4));
-  writeFile('../../public/data/trailbymemory.json', JSON.stringify(trailbymemory, 0, 4));
-  memories.forEach(memory => writeFile(`../../public/data/memory/${memory.id}.json`, JSON.stringify(memory, 0, 4)));
+  writeFile(`${path}/node.json`, JSON.stringify(node, 0, 4));
+  writeFile(`${path}/link.json`, JSON.stringify(link, 0, 4));
+  writeFile(`${path}/trail.json`, JSON.stringify(trail, 0, 4));
+  writeFile(`${path}/trailbymemory.json`, JSON.stringify(trailbymemory, 0, 4));
+  memories.forEach(memory => writeFile(`${path}/memory/${memory.id}.json`, JSON.stringify(memory, 0, 4)));
 };
 
 const fetchData = async () => {
