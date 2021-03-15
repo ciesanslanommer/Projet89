@@ -1,0 +1,46 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+     inputs:
+      commitMessage:
+        description: 'Commit message'
+        required: true
+        default: 'Publishing last updates'
+
+jobs:
+  deployment:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Fetch data
+      run: |
+        chmod +x "${GITHUB_WORKSPACE}/.github/workflows/fetchData.sh"
+        node "${GITHUB_WORKSPACE}/.github/workflows/fetchData.sh"
+
+    - name: Publish
+      run: |
+        git config --global user.name $user_name
+        git config --global user.email $user_email
+        git remote set-url origin https://${github_token}@github.com/${repository}
+        git checkout develop
+        git commit -am "${{ github.event.inputs.commitMessage }}"
+        git push
+      env:
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+        repository: ${{ github.repository }}
