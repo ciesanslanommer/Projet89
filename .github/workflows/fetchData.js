@@ -6,8 +6,10 @@ const fs = require('fs');
 const ENDPOINT_API_DEV = 'http://localhost:3001';
 const ENDPOINT_API_PROD = 'https://projet89-backend.herokuapp.com';
 
-const ENDPOINT_API =
-  process.env.NODE_ENV === 'production' ? ENDPOINT_API_PROD : ENDPOINT_API_DEV;
+// const ENDPOINT_API =
+//   process.env.NODE_ENV === 'production' ? ENDPOINT_API_PROD : ENDPOINT_API_DEV;
+
+const ENDPOINT_API = ENDPOINT_API_PROD;
 
 const ENDPOINTS = [
   ENDPOINT_API + '/node',
