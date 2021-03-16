@@ -121,7 +121,6 @@ class Trails extends PureComponent {
 
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
-      console.log(node.id);
       const copy = this.props.nodes.slice();
       const index = copy.findIndex((elt) => elt.id === Number(node.id));
       const dataNode = copy[index];
@@ -344,8 +343,7 @@ class Trails extends PureComponent {
   highlightTrail(trails) {
     
     if (trails == null) { return };
-    console.log(trails);
-
+    
     /* Search all nodes and links in trails */
     const arrayOfNodes = this.NodesAndLinksFromTrails(trails).nodes;
     const arrayOfLinks = this.NodesAndLinksFromTrails(trails).links;
