@@ -1,0 +1,16 @@
+#popup_wrap{
+    width: 50%;
+    height: 50%;
+    position: absolute;
+}
+
+#popup {
+    z-index: 99;
+    width: 500px;
+    background-color: white;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
