@@ -29,37 +29,43 @@ class LinkForm extends Component {
     addedMem[Number(e.target.id)] = Number(e.target.value)
     this.setState({memory_ids : addedMem})
   }
+	
+  hasDuplicates = (arr) =>{
+      return new Set(arr).size !== arr.length; 
+  }
 
   sendRequest = () => {
+    if (this.hasDuplicates(this.state.memory_ids)){
+      alert("Il y a des doublons dans le chemin")
+      return;
+    }
     // if (this.state.trail === '') {
     //   alert(' le mot clef ne peut pas être vide');
     //   return;
     // }
-    // fetch(ENDPOINT_API + '/trail', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     name: this.state.trail,
-    //     icon_id: this.state.icon_id,
-    //     pos_x: Math.random() * 1000,
-    //     pos_y: Math.random() * 1000,
-    //   }),
-    //   headers: {
-    //     'Content-type': 'application/json; charset=UTF-8',
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     console.log(res);
-    //     alert('parcours ajouté');
-    //   });
+    fetch(ENDPOINT_API + '/createtrailpath/' + this.props.trail.id, {
+      method: 'PUT',
+      body: JSON.stringify({
+        memory_ids : this.state.memory_ids
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        alert('parcours ajouté');
+      });
   };
 
 
   render() {
     // if used i more than 1 trail the memory doesn't appear in the list
     const memories = this.props.memories.filter(mem => 
-      this.props.trailByMemory[mem.id] !== undefined 
-      && this.props.trailByMemory[mem.id].length < 2
+      (this.props.trailByMemory[mem.id] !== undefined 
+      && this.props.trailByMemory[mem.id].length < 2)
+      || this.props.trailByMemory[mem.id] === undefined
     )
 
     return (
