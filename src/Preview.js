@@ -8,7 +8,6 @@ class Preview extends PureComponent {
         const y = this.props.pos.y; 
         const translateX = this.props.size;
         const translateY = 0;
-        console.log(this.props.desc);
         return (
                 <div className = 'resume' style={{top: y + 'px', left: x + 'px', transform: `translate(${translateX}px, ${translateY}px)`}}>
                     <h2>{this.props.name}</h2>

@@ -121,7 +121,6 @@ class Trails extends PureComponent {
 
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
-      console.log(node.id);
       const copy = this.props.nodes.slice();
       const index = copy.findIndex((elt) => elt.id === Number(node.id));
       const dataNode = copy[index];
@@ -269,6 +268,7 @@ class Trails extends PureComponent {
     /* And if belongs to a trail, highlight trail */
     if (prevProps.currentMemory !== this.props.currentMemory) {
       this.removeHighlight();
+      this.removeCurrentNode();
       if (this.props.currentMemory != null) {
         const { cpy, id } = this.getNodesAndId(this.props.currentMemory);
         const currentTrail = id !== -1 ? cpy[id].trails : null;
@@ -313,10 +313,18 @@ class Trails extends PureComponent {
   }
 
   onClickGraph = (event, e) => {
-    if (!this.props.docOpen) {
-      this.removeHighlight();
-      this.props.unsetCurrentMemory();
-    } else this.props.closeDoc();
+    // if (!this.props.docOpen) {
+    //   this.removeHighlight();
+    //   this.props.unsetCurrentMemory();
+    // } 
+    // else {
+    //   this.props.closeDoc();
+    // };
+    this.removeHighlight();
+    this.props.unsetCurrentMemory();
+    if(this.props.docOpen) {
+      this.props.closeDoc();
+    }
   }
 
   // ************************************************************* FOCUS
@@ -344,8 +352,7 @@ class Trails extends PureComponent {
   highlightTrail(trails) {
     
     if (trails == null) { return };
-    console.log(trails);
-
+    
     /* Search all nodes and links in trails */
     const arrayOfNodes = this.NodesAndLinksFromTrails(trails).nodes;
     const arrayOfLinks = this.NodesAndLinksFromTrails(trails).links;
@@ -367,7 +374,7 @@ class Trails extends PureComponent {
     let htmlNodes = document.querySelectorAll('.node section');
     htmlNodes.forEach((node) => { 
       node.classList.remove('inTrail');
-      node.classList.remove('currentNode'); 
+      //node.classList.remove('currentNode'); 
     })
     /* Remove link highlighting */
     let htmlLinks = document.querySelectorAll('.link');
@@ -378,6 +385,13 @@ class Trails extends PureComponent {
     let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
     if (nodeId === this.props.currentMemory) { htmlNode.classList.add('currentNode') } 
     else { htmlNode.classList.add('inTrail') }
+  }
+
+  removeCurrentNode() {
+    let htmlNodes = document.querySelectorAll('.node section');
+    htmlNodes.forEach((node) => { 
+      node.classList.remove('currentNode'); 
+    })
   }
   
   // ************************************************************* ZOOM

@@ -1,4 +1,4 @@
-import { React, PureComponent } from 'react';
+import { React, PureComponent, memo } from 'react';
 import './App.css';
 //import data from './souvenirs.json';
 import Document from './Document.js';
@@ -189,6 +189,21 @@ class App extends PureComponent {
     document.querySelector('.App').classList.add('displayDoc');
     // const nextMem = nodeId;
     this.setState({ currentMemory: nodeId });
+
+    let cpyNode = [];
+    this.state.node.concat(this.state.trail).forEach((node) => cpyNode.push({ ...node }));
+    //find current node
+    let id = cpyNode.findIndex(
+      (node) => Number(node.id) === Number(nodeId)
+    );
+    // currentTrail changes when changing trail or opening doc/entry
+    // but should not change on a crossroad
+    const trail = cpyNode[id].entry ? cpyNode[id].parcours : cpyNode[id].trails[0];
+    const isNotCrossRoad = cpyNode[id].entry ? true : cpyNode[id].trails.length<=1;
+    if(!this.state.currentTrail || (this.state.currentTrail !== trail && isNotCrossRoad)) {
+      this.setState({currentTrail: trail})
+    }
+
     // data.nodes[nextMem].visited = true;
     this.openMemory(state);
   };
@@ -198,7 +213,7 @@ class App extends PureComponent {
   };
 
   unsetCurrentMemory = (e) => {
-    this.setState({ currentMemory: null });
+    this.setState({ currentMemory: null, currentTrail: null });
   };
 
   render() {
@@ -210,14 +225,14 @@ class App extends PureComponent {
       (node) => Number(node.id) === Number(this.state.currentMemory)
     );
     let memory = cpyNode[id];
-
+    
     const trailloaded =
       this.state.nodeLoaded &&
       this.state.linkLoaded &&
       this.state.trailByMemoryLoaded &&
       this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
-    console.log('trailloaded?', trailloaded);
+    // console.log('trailloaded?', trailloaded);
     return (
       <div className='App'>
         {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
@@ -248,14 +263,19 @@ class App extends PureComponent {
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
+            currentTrail={this.state.currentTrail}
           />
         ) : null}
-        {this.state.docOpen === 'entry' &&
+        {this.state.docOpen === 'entry' || this.state.docOpen === 'exit' ? (
           <TrailMessage
             state={this.state.docOpen}
-            trail={memory.parcours}
+            trail={this.state.currentTrail}
+            onNextClick={this.changeDoc}
+            closeDoc={this.closeMemory}
+            id={memory.id}
+            entries={this.state.trail}
           />
-        }
+        ) : null}
         {this.state.previewOpen != null && (
           <Preview
             pos={{ x: this.state.previewOpen.x, y: this.state.previewOpen.y }}

@@ -1,15 +1,16 @@
 import './Document.css';
+import './DocumentButton.css';
 // import raw from 'raw.macro';
 import { React, PureComponent, Component } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Arrow from './assets/arrow.png';
 // import doc_background from './assets/document_background.jpg';
 import { ENDPOINT_API } from './constants/endpoints';
-
+const classNames = require('classnames');
 
 const Image = (props) => {
   return <img src={props.path} alt={props.desc}></img>;
-};
+}
 
 function Text(props) {
   return <p>{props.content}</p>;
@@ -46,7 +47,19 @@ function Video(props) {
   );
 }
 
+function DocHeader(props) {
+  return (
+    <div id='trail_info'>
+      <h1>{props.trail}</h1>
+    </div>
+  )
+}
+
 class DocumentButton extends Component {
+
+  constructor(props) {
+    super(props);
+  }
 
   highlightDirectionOfButton(currentId, nodeId) {
 
@@ -54,10 +67,10 @@ class DocumentButton extends Component {
     const htmlLink = this.props.type === 'previous' ? 
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
-    
-    htmlNode.classList.remove('inTrail');
+
+    //htmlNode.classList.remove('inTrail');
     htmlLink.classList.remove('inTrail');
-    htmlNode.classList.add('relatedtoButton');
+    //htmlNode.classList.add('relatedtoButton');
     htmlLink.classList.add('relatedtoButton');
   }
 
@@ -66,45 +79,52 @@ class DocumentButton extends Component {
     const htmlLink = this.props.type === 'previous' ? 
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
-    
-    htmlNode.classList.add('inTrail');
+
+    //htmlNode.classList.add('inTrail');
     htmlLink.classList.add('inTrail');
-    htmlNode.classList.remove('relatedtoButton');
+    //htmlNode.classList.remove('relatedtoButton');
     htmlLink.classList.remove('relatedtoButton');
+  }
+
+  onMouseOver = (e) => {
+    this.highlightDirectionOfButton(this.props.currentId, this.props.id);
+    const trail = this.props.parcours.length <= 1 ? this.props.parcours[0].parcours : this.props.currentTrail;
+    this.props.changeTrailImg(trail);
+  }
+
+  onMouseOut = (e) => {
+    this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
+    this.props.changeTrailImg(this.props.currentTrail);
+  }
+
+  onClick = () => {
+    this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
+    this.props.onClick();
   }
 
   render() {
     let props = this.props;
     var type = props.type;
-    this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
+    //this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
+    let current = false;
+    for(let i=0; i<this.props.parcours.length; i++) {
+      if(this.props.parcours[i].parcours === this.props.currentTrail) {
+        current = true;
+        break;
+      }
+    }
+
     return (
-      <div onClick={props.onClick} className={'button ' + type}>
-        {type === 'previous' && (
-          <img className='arrowbutton_img' alt='previous' src={Arrow} 
-            onMouseOver={ () => this.highlightDirectionOfButton(this.props.currentId, this.props.id)}
-            onMouseOut={ () => this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id)}
-          />
-        )}
-        <div className='trails_img'>
-          {props.parcours.map((el) => (
-            <div className='trail_img' key={`div ${type} ${el.parcours}`}>
-              <img
-                key={`img ${type} ${el.parcours}`}
-                id={`img ${type} ${el.parcours}`}
-                src={require('./assets/' + el.path).default}
-                alt={el.parcours}
-              />
-              <h2 key={`name ${type} ${el.parcours}`}>{el.parcours}</h2>
-            </div>
-          ))}
-        </div>
-  
-        {type === 'next' && (
-          <img className='arrowbutton_img' alt='next' src={Arrow} 
-          onMouseOver={ () => this.highlightDirectionOfButton(this.props.currentId, this.props.id)}
-          onMouseOut={ () => this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id)}
-          />
-        )}
+      <div onClick={this.onClick} className={classNames({
+        [`button-current`]: current,
+        [`button`]: !current,
+        [`${type}`]: true
+        })}
+      >
+        <img className='arrowbutton_img' alt={type} src={Arrow} 
+            onMouseOver={this.onMouseOver}
+            onMouseOut={this.onMouseOut}
+        />
       </div>
     );
 
@@ -112,6 +132,59 @@ class DocumentButton extends Component {
 
 
 } 
+
+class CenterButton extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.resizeTrailImg();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.trailImg !== this.props.trailImg) {
+      this.resizeTrailImg();
+    }
+  }
+
+  resizeTrailImg() {
+    const img = document.querySelector('#trail_img');
+    const width_o = img.width;
+    const height_o = img.height;
+
+    if(width_o > height_o) {
+      img.classList.remove('heightGreaterThanWidth');
+      img.classList.add('widthGreaterThanHeight');
+    }
+    else {
+      img.classList.add('heightGreaterThanWidth');
+      img.classList.remove('widthGreaterThanHeight');
+    }
+  }
+
+  render() {
+
+    return (
+      <div className="centerButton">
+        <img
+          key={`img ${this.props.trailImg}`}
+          id={`trail_img`}
+          src={require('./assets/trails/' + this.props.trailImg.toLowerCase() + '.png').default}
+          alt={this.props.trailImg}
+        />
+      </div>
+    )
+  }
+}
+
+function ExitButton(props) {
+  return (
+    <div onClick={props.onClick} className="button-current next">
+      <img className='arrowbutton_img' alt='next' src={Arrow} />
+    </div>
+  )
+}
 
 class Document extends PureComponent {
   constructor(props) {
@@ -125,6 +198,7 @@ class Document extends PureComponent {
       loadedSubs: false,
       loadedMemory: false,
       loadedLinks: false,
+      trailImg: this.props.currentTrail,
     };
   }
 
@@ -255,6 +329,10 @@ class Document extends PureComponent {
     }
   }
 
+  changeTrailImg = (trail, e) => {
+    this.setState({trailImg: trail});
+  }
+
   render() {
     let doc = this.displayDoc(
       'main_doc',
@@ -263,33 +341,14 @@ class Document extends PureComponent {
       this.state.memory.description
     ); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
-    let trail = 'PARCOURS';
-    for (let i = 0; i < this.state.trails.length; i++) {
-      trail += ' ' + this.state.trails[i].parcours.toUpperCase();
-    }
-
-    console.log("doc");
-
+    let trail = 'PARCOURS '+this.props.currentTrail.toUpperCase();
+    const isLast = this.state.targets.length === 0 && this.state.trails.length >=1;
     return (
       <div className='souvenir'>
-        {trail !== 'PARCOURS' && <div id='trail_info'>
-          <h1>{trail}</h1>
-        </div>}
+        {this.props.currentTrail && <DocHeader trail={trail}/>}
 
         <div id='memory_and_navigation'>
-          <div className='all_previous'>
-            {this.state.sources.map((source) => (
-              <DocumentButton
-                key={source.id}
-                id={source.id}
-                onClick={() => this.props.onNextClick(source.id, 'memory')}
-                type='previous'
-                parcours={source.parcours}
-                currentId={this.props.id}
-              />
-            ))}
-          </div>
-
+          
           <div id='memory_info'>
             <div id='date'>
               <p>
@@ -316,20 +375,45 @@ class Document extends PureComponent {
               )}
             </div>
           </div>
-
-          <div className='all_next'>
-            {this.state.targets.map((target) => (
-              <DocumentButton
-                id={target.id}
-                key={target.id}
-                onClick={() => this.props.onNextClick(target.id, 'memory')}
-                type='next'
-                parcours={target.parcours}
-                currentId={this.props.id}
-              />
-            ))}
-          </div>
+        
         </div>
+
+        <div className='docNavigation'>
+            <div className='docbuttons'>
+
+              {this.state.sources.map((source) => (
+                source.parcours.length > 0 &&
+                <DocumentButton
+                  key={source.id}
+                  id={source.id}
+                  onClick={() => this.props.onNextClick(source.id, 'memory')}
+                  type='previous'
+                  parcours={source.parcours}
+                  currentId={this.props.id}
+                  currentTrail={this.props.currentTrail}
+                  changeTrailImg={this.changeTrailImg}
+                />
+              ))}
+
+              {this.state.targets.map((target) => (
+                <DocumentButton
+                  id={target.id}
+                  key={target.id}
+                  onClick={() => this.props.onNextClick(target.id, 'memory')}
+                  type='next'
+                  parcours={target.parcours}
+                  currentId={this.props.id}
+                  currentTrail={this.props.currentTrail}
+                  changeTrailImg={this.changeTrailImg}
+                />
+              ))}
+
+              {isLast && <ExitButton onClick={() => this.props.onNextClick(this.props.id, 'exit')}/>}
+
+              <CenterButton trailImg={this.state.trailImg} />
+
+            </div>
+          </div>
 
         {trail !== 'PARCOURS' ? 
         <img
@@ -352,3 +436,4 @@ class Document extends PureComponent {
 }
 
 export default Document;
+export {CenterButton};

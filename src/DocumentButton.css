@@ -1,0 +1,77 @@
+.docNavigation {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.docbuttons {
+    /* margin: 0 auto; */
+    width: fit-content;
+    height: fit-content;
+    display: grid;
+    grid-template-areas: 
+    ". nextOther ."
+    "prevCurrent centerButton nextCurrent"
+    ". prevOther .";
+}
+.arrowbutton_img {
+    width: auto;
+    height: 25px;
+    filter: grayscale(100%) brightness(0.2);
+}
+#trail_img {
+    filter: grayscale(100%) brightness(1);
+}
+
+
+.button-current.previous {
+    grid-area: prevCurrent;
+    display: flex;
+    align-items: center;
+}
+.button-current.next {
+    grid-area: nextCurrent;
+    display: flex;
+    align-items: center;
+}
+.button-current.next img {
+    transform: rotate(180deg);
+}
+.button.previous {
+    grid-area: prevOther;
+}
+.button.previous img {
+    transform: rotate(-90deg) translateX(5px);
+}
+.button.next {
+    grid-area: nextOther;
+    display: flex;
+    justify-content: center;
+}
+.button.next img {
+    transform: rotate(90deg) translateX(5px);
+}
+.arrowbutton_img:hover {
+    filter: hue-rotate(104deg);
+    cursor: pointer;
+}
+
+.centerButton {
+    grid-area: centerButton;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(43, 43, 43);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+.widthGreaterThanHeight {
+    height: auto;
+    width: 30px;
+}
+.heightGreaterThanWidth {
+    height: 30px;
+    width: auto;
+}
