@@ -242,6 +242,8 @@ class App extends PureComponent {
             isPreviewGraph = {this.props.preview}
             key={memory.id}
             id={memory.id}
+            trail={this.state.trail}
+            node={this.state.node}
             linksFromMemory={this.state.link.filter(
               (e) => e.source === memory.id || e.target === memory.id
             )}

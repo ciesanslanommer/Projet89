@@ -4,13 +4,12 @@ const CrossroadsPopup = (props) => {
   return (
     <div id='popup_wrap'>
       <div id='popup'>
-        <h2>POP UP CROSSROADS !</h2>
+        <h2>Vous entrez dans un carrefour !</h2>
         <p>
-          Voici la careaZQRESTRYDTUYIUYKJHSGFDZAEA323Ttographie du Projet 89. La Compagnie sans la nommer vous
-          invite à naviguer à travers les souvenirs et les thèmes de cette
-          annéee tournant.
+          Vous vous trouvez désormais au carrefour de deux parcours. Il est symbolisé par un souvenir, souvenir qui appartient à ces deux parcours. 
+          
         </p>
-        <p>Pour naviguer dans la carte, utilisez le drag et le zoom.</p>
+        <p>Grâce aux flèches directionnelles, vous pouvez décider de changer et de découvrir un nouveau parcours ou de continuer votre aventure sur celui-ci.</p>
         <img
           className='cross'
           src={require('./assets/close.png').default}
