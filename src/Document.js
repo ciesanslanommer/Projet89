@@ -67,10 +67,10 @@ class DocumentButton extends Component {
     const htmlLink = this.props.type === 'previous' ? 
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
-    
-    htmlNode.classList.remove('inTrail');
+
+    //htmlNode.classList.remove('inTrail');
     htmlLink.classList.remove('inTrail');
-    htmlNode.classList.add('relatedtoButton');
+    //htmlNode.classList.add('relatedtoButton');
     htmlLink.classList.add('relatedtoButton');
   }
 
@@ -79,10 +79,10 @@ class DocumentButton extends Component {
     const htmlLink = this.props.type === 'previous' ? 
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
-    
-    htmlNode.classList.add('inTrail');
+
+    //htmlNode.classList.add('inTrail');
     htmlLink.classList.add('inTrail');
-    htmlNode.classList.remove('relatedtoButton');
+    //htmlNode.classList.remove('relatedtoButton');
     htmlLink.classList.remove('relatedtoButton');
   }
 
@@ -97,10 +97,15 @@ class DocumentButton extends Component {
     this.props.changeTrailImg(this.props.currentTrail);
   }
 
+  onClick = () => {
+    this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
+    this.props.onClick();
+  }
+
   render() {
     let props = this.props;
     var type = props.type;
-    this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
+    //this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
     let current = false;
     for(let i=0; i<this.props.parcours.length; i++) {
       if(this.props.parcours[i].parcours === this.props.currentTrail) {
@@ -110,7 +115,7 @@ class DocumentButton extends Component {
     }
 
     return (
-      <div onClick={props.onClick} className={classNames({
+      <div onClick={this.onClick} className={classNames({
         [`button-current`]: current,
         [`button`]: !current,
         [`${type}`]: true
@@ -377,6 +382,7 @@ class Document extends PureComponent {
             <div className='docbuttons'>
 
               {this.state.sources.map((source) => (
+                source.parcours.length > 0 &&
                 <DocumentButton
                   key={source.id}
                   id={source.id}

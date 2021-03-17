@@ -268,6 +268,7 @@ class Trails extends PureComponent {
     /* And if belongs to a trail, highlight trail */
     if (prevProps.currentMemory !== this.props.currentMemory) {
       this.removeHighlight();
+      this.removeCurrentNode();
       if (this.props.currentMemory != null) {
         const { cpy, id } = this.getNodesAndId(this.props.currentMemory);
         const currentTrail = id !== -1 ? cpy[id].trails : null;
@@ -365,7 +366,7 @@ class Trails extends PureComponent {
     let htmlNodes = document.querySelectorAll('.node section');
     htmlNodes.forEach((node) => { 
       node.classList.remove('inTrail');
-      node.classList.remove('currentNode'); 
+      //node.classList.remove('currentNode'); 
     })
     /* Remove link highlighting */
     let htmlLinks = document.querySelectorAll('.link');
@@ -376,6 +377,13 @@ class Trails extends PureComponent {
     let htmlNode = document.querySelector(`[id="${nodeId}"] section`);
     if (nodeId === this.props.currentMemory) { htmlNode.classList.add('currentNode') } 
     else { htmlNode.classList.add('inTrail') }
+  }
+
+  removeCurrentNode() {
+    let htmlNodes = document.querySelectorAll('.node section');
+    htmlNodes.forEach((node) => { 
+      node.classList.remove('currentNode'); 
+    })
   }
   
   // ************************************************************* ZOOM
