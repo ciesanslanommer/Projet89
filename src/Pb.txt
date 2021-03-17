@@ -1,0 +1,7 @@
+Problèmes restant à corriger :
+
+1) qd doc ouvert, il faut cliquer 1x (sur carte ou croix) pour enlever le doc puis une nouvelle fois pour enlever highlight
+	-> Quitter le doc doit enlever highlight
+
+2) qd doc ouvert et qu'on diminue fenêtre, si parcours [nomparcours] trop grand, va à la ligne et décale le bouton navigation vers le bas
+	-> Bouton de navigation reste fixe, ne se décale pas vers le bas.

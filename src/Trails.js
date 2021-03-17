@@ -313,10 +313,18 @@ class Trails extends PureComponent {
   }
 
   onClickGraph = (event, e) => {
-    if (!this.props.docOpen) {
-      this.removeHighlight();
-      this.props.unsetCurrentMemory();
-    } else this.props.closeDoc();
+    // if (!this.props.docOpen) {
+    //   this.removeHighlight();
+    //   this.props.unsetCurrentMemory();
+    // } 
+    // else {
+    //   this.props.closeDoc();
+    // };
+    this.removeHighlight();
+    this.props.unsetCurrentMemory();
+    if(this.props.docOpen) {
+      this.props.closeDoc();
+    }
   }
 
   // ************************************************************* FOCUS
