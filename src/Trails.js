@@ -176,8 +176,8 @@ class Trails extends PureComponent {
       this.props.links.forEach( (link) => {
         const sourceIndex = this.getNodesAndId(link.source).id;
         const targetIndex = this.getNodesAndId(link.target).id
-        const sourceTrails = sourceIndex == -1 ? null : this.state.nodes[sourceIndex].trails;
-        const targetTrails = targetIndex == -1 ? null : this.state.nodes[targetIndex].trails;
+        const sourceTrails = sourceIndex === -1 ? null : this.state.nodes[sourceIndex].trails;
+        const targetTrails = targetIndex === -1 ? null : this.state.nodes[targetIndex].trails;
         if(sourceTrails != null && sourceTrails.indexOf(trail.parcours) !== -1 &&
         targetTrails != null && targetTrails.indexOf(trail.parcours) !== -1) {
           linksByTrails[trail.parcours].push(link);
