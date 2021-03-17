@@ -38,18 +38,21 @@ class Exit extends Component {
     
         return (
             <div className='message'>
-                <h2>{`FIN DU PARCOURS ${this.props.trail.toUpperCase()}`}</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tristique aliquam orci ut luctus. Sed rutrum, lorem ac consequat fringilla, nibh urna placerat enim, id sodales ligula nibh in eros. Donec sagittis scelerisque augue nec pharetra.</p>
+                <h2>FIN DU PARCOURS {this.props.trail.toUpperCase()}</h2>
+                <p>Vous êtes à la fin du parcours « {this.props.trail} ».
+                <br/><br/>Comment souhaitez-vous poursuivre votre navigation dans l’année 1989 ?
+                </p>
                 <div className='exitButtons'>
                     <div className='docbuttons'>
                         <LastMemoryButton onClick={() => this.props.onNextClick(this.props.id, 'memory')} />
                         <CenterButton trailImg={this.props.trail} />
                     </div>
                     <div className='exitChoices'>
-                        <ExitChoice name='RETOURNER' subname='à la carte' onClick={this.props.closeDoc} />
-                        <ExitChoice name='DECOUVRIR' subname='un nouveau parcours' onClick={() => this.props.onNextClick(this.randomTrailId(), 'entry')} />
+                        <ExitChoice name='REVENIR' subname='à la carte' onClick={this.props.closeDoc} />
+                        <ExitChoice name='EMPRUNTER' subname='un nouveau parcours' onClick={() => this.props.onNextClick(this.randomTrailId(), 'entry')} />
                     </div>
                 </div>
+                <p>Utilisez les boutons et les flèches directionnelles pour vous orientez</p>
                 
             </div>
         )
