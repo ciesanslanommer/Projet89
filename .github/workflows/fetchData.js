@@ -6,10 +6,8 @@ const fs = require('fs');
 const ENDPOINT_API_DEV = 'http://localhost:3001';
 const ENDPOINT_API_PROD = 'https://projet89-backend.herokuapp.com';
 
-// const ENDPOINT_API =
-//   process.env.NODE_ENV === 'production' ? ENDPOINT_API_PROD : ENDPOINT_API_DEV;
-
-const ENDPOINT_API = ENDPOINT_API_PROD;
+const ENDPOINT_API =
+  process.env.NODE_ENV === 'production' ? ENDPOINT_API_PROD : ENDPOINT_API_DEV;
 
 const ENDPOINTS = [
   ENDPOINT_API + '/node',
@@ -27,9 +25,6 @@ const ENDPOINTS = [
 //     'https://jsonplaceholder.typicode.com/users',
 //     'https://jsonplaceholder.typicode.com/users',
 // ];
-
-const [,, argpath] = process.argv;
-const path = argpath || '../../public/data';
 
 const requestAsync = function (url) {
   console.log('Fetching', url);
@@ -59,16 +54,16 @@ const writeFile = (fileName, data) => {
 
 const writeFiles = (data) => {
   // remove and recreate memory/ folder
-  fs.rmdirSync(`${path}/memory/`, { recursive: true });
-  fs.mkdirSync(`${path}/memory/`);
+  fs.rmdirSync('../../public/data/memory/', { recursive: true });
+  fs.mkdirSync('../../public/data/memory/');
   // fetch all data
   const [node, link, trail, trailbymemory, memories] = data;
   // write data on static json files
-  writeFile(`${path}/node.json`, JSON.stringify(node, 0, 4));
-  writeFile(`${path}/link.json`, JSON.stringify(link, 0, 4));
-  writeFile(`${path}/trail.json`, JSON.stringify(trail, 0, 4));
-  writeFile(`${path}/trailbymemory.json`, JSON.stringify(trailbymemory, 0, 4));
-  memories.forEach(memory => writeFile(`${path}/memory/${memory.id}.json`, JSON.stringify(memory, 0, 4)));
+  writeFile('../../public/data/node.json', JSON.stringify(node, 0, 4));
+  writeFile('../../public/data/link.json', JSON.stringify(link, 0, 4));
+  writeFile('../../public/data/trail.json', JSON.stringify(trail, 0, 4));
+  writeFile('../../public/data/trailbymemory.json', JSON.stringify(trailbymemory, 0, 4));
+  memories.forEach(memory => writeFile(`../../public/data/memory/${memory.id}.json`, JSON.stringify(memory, 0, 4)));
 };
 
 const fetchData = async () => {
