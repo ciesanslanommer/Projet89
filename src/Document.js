@@ -1,7 +1,7 @@
 import './Document.css';
 import './DocumentButton.css';
 // import raw from 'raw.macro';
-import { React, PureComponent, Component } from 'react';
+import React, { PureComponent, Component, useEffect } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Arrow from './assets/arrow.png';
 // import doc_background from './assets/document_background.jpg';
@@ -13,8 +13,22 @@ const Image = (props) => {
 }
 
 function Text(props) {
-  return <p>{props.content}</p>;
+
+  useEffect(() => {
+    const highlightedText = document.querySelector('span.highlightedText');
+    if (highlightedText) {
+      highlightedText.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
+  if (!props.content) {
+    return <p>Souvenir non trouvé</p>;
+  }
+
+  const content = props.content.replace(/{{/g, '<span class="highlightedText">').replace(/}}/g, '</span>');
+  return <p dangerouslySetInnerHTML={{ __html: content }} />
 }
+
 
 function Audio(props) {
   return (

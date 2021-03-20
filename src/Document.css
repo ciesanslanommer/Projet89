@@ -71,7 +71,15 @@
 }
 .document p {
   text-indent: 10%;
+  white-space: pre-line;
 }
+
+.document p .highlightedText {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: rgb(57,234, 234);
+}
+
 .sub_docs {
   display: flex;
   flex-direction: column;
