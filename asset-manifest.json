@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Projet89/static/css/main.342802b7.chunk.css",
-    "main.js": "/Projet89/static/js/main.eb4c9b8b.chunk.js",
-    "main.js.map": "/Projet89/static/js/main.eb4c9b8b.chunk.js.map",
-    "runtime-main.js": "/Projet89/static/js/runtime-main.ee07b26a.js",
-    "runtime-main.js.map": "/Projet89/static/js/runtime-main.ee07b26a.js.map",
-    "static/js/2.5e0fb8d2.chunk.js": "/Projet89/static/js/2.5e0fb8d2.chunk.js",
-    "static/js/2.5e0fb8d2.chunk.js.map": "/Projet89/static/js/2.5e0fb8d2.chunk.js.map",
-    "static/js/3.b3120d75.chunk.js": "/Projet89/static/js/3.b3120d75.chunk.js",
-    "static/js/3.b3120d75.chunk.js.map": "/Projet89/static/js/3.b3120d75.chunk.js.map",
+    "main.css": "/Projet89/static/css/main.ae45f277.chunk.css",
+    "main.js": "/Projet89/static/js/main.509a4f47.chunk.js",
+    "main.js.map": "/Projet89/static/js/main.509a4f47.chunk.js.map",
+    "runtime-main.js": "/Projet89/static/js/runtime-main.15c62475.js",
+    "runtime-main.js.map": "/Projet89/static/js/runtime-main.15c62475.js.map",
+    "static/js/2.f3dfe9da.chunk.js": "/Projet89/static/js/2.f3dfe9da.chunk.js",
+    "static/js/2.f3dfe9da.chunk.js.map": "/Projet89/static/js/2.f3dfe9da.chunk.js.map",
+    "static/js/3.9bba953f.chunk.js": "/Projet89/static/js/3.9bba953f.chunk.js",
+    "static/js/3.9bba953f.chunk.js.map": "/Projet89/static/js/3.9bba953f.chunk.js.map",
     "index.html": "/Projet89/index.html",
-    "static/css/main.342802b7.chunk.css.map": "/Projet89/static/css/main.342802b7.chunk.css.map",
-    "static/js/2.5e0fb8d2.chunk.js.LICENSE.txt": "/Projet89/static/js/2.5e0fb8d2.chunk.js.LICENSE.txt",
+    "static/css/main.ae45f277.chunk.css.map": "/Projet89/static/css/main.ae45f277.chunk.css.map",
+    "static/js/2.f3dfe9da.chunk.js.LICENSE.txt": "/Projet89/static/js/2.f3dfe9da.chunk.js.LICENSE.txt",
     "static/media/0_SainteVictoire.txt": "/Projet89/static/media/0_SainteVictoire.b227234d.txt",
     "static/media/10_StephenJaffe.jpg": "/Projet89/static/media/10_StephenJaffe.811c995d.jpg",
     "static/media/11_Christophe.png": "/Projet89/static/media/11_Christophe.a42d1b51.png",
@@ -66,9 +66,9 @@
     "static/media/vinyle.png": "/Projet89/static/media/vinyle.1257d79e.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.ee07b26a.js",
-    "static/js/2.5e0fb8d2.chunk.js",
-    "static/css/main.342802b7.chunk.css",
-    "static/js/main.eb4c9b8b.chunk.js"
+    "static/js/runtime-main.15c62475.js",
+    "static/js/2.f3dfe9da.chunk.js",
+    "static/css/main.ae45f277.chunk.css",
+    "static/js/main.509a4f47.chunk.js"
   ]
 }
