@@ -43,7 +43,11 @@ function Audio(props) {
 
 function Video(props) {
   return (
-    <ReactPlayer url={props.path} />
+    <ReactPlayer
+      url={props.path}
+      playing
+      controls
+    />
   );
 }
 
