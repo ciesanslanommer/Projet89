@@ -223,19 +223,19 @@ class Trails extends PureComponent {
     
   }
 
-  savePosition = (nodeId, x, y, e) => {
-    //const allNodes = this.state.nodes.concat(data.trails);
-    const { cpy, id } = this.getNodesAndId(nodeId);
-    if (cpy[id].entry) {
-      return;
-    }
-    var copy = [...this.state.nodes];
-    var item = { ...copy[nodeId] };
-    item.x = x;
-    item.y = y;
-    copy[nodeId] = item;
-    this.setState({ nodes: copy });
-  }
+  // savePosition = (nodeId, x, y, e) => {
+  //   //const allNodes = this.state.nodes.concat(data.trails);
+  //   const { cpy, id } = this.getNodesAndId(nodeId);
+  //   if (cpy[id].entry) {
+  //     return;
+  //   }
+  //   var copy = [...this.state.nodes];
+  //   var item = { ...copy[nodeId] };
+  //   item.x = x;
+  //   item.y = y;
+  //   copy[nodeId] = item;
+  //   this.setState({ nodes: copy });
+  // }
 
   customNodeGenerator = (node) => {
     // if(node.highlighted) {
@@ -479,7 +479,7 @@ class Trails extends PureComponent {
             }}
             config={myConfig}
             onClickNode={this.nodeClick}
-            onNodePositionChange={this.savePosition}
+            // onNodePositionChange={this.savePosition}
             onZoomChange={this.onD3ZoomChange}
             onMouseOverNode={this.onMouseOverNode}
             onMouseOutNode={this.onMouseOutNode}
