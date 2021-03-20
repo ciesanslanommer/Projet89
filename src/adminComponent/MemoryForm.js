@@ -17,7 +17,7 @@ class MemoryForm extends Component {
       contributeur: '',
       priority: '1',
       keyword_id: '',
-      subFormat: '',
+      subFormat: 'image',
       memories: [],
       memoriesLoaded: false,
       checkedTrails: [],
@@ -145,20 +145,19 @@ class MemoryForm extends Component {
   getFile = (e) => {
     if (e.target.files[0]) {
       const fsize = e.target.files[0].size;
+      console.log("fsize", fsize)
 
-      if (Math.round(fsize / 1024) > 1024) {
-        alert('File is too large: limit is 1mb');
+      if (Math.round(fsize / 1024) > 5000) {
+        alert('File is too large: limit is 5mb');
         this.setState({ content: '' });
       } else {
         const reader = new FileReader();
         reader.onload = () => {
-          let binaryString = reader.result;
-          // this.setState({ content: btoa(binaryString) });
           this.setState({
-            content: 'data:image/jpeg;base64,' + btoa(binaryString),
+            content: reader.result,
           });
         };
-        reader.readAsBinaryString(e.target.files[0]);
+        reader.readAsDataURL(e.target.files[0]);
       }
     }
   };
@@ -243,14 +242,16 @@ class MemoryForm extends Component {
       default:
         return (
           <div>
-            <label>Ajouter une image au souvenir : </label>
+            <label>
+              { format === 'audio' ? 'Ajouter un fichier son' : 'Ajouter une image' } :
+            </label>
             <input
               type='file'
               name='blobcontain'
               accept={
-                this.state.format === 'image'
-                  ? '.jpeg, .png, .jpg'
-                  : '.mp3, .wav, .ogg'
+                format === 'audio'
+                  ? '.mp3, .wav, .ogg'
+                  : '.jpeg, .png, .jpg'
               }
               onChange={(e) => this.getFile(e)}
             />
@@ -431,6 +432,7 @@ class MemoryForm extends Component {
               <option value='image'>Image</option>
               <option value='youtube'>Vidéo</option>
               <option value='texte'>Texte</option>
+              <option value='audio'>Audio</option>
             </select>
             {this.displayDoc(this.state.format)}
             <label>
@@ -605,9 +607,9 @@ class MemoryForm extends Component {
                 onChange={(e) => this.getValue('subFormat', e)}
               >
                 <option value='image'>Image</option>
-                <option value='video'>Vidéo</option>
-                <option value='youtube'>Lien Youtube</option>
+                <option value='youtube'>Vidéo</option>
                 <option value='texte'>Texte</option>
+                <option value='audio'>Audio</option>
               </select>
               {this.displayDoc(this.state.subFormat)}
             </div>
