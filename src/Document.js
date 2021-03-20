@@ -2,6 +2,7 @@ import './Document.css';
 import './DocumentButton.css';
 // import raw from 'raw.macro';
 import React, { PureComponent, Component, useEffect } from 'react';
+import ReactPlayer from 'react-player'
 import ReactAudioPlayer from 'react-audio-player';
 import Arrow from './assets/arrow.png';
 // import doc_background from './assets/document_background.jpg';
@@ -33,7 +34,7 @@ function Text(props) {
 function Audio(props) {
   return (
     <ReactAudioPlayer
-      src={require('./souvenirs/' + props.path).default}
+      src={props.path}
       autoPlay
       controls
     />
@@ -42,22 +43,7 @@ function Audio(props) {
 
 function Video(props) {
   return (
-    <video controls>
-      <source
-        src={require('./souvenirs/' + props.path).default}
-        type='video/mp4'
-      ></source>
-      Sorry, your browser doesn't support embedded videos.
-    </video>
-    /*<iframe 
-            title={props.desc} 
-            width="560" 
-            height="315" 
-            src="https://www.youtube.com/embed/jXZAbnn1kTU" 
-            frameBorder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowFullScreen>
-    </iframe>*/
+    <ReactPlayer url={props.path} />
   );
 }
 
