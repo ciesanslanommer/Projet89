@@ -5,7 +5,7 @@ class TrailForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      trail : this.props.trail.parcours,
+      trail : this.props.update ? this.props.trail.parcours : '',
       icon_id: this.props.update ? this.props.trail.icon_id : this.props.firsticon,
     };
   }
