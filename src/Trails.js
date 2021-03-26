@@ -27,11 +27,18 @@ const myConfig = {
   },
   link: {
     color: 'rgba(255, 255, 255, 0.5)',
+    type: 'ROUGH',
+    offset: 35,
   },
   d3: {
     disableLinkForce: false,
     gravity: -800,
   },
+  rough:{
+    maxRandomnessOffset: 2,
+    roughness: 1.8,
+    bowing: 8,
+  }
 };
 
 let nodesByTrails = {};
