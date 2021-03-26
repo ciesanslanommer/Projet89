@@ -65,6 +65,7 @@
 }
 .document {
   grid-area: document;
+  padding: 0 40px;
 }
 .document * {
   margin-top: 20px;

@@ -7,7 +7,11 @@
     margin: 30%; */
     animation: appear 2s;
     width: 100%;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .invisible{
@@ -31,26 +35,14 @@
     transition: 0.8s;
 }
 
-.invisible, .invisibleVisited, .highlighted, .visible {
-    border-radius : 50%;
-    padding: 10%; 
-    margin: 40%;
-}
-
 .fadeOut{
     opacity: 0;
     transition: opacity 1s;
 }
 
 .icons{
-    /* width: 10vw; */
-    /* height: 7vh; */
-    position: relative;
-    /* left: -7vw;
-    top: -3vh; */
-    left: -50%;
-    top: -10px;
-    width: 20%;
+    max-width: 50px;
+    max-height: 50px;
     filter: brightness(100);
 }
 

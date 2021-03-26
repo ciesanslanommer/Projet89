@@ -248,23 +248,19 @@ class Trails extends PureComponent {
     // if(node.highlighted) {
     //   return <Node cx = {node.x} cy = {node.y} fill='green' size = '2000' type = 'square' className = 'node'/>
     // }
-    return (
-      <div>
-        {node.entry ? (
-          <Entry name={node.trails} path={node.path} />
-        ) : (
-          <CustomNode
-            name={node.name}
-            nature={node.nature}
-            highlighted={node.highlighted}
-            visited={node.visited}
-            zoom={this.state.zoom}
-            nodeZoom={node.zoom}
-            path={node.icon_path}
-          />
-        )}
-      </div>
-    );
+    return node.entry ? (
+        <Entry name={node.trails} path={node.path} />
+      ) : (
+        <CustomNode
+          name={node.name}
+          nature={node.nature}
+          highlighted={node.highlighted}
+          visited={node.visited}
+          zoom={this.state.zoom}
+          nodeZoom={node.zoom}
+          path={node.icon_path}
+        />
+      );
   }
 
   componentDidUpdate(prevProps, prevState) {
