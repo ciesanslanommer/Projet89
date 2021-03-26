@@ -1,6 +1,5 @@
 import { React, PureComponent, memo } from 'react';
 import './App.css';
-//import data from './souvenirs.json';
 import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
