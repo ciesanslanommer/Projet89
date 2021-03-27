@@ -262,13 +262,13 @@ class App extends PureComponent {
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
-            currentTrail={this.state.currentTrail}
+            currentTrail={this.state.currentTrail ? this.state.currentTrail : 0}
           />
         ) : null}
         {this.state.docOpen === 'entry' || this.state.docOpen === 'exit' ? (
           <TrailMessage
             state={this.state.docOpen}
-            trail={this.state.currentTrail}
+            trail={this.state.currentTrail ? this.state.currentTrail : 0}
             onNextClick={this.changeDoc}
             closeDoc={this.closeMemory}
             id={memory.id}
