@@ -1,9 +1,5 @@
 [
     {
-        "source": 50,
-        "target": 51
-    },
-    {
         "source": 1,
         "target": 50
     }
