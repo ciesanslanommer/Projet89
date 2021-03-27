@@ -333,6 +333,7 @@ class MemoryForm extends Component {
       body: JSON.stringify(request),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'x-access-token' : this.props.token,
       },
     })
       .then((res) => res.json())
@@ -578,7 +579,7 @@ class MemoryForm extends Component {
                 </button>
               )}
               {this.state.createKeyword && (
-                <AddKeyword reloadKeyword={this.loadKeyword} />
+                <AddKeyword reloadKeyword={this.loadKeyword} token={this.props.token} />
               )}
             </div>
           )}

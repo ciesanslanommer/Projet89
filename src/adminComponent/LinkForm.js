@@ -87,6 +87,7 @@ class LinkForm extends Component {
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'x-access-token' : this.props.token,
       },
     })
       .then((res) => res.json())

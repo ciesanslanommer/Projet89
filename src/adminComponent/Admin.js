@@ -288,12 +288,14 @@ class Admin extends Component {
           <ManageLink
             trails={this.state.trails}
             memories={this.state.memories}
+            token = {this.state.token}
           />
         )}
         {this.state.manageLinkMemoryOpen && (
           <ManageLinkMemory
             trails={this.state.trails}
             memories={this.state.memories}
+            token={this.state.token}
           />
         )}
         {this.state.createTrail && (
@@ -302,6 +304,7 @@ class Admin extends Component {
             firsticon={this.state.icons[0].id}
             update = {false}
             trail = {undefined}
+            token = {this.state.token}
           />
         )}
 
@@ -311,6 +314,7 @@ class Admin extends Component {
             memory={this.state.memories.find(
               (mem) => mem.id === Number(this.state.idMemoryToUpdate)
             )}
+            token = {this.props.token}
           />
         )}
 
@@ -321,6 +325,7 @@ class Admin extends Component {
             trail={this.state.trail.find(
               (trail) => trail.id === Number(this.state.idTrailToUpdate)
             )}
+            token = {this.state.token}
           />
         )}
 
@@ -331,6 +336,7 @@ class Admin extends Component {
             )}
             memories = {this.state.memories}
             trailByMemory = {this.state.trailByMemory}
+            token = {this.state.token}
           />
         )}
       </div>
