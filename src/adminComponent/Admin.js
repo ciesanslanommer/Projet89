@@ -1,4 +1,4 @@
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 import MemoryForm from './MemoryForm.js';
 import '../Admin.css';
 import './AdminForm.css';
@@ -6,6 +6,7 @@ import ManageLink from './ManageLink.js';
 import TrailForm from './TrailForm.js';
 import ManageLinkMemory from './ManageLinkMemory.js';
 import LinkForm from './LinkForm.js';
+import Login from './Login.js';
 
 import { ENDPOINT_API } from '../constants/endpoints';
 
@@ -31,7 +32,8 @@ class Admin extends Component {
       trails: [],
       trailsLoaded: false,
       trailByMemory : [],
-      trailByMemoryLoaded : false
+      trailByMemoryLoaded : false,
+      token: '',
     };
   }
 
@@ -183,10 +185,18 @@ class Admin extends Component {
     this.componentDidMount();
   };
 
+  setToken = (token) => {
+    this.setState({ token });
+  }
+
   render() {
     const trailloaded = this.state.trailLoaded;
     const memoriesLoaded = this.state.memoriesLoaded;
     // const adminLoaded = this.state.trailLoaded;
+
+    if (!this.state.token) {
+      return <Login setToken={token => this.setToken(token)} />
+    }
 
     return (
       <div className='adminBody'>
