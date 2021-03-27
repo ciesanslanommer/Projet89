@@ -53,9 +53,9 @@ jobs:
       run: npm install
 
     - name: Build
-      run: npm run build
-      env:
-         CI: false
+      run: |
+        unset CI
+        npm run build
 
     - name: Deploy
       run: |
