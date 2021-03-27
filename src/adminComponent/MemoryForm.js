@@ -290,6 +290,7 @@ class MemoryForm extends Component {
       body: JSON.stringify(request),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'x-access-token' : this.props.token,
       },
     })
       .then((res) => res.json())

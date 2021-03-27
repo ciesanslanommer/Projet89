@@ -282,7 +282,7 @@ class Admin extends Component {
           </button>
         )}
         {trailloaded && this.state.memoryFormOpen && (
-          <MemoryForm trails={this.state.trail} />
+          <MemoryForm trails={this.state.trail} token={this.state.token} />
         )}
         {this.state.manageLinkTrailOpen && (
           <ManageLink
