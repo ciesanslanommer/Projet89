@@ -1,9 +1,1 @@
-{
-    "50": [
-        {
-            "id": 1,
-            "name": "Ruines",
-            "path": "trails/ruines.png"
-        }
-    ]
-}
+{"50":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"51":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"52":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"53":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"54":[{"id":1,"name":"Ruines","path":"trails/ruines.png"},{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"55":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"56":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"57":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"59":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"60":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"61":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"62":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"63":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"64":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"65":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"66":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"67":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"68":[{"id":2,"name":"Oracle","path":"trails/oracle.png"}],"69":[{"id":2,"name":"Oracle","path":"trails/oracle.png"}],"70":[{"id":2,"name":"Oracle","path":"trails/oracle.png"}],"71":[{"id":1,"name":"Ruines","path":"trails/ruines.png"},{"id":2,"name":"Oracle","path":"trails/oracle.png"}],"72":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"73":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}]}
