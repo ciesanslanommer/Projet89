@@ -1,1 +1,11 @@
-[{"target_id":61,"id":1,"path":"trails/ruines.png","parcours":"Ruines","x":794.212044373042,"y":678.063414284698},{"target_id":67,"id":3,"path":"trails/bouleversement.png","parcours":"Bouleversement","x":191.941710362227,"y":641.140415888562},{"target_id":70,"id":2,"path":"trails/oracle.png","parcours":"Oracle","x":996.712466468813,"y":122.628442283128}]
+[
+    {
+        "target_id": 50,
+        "id": 1,
+        "icon_id": 1,
+        "path": "trails/ruines.png",
+        "parcours": "Ruines",
+        "x": 515.77794793712,
+        "y": 551.0794249597188
+    }
+]
