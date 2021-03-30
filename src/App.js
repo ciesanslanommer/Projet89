@@ -264,6 +264,7 @@ class App extends PureComponent {
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
             currentTrail={this.state.currentTrail}
+            entries={this.state.trail}
           />
         ) : null}
         {this.state.docOpen === 'entry' || this.state.docOpen === 'exit' ? (

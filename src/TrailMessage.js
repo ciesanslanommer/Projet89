@@ -1,15 +1,6 @@
 import {Component} from 'react'
-import Document, {CenterButton} from './Document'
+import {CenterButton, DocumentButton, ExitButton} from './Document'
 import './TrailMessage.css'
-import Arrow from './assets/arrow.png'
- 
-function LastMemoryButton(props) {
-    return (
-        <div onClick={props.onClick} className="button-current previous">
-            <img className='arrowbutton_img' alt='previous' src={Arrow} />
-        </div>
-    )
-}
 
 const ExitChoice = (props) => {
     return (
@@ -44,7 +35,7 @@ class Exit extends Component {
                 </p>
                 <div className='exitButtons'>
                     <div className='docbuttons'>
-                        <LastMemoryButton onClick={() => this.props.onNextClick(this.props.id, 'memory')} />
+                        <ExitButton type='previous' onClick={() => this.props.onNextClick(this.props.id, 'memory')} />
                         <CenterButton trailImg={this.props.trail} />
                     </div>
                     <div className='exitChoices'>
@@ -60,6 +51,19 @@ class Exit extends Component {
 }
 
 class TrailMessage extends Component {
+    
+  getFirstMemoryIdFromEntries() {
+    let id = -1;
+    let trail;
+    for(let i=0; i<this.props.entries.length; i++) {
+      if(this.props.entries[i].id === this.props.id) {
+        id = this.props.entries[i].target_id;
+        trail = this.props.entries[i].parcours;
+      }
+    }
+    return {id: id, trail: trail};
+  }
+
     display(state) {
         switch (state) {
             case 'entry':
@@ -67,6 +71,18 @@ class TrailMessage extends Component {
                 <div className='message'>
                     <h2>PARCOURS {this.props.trail.toUpperCase()}</h2>
                     <p>Message d'entrée</p>
+                    <div className='docbuttons'>
+                        <DocumentButton
+                            id={this.getFirstMemoryIdFromEntries().id}
+                            key={this.getFirstMemoryIdFromEntries().id}
+                            onClick={() => this.props.onNextClick(this.getFirstMemoryIdFromEntries().id, 'memory')}
+                            type='next'
+                            parcours={[{parcours: this.getFirstMemoryIdFromEntries().trail}]}
+                            currentId={this.props.id}
+                            currentTrail={this.props.trail}
+                        />
+                        <CenterButton trailImg={this.props.trail} />
+                    </div>
                 </div>
                 )
             case 'exit':

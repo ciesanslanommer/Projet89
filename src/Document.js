@@ -89,12 +89,12 @@ class DocumentButton extends Component {
   onMouseOver = (e) => {
     this.highlightDirectionOfButton(this.props.currentId, this.props.id);
     const trail = this.props.parcours.length <= 1 ? this.props.parcours[0].parcours : this.props.currentTrail;
-    this.props.changeTrailImg(trail);
+    if(this.props.changeTrailImg) this.props.changeTrailImg(trail);
   }
 
   onMouseOut = (e) => {
     this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
-    this.props.changeTrailImg(this.props.currentTrail);
+    if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.currentTrail);
   }
 
   onClick = () => {
@@ -180,8 +180,8 @@ class CenterButton extends Component {
 
 function ExitButton(props) {
   return (
-    <div onClick={props.onClick} className="button-current next">
-      <img className='arrowbutton_img' alt='next' src={Arrow} />
+    <div onClick={props.onClick} className={`button-current ${props.type}`}>
+      <img className='arrowbutton_img' alt={props.type} src={Arrow} />
     </div>
   )
 }
@@ -333,6 +333,20 @@ class Document extends PureComponent {
     this.setState({trailImg: trail});
   }
 
+  getTrailIdOfFirst() {
+    let id = -1;
+    let trail;
+    for(let i=0; i<this.props.entries.length; i++) {
+      for(let j=0; j<this.state.sources.length; j++) {
+        if(this.state.sources[j].id === this.props.entries[i].id) {
+          id = this.props.entries[i].id;
+          trail = this.props.entries[i].parcours;
+        }
+      } 
+    }
+    return {id: id, trail: trail};
+  }
+
   render() {
     let doc = this.displayDoc(
       'main_doc',
@@ -343,6 +357,8 @@ class Document extends PureComponent {
     let subs = this.props.subs; // Array of secondary documents associated with the main one
     let trail = 'PARCOURS '+this.props.currentTrail.toUpperCase();
     const isLast = this.state.targets.length === 0 && this.state.trails.length >=1;
+
+    
     return (
       <div className='souvenir'>
         {this.props.currentTrail && <DocHeader trail={trail}/>}
@@ -408,7 +424,19 @@ class Document extends PureComponent {
                 />
               ))}
 
-              {isLast && <ExitButton onClick={() => this.props.onNextClick(this.props.id, 'exit')}/>}
+              {isLast && <ExitButton type='next' onClick={() => this.props.onNextClick(this.props.id, 'exit')}/>}
+              {this.getTrailIdOfFirst().id!==-1 && 
+                <DocumentButton
+                  id={this.getTrailIdOfFirst().id}
+                  key={this.getTrailIdOfFirst().id}
+                  onClick={() => this.props.onNextClick(this.getTrailIdOfFirst().id, 'entry')}
+                  type='previous'
+                  parcours={[{parcours: this.getTrailIdOfFirst().trail}]}
+                  currentId={this.props.id}
+                  currentTrail={this.props.currentTrail}
+                  changeTrailImg={this.changeTrailImg}
+                />
+              }
 
               <CenterButton trailImg={this.state.trailImg} />
 
@@ -436,4 +464,4 @@ class Document extends PureComponent {
 }
 
 export default Document;
-export {CenterButton};
+export {CenterButton, DocumentButton, ExitButton};
