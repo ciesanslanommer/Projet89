@@ -6,7 +6,7 @@
 }
 
 .docbuttons {
-    /* margin: 0 auto; */
+    margin: 0 auto;
     width: fit-content;
     height: fit-content;
     display: grid;
