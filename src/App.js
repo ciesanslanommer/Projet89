@@ -1,6 +1,5 @@
 import { React, PureComponent, memo } from 'react';
 import './App.css';
-//import data from './souvenirs.json';
 import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
@@ -263,14 +262,14 @@ class App extends PureComponent {
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
-            currentTrail={this.state.currentTrail}
+            currentTrail={this.state.currentTrail ? this.state.currentTrail : "Default"}
             entries={this.state.trail}
           />
         ) : null}
         {this.state.docOpen === 'entry' || this.state.docOpen === 'exit' ? (
           <TrailMessage
             state={this.state.docOpen}
-            trail={this.state.currentTrail}
+            trail={this.state.currentTrail ? this.state.currentTrail : "Default"}
             onNextClick={this.changeDoc}
             closeDoc={this.closeMemory}
             id={memory.id}

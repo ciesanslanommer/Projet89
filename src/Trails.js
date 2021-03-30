@@ -27,11 +27,18 @@ const myConfig = {
   },
   link: {
     color: 'rgba(255, 255, 255, 0.5)',
+    type: 'ROUGH',
+    offset: 35,
   },
   d3: {
     disableLinkForce: false,
     gravity: -800,
   },
+  rough:{
+    maxRandomnessOffset: 2,
+    roughness: 1.8,
+    bowing: 8,
+  }
 };
 
 let nodesByTrails = {};
@@ -223,41 +230,37 @@ class Trails extends PureComponent {
     
   }
 
-  savePosition = (nodeId, x, y, e) => {
-    //const allNodes = this.state.nodes.concat(data.trails);
-    const { cpy, id } = this.getNodesAndId(nodeId);
-    if (cpy[id].entry) {
-      return;
-    }
-    var copy = [...this.state.nodes];
-    var item = { ...copy[nodeId] };
-    item.x = x;
-    item.y = y;
-    copy[nodeId] = item;
-    this.setState({ nodes: copy });
-  }
+  // savePosition = (nodeId, x, y, e) => {
+  //   //const allNodes = this.state.nodes.concat(data.trails);
+  //   const { cpy, id } = this.getNodesAndId(nodeId);
+  //   if (cpy[id].entry) {
+  //     return;
+  //   }
+  //   var copy = [...this.state.nodes];
+  //   var item = { ...copy[nodeId] };
+  //   item.x = x;
+  //   item.y = y;
+  //   copy[nodeId] = item;
+  //   this.setState({ nodes: copy });
+  // }
 
   customNodeGenerator = (node) => {
     // if(node.highlighted) {
     //   return <Node cx = {node.x} cy = {node.y} fill='green' size = '2000' type = 'square' className = 'node'/>
     // }
-    return (
-      <div>
-        {node.entry ? (
-          <Entry name={node.trails} path={node.path} />
-        ) : (
-          <CustomNode
-            name={node.name}
-            nature={node.nature}
-            highlighted={node.highlighted}
-            visited={node.visited}
-            zoom={this.state.zoom}
-            nodeZoom={node.zoom}
-            path={node.icon_path}
-          />
-        )}
-      </div>
-    );
+    return node.entry ? (
+        <Entry name={node.trails} path={node.path} />
+      ) : (
+        <CustomNode
+          name={node.name}
+          nature={node.nature}
+          highlighted={node.highlighted}
+          visited={node.visited}
+          zoom={this.state.zoom}
+          nodeZoom={node.zoom}
+          path={node.icon_path}
+        />
+      );
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -479,7 +482,7 @@ class Trails extends PureComponent {
             }}
             config={myConfig}
             onClickNode={this.nodeClick}
-            onNodePositionChange={this.savePosition}
+            // onNodePositionChange={this.savePosition}
             onZoomChange={this.onD3ZoomChange}
             onMouseOverNode={this.onMouseOverNode}
             onMouseOutNode={this.onMouseOutNode}

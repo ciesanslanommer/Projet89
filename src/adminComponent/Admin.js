@@ -1,10 +1,12 @@
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 import MemoryForm from './MemoryForm.js';
 import '../Admin.css';
 import './AdminForm.css';
 import ManageLink from './ManageLink.js';
 import TrailForm from './TrailForm.js';
 import ManageLinkMemory from './ManageLinkMemory.js';
+import LinkForm from './LinkForm.js';
+import Login from './Login.js';
 
 import { ENDPOINT_API } from '../constants/endpoints';
 
@@ -16,6 +18,8 @@ class Admin extends Component {
       memoryFormOpen: false,
       manageLinkTrailOpen: false,
       manageLinkMemoryOpen: false,
+      linkFormOpen : false,
+      idTrailToLink : null,
       updateMemory: false,
       updateTrail : false,
       idMemoryToUpdate: null,
@@ -27,6 +31,9 @@ class Admin extends Component {
       iconLoaded: false,
       trails: [],
       trailsLoaded: false,
+      trailByMemory : [],
+      trailByMemoryLoaded : false,
+      token: '',
     };
   }
 
@@ -91,6 +98,27 @@ class Admin extends Component {
           // TODO maybe display an error for the user?
         }
       );
+
+    console.log(`Fetching memory from ${ENDPOINT_API}/trailbymemory/`);
+    fetch(ENDPOINT_API + '/trailbymemory')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log('Success! memory = ', result);
+          this.setState({
+            trailByMemory: result,
+            trailByMemoryLoaded: true,
+          });
+        },
+        (error) => {
+          console.error(
+            'Oops, something wrong happened when loading memory',
+            error
+          );
+          // TODO maybe display an error for the user?
+        }
+      );
+
     this.loadTrail();
   }
 
@@ -131,6 +159,8 @@ class Admin extends Component {
       this.setState({ idMemoryToUpdate: e.target.value });
     } else if (stateKey === 'updateTrail'){
       this.setState({ idTrailToUpdate: e.target.value });
+    } else if (stateKey === 'linkFormOpen'){
+      this.setState({ idTrailToLink: e.target.value });
     }
   };
 
@@ -146,17 +176,27 @@ class Admin extends Component {
       createTrail: false,
       updateMemory: false,
       updateTrail: false,
+      linkFormOpen : false,
       idMemoryToUpdate: null,
       idTrailToUpdate: null,
+      idTrailToLink : null
     });
 
     this.componentDidMount();
   };
 
+  setToken = (token) => {
+    this.setState({ token });
+  }
+
   render() {
     const trailloaded = this.state.trailLoaded;
     const memoriesLoaded = this.state.memoriesLoaded;
     // const adminLoaded = this.state.trailLoaded;
+
+    if (!this.state.token) {
+      return <Login setToken={token => this.setToken(token)} />
+    }
 
     return (
       <div className='adminBody'>
@@ -166,6 +206,7 @@ class Admin extends Component {
         !this.state.manageLinkMemoryOpen &&
         !this.state.updateMemory &&
         !this.state.updateTrail &&
+        !this.state.linkFormOpen &&
         !this.state.createTrail ? (
           <div className='adminButtons'>
             <div>
@@ -204,6 +245,18 @@ class Admin extends Component {
                 })}
               </select>
             </div>
+
+            <select onChange={(e) => this.openComponent('linkFormOpen', e)}>
+                <option value='null'>Creer les liens de ...</option>
+                {this.state.trails.map((trail) => {
+                  return (
+                    <option key={trail.id} value={trail.id}>
+                      {trail.parcours}
+                    </option>
+                  );
+                })}
+            </select>
+
             {/* <div>
               <button
                 type='button'
@@ -229,18 +282,20 @@ class Admin extends Component {
           </button>
         )}
         {trailloaded && this.state.memoryFormOpen && (
-          <MemoryForm trails={this.state.trail} />
+          <MemoryForm trails={this.state.trail} token={this.state.token} />
         )}
         {this.state.manageLinkTrailOpen && (
           <ManageLink
             trails={this.state.trails}
             memories={this.state.memories}
+            token = {this.state.token}
           />
         )}
         {this.state.manageLinkMemoryOpen && (
           <ManageLinkMemory
             trails={this.state.trails}
             memories={this.state.memories}
+            token={this.state.token}
           />
         )}
         {this.state.createTrail && (
@@ -248,6 +303,8 @@ class Admin extends Component {
             icon={this.state.icons}
             firsticon={this.state.icons[0].id}
             update = {false}
+            trail = {undefined}
+            token = {this.state.token}
           />
         )}
 
@@ -257,6 +314,7 @@ class Admin extends Component {
             memory={this.state.memories.find(
               (mem) => mem.id === Number(this.state.idMemoryToUpdate)
             )}
+            token = {this.props.token}
           />
         )}
 
@@ -264,11 +322,21 @@ class Admin extends Component {
           <TrailForm
             icon = {this.state.icons}
             update = {true}
-            // firsticon={this.state.icons[0].id}
-            // trails={this.state.trail}
             trail={this.state.trail.find(
               (trail) => trail.id === Number(this.state.idTrailToUpdate)
             )}
+            token = {this.state.token}
+          />
+        )}
+
+        {trailloaded && memoriesLoaded && this.state.linkFormOpen && (
+          <LinkForm
+            trail={this.state.trail.find(
+              (trail) => trail.id === Number(this.state.idTrailToLink)
+            )}
+            memories = {this.state.memories}
+            trailByMemory = {this.state.trailByMemory}
+            token = {this.state.token}
           />
         )}
       </div>

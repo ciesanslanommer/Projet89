@@ -4,25 +4,25 @@ import './index.css';
 import App from './App';
 import Admin from './adminComponent/Admin.js';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 
-console.log("hello")
+console.log("hello", process.env.PUBLIC_URL)
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
-        <Route exact path="/Projet89">
-          <App preview = {false} />
+        <Route exact path='/'>
+          <App />
         </Route>
-        <Route path="/Projet89/admin">
+        <Route path='/admin'>
           <Admin />
         </Route>
 
-        <Route path="/Projet89/preview">
-          <App preview = {true} />
+        <Route path='/preview'>
+          <App preview />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

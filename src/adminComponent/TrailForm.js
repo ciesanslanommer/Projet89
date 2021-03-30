@@ -5,7 +5,7 @@ class TrailForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      trail : this.props.trail.parcours,
+      trail : this.props.update ? this.props.trail.parcours : '',
       icon_id: this.props.update ? this.props.trail.icon_id : this.props.firsticon,
     };
   }
@@ -32,6 +32,7 @@ class TrailForm extends Component {
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'x-access-token' : this.props.token,
       },
     })
       .then((res) => res.json())
@@ -54,6 +55,7 @@ class TrailForm extends Component {
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'x-access-token' : this.props.token,
       },
     })
       .then((res) => res.json())
