@@ -263,6 +263,21 @@ class Trails extends PureComponent {
       );
   }
 
+  getCurrentTrails() {
+    const { cpy, id } = this.getNodesAndId(this.props.currentMemory);
+    // const currentTrail = id !== -1 ? cpy[id].trails : null;
+    let currentTrail = null;
+    if(id===-1) {
+      currentTrail = null;
+    }
+    else{
+      currentTrail = cpy[id].entry ? [cpy[id].parcours] : cpy[id].trails;
+    }
+    console.log("HGZGNJRGNRG");
+    console.log(currentTrail);
+    return currentTrail;
+  }
+
   componentDidUpdate(prevProps, prevState) {
 
     /* If currentMemory changes that is click on node or arrow buttons  */
@@ -273,8 +288,7 @@ class Trails extends PureComponent {
       this.removeHighlight();
       this.removeCurrentNode();
       if (this.props.currentMemory != null) {
-        const { cpy, id } = this.getNodesAndId(this.props.currentMemory);
-        const currentTrail = id !== -1 ? cpy[id].trails : null;
+        const currentTrail = this.getCurrentTrails();
         this.highlightNode(this.props.currentMemory);
         this.focusOnNode(this.props.currentMemory);
         if (currentTrail != null) { this.highlightTrail(currentTrail) }
@@ -308,9 +322,7 @@ class Trails extends PureComponent {
   onMouseOutNode = (nodeId, node) => {
     /* Remove highlight for all except currentMemory and currentTrail */
     this.removeHighlight();
-    const cpy = this.getNodesAndId(this.props.currentMemory).cpy;
-    const index = this.getNodesAndId(this.props.currentMemory).id;
-    const currentTrail = index !== -1 ? cpy[index].trails : null;
+    const currentTrail = this.getCurrentTrails();
     if(this.props.currentMemory) { this.highlightNode(nodeId) }
     if(currentTrail) { this.highlightTrail(currentTrail) }
   }
@@ -462,6 +474,7 @@ class Trails extends PureComponent {
       myConfig.initialZoom = this.state.zoom;
       myConfig.freezeAllDragEvents = this.state.freeze;
       // style={{ backgroundImage: "url(" + Background + ")" }}
+
       return (
         <div
           className='Graph'

@@ -9,7 +9,7 @@
 }
 .buttontext-previous {
     grid-area: prevText;
-    margin: 0 0.6 0 0;
+    margin: 0 0.6em 0 0 !important;
     text-align: right !important;
     color:rgb(255, 98, 242) !important;
 }
