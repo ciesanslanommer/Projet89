@@ -29,14 +29,14 @@ class Exit extends Component {
     
         return (
             <div className='message'>
-                <h2>FIN DU PARCOURS {this.props.trail.parcours.toUpperCase()}</h2>
-                <p>Vous êtes à la fin du parcours « {this.props.trail.parcours} ».
+                <h2>FIN DU PARCOURS {this.props.trail.toUpperCase()}</h2>
+                <p>Vous êtes à la fin du parcours « {this.props.trail} ».
                 <br/><br/>Comment souhaitez-vous poursuivre votre navigation dans l’année 1989 ?
                 </p>
                 <div className='exitButtons'>
                     <div className='docbuttons'>
                         <ExitButton type='previous' onClick={() => this.props.onNextClick(this.props.id, 'memory')} />
-                        <CenterButton trailImg={this.props.trail.parcours} />
+                        <CenterButton trailImg={this.props.trail} />
                     </div>
                     <div className='exitChoices'>
                         <ExitChoice name='REVENIR' subname='à la carte' onClick={this.props.closeDoc} />
