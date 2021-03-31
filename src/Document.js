@@ -345,6 +345,22 @@ class Document extends PureComponent {
     this.setState({trailImg: trail});
   }
 
+  getTrailIdOfFirst() {
+    let parcours;
+    let path;
+    let id = -1;
+    for(let i=0; i<this.props.entries.length; i++) {
+      for(let j=0; j<this.state.sources.length; j++) {
+        if(this.state.sources[j].id === this.props.entries[i].id) {
+          id = this.props.entries[i].id;
+          parcours = this.props.entries[i].parcours;
+          path = this.props.entries[i].path;
+        }
+      } 
+    }
+    return {id: id, parcours: parcours, path: path,};
+  }
+
   render() {
     let cpyNode = [];
     this.props.node.concat(this.props.trail).forEach((node) => cpyNode.push({ ...node }));
