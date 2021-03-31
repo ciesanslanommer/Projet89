@@ -94,15 +94,19 @@ class DocumentButton extends Component {
     this.highlightDirectionOfButton(this.props.currentId, this.props.id);
     // const trail = this.props.parcours.length <= 1 ? this.props.parcours[0].parcours : this.props.currentTrail.parcours;
     if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.parcours.path);
+    const {nature, type, parcours} = this.props;
+    this.props.displayArrowText(true, nature, type, parcours.parcours);
   }
 
   onMouseOut = (e) => {
     this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
     if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.currentTrail.path);
+    this.props.displayArrowText(false);
   }
 
   onClick = () => {
     this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
+    this.props.displayArrowText(false);
     this.props.onClick();
   }
 
@@ -179,7 +183,11 @@ class CenterButton extends Component {
 function ExitButton(props) {
   return (
     <div onClick={props.onClick} className={`button-current ${props.type}`}>
-      <img className='arrowbutton_img' alt={props.type} src={Arrow} />
+      <img className='arrowbutton_img' alt={props.type} src={Arrow} 
+        onMouseOver={()=>props.displayArrowText(true, props.nature, props.type, props.parcours.parcours)}
+        onMouseOut={()=>props.displayArrowText(false)}
+        onClick={()=>props.displayArrowText(false)}
+      />
     </div>
   )
 }
@@ -347,17 +355,6 @@ class Document extends PureComponent {
     return {id: id, parcours: parcours, path: path,};
   }
 
-  formattedCurrentTrail() {
-    let res;
-    this.state.trails.forEach(trail => {
-      if(trail.parcours===this.props.currentTrail.parcours) {
-        console.log(trail);
-        res = trail;
-      }
-    });
-    return res;
-  }
-
   render() {
     let doc = this.displayDoc(
       'main_doc',
@@ -368,7 +365,7 @@ class Document extends PureComponent {
     let subs = this.props.subs; // Array of secondary documents associated with the main one
     let trail = 'PARCOURS '+this.props.currentTrail.parcours.toUpperCase();
     const isLast = this.state.targets.length === 0 && this.state.trails.length >=1;
-
+    
     return (
       <div className='souvenir'>
         {this.props.currentTrail.parcours && <DocHeader trail={trail}/>}
@@ -405,8 +402,8 @@ class Document extends PureComponent {
         </div>
 
         <div className='docNavigation'>
+            {this.props.arrowText}
             <div className='docbuttons'>
-
               {this.state.sources.map((source) => (
                 !source.parcours[0].entry &&
                 <DocumentButton
@@ -414,10 +411,12 @@ class Document extends PureComponent {
                   id={source.id}
                   onClick={() => this.props.onNextClick(source.id, 'memory')}
                   type='previous'
-                  parcours={source.parcours.length > 1 ? this.formattedCurrentTrail() : source.parcours[0]}
+                  parcours={source.parcours.length > 1 ? this.props.currentTrail : source.parcours[0]}
                   currentId={this.props.id}
                   currentTrail={this.props.currentTrail}
                   changeTrailImg={this.changeTrailImg}
+                  displayArrowText={this.props.displayArrowText}
+                  nature="memory"
                 />
               ))}
 
@@ -427,14 +426,23 @@ class Document extends PureComponent {
                   key={target.id}
                   onClick={() => this.props.onNextClick(target.id, 'memory')}
                   type='next'
-                  parcours={target.parcours.length > 1 ? this.formattedCurrentTrail() : target.parcours[0]}
+                  parcours={target.parcours.length > 1 ? this.props.currentTrail : target.parcours[0]}
                   currentId={this.props.id}
                   currentTrail={this.props.currentTrail}
                   changeTrailImg={this.changeTrailImg}
+                  displayArrowText={this.props.displayArrowText}
+                  nature="memory"
                 />
               ))}
 
-              {isLast && <ExitButton type='next' onClick={() => this.props.onNextClick(this.props.id, 'exit')}/>}
+              {isLast && <ExitButton 
+                type='next' 
+                onClick={() => this.props.onNextClick(this.props.id, 'exit')}
+                parcours={this.props.currentTrail}
+                nature="exit"
+                displayArrowText={this.props.displayArrowText}
+              />}
+              
               {this.getTrailIdOfFirst().id!==-1 && 
                 <DocumentButton
                   id={this.getTrailIdOfFirst().id}
@@ -445,12 +453,15 @@ class Document extends PureComponent {
                   currentId={this.props.id}
                   currentTrail={this.props.currentTrail}
                   changeTrailImg={this.changeTrailImg}
+                  displayArrowText={this.props.displayArrowText}
+                  nature="entry"
                 />
               }
 
               <CenterButton trailImg={this.state.trailImg} />
 
             </div>
+
           </div>
 
         {trail !== 'PARCOURS' ? 

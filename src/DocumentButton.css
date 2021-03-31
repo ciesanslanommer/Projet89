@@ -3,9 +3,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    display: grid;
+    grid-template-areas: "prevText docButton nextText";
+    grid-template-columns:  1fr auto 1fr;
+}
+.buttontext-previous {
+    grid-area: prevText;
+    margin: 0 0.6 0 0;
+    text-align: right !important;
+    color:rgb(255, 98, 242) !important;
+}
+.buttontext-next {
+    grid-area: nextText;
+    margin: 0 0 0 0.6em;
+    text-align: left !important;
+    color:rgb(255, 98, 242) !important;
 }
 
 .docbuttons {
+    grid-area: docButton;
     margin: 0 auto;
     width: fit-content;
     height: fit-content;
@@ -24,7 +40,9 @@
     filter: grayscale(100%) brightness(1);
 }
 
-
+/**.next, .previous {
+    height: fit-content;
+}**/
 .button-current.previous {
     grid-area: prevCurrent;
     display: flex;
@@ -56,6 +74,7 @@
     filter: hue-rotate(104deg);
     cursor: pointer;
 }
+
 
 .centerButton {
     grid-area: centerButton;

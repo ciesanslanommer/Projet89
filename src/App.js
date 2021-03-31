@@ -239,6 +239,31 @@ class App extends PureComponent {
     return res;
   }
 
+  displayArrowText = (display, nature, type, trail, e) => {
+    let typebis = type === "next" ? "Suivant" : "Précédent";
+    let text;
+    if(nature==="entry") {
+      text = <p className={`buttontext-${type}`}>{`Début du parcours ${trail}`}</p>;
+    }
+    else if(nature==="memory") {
+      text = <p className={`buttontext-${type}`}>{`${typebis} dans le parcours ${trail}`}</p>;
+    }
+    else if(nature==="exit"){
+      text = <p className={`buttontext-${type}`}>{`Fin du parcours ${trail}`}</p>;
+    }
+    else {
+      text = null;
+    }
+
+    if(display) {
+      this.setState({arrowText: text});
+    }
+    else{
+      this.setState({arrowText: null});
+    }
+    
+  }
+
   render() {
     //copy array of obj
     let cpyNode = [];
@@ -289,6 +314,8 @@ class App extends PureComponent {
             onNextClick={this.changeDoc}
             currentTrail={this.state.currentTrail ? this.formattedCurrentTrail() : "Default"}
             entries={this.state.trail}
+            displayArrowText={this.displayArrowText}
+            arrowText={this.state.arrowText}
           />
         ) : null}
         {this.state.docOpen === 'entry' || this.state.docOpen === 'exit' ? (
@@ -299,6 +326,8 @@ class App extends PureComponent {
             closeDoc={this.closeMemory}
             id={memory.id}
             entries={this.state.trail}
+            displayArrowText={this.displayArrowText}
+            arrowText={this.state.arrowText}
           />
         ) : null}
         {this.state.previewOpen != null && (

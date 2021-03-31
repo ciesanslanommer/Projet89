@@ -34,10 +34,18 @@ class Exit extends Component {
                 <br/><br/>Comment souhaitez-vous poursuivre votre navigation dans l’année 1989 ?
                 </p>
                 <div className='exitButtons'>
+  
                     <div className='docbuttons'>
-                        <ExitButton type='previous' onClick={() => this.props.onNextClick(this.props.id, 'memory')} />
+                        <ExitButton 
+                            type='previous' 
+                            onClick={() => this.props.onNextClick(this.props.id, 'memory')}
+                            displayArrowText={this.props.displayArrowText}
+                            nature="memory"
+                            parcours={this.props.trail}
+                        />
                         <CenterButton trailImg={this.props.trail.path} />
                     </div>
+                    {this.props.arrowText}
                     <div className='exitChoices'>
                         <ExitChoice name='REVENIR' subname='à la carte' onClick={this.props.closeDoc} />
                         <ExitChoice name='EMPRUNTER' subname='un nouveau parcours' onClick={() => this.props.onNextClick(this.randomTrailId(), 'entry')} />
@@ -47,6 +55,35 @@ class Exit extends Component {
                 
             </div>
         )
+    }
+}
+
+class Entry extends Component {
+    render() {
+        const { id, key, onClick, parcours, currentId, currentTrail, trailImg } = this.props;
+        return (
+            <div className='message'>
+                <h2>PARCOURS {currentTrail.parcours.toUpperCase()}</h2>
+                <p>Message d'entrée</p>
+                <div className="entryButtons">
+                    <div className='docbuttons'>
+                        <DocumentButton
+                            id={id}
+                            key={key}
+                            onClick={onClick}
+                            type='next'
+                            parcours={parcours}
+                            currentId={currentId}
+                            currentTrail={currentTrail}
+                            nature="memory"
+                            displayArrowText={this.props.displayArrowText}
+                        />
+                        <CenterButton trailImg={trailImg} />
+                    </div>
+                    {this.props.arrowText}
+                </div>
+            </div>
+        );
     }
 }
 
@@ -70,22 +107,17 @@ class TrailMessage extends Component {
         switch (state) {
             case 'entry':
                 return (
-                <div className='message'>
-                    <h2>PARCOURS {this.props.trail.parcours.toUpperCase()}</h2>
-                    <p>Message d'entrée</p>
-                    <div className='docbuttons'>
-                        <DocumentButton
-                            id={this.getFirstMemoryIdFromEntries().id}
-                            key={this.getFirstMemoryIdFromEntries().id}
-                            onClick={() => this.props.onNextClick(this.getFirstMemoryIdFromEntries().id, 'memory')}
-                            type='next'
-                            parcours={this.getFirstMemoryIdFromEntries()}
-                            currentId={this.props.id}
-                            currentTrail={this.props.trail}
-                        />
-                        <CenterButton trailImg={this.props.trail.path} />
-                    </div>
-                </div>
+                    <Entry 
+                        id={this.getFirstMemoryIdFromEntries().id}
+                        key={this.getFirstMemoryIdFromEntries().id}
+                        onClick={() => this.props.onNextClick(this.getFirstMemoryIdFromEntries().id, 'memory')}
+                        parcours={this.getFirstMemoryIdFromEntries()}
+                        currentId={this.props.id}
+                        currentTrail={this.props.trail}
+                        trailImg={this.props.trail.path}
+                        displayArrowText={this.props.displayArrowText}
+                        arrowText={this.props.arrowText}
+                    />
                 )
             case 'exit':
                 return (
@@ -95,6 +127,8 @@ class TrailMessage extends Component {
                     id={this.props.id} 
                     closeDoc={this.props.closeDoc} 
                     entries={this.props.entries}
+                    displayArrowText={this.props.displayArrowText}
+                    arrowText={this.props.arrowText}
                 />)
             default:
                 return <div>Erreur</div>
