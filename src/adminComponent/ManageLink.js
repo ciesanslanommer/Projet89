@@ -20,6 +20,7 @@ class ManageLink extends Component {
       body: JSON.stringify({ target_id: value }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'x-access-token' : this.props.token,
       },
     })
       .then((res) => res.json())
