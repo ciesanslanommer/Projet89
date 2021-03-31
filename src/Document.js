@@ -93,13 +93,12 @@ class DocumentButton extends Component {
   onMouseOver = (e) => {
     this.highlightDirectionOfButton(this.props.currentId, this.props.id);
     // const trail = this.props.parcours.length <= 1 ? this.props.parcours[0].parcours : this.props.currentTrail.parcours;
-    const trail = this.props.parcours.parcours;
-    if(this.props.changeTrailImg) this.props.changeTrailImg(trail);
+    if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.parcours.path);
   }
 
   onMouseOut = (e) => {
     this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
-    if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.currentTrail.parcours);
+    if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.currentTrail.path);
   }
 
   onClick = () => {
@@ -169,7 +168,7 @@ class CenterButton extends Component {
         <img
           key={`img ${this.props.trailImg}`}
           id={`trail_img`}
-          src={require('./assets/trails/' + this.props.trailImg.toLowerCase() + '.png').default}
+          src={require('./assets/' + this.props.trailImg).default}
           alt={this.props.trailImg}
         />
       </div>
@@ -197,7 +196,7 @@ class Document extends PureComponent {
       loadedSubs: false,
       loadedMemory: false,
       loadedLinks: false,
-      trailImg: this.props.currentTrail.parcours,
+      trailImg: this.props.currentTrail.path,
     };
   }
 
