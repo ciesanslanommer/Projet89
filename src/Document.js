@@ -2,6 +2,7 @@ import './Document.css';
 // import raw from 'raw.macro';
 import { React, PureComponent, Component } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
+import CrossroadsPopup from './CrossroadsPopup.js';
 import Arrow from './assets/arrow.png';
 // import doc_background from './assets/document_background.jpg';
 import { ENDPOINT_API } from './constants/endpoints';
@@ -78,6 +79,7 @@ class DocumentButton extends Component {
     var type = props.type;
     this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
     return (
+      
       <div onClick={props.onClick} className={'button ' + type}>
         {type === 'previous' && (
           <img className='arrowbutton_img' alt='previous' src={Arrow} 
@@ -125,6 +127,7 @@ class Document extends PureComponent {
       loadedSubs: false,
       loadedMemory: false,
       loadedLinks: false,
+      crossroadspopupOpen: true,
     };
   }
 
@@ -255,7 +258,18 @@ class Document extends PureComponent {
     }
   }
 
+  closeCrossroadsPopup = (e) => {
+    this.setState({ crossroadspopupOpen: false });
+  };
+
   render() {
+    let cpyNode = [];
+    this.props.node.concat(this.props.trail).forEach((node) => cpyNode.push({ ...node }));
+    //find current node
+    let id = cpyNode.findIndex(
+      (node) => Number(node.id) === Number(this.props.id)
+    );
+    const isCrossRoad = cpyNode[id].entry ? false : cpyNode[id].trails.length>1;
     let doc = this.displayDoc(
       'main_doc',
       this.state.memory.format,
@@ -275,6 +289,7 @@ class Document extends PureComponent {
         {trail !== 'PARCOURS' && <div id='trail_info'>
           <h1>{trail}</h1>
         </div>}
+        {isCrossRoad && this.state.crossroadspopupOpen && <CrossroadsPopup onCrossClick={this.closeCrossroadsPopup} />}
 
         <div id='memory_and_navigation'>
           <div className='all_previous'>
@@ -318,6 +333,7 @@ class Document extends PureComponent {
           </div>
 
           <div className='all_next'>
+          <div className="circle"></div>
             {this.state.targets.map((target) => (
               <DocumentButton
                 id={target.id}
