@@ -4,7 +4,6 @@ import './DocumentButton.css';
 import React, { PureComponent, Component, useEffect } from 'react';
 import ReactPlayer from 'react-player'
 import ReactAudioPlayer from 'react-audio-player';
-import CrossroadsPopup from './CrossroadsPopup.js';
 import Arrow from './assets/arrow.png';
 // import doc_background from './assets/document_background.jpg';
 import { ENDPOINT_API } from './constants/endpoints';
@@ -205,7 +204,6 @@ class Document extends PureComponent {
       loadedSubs: false,
       loadedMemory: false,
       loadedLinks: false,
-      crossroadspopupOpen: true,
       trailImg: this.props.currentTrail.path,
     };
   }
@@ -337,22 +335,27 @@ class Document extends PureComponent {
     }
   }
 
-  closeCrossroadsPopup = (e) => {
-    this.setState({ crossroadspopupOpen: false });
-  };
-
   changeTrailImg = (trail, e) => {
     this.setState({trailImg: trail});
   }
 
+  getTrailIdOfFirst() {
+    let parcours;
+    let path;
+    let id = -1;
+    for(let i=0; i<this.props.entries.length; i++) {
+      for(let j=0; j<this.state.sources.length; j++) {
+        if(this.state.sources[j].id === this.props.entries[i].id) {
+          id = this.props.entries[i].id;
+          parcours = this.props.entries[i].parcours;
+          path = this.props.entries[i].path;
+        }
+      } 
+    }
+    return {id: id, parcours: parcours, path: path,};
+  }
+
   render() {
-    let cpyNode = [];
-    this.props.node.concat(this.props.trail).forEach((node) => cpyNode.push({ ...node }));
-    //find current node
-    let id = cpyNode.findIndex(
-      (node) => Number(node.id) === Number(this.props.id)
-    );
-    const isCrossRoad = cpyNode[id].entry ? false : cpyNode[id].trails.length>1;
     let doc = this.displayDoc(
       'main_doc',
       this.state.memory.format,
@@ -365,10 +368,7 @@ class Document extends PureComponent {
     
     return (
       <div className='souvenir'>
-        {trail !== 'PARCOURS' && <div id='trail_info'>
-          <h1>{trail}</h1>
-        </div>}
-        {isCrossRoad && this.state.crossroadspopupOpen && <CrossroadsPopup onCrossClick={this.closeCrossroadsPopup} />}
+        {this.props.currentTrail.parcours && <DocHeader trail={trail}/>}
 
         <div id='memory_and_navigation'>
           
