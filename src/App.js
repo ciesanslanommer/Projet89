@@ -215,6 +215,30 @@ class App extends PureComponent {
     this.setState({ currentMemory: null, currentTrail: null });
   };
 
+  trailByMemoryPlusEntries() {
+    let res = this.state.trailByMemory;
+    this.state.trail.forEach(trail => {
+      let formattedTrail = {
+        id: trail.id,
+        name: trail.parcours,
+        path: trail.path,
+        entry: trail.entry,
+      }
+      res[formattedTrail.id] = [formattedTrail];
+    });
+    return res;
+  }
+
+  formattedCurrentTrail() {
+    let res;
+    this.state.trail.forEach(trail => {
+      if(trail.parcours===this.state.currentTrail) {
+        res = {parcours: trail.parcours, path: trail.path};
+      }
+    });
+    return res;
+  }
+
   render() {
     //copy array of obj
     let cpyNode = [];
@@ -232,6 +256,7 @@ class App extends PureComponent {
       this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
     // console.log('trailloaded?', trailloaded);
+    console.log(this.formattedCurrentTrail());
     return (
       <div className='App'>
         {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
@@ -241,7 +266,7 @@ class App extends PureComponent {
             nodeClick={this.changeDoc}
             nodes={this.state.node}
             links={this.state.link}
-            trailsByMemory={this.state.trailByMemory}
+            trailsByMemory={this.trailByMemoryPlusEntries()}
             trails={this.state.trail}
             currentMemory={this.state.currentMemory}
             docOpen={this.state.docOpen}
@@ -262,14 +287,14 @@ class App extends PureComponent {
             trailByMemory={this.state.trailByMemory}
             onCrossClick={this.closeMemory}
             onNextClick={this.changeDoc}
-            currentTrail={this.state.currentTrail ? this.state.currentTrail : "Default"}
+            currentTrail={this.state.currentTrail ? this.formattedCurrentTrail() : "Default"}
             entries={this.state.trail}
           />
         ) : null}
         {this.state.docOpen === 'entry' || this.state.docOpen === 'exit' ? (
           <TrailMessage
             state={this.state.docOpen}
-            trail={this.state.currentTrail ? this.state.currentTrail : "Default"}
+            trail={this.state.currentTrail ? this.formattedCurrentTrail() : "Default"}
             onNextClick={this.changeDoc}
             closeDoc={this.closeMemory}
             id={memory.id}

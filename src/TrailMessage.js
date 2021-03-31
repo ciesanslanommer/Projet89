@@ -19,7 +19,7 @@ class Exit extends Component {
 
     randomTrailId() {
         let randomIndex = this.getRandomInt(this.props.entries.length);
-        while(this.props.entries[randomIndex].parcours === this.props.trail) {
+        while(this.props.entries[randomIndex].parcours === this.props.trail.parcours) {
             randomIndex = this.getRandomInt(this.props.entries.length);
         }
         return this.props.entries[randomIndex].id;
@@ -29,14 +29,14 @@ class Exit extends Component {
     
         return (
             <div className='message'>
-                <h2>FIN DU PARCOURS {this.props.trail.toUpperCase()}</h2>
-                <p>Vous êtes à la fin du parcours « {this.props.trail} ».
+                <h2>FIN DU PARCOURS {this.props.trail.parcours.toUpperCase()}</h2>
+                <p>Vous êtes à la fin du parcours « {this.props.trail.parcours} ».
                 <br/><br/>Comment souhaitez-vous poursuivre votre navigation dans l’année 1989 ?
                 </p>
                 <div className='exitButtons'>
                     <div className='docbuttons'>
                         <ExitButton type='previous' onClick={() => this.props.onNextClick(this.props.id, 'memory')} />
-                        <CenterButton trailImg={this.props.trail} />
+                        <CenterButton trailImg={this.props.trail.parcours} />
                     </div>
                     <div className='exitChoices'>
                         <ExitChoice name='REVENIR' subname='à la carte' onClick={this.props.closeDoc} />
@@ -54,14 +54,16 @@ class TrailMessage extends Component {
     
   getFirstMemoryIdFromEntries() {
     let id = -1;
-    let trail;
+    let parcours;
+    let path;
     for(let i=0; i<this.props.entries.length; i++) {
       if(this.props.entries[i].id === this.props.id) {
         id = this.props.entries[i].target_id;
-        trail = this.props.entries[i].parcours;
+        parcours = this.props.entries[i].parcours;
+        path = this.props.entries[i].path;
       }
     }
-    return {id: id, trail: trail};
+    return {id: id, parcours: parcours, path: path};
   }
 
     display(state) {
@@ -69,7 +71,7 @@ class TrailMessage extends Component {
             case 'entry':
                 return (
                 <div className='message'>
-                    <h2>PARCOURS {this.props.trail.toUpperCase()}</h2>
+                    <h2>PARCOURS {this.props.trail.parcours.toUpperCase()}</h2>
                     <p>Message d'entrée</p>
                     <div className='docbuttons'>
                         <DocumentButton
@@ -77,11 +79,11 @@ class TrailMessage extends Component {
                             key={this.getFirstMemoryIdFromEntries().id}
                             onClick={() => this.props.onNextClick(this.getFirstMemoryIdFromEntries().id, 'memory')}
                             type='next'
-                            parcours={[{parcours: this.getFirstMemoryIdFromEntries().trail}]}
+                            parcours={this.getFirstMemoryIdFromEntries()}
                             currentId={this.props.id}
                             currentTrail={this.props.trail}
                         />
-                        <CenterButton trailImg={this.props.trail} />
+                        <CenterButton trailImg={this.props.trail.parcours} />
                     </div>
                 </div>
                 )
@@ -89,7 +91,7 @@ class TrailMessage extends Component {
                 return (
                 <Exit 
                     onNextClick={this.props.onNextClick} 
-                    trail={this.props.trail} 
+                    trail={this.props.trail.parcours} 
                     id={this.props.id} 
                     closeDoc={this.props.closeDoc} 
                     entries={this.props.entries}
@@ -99,7 +101,7 @@ class TrailMessage extends Component {
         }
     }
     render() {
-        console.log(this.props.trail)
+        console.log(this.props.trail.parcours)
         return (
             this.display(this.props.state)
         )

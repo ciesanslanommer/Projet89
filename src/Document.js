@@ -92,13 +92,14 @@ class DocumentButton extends Component {
 
   onMouseOver = (e) => {
     this.highlightDirectionOfButton(this.props.currentId, this.props.id);
-    const trail = this.props.parcours.length <= 1 ? this.props.parcours[0].parcours : this.props.currentTrail;
+    // const trail = this.props.parcours.length <= 1 ? this.props.parcours[0].parcours : this.props.currentTrail.parcours;
+    const trail = this.props.parcours.parcours;
     if(this.props.changeTrailImg) this.props.changeTrailImg(trail);
   }
 
   onMouseOut = (e) => {
     this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
-    if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.currentTrail);
+    if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.currentTrail.parcours);
   }
 
   onClick = () => {
@@ -110,13 +111,7 @@ class DocumentButton extends Component {
     let props = this.props;
     var type = props.type;
     //this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
-    let current = false;
-    for(let i=0; i<this.props.parcours.length; i++) {
-      if(this.props.parcours[i].parcours === this.props.currentTrail) {
-        current = true;
-        break;
-      }
-    }
+    let current = (this.props.parcours.parcours === this.props.currentTrail.parcours);
 
     return (
       <div onClick={this.onClick} className={classNames({
@@ -202,7 +197,7 @@ class Document extends PureComponent {
       loadedSubs: false,
       loadedMemory: false,
       loadedLinks: false,
-      trailImg: this.props.currentTrail,
+      trailImg: this.props.currentTrail.parcours,
     };
   }
 
@@ -211,7 +206,7 @@ class Document extends PureComponent {
     if (this.props.trailByMemory[id]) {
       // console.log(this.props.trailByMemory[id]);
       this.props.trailByMemory[id].forEach((el) => {
-        const obj = { parcours: el.name, path: el.path };
+        const obj = { parcours: el.name, path: el.path, entry: el.entry };
         trail.push(obj);
       });
     }
@@ -338,17 +333,30 @@ class Document extends PureComponent {
   }
 
   getTrailIdOfFirst() {
+    let parcours;
+    let path;
     let id = -1;
-    let trail;
     for(let i=0; i<this.props.entries.length; i++) {
       for(let j=0; j<this.state.sources.length; j++) {
         if(this.state.sources[j].id === this.props.entries[i].id) {
           id = this.props.entries[i].id;
-          trail = this.props.entries[i].parcours;
+          parcours = this.props.entries[i].parcours;
+          path = this.props.entries[i].path;
         }
       } 
     }
-    return {id: id, trail: trail};
+    return {id: id, parcours: parcours, path: path,};
+  }
+
+  formattedCurrentTrail() {
+    let res;
+    this.state.trails.forEach(trail => {
+      if(trail.parcours===this.props.currentTrail.parcours) {
+        console.log(trail);
+        res = trail;
+      }
+    });
+    return res;
   }
 
   render() {
@@ -359,13 +367,12 @@ class Document extends PureComponent {
       this.state.memory.description
     ); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
-    let trail = 'PARCOURS '+this.props.currentTrail.toUpperCase();
+    let trail = 'PARCOURS '+this.props.currentTrail.parcours.toUpperCase();
     const isLast = this.state.targets.length === 0 && this.state.trails.length >=1;
 
-    
     return (
       <div className='souvenir'>
-        {this.props.currentTrail && <DocHeader trail={trail}/>}
+        {this.props.currentTrail.parcours && <DocHeader trail={trail}/>}
 
         <div id='memory_and_navigation'>
           
@@ -402,13 +409,13 @@ class Document extends PureComponent {
             <div className='docbuttons'>
 
               {this.state.sources.map((source) => (
-                source.parcours.length > 0 &&
+                !source.parcours[0].entry &&
                 <DocumentButton
                   key={source.id}
                   id={source.id}
                   onClick={() => this.props.onNextClick(source.id, 'memory')}
                   type='previous'
-                  parcours={source.parcours}
+                  parcours={source.parcours.length > 1 ? this.formattedCurrentTrail() : source.parcours[0]}
                   currentId={this.props.id}
                   currentTrail={this.props.currentTrail}
                   changeTrailImg={this.changeTrailImg}
@@ -421,7 +428,7 @@ class Document extends PureComponent {
                   key={target.id}
                   onClick={() => this.props.onNextClick(target.id, 'memory')}
                   type='next'
-                  parcours={target.parcours}
+                  parcours={target.parcours.length > 1 ? this.formattedCurrentTrail() : target.parcours[0]}
                   currentId={this.props.id}
                   currentTrail={this.props.currentTrail}
                   changeTrailImg={this.changeTrailImg}
@@ -435,7 +442,7 @@ class Document extends PureComponent {
                   key={this.getTrailIdOfFirst().id}
                   onClick={() => this.props.onNextClick(this.getTrailIdOfFirst().id, 'entry')}
                   type='previous'
-                  parcours={[{parcours: this.getTrailIdOfFirst().trail}]}
+                  parcours={this.getTrailIdOfFirst()}
                   currentId={this.props.id}
                   currentTrail={this.props.currentTrail}
                   changeTrailImg={this.changeTrailImg}
