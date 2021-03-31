@@ -30,8 +30,7 @@ class Exit extends Component {
         return (
             <div className='message'>
                 <h2>FIN DU PARCOURS {this.props.trail.parcours.toUpperCase()}</h2>
-                <p>Vous êtes à la fin du parcours « {this.props.trail.parcours} ».
-                <br/><br/>Comment souhaitez-vous poursuivre votre navigation dans l’année 1989 ?
+                <p>Comment souhaitez-vous poursuivre votre navigation dans l’année 1989 ?
                 </p>
                 <div className='exitButtons'>
   
@@ -51,7 +50,6 @@ class Exit extends Component {
                         <ExitChoice name='EMPRUNTER' subname='un nouveau parcours' onClick={() => this.props.onNextClick(this.randomTrailId(), 'entry')} />
                     </div>
                 </div>
-                <p>Utilisez les boutons et les flèches directionnelles pour vous orientez</p>
                 
             </div>
         )
