@@ -28,7 +28,7 @@ const myConfig = {
   link: {
     color: 'rgba(255, 255, 255, 0.5)',
     type: 'ROUGH',
-    offset: 35,
+    offset: 20,
   },
   d3: {
     disableLinkForce: false,
@@ -36,8 +36,8 @@ const myConfig = {
   },
   rough:{
     maxRandomnessOffset: 2,
-    roughness: 1.8,
-    bowing: 8,
+    roughness: 1.5,
+    bowing: 4,
   }
 };
 
