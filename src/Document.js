@@ -183,6 +183,7 @@ class Document extends PureComponent {
       crossroadspopupOpen: true,
       trailImg: this.props.currentTrail.path,
     };
+    this.bound_onKeyDown = this.onKeyDown.bind(this);
   }
 
   getTrailById = (id) => {
@@ -198,6 +199,14 @@ class Document extends PureComponent {
     // console.log(trail);
     return trail;
   };
+
+  componentWillMount() {
+    document.addEventListener("keydown", this.bound_onKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.bound_onKeyDown);
+  }
 
   componentDidMount() {
     let target = [];
@@ -334,6 +343,54 @@ class Document extends PureComponent {
       } 
     }
     return {id: id, parcours: parcours, path: path,};
+  }
+
+  // please don't use this code as an example of good practice :-p (@agr)
+  onKeyDown(e) {
+    if (e.code === 'ArrowRight' || e.code === 'ArrowUp') {
+      if (e.code === 'ArrowRight') {
+        // check if we are at the end
+        const isLast = this.state.targets.length === 0 && this.state.trails.length >=1;
+        if (isLast) {
+          this.props.onNextClick(this.props.id, 'exit');
+        }
+      }
+      for (const i in this.state.targets) {
+        const target = this.state.targets[i];
+        if (target && target.parcours) {
+          const parcours = target.parcours.length > 1 ? this.props.currentTrail : target.parcours[0]
+          const isCurrent = this.props.currentTrail.parcours === parcours.parcours;
+          if (isCurrent && e.code === 'ArrowRight') {
+            this.props.onNextClick(target.id, 'memory');
+          } else if (!isCurrent && e.code === 'ArrowUp') {
+            this.props.onNextClick(target.id, 'memory');
+          }
+        }
+      }
+    } else if (e.code === 'ArrowLeft' || e.code === 'ArrowDown') {
+      if (e.code === 'ArrowLeft') {
+        // check if we are at the beginning
+        const idOfFirst = this.getTrailIdOfFirst().id;
+        if (idOfFirst !== -1) {
+          this.props.onNextClick(idOfFirst, 'entry')
+        }
+      }
+      for (const i in this.state.sources) {
+        const source = this.state.sources[i];
+        if (source && source.parcours) {
+          if (source.parcours[0] && source.parcours[0].entry) {
+            continue;
+          }
+          const parcours = source.parcours.length > 1 ? this.props.currentTrail : source.parcours[0]
+          const isCurrent = this.props.currentTrail.parcours === parcours.parcours;
+          if (isCurrent && e.code === 'ArrowLeft') {
+            this.props.onNextClick(source.id, 'memory');
+          } else if (!isCurrent && e.code === 'ArrowDown') {
+            this.props.onNextClick(source.id, 'memory');
+          }
+        }
+      }
+    }
   }
 
   render() {

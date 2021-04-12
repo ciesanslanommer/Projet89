@@ -100,6 +100,27 @@ class Entry extends Component {
 
 class TrailMessage extends Component {
     
+    constructor(props) {
+        super(props);
+        this.bound_onKeyDown = this.onKeyDown.bind(this);
+    }
+
+    componentWillMount() {
+        document.addEventListener("keydown", this.bound_onKeyDown);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.bound_onKeyDown);
+    }
+
+    onKeyDown(e) {
+        if (e.code === 'ArrowRight' && this.props.state === 'entry') {
+            this.props.onNextClick(this.getFirstMemoryIdFromEntries().id, 'memory');
+        } else if (e.code === 'ArrowLeft' && this.props.state === 'exit') {
+            this.props.onNextClick(this.props.id, 'memory');
+        }
+    }
+
   getFirstMemoryIdFromEntries() {
     let id = -1;
     let parcours;
@@ -146,7 +167,6 @@ class TrailMessage extends Component {
         }
     }
     render() {
-        console.log(this.props.trail.parcours)
         return (
             this.display(this.props.state)
         )
