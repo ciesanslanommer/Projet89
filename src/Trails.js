@@ -128,12 +128,24 @@ class Trails extends PureComponent {
 
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
-      const copy = this.props.nodes.slice();
-      const index = copy.findIndex((elt) => elt.id === Number(node.id));
-      const dataNode = copy[index];
-      if(dataNode) {
-        node.addEventListener('mouseenter', (event) => this.props.openPreview(node, dataNode.name, dataNode.description, dataNode.entry));
+      const indexNode = this.props.nodes.findIndex((elt) => elt.id === Number(node.id));
+      const dataNode = this.props.nodes[indexNode];
+      if (dataNode) {
+        node.addEventListener('mouseenter', (event) => {
+            this.props.openPreview(node, dataNode.name, dataNode.description, dataNode.entry)
+          }
+        );
         node.addEventListener('mouseleave', this.props.closePreview);
+      } else {
+        const indexTrail = this.props.trails.findIndex((elt) => elt.id === Number(node.id));
+        const dataTrail = this.props.trails[indexTrail];
+        if (dataTrail) {
+          node.addEventListener('mouseenter', (event) => {
+              this.props.openPreview(node, `PARCOURS ${dataTrail.parcours.toUpperCase()}`, dataTrail.description, dataTrail.entry)
+            }
+          );
+          node.addEventListener('mouseleave', this.props.closePreview);
+        }
       }
     });
     
@@ -314,8 +326,12 @@ class Trails extends PureComponent {
       if(currentId !== -1) {
         currentTrail = cpy[currentId].entry ? cpy[currentId].parcours : cpy[currentId].trails;
       }
-      if (trailMouseOvered.length !== 0) { this.highlightTrail(trailMouseOvered.concat(currentTrail)) } 
-      else { this.highlightNode(nodeId) }
+      if (trailMouseOvered.length !== 0) {
+        this.highlightTrail(trailMouseOvered.concat(currentTrail))
+      }
+      else {
+        this.highlightNode(nodeId)
+      }
     }
   }
  

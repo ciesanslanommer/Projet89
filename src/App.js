@@ -167,9 +167,6 @@ class App extends PureComponent {
   };
 
   openPreview = (node, name, desc, entry, e) => {
-    if (entry) {
-      return;
-    }
     const boundNode = node.getBoundingClientRect();
     this.setState({
       previewOpen: {
