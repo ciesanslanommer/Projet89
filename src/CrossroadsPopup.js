@@ -7,10 +7,12 @@ const CrossroadsPopup = (props) => {
       <div id='popup'>
         <h2>Vous êtes au croisement de deux parcours.</h2>
         <p>
-        Poursuivez votre chemin sur le parcours ou bifurquez sur la nouvelle voie qui s’ouvre devant vous.
+          Poursuivez votre chemin sur le parcours <b>{props.trail}</b> ou bifurquez sur la nouvelle voie qui s’ouvre devant vous.
         </p>
         <p>
-          Quelle direction souhaitez-vous prendre ? Utilisez les flèches directionnelles pour vous orientez.
+          Quelle direction souhaitez-vous prendre ?
+          <br />
+          Utilisez les flèches directionnelles pour vous orientez.
         </p>
         <img
           className='cross'

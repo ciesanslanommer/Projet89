@@ -1,6 +1,6 @@
-#welcome {
+#mainpopup {
     z-index: 99;
-    width: 500px;
+    width: 50%;
     background-color: white;
     padding: 40px;
     position: absolute;
@@ -9,11 +9,11 @@
     transform: translate(-50%, -50%); 
 }
 
-/* #welcome p, #welcome h2{
+/* #popup p, #popup h2{
     color: white;
 } */
 
-#welcome_wrap {
+#mainpopup_wrap {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -26,7 +26,7 @@
     opacity: 0.6;
 }
 
-#welcome .cross {
+#mainpopup .cross {
     filter: brightness(0);
 }
 

@@ -1,0 +1,106 @@
+
+
+#menu {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  height: 100vh;
+  text-align: left;
+  padding: 2rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  padding-top: 100px;
+}
+
+
+#menu a {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 1rem 0;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+  color: black;
+  text-decoration: none;
+  transition: color 0.1s linear;
+  color: rgb(43, 43, 43);
+}
+
+#menu a:hover {
+  color: rgb(57,234, 234);
+}
+
+#menu.menu-open {
+  transform: translateX(0);
+}
+
+#menu.menu-close {
+  transform: translateX(-100%);
+}
+
+#burger-button {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10000;
+  box-shadow: none;
+}
+
+#burger-button div {
+  width: 2rem;
+  height: 0.25rem;
+  background: red;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+button#burger-button:hover div {
+  background: rgb(57,234, 234);
+}
+
+#burger-button.menu-open div {
+  background: rgb(43, 43, 43);
+}
+
+#burger-button.menu-close div {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#burger-button.menu-open div:first-child {
+  transform: rotate(45deg);
+}
+
+#burger-button.menu-open div:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+#burger-button.menu-open div:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+#burger-button.menu-close div:first-child {
+  transform: rotate(0);
+}
+
+#burger-button.menu-close div:nth-child(2) {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#burger-button.menu-close div:nth-child(3) {
+  transform: rotate(0);
+}

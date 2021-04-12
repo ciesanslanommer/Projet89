@@ -1,9 +1,13 @@
 import { React, PureComponent, memo } from 'react';
 import './App.css';
+import './Menu.css';
 import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
-import Welcome from './Welcome.js';
+import Menu from './Menu.js';
+import Welcome from './popups/Welcome.js';
+import Projet89 from './popups/Projet89.js';
+import Collecte from './popups/Collecte.js';
 import Preview from './Preview';
 import TrailMessage from './TrailMessage';
 import { ENDPOINT_API } from './constants/endpoints';
@@ -16,9 +20,9 @@ class App extends PureComponent {
       linkLoaded: false,
       trailLoaded: false,
       trailByMemoryLoaded: false,
+      popupOpen: 'aide', // 'aide' / 'projet89' / 'collecte'
       docOpen: false,
       adminOpen: false,
-      welcomeOpen: true,
       previewOpen: null,
       node: [],
       link: [],
@@ -207,8 +211,8 @@ class App extends PureComponent {
     this.openMemory(state);
   };
 
-  closeWelcome = (e) => {
-    this.setState({ welcomeOpen: false });
+  closePopup = (e) => {
+    this.setState({ popupOpen: '' });
   };
 
   unsetCurrentMemory = (e) => {
@@ -264,6 +268,10 @@ class App extends PureComponent {
     
   }
 
+  onClickOnMenu = item => {
+    this.setState({ popupOpen: item });
+  }
+
   render() {
     //copy array of obj
     let cpyNode = [];
@@ -284,8 +292,20 @@ class App extends PureComponent {
     console.log(this.formattedCurrentTrail());
     return (
       <div className='App'>
-        {this.state.welcomeOpen && <Welcome onCrossClick={this.closeWelcome} />}
+        {
+          this.state.popupOpen === 'aide' && <Welcome onClose={this.closePopup} />
+        }
+        {
+          this.state.popupOpen === 'projet89' && <Projet89 onClose={this.closePopup} />
+        }
+        {
+          this.state.popupOpen === 'collecte' && <Collecte onClose={this.closePopup} />
+        }
+
         {<Nav />}
+
+        <Menu onClick={this.onClickOnMenu} />
+
         {trailloaded && (
           <Trails
             nodeClick={this.changeDoc}

@@ -384,7 +384,7 @@ class Document extends PureComponent {
         {trail !== 'PARCOURS' && <div id='trail_info'>
           <h1>{trail}</h1>
         </div>}
-        {isCrossRoad && this.state.crossroadspopupOpen && <CrossroadsPopup onCrossClick={this.closeCrossroadsPopup} />}
+        {isCrossRoad && this.state.crossroadspopupOpen && <CrossroadsPopup trail={this.props.currentTrail.parcours} onCrossClick={this.closeCrossroadsPopup} />}
 
         <div id='memory_and_navigation'>
           

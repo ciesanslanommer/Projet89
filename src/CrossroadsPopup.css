@@ -16,6 +16,10 @@
     transform: translate(-50%, -50%); 
 }
 
+#popup p {
+    text-align: center;
+}
+
 .darken_background {
     width: 100%;
     height: 100%;

@@ -29,9 +29,13 @@ class Exit extends Component {
     
         return (
             <div className='message'>
-                <h2>FIN DU PARCOURS {this.props.trail.parcours.toUpperCase()}</h2>
-                <p>Comment souhaitez-vous poursuivre votre navigation dans l’année 1989 ?
+
+               <p>
+                    Vous êtes à la fin du parcours
+                    <br />
+                    <b>{this.props.trail.parcours}</b>.
                 </p>
+                <p>Comment souhaitez-vous poursuivre votre navigation dans l’année 1989 ?</p>
                 <div className='exitButtons'>
   
                     <div className='docbuttons'>
@@ -61,8 +65,17 @@ class Entry extends Component {
         const { id, key, onClick, parcours, currentId, currentTrail, trailImg } = this.props;
         return (
             <div className='message'>
-                <h2>PARCOURS {currentTrail.parcours.toUpperCase()}</h2>
-                <p>Message d'entrée</p>
+                <p>
+                    Vous êtes au début du parcours
+                    <br />
+                    <b>{currentTrail.parcours}</b>.
+                </p>
+                <p>Le désordre des choses, le point de bascule ou la violence d’un trouble. Dans le bouleversement, il y a l’idée d’appuyer avec force d’un côté pour provoquer un changement de l’autre côté.</p>
+                <p>
+                    Bon cheminement au fil des souvenirs.
+                    <br />
+                    Pour progresser dans le parcours, utilisez les flèches directionnelles.
+                </p>
                 <div className="entryButtons">
                     <div className='docbuttons'>
                         <DocumentButton
