@@ -35,9 +35,12 @@
     width: auto;
     height: 25px;
     filter: grayscale(100%) brightness(0.2);
+    padding: 5px;
 }
 #trail_img {
     filter: grayscale(100%) brightness(1);
+    max-width: 60px;
+    max-height: 60px;
 }
 
 /**.next, .previous {
@@ -55,6 +58,7 @@
 }
 .button-current.next img {
     transform: rotate(180deg);
+    height: 40px;
 }
 .button.previous {
     grid-area: prevOther;
@@ -83,14 +87,6 @@
     align-items: center;
     background-color: rgb(43, 43, 43);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-}
-.widthGreaterThanHeight {
-    height: auto;
-    width: 30px;
-}
-.heightGreaterThanWidth {
-    height: 30px;
-    width: auto;
+    width: 80px;
+    height: 80px;
 }

@@ -141,31 +141,6 @@ class CenterButton extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.resizeTrailImg();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.trailImg !== this.props.trailImg) {
-      this.resizeTrailImg();
-    }
-  }
-
-  resizeTrailImg() {
-    const img = document.querySelector('#trail_img');
-    const width_o = img.width;
-    const height_o = img.height;
-
-    if(width_o > height_o) {
-      img.classList.remove('heightGreaterThanWidth');
-      img.classList.add('widthGreaterThanHeight');
-    }
-    else {
-      img.classList.add('heightGreaterThanWidth');
-      img.classList.remove('widthGreaterThanHeight');
-    }
-  }
-
   render() {
 
     return (
