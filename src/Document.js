@@ -148,7 +148,7 @@ class CenterButton extends Component {
         <img
           key={`img ${this.props.trailImg}`}
           id={`trail_img`}
-          src={require('./assets/' + this.props.trailImg).default}
+          src={require('./assets/' + this.props.trailImg.split('.')[0] + '_petit.' + this.props.trailImg.split('.')[1]).default}
           alt={this.props.trailImg}
         />
       </div>
