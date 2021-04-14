@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, memo } from 'react';
 import MemoryForm from './MemoryForm.js';
 import '../Admin.css';
 import './AdminForm.css';
@@ -104,7 +104,7 @@ class Admin extends Component {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! memory = ', result);
+          console.log('Success! trailbymem = ', result);
           this.setState({
             trailByMemory: result,
             trailByMemoryLoaded: true,
@@ -189,6 +189,43 @@ class Admin extends Component {
     this.setState({ token });
   }
 
+  deleteMemory = (e) => {
+    const idToDelete = e.target.value;
+    const memoryName = this.state.memories.filter((memory) => memory.id === Number(idToDelete))[0].name;
+    const trails = this.state.trailByMemory[idToDelete];
+    if (trails.length > 1) {
+      alert("Le souvenir ne peut pas être suprimé car c'est un carrefour. Si vous souhaitez le supprimer, essayez d'abord de le retirer d'un de ses parcours.")
+      return;
+    }
+    // eslint-disable-next-line no-restricted-globals
+    const confirmed  = confirm("Le souvenir " + memoryName + " va etre suprimer. Il n'y a pas de retour en arrière. Êtes vous sûr de vouloir suprimer le souvenir? ")
+    if (confirmed){
+      console.log(idToDelete);
+      console.log(memoryName);
+      console.log(trails);
+      console.log(`delete souvenirs from ${ENDPOINT_API}/memory/${idToDelete}`);
+      fetch(ENDPOINT_API + '/memory/' + idToDelete, {
+        method : "DELETE",
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-access-token' : this.props.token,
+        },
+      })
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            console.log('Souvenir suprimé', result);
+            if (trails.length > 0){
+              this.setState({
+                linkFormOpen: true,
+                idTrailToLink: trails[0].id,
+              });
+            }
+          },
+        );
+      }
+  }
+
   render() {
     const trailloaded = this.state.trailLoaded;
     const memoriesLoaded = this.state.memoriesLoaded;
@@ -252,6 +289,17 @@ class Admin extends Component {
                   return (
                     <option key={trail.id} value={trail.id}>
                       {trail.parcours}
+                    </option>
+                  );
+                })}
+            </select>
+
+            <select onChange={(e) => this.deleteMemory(e)}>
+                <option value='null'>Suprimer un souvenir </option>
+                {this.state.memories.map((memory) => {
+                  return (
+                    <option key={memory.id} value={memory.id}>
+                      {memory.name}
                     </option>
                   );
                 })}
