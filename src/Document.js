@@ -148,7 +148,7 @@ class CenterButton extends Component {
         <img
           key={`img ${this.props.trailImg}`}
           id={`trail_img`}
-          src={require('./assets/' + this.props.trailImg.split('.')[0] + '_petit.' + this.props.trailImg.split('.')[1]).default}
+          src={this.props.trailImg && require('./assets/' + this.props.trailImg.split('.')[0] + '_petit.' + this.props.trailImg.split('.')[1]).default}
           alt={this.props.trailImg}
         />
       </div>
@@ -181,7 +181,7 @@ class Document extends PureComponent {
       loadedMemory: false,
       loadedLinks: false,
       crossroadspopupOpen: true,
-      trailImg: this.props.currentTrail.path,
+      trailImg: this.props.currentTrail.path || '',
     };
     this.bound_onKeyDown = this.onKeyDown.bind(this);
   }
@@ -408,7 +408,9 @@ class Document extends PureComponent {
       this.state.memory.description
     ); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
-    let trail = 'PARCOURS '+this.props.currentTrail.parcours.toUpperCase();
+    let trail = this.props.currentTrail && this.props.currentTrail.parcours
+      ? 'PARCOURS '+this.props.currentTrail.parcours.toUpperCase()
+      : 'PARCOURS INCONNU';
     const isLast = this.state.targets.length === 0 && this.state.trails.length >=1;
     
     return (

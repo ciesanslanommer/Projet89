@@ -141,7 +141,10 @@ class Trails extends PureComponent {
         const dataTrail = this.props.trails[indexTrail];
         if (dataTrail) {
           node.addEventListener('mouseenter', (event) => {
-              this.props.openPreview(node, `PARCOURS ${dataTrail.parcours.toUpperCase()}`, dataTrail.description, dataTrail.entry)
+              const parcours = dataTrail.parcours
+                ? `PARCOURS ${dataTrail.parcours.toUpperCase()}`
+                : 'PARCOURS INCONNU';
+              this.props.openPreview(node, parcours, dataTrail.description, dataTrail.entry)
             }
           );
           node.addEventListener('mouseleave', this.props.closePreview);
