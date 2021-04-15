@@ -51,7 +51,13 @@ class ManageLinkMemory extends Component {
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
-      .then((res) => res.json())
+      .then(function(res) {
+        if (!res.ok) {
+          res.json().then(s => alert('Erreur : ' + s.message));
+          throw res;
+        }
+        return res.json();
+      })
       .then(
         /*~~~~~~~~~~ Put Request ~~~~~~~~~*/
         fetch(ENDPOINT_API + '/hastrail', {
@@ -65,7 +71,13 @@ class ManageLinkMemory extends Component {
             'x-access-token' : this.props.token,
           },
         })
-          .then((res) => res.json())
+          .then(function(res) {
+            if (!res.ok) {
+              res.json().then(s => alert('Erreur : ' + s.message));
+              throw res;
+            }
+            return res.json();
+          })
           .then(
             /*~~~~~~~~~~ Put Request ~~~~~~~~~*/
             fetch(ENDPOINT_API + '/hastrail', {
@@ -79,14 +91,20 @@ class ManageLinkMemory extends Component {
                 'x-access-token' : this.props.token,
               },
             })
-              .then((res) => res.json())
+              .then(function(res) {
+                if (!res.ok) {
+                  res.json().then(s => alert('Erreur : ' + s.message));
+                  throw res;
+                }
+                return res.json();
+              })
               .then((res) => {
                 console.log(res);
-                alert('Le parcours a bien été en registré !');
+                alert('Le lien a bien été enregistré :)');
                 this.componentDidMount();
-              })
-          )
-      );
+              }).catch(e => console.error(e))
+          ).catch(e => console.error(e))
+      ).catch(e => console.error(e));
   }
 
   render() {

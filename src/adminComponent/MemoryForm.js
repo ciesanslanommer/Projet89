@@ -293,7 +293,13 @@ class MemoryForm extends Component {
         'x-access-token' : this.props.token,
       },
     })
-      .then((res) => res.json())
+      .then(function(res) {
+        if (!res.ok) {
+          res.json().then(s => alert('Erreur : ' + s.message));
+          throw res;
+        }
+        return res.json();
+      })
       .then((res) => {
         console.log(res);
         // const value = '';
@@ -303,9 +309,9 @@ class MemoryForm extends Component {
         //   format: value,
         //   date: value,
         // });
-        alert('Votre souvenir a bien été en registré !');
+        alert('Votre souvenir a bien été enregistré :)');
         this.componentDidMount();
-      });
+      }).catch(e => console.error(e));
   }
 
   updateRequest(request) {
@@ -336,7 +342,13 @@ class MemoryForm extends Component {
         'x-access-token' : this.props.token,
       },
     })
-      .then((res) => res.json())
+      .then(function(res) {
+        if (!res.ok) {
+          res.json().then(s => alert('Erreur : ' + s.message));
+          throw res;
+        }
+        return res.json();
+      })
       .then((res) => {
         console.log(res);
         // const value = '';
@@ -346,9 +358,9 @@ class MemoryForm extends Component {
         //   format: value,
         //   date: value,
         // });
-        alert('Votre souvenir a bien été en registré !');
+        alert('Votre souvenir a bien été modifié :)');
         this.componentDidMount();
-      });
+      }).catch(e => console.error(e));
   }
 
   render() {
