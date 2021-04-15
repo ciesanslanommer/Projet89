@@ -1,4 +1,4 @@
-import React, { Component, memo } from 'react';
+import React, { Component } from 'react';
 import MemoryForm from './MemoryForm.js';
 import '../Admin.css';
 import './AdminForm.css';
@@ -193,8 +193,8 @@ class Admin extends Component {
     const idToDelete = e.target.value;
     const memoryName = this.state.memories.filter((memory) => memory.id === Number(idToDelete))[0].name;
     const trails = this.state.trailByMemory[idToDelete];
-    if (trails.length > 1) {
-      alert("Le souvenir ne peut pas être suprimé car c'est un carrefour. Si vous souhaitez le supprimer, essayez d'abord de le retirer d'un de ses parcours.")
+    if (trails) {
+      alert("Le souvenir ne peut pas être suprimé car il se trouve dans un parcours. Si vous souhaitez le supprimer, essayez d'abord de le retirer de ses parcours.")
       return;
     }
     // eslint-disable-next-line no-restricted-globals
@@ -215,12 +215,6 @@ class Admin extends Component {
         .then(
           (result) => {
             console.log('Souvenir suprimé', result);
-            if (trails.length > 0){
-              this.setState({
-                linkFormOpen: true,
-                idTrailToLink: trails[0].id,
-              });
-            }
           },
         );
       }
