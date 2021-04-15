@@ -17,16 +17,34 @@ body {
   align-items: center;
 }
 
-.adminButtons {
+.form {
   width: 30%;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid white;
+  border : 1px solid white;
   border-radius: 15px;
+  padding : 20px
+
 }
+.adminRow {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.formRow{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 20px;
+}
+
 
 .mainContainer {
   width: 100%;
@@ -83,7 +101,6 @@ label {
 button {
   border-radius: 5px;
   border: none;
-  margin: 50px;
   padding: 10px;
   font-family: 'Bree Serif', serif;
   outline: none;
@@ -91,12 +108,27 @@ button {
 }
 
 button:hover {
-  background-color: rgb(199, 219, 228);
+  background-color: rgb(83, 249, 255);
 }
 
 button,
 select {
   color: rgb(51, 26, 6);
+}
+
+h2{
+  margin: 0;
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+}
+
+h2::after {
+  content: '';
+  flex: 1;
+  margin-left: 1rem;
+  height: 1px;
+  background-color: rgb(255, 255, 255);
 }
 
 .sousForm {

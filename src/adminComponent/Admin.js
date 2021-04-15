@@ -240,65 +240,84 @@ class Admin extends Component {
         !this.state.updateTrail &&
         !this.state.linkFormOpen &&
         !this.state.createTrail ? (
-          <div className='adminButtons'>
-            <div>
-              <button
-                type='button'
-                onClick={(e) => this.openComponent('memoryFormOpen', e)}
-              >
-                Créer un souvenir
-              </button>
-              <button
-                type='button'
-                onClick={(e) => this.openComponent('createTrail', e)}
-              >
-                Créer un parcours
-              </button>
-            </div>
-            <div>
-              <select onChange={(e) => this.openComponent('updateMemory', e)}>
-                <option value='null'>Modifier un souvenir</option>
-                {this.state.memories.map((memory) => {
-                  return (
-                    <option key={memory.id} value={memory.id}>
-                      {memory.name}
-                    </option>
-                  );
-                })}
-              </select>
-              <select onChange={(e) => this.openComponent('updateTrail', e)}>
-                <option value='null'>Modifier un parcours</option>
-                {this.state.trails.map((trail) => {
-                  return (
-                    <option key={trail.id} value={trail.id}>
-                      {trail.parcours}
-                    </option>
-                  );
-                })}
-              </select>
+          <div className='form'>
+
+            <div className="adminRow">
+              <h2>Créations</h2>
+              <div className="formRow">
+                <button
+                  type='button'
+                  onClick={(e) => this.openComponent('memoryFormOpen', e)}
+                >
+                  Créer un souvenir
+                </button>
+                <button
+                  type='button'
+                  onClick={(e) => this.openComponent('createTrail', e)}
+                >
+                  Créer un parcours
+                </button>
+              </div>
             </div>
 
-            <select onChange={(e) => this.openComponent('linkFormOpen', e)}>
-                <option value='null'>Creer les liens de ...</option>
-                {this.state.trails.map((trail) => {
-                  return (
-                    <option key={trail.id} value={trail.id}>
-                      {trail.parcours}
-                    </option>
-                  );
-                })}
-            </select>
+            <div className="adminRow">
+              <h2>Modifications</h2>
+              <div className="formRow">
+                <select onChange={(e) => this.openComponent('updateMemory', e)}>
+                  <option value='null'>Modifier un souvenir</option>
+                  {this.state.memories.map((memory) => {
+                    return (
+                      <option key={memory.id} value={memory.id}>
+                        {memory.name}
+                      </option>
+                    );
+                  })}
+                </select>
+                <select onChange={(e) => this.openComponent('updateTrail', e)}>
+                  <option value='null'>Modifier un parcours</option>
+                  {this.state.trails.map((trail) => {
+                    return (
+                      <option key={trail.id} value={trail.id}>
+                        {trail.parcours}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </div>
 
-            <select onChange={(e) => this.deleteMemory(e)}>
-                <option value='null'>Suprimer un souvenir </option>
-                {this.state.memories.map((memory) => {
-                  return (
-                    <option key={memory.id} value={memory.id}>
-                      {memory.name}
-                    </option>
-                  );
-                })}
-            </select>
+            <div className="adminRow">
+              <h2>Lier les souvenirs en parcours</h2>
+              <div className="formRow">
+                <select onChange={(e) => this.openComponent('linkFormOpen', e)}>
+                    <option value='null'>Creer les liens de ...</option>
+                    {this.state.trails.map((trail) => {
+                      return (
+                        <option key={trail.id} value={trail.id}>
+                          {trail.parcours}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+            </div>
+
+            <div className="adminRow">
+              <h2>Suppression d'un souvenir</h2>
+              <div className="formRow">
+                <select onChange={(e) => this.deleteMemory(e)}>
+                    <option value='null'>Supprimer un souvenir </option>
+                    {this.state.memories.map((memory) => {
+                      return (
+                        <option key={memory.id} value={memory.id}>
+                          {memory.name}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+            </div>
+
 
             {/* <div>
               <button

@@ -61,7 +61,7 @@ class Login extends Component {
       <form onSubmit={this.handleSubmit}>
         <div className='adminBody'>
         <h1>Mode admin</h1>
-        <div className='adminButtons'>
+        <div className='form'>
           <label>
             Identifiant :
             <br />
