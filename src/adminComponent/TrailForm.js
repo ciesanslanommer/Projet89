@@ -7,6 +7,9 @@ class TrailForm extends Component {
     this.state = {
       trail : this.props.update ? this.props.trail.parcours : '',
       icon_id: this.props.update ? this.props.trail.icon_id : this.props.firsticon,
+      description: this.props.update ? this.props.trail.description : '',
+      entry_message: this.props.update ? this.props.trail.entry_message : '',
+      exit_message: this.props.update ? this.props.trail.exit_message : '',
     };
   }
 
@@ -26,12 +29,12 @@ class TrailForm extends Component {
       method: 'POST',
       body: JSON.stringify({
         name: this.state.trail,
+        description: this.state.description || '',
+        entry_message: this.state.entry_message || '',
+        exit_message: this.state.exit_message || '',
         icon_id: this.state.icon_id,
         pos_x: Math.random() * 1000,
         pos_y: Math.random() * 1000,
-        description: 'yep',
-        entry_message: 'yiii',
-        exit_message: 'yoooo',
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -60,6 +63,9 @@ class TrailForm extends Component {
       method: 'PUT',
       body: JSON.stringify({
         name: this.state.trail,
+        description: this.state.description || '',
+        entry_message: this.state.entry_message || '',
+        exit_message: this.state.exit_message || '',
         icon_id: this.state.icon_id
       }),
       headers: {
@@ -92,6 +98,48 @@ class TrailForm extends Component {
             placeholder='Ruines'
             onChange={(e) => this.getValue('trail', e)}
           />
+
+          <label>
+            Description (sera affichée au survol de l'icone du parcours)
+          </label>
+          <textarea
+            name='description'
+            row='3'
+            cols='33'
+            maxLength='95'
+            onChange={(e) => this.getValue('description', e)}
+          >
+            {this.state.description}
+          </textarea>
+
+          <label>
+            Message d'entrée du parcours
+          </label>
+          <textarea
+            name='entry_message'
+            rows='15'
+            cols='70'
+            maxLength='95'
+            onChange={(e) => this.getValue('entry_message', e)}
+          >
+            {this.state.entry_message}
+          </textarea>
+
+          {
+            // <label>
+            //   Message de fin du parcours
+            // </label>
+            // <textarea
+            //   name='exit_message'
+            //   row='3'
+            //   cols='33'
+            //   maxLength='95'
+            //   onChange={(e) => this.getValue('exit_message', e)}
+            // >
+            //   {this.state.exit_message}
+            // </textarea>
+          }
+
           <label>
             Choisir une icone <abbr> * </abbr>
           </label>
