@@ -29,17 +29,26 @@ class TrailForm extends Component {
         icon_id: this.state.icon_id,
         pos_x: Math.random() * 1000,
         pos_y: Math.random() * 1000,
+        description: 'yep',
+        entry_message: 'yiii',
+        exit_message: 'yoooo',
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
         'x-access-token' : this.props.token,
       },
     })
-      .then((res) => res.json())
+      .then(function(res) {
+          if (!res.ok) {
+            res.json().then(s => alert('Erreur : ' + s.message));
+            throw res;
+          }
+          return res.json();
+      })
       .then((res) => {
         console.log(res);
-        alert('parcours ajouté');
-      });
+        alert('Parcours bien ajouté :)');
+      }).catch(e => console.error(e));
   };
 
   updateTrail = () => {
@@ -58,11 +67,17 @@ class TrailForm extends Component {
         'x-access-token' : this.props.token,
       },
     })
-      .then((res) => res.json())
+      .then(function(res) {
+        if (!res.ok) {
+          res.json().then(s => alert('Erreur : ' + s.message));
+          throw res;
+        }
+        return res.json();
+      })
       .then((res) => {
         console.log(res);
-        alert('parcours mis a jour');
-      });
+        alert('Le parcours a bien été mis à jour :)');
+      }).catch(e => console.error(e));
   };
 
   render() {

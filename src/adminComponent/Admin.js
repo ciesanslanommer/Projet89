@@ -211,13 +211,19 @@ class Admin extends Component {
           'x-access-token' : this.state.token,
         },
       })
-        .then((res) => res.json())
+        .then(function(res) {
+          if (!res.ok) {
+            res.json().then(s => alert('Erreur : ' + s.message));
+            throw res;
+          }
+          return res.json();
+        })
         .then(
           (result) => {
-            console.log('Souvenir suprimé', result);
+            console.log('Souvenir bien supprimé', result);
             this.componentDidMount();
           },
-        );
+        ).catch(e => console.error(e));
       }
   }
 

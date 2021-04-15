@@ -23,7 +23,13 @@ class ManageLink extends Component {
         'x-access-token' : this.props.token,
       },
     })
-      .then((res) => res.json())
+      .then(function(res) {
+        if (!res.ok) {
+          res.json().then(s => alert('Erreur : ' + s.message));
+          throw res;
+        }
+        return res.json();
+      })
       .then((res) => {
         console.log(res);
         // const value = '';
@@ -33,8 +39,8 @@ class ManageLink extends Component {
         //   format: value,
         //   date: value,
         // });
-        alert('Le souvenir a bien été en registré !');
-      });
+        alert('Le lien a bien été enregistré :)');
+      }).catch(e => console.error(e));
   }
 
   render() {

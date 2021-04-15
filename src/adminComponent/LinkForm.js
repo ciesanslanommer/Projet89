@@ -77,7 +77,7 @@ class LinkForm extends Component {
     }
 
     if(this.state.memory_ids.includes(0)){
-      alert("Certains souvenir n'ont pas été defini. Un champ ou plusieurs sont vides.")
+      alert("Certains souvenir n'ont pas été definis. Un champ ou plusieurs sont vides.")
       return;
     }
     // if (this.state.trail === '') {
@@ -95,11 +95,17 @@ class LinkForm extends Component {
         'x-access-token' : this.props.token,
       },
     })
-      .then((res) => res.json())
+      .then(function(res) {
+        if (!res.ok) {
+          res.json().then(s => alert('Erreur : ' + s.message));
+          throw res;
+        }
+        return res.json();
+      })
       .then((res) => {
         console.log(res);
-        alert('parcours ajouté');
-      });
+        alert('Lien bien ajouté :)');
+      }).catch(e => console.error(e));
   };
 
 
