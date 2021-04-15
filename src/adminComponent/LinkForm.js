@@ -75,6 +75,11 @@ class LinkForm extends Component {
       alert("Il y a des doublons dans le chemin")
       return;
     }
+
+    if(this.state.memory_ids.includes(0)){
+      alert("Certains souvenir n'ont pas été defini. Un champ ou plusieurs sont vides.")
+      return;
+    }
     // if (this.state.trail === '') {
     //   alert(' le mot clef ne peut pas être vide');
     //   return;
