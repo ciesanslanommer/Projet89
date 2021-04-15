@@ -215,6 +215,7 @@ class Admin extends Component {
         .then(
           (result) => {
             console.log('Souvenir suprimé', result);
+            this.componentDidMount();
           },
         );
       }
