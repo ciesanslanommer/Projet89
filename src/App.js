@@ -234,7 +234,7 @@ class App extends PureComponent {
     let res;
     this.state.trail.forEach(trail => {
       if(trail.parcours===this.state.currentTrail) {
-        res = {parcours: trail.parcours, path: trail.path};
+        res = {parcours: trail.parcours, path: trail.path, entry_message: trail.entry_message};
       }
     });
     return res;

@@ -70,7 +70,7 @@ class Entry extends Component {
                     <br />
                     <b>{currentTrail.parcours}</b>.
                 </p>
-                <p>Le désordre des choses, le point de bascule ou la violence d’un trouble. Dans le bouleversement, il y a l’idée d’appuyer avec force d’un côté pour provoquer un changement de l’autre côté.</p>
+                <p><i>{currentTrail.entry_message}</i></p>
                 <p>
                     Bon cheminement au fil des souvenirs.
                     <br />
