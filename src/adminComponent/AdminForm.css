@@ -67,9 +67,9 @@ body {
   height: 100%;
 }
 
-textarea,
-select,
-input {
+.adminBody textarea,
+.adminBody select,
+.adminBody input {
   border-radius: 5px;
   outline: none;
   padding: 5px;
@@ -116,14 +116,14 @@ select {
   color: rgb(51, 26, 6);
 }
 
-h2{
+.adminBody h2{
   margin: 0;
   margin-top: 1em;
   display: flex;
   align-items: center;
 }
 
-h2::after {
+.adminBody h2::after {
   content: '';
   flex: 1;
   margin-left: 1rem;
