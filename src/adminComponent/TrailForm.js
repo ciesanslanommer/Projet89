@@ -1,5 +1,6 @@
 import { React, Component } from 'react';
 import { ENDPOINT_API } from '../constants/endpoints';
+const classNames = require('classnames');
 
 class TrailForm extends Component {
   constructor(props) {
@@ -143,22 +144,45 @@ class TrailForm extends Component {
           <label>
             Choisir une icone <abbr> * </abbr>
           </label>
-          <select
-            name='icons'
-            id='icon_id'
-            value = {this.state.icon_id}
-            onChange={(e) => this.getValue('icon_id', e)}
-          >
-            {this.props.icon.map((icon) => {
-              if (icon.istrailicon)
-                return (
-                  <option key={icon.id} value={icon.id}>
-                    {icon.name}
-                  </option>
-                );
-              else return null;
-            })}
-          </select>
+
+          <div>
+            {
+              this.props.icon.map((icon) => {
+               if (icon.istrailicon) {
+                  return <img
+                    className={classNames('admin-icon', 'admin-icon-trail', { 'selected': icon.id === this.state.icon_id })}
+                    src={require('../assets/' + icon.path).default}
+                    alt='icon'
+                    title={icon.name}
+                    onClick={e => this.setState({ icon_id: icon.id })}
+                  />
+               }
+                return null;
+             })
+           }
+         </div>
+         {
+          typeof this.state.icon_id === 'number' && `Vous avez choisi l'icone ${this.props.icon.filter(e => e.id === this.state.icon_id).map(e => e.name)}.`
+         }
+
+{
+          // <select
+          //   name='icons'
+          //   id='icon_id'
+          //   value = {this.state.icon_id}
+          //   onChange={(e) => this.getValue('icon_id', e)}
+          // >
+          //   {this.props.icon.map((icon) => {
+          //     if (icon.istrailicon)
+          //       return (
+          //         <option key={icon.id} value={icon.id}>
+          //           {icon.name}
+          //         </option>
+          //       );
+          //     else return null;
+          //   })}
+          // </select>
+}
           {/* <label>Quel sera son premier souvenir ?</label>
           <select
             name='memories'

@@ -60,7 +60,7 @@ class Admin extends Component {
         }
       );
 
-    console.log(`Fetching souvenirs from ${ENDPOINT_API}/icon/`);
+    console.log(`Fetching icons from ${ENDPOINT_API}/icon/`);
     fetch(ENDPOINT_API + '/icon')
       .then((res) => res.json())
       .then(
@@ -369,7 +369,7 @@ class Admin extends Component {
         {this.state.createTrail && (
           <TrailForm
             icon={this.state.icons}
-            firsticon={this.state.icons[0].id}
+            firsticon={this.state.icons.length ? this.state.icons[0].id : ''}
             update = {false}
             trail = {undefined}
             token = {this.state.token}

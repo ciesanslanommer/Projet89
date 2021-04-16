@@ -4,3 +4,27 @@
     padding: 0;
     margin: 0;
 }
+
+.admin-icon {
+    padding: 10px;
+}
+
+.admin-icon-node {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.admin-icon-trail {
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.admin-icon:hover {
+	border: 1px solid rgb(57,234, 234);
+    border-radius: 10px;
+}
+
+.admin-icon.selected {
+    border: 1px solid white;
+    border-radius: 10px;
+}

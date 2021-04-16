@@ -3,6 +3,8 @@ import AddKeyword from './AddKeyword.js';
 
 import { ENDPOINT_API } from '../constants/endpoints';
 
+const classNames = require('classnames');
+
 class MemoryForm extends Component {
   constructor(props) {
     super(props);
@@ -466,21 +468,42 @@ class MemoryForm extends Component {
               onChange={(e) => this.getValue('contributeur', e)}
               value={this.state.contributeur}
             />
+
             <label>Icone de souvenir </label>
-            <select
-              name='icons'
-              id='icon_id'
-              value={this.state.icon_id}
-              onChange={(e) => this.getValue('icon_id', e)}
-            >
-              {icons.map((icon) => {
-                return (
-                  <option key={icon.id} value={icon.id}>
-                    {icon.name}
-                  </option>
-                );
-              })}
-            </select>
+            
+            <div>
+              {
+                icons.map((icon) => <img
+                  className={classNames('admin-icon', 'admin-icon-node', { 'selected': icon.id === this.state.icon_id })}
+                  src={require('../assets/' + icon.path).default}
+                  alt='icon'
+                  title={icon.name}
+                  onClick={e => this.setState({ icon_id: icon.id })}
+                />)
+             }
+           </div>
+           {
+            typeof this.state.icon_id === 'number' && `Vous avez choisi l'icone ${icons.filter(e => e.id === this.state.icon_id).map(e => e.name)}.`
+           }
+            {
+
+              // <select
+              //   name='icons'
+              //   id='icon_id'
+              //   value={this.state.icon_id}
+              //   onChange={(e) => this.getValue('icon_id', e)}
+              // >
+              //   {icons.map((icon) => {
+              //     return (
+              //       <option key={icon.id} value={icon.id}>
+              //         {icon.name}
+              //       </option>
+              //     );
+              //   })}
+              // </select>
+            }
+
+
             {/* <label>
               Ordre d'apparence <abbr> * </abbr>
             </label>
