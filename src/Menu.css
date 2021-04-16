@@ -55,6 +55,7 @@
   padding: 0;
   z-index: 10000;
   box-shadow: none;
+  margin: 40px;
 }
 
 #burger-button div {
