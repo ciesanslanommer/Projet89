@@ -5,6 +5,14 @@
   display: grid;
   grid-template-rows: auto min-content 15vh;
 }
+
+@media all and (max-width: 800px) {
+    .souvenir {
+      position: absolute;
+      width: 100%;
+    }
+}
+
 .souvenir p {
   text-align: center;
   text-align: justify;

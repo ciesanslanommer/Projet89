@@ -9,6 +9,14 @@
     transform: translate(-50%, -50%); 
 }
 
+@media all and (max-width: 950px) {
+    #mainpopup {
+        top: 10px;
+        transform: translate(-50%);
+    }
+}
+
+
 /* #popup p, #popup h2{
     color: white;
 } */
