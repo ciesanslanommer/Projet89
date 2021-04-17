@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.319bce66.chunk.css",
+    "main.css": "/static/css/main.6117e808.chunk.css",
     "main.js": "/static/js/main.e69d9bb5.chunk.js",
     "main.js.map": "/static/js/main.e69d9bb5.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.50bc23a1.js",
@@ -10,7 +10,7 @@
     "static/js/3.fad3349d.chunk.js": "/static/js/3.fad3349d.chunk.js",
     "static/js/3.fad3349d.chunk.js.map": "/static/js/3.fad3349d.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.319bce66.chunk.css.map": "/static/css/main.319bce66.chunk.css.map",
+    "static/css/main.6117e808.chunk.css.map": "/static/css/main.6117e808.chunk.css.map",
     "static/js/2.17bc4494.chunk.js.LICENSE.txt": "/static/js/2.17bc4494.chunk.js.LICENSE.txt",
     "static/media/amnesie.png": "/static/media/amnesie.4aa8497a.png",
     "static/media/amnesie_petit.png": "/static/media/amnesie_petit.8f94e1aa.png",
@@ -43,7 +43,7 @@
   "entrypoints": [
     "static/js/runtime-main.50bc23a1.js",
     "static/js/2.17bc4494.chunk.js",
-    "static/css/main.319bce66.chunk.css",
+    "static/css/main.6117e808.chunk.css",
     "static/js/main.e69d9bb5.chunk.js"
   ]
 }
