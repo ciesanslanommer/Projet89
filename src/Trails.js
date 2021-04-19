@@ -8,10 +8,6 @@ import Entry from './Entry.js';
 
 const myConfig = {
   nodeHighlightBehavior: true,
-  width: 400,
-  initialZoom: 1,
-  // staticGraphWithDragAndDrop: false,
-  staticGraph : true,
   highlightDegree: 0,
   minZoom: 0.1,
   maxZoom: 3,
@@ -75,6 +71,7 @@ class Trails extends PureComponent {
       zoom: 1,
       freeze: false,
       customZoomsToIgnore: [],
+      staticGraph: false,
     };
   }
 
@@ -120,9 +117,8 @@ class Trails extends PureComponent {
     this.measure();
     /** After 100 ms, graph becomes static **/
     setTimeout(() => {
-      myConfig.staticGraph = true;
-      myConfig.freeze = false;
-    }, 100);
+      this.setState({ staticGraph: true })
+    }, 4000);
     /** Fill nodesByTrails object **/
     this.fillNodesAndLinksByTrails();
 
@@ -492,6 +488,7 @@ class Trails extends PureComponent {
       myConfig.node.viewGenerator = this.customNodeGenerator;
       myConfig.initialZoom = this.state.zoom;
       myConfig.freezeAllDragEvents = this.state.freeze;
+      myConfig.staticGraph = this.state.staticGraph;
       // style={{ backgroundImage: "url(" + Background + ")" }}
 
       return (
