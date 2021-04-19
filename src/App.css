@@ -20,7 +20,13 @@
 #id-graph-wrapper svg {
   height: 100vh;
   width: 100vw;
+  transition: opacity 2s;
 } 
+
+/* when loading, waiting for final d3 position, set opacity to 0 */
+.Graph.initializing #id-graph-wrapper svg {
+  opacity: 0;
+}
 
 .example-enter {
   opacity: 0.01;
@@ -38,4 +44,15 @@
 example-leave-active {
   opacity: 0.01;
   transition: opacity 1000ms ease-in;
+}
+
+
+#loading {
+  color: white;
+  font-family: 'Bree Serif', serif;
+  font-size: 2em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
 }

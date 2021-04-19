@@ -6,15 +6,17 @@ import CustomNode from './CustomNode.js';
 import Zoom from './Zoom.js';
 import Entry from './Entry.js';
 
+const classNames = require('classnames');
+
 const myConfig = {
+  width: window.innerWidth,
+  height: window.innerHeight,
   nodeHighlightBehavior: true,
   highlightDegree: 0,
   minZoom: 0.1,
   maxZoom: 3,
   focusZoom: 2,
   focusAnimationDuration: 0.75,
-  freezeAllDragEvents: true,
-  // directed: true,
   node: {
     color: 'lightgreen',
     size: 1800,
@@ -66,12 +68,11 @@ class Trails extends PureComponent {
       ),
       links: this.props.links,
       focusedNodeId: null,
-      width: 0,
-      height: 0,
-      zoom: 1,
+      zoom: 0.7,
       freeze: false,
       customZoomsToIgnore: [],
       staticGraph: false,
+      initializing: true,
     };
   }
 
@@ -79,12 +80,14 @@ class Trails extends PureComponent {
     nodes.forEach((node) => {
       node.visited = false;
       node.visible = true;
-      if (!node.pos_x) {
-        node.pos_x = Math.floor(Math.random() * 1000);
-        node.pos_y = Math.floor(Math.random() * 1000);
-      }
-      node.x = node.pos_x;
-      node.y = node.pos_y;
+      // if (!node.pos_x) {
+      //   node.pos_x = Math.floor(Math.random() * 1000);
+      //   node.pos_y = Math.floor(Math.random() * 1000);
+      // }
+      // node.x = node.pos_x;
+      // node.y = node.pos_y;
+      delete node.x;
+      delete node.y;
 
       node.entry = false;
       delete node.pos_x;
@@ -98,6 +101,8 @@ class Trails extends PureComponent {
     trail.forEach((trail) => {
       if (!trail.zoom) trail.zoom = 0.1;
       trail.entry = true;
+      delete trail.x;
+      delete trail.y;
     });
     // console.log(nodes.concat(trail));
     return nodes.concat(trail);
@@ -105,20 +110,25 @@ class Trails extends PureComponent {
 
   // ************************************************************* RESIZING
 
-  componentWillMount() {
-    window.addEventListener('resize', this.measure, false);
-  }
+  // componentWillMount() {
+  //   window.addEventListener('resize', this.measure, false);
+  // }
   
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.measure, false);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.measure, false);
+  // }
 
   componentDidMount() {
     this.measure();
     /** After 100 ms, graph becomes static **/
     setTimeout(() => {
-      this.setState({ staticGraph: true })
-    }, 4000);
+      this.setState({
+        staticGraph: true,
+        freeze: false,
+        initializing: false,
+      })
+      this.props.onInitializingFinished();
+    }, 7000);
     /** Fill nodesByTrails object **/
     this.fillNodesAndLinksByTrails();
 
@@ -151,17 +161,17 @@ class Trails extends PureComponent {
   }
 
   measure = (e) => {
-    let rect = {
-      width: document.getElementsByClassName('Graph')[0].clientWidth,
-      height: document.getElementsByClassName('Graph')[0].clientHeight,
-    };
+    // let rect = {
+    //   width: document.getElementsByClassName('Graph')[0].clientWidth,
+    //   height: document.getElementsByClassName('Graph')[0].clientHeight,
+    // };
 
-    if (this.state.width !== rect.width || this.state.height !== rect.height) {
-      this.setState({
-        width: rect.width,
-        height: rect.height,
-      });
-    }
+    // if (this.state.width !== rect.width || this.state.height !== rect.height) {
+    //   this.setState({
+    //     width: rect.width,
+    //     height: rect.height,
+    //   });
+    // }
   }
 
   // ************************************************************* UTILS
@@ -483,17 +493,17 @@ class Trails extends PureComponent {
 
     render() {
       // console.log('trails render');
-      myConfig.width = this.state.width;
-      myConfig.height = this.state.height;
+      // myConfig.width = this.state.width;
+      // myConfig.height = this.state.height;
+
       myConfig.node.viewGenerator = this.customNodeGenerator;
       myConfig.initialZoom = this.state.zoom;
       myConfig.freezeAllDragEvents = this.state.freeze;
       myConfig.staticGraph = this.state.staticGraph;
-      // style={{ backgroundImage: "url(" + Background + ")" }}
 
       return (
         <div
-          className='Graph'
+          className={classNames('Graph', { initializing: this.state.initializing })}
           style={{ backgroundImage: 'url(' + Background + ')' }}
         >
           <Zoom
