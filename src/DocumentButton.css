@@ -6,6 +6,8 @@
     display: grid;
     grid-template-areas: "prevText docButton nextText";
     grid-template-columns:  1fr auto 1fr;
+    margin-top: auto;
+    margin-bottom: 20px;
 }
 .buttontext-previous {
     grid-area: prevText;
