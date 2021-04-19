@@ -170,8 +170,8 @@ class App extends PureComponent {
     const boundNode = node.getBoundingClientRect();
     this.setState({
       previewOpen: {
-        x: boundNode.x,
-        y: boundNode.y,
+        x: boundNode.x - boundNode.width / 2,
+        y: boundNode.y + boundNode.height / 2,
         sizeNode: boundNode.width,
         name: name,
         desc: desc,
