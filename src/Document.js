@@ -455,6 +455,7 @@ class Document extends PureComponent {
             {this.props.arrowText}
             <div className='docbuttons'>
               {this.state.sources.map((source) => (
+                source.parcours && source.parcours[0] &&
                 !source.parcours[0].entry &&
                 <DocumentButton
                   key={source.id}
