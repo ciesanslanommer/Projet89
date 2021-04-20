@@ -120,7 +120,6 @@ class TrailForm extends Component {
             name='entry_message'
             rows='15'
             cols='70'
-            maxLength='95'
             onChange={(e) => this.getValue('entry_message', e)}
           >
             {this.state.entry_message}
@@ -134,7 +133,6 @@ class TrailForm extends Component {
             //   name='exit_message'
             //   row='3'
             //   cols='33'
-            //   maxLength='95'
             //   onChange={(e) => this.getValue('exit_message', e)}
             // >
             //   {this.state.exit_message}
