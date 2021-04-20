@@ -11,7 +11,7 @@ const myConfig = {
   width: 400,
   initialZoom: 1,
   // staticGraphWithDragAndDrop: false,
-  staticGraph : true,
+  staticGraph : false,
   highlightDegree: 0,
   minZoom: 0.1,
   maxZoom: 3,
