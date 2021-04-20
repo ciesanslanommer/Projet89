@@ -304,7 +304,7 @@ class Admin extends Component {
                   {this.state.memories.map((memory) => {
                     return (
                       <option key={memory.id} value={memory.id}>
-                        {memory.name}
+                        {`${memory.name} (id:${memory.id})`}
                       </option>
                     );
                   })}
@@ -314,7 +314,7 @@ class Admin extends Component {
                   {this.state.trails.map((trail) => {
                     return (
                       <option key={trail.id} value={trail.id}>
-                        {trail.parcours}
+                        {`${trail.parcours} (id:${trail.id})`}
                       </option>
                     );
                   })}
@@ -330,7 +330,7 @@ class Admin extends Component {
                     {this.state.trails.map((trail) => {
                       return (
                         <option key={trail.id} value={trail.id}>
-                          {trail.parcours}
+                          {`${trail.parcours} (id:${trail.id})`}
                         </option>
                       );
                     })}
@@ -346,7 +346,7 @@ class Admin extends Component {
                     {this.state.memories.map((memory) => {
                       return (
                         <option key={memory.id} value={memory.id}>
-                          {memory.name}
+                          {`${memory.name} (id:${memory.id})`}
                         </option>
                       );
                     })}
@@ -362,7 +362,7 @@ class Admin extends Component {
                     {this.state.trails.map((trail) => {
                       return (
                         <option key={trail.id} value={trail.id}>
-                          {trail.name}
+                          {`${trail.parcours} (id:${trail.id})`}
                         </option>
                       );
                     })}
