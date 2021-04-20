@@ -194,11 +194,11 @@ class Admin extends Component {
     const memoryName = this.state.memories.filter((memory) => memory.id === Number(idToDelete))[0].name;
     const trails = this.state.trailByMemory[idToDelete];
     if (trails) {
-      alert("Le souvenir ne peut pas être suprimé car il se trouve dans un parcours. Si vous souhaitez le supprimer, essayez d'abord de le retirer de ses parcours.")
+      alert("Le souvenir ne peut pas être supprimé car il se trouve dans un parcours. Si vous souhaitez le supprimer, essayez d'abord de le retirer de ses parcours.")
       return;
     }
     // eslint-disable-next-line no-restricted-globals
-    const confirmed  = confirm("Le souvenir " + memoryName + " va etre suprimer. Il n'y a pas de retour en arrière. Êtes vous sûr de vouloir suprimer le souvenir? ")
+    const confirmed  = confirm("Le souvenir " + memoryName + " va être supprimé. Il n'y a pas de retour en arrière. Êtes vous sûr de vouloir supprimer le souvenir? ")
     if (confirmed){
       console.log(idToDelete);
       console.log(memoryName);
@@ -324,7 +324,6 @@ class Admin extends Component {
               </div>
             </div>
 
-
             {/* <div>
               <button
                 type='button'
@@ -382,7 +381,7 @@ class Admin extends Component {
             memory={this.state.memories.find(
               (mem) => mem.id === Number(this.state.idMemoryToUpdate)
             )}
-            token = {this.props.token}
+            token = {this.state.token}
           />
         )}
 

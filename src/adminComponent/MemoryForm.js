@@ -469,7 +469,7 @@ class MemoryForm extends Component {
               value={this.state.contributeur}
             />
 
-            <label>Icone de souvenir </label>
+            <label>Icône de souvenir </label>
             
             <div>
               {

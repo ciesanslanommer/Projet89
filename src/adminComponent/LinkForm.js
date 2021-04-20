@@ -120,7 +120,7 @@ class LinkForm extends Component {
     return (
     this.state.pathLoaded && 
       <div className='mainContainer'>
-        <h2>Lier les couvenirs de  {this.props.trail.parcours}</h2>
+        <h2>Lier les souvenirs de  {this.props.trail.parcours}</h2>
         <div className='newTrail mainContainer'>
           {this.state.memory_ids.map((id, index)=> 
             <div>
