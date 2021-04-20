@@ -40,12 +40,12 @@ class Admin extends Component {
   // exemple from https://reactjs.org/docs/faq-ajax.html
   // To be adapted to our app
   componentDidMount() {
-    console.log(`Fetching trail from ${ENDPOINT_API}/trail/`);
+    //console.log(`Fetching trail from ${ENDPOINT_API}/trail/`);
     fetch(ENDPOINT_API + '/trail')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! trail = ', result);
+          //console.log('Success! trail = ', result);
           this.setState({
             trail: result,
             trailLoaded: true,
@@ -60,12 +60,12 @@ class Admin extends Component {
         }
       );
 
-    console.log(`Fetching icons from ${ENDPOINT_API}/icon/`);
+    //console.log(`Fetching icons from ${ENDPOINT_API}/icon/`);
     fetch(ENDPOINT_API + '/icon')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! icon = ', result);
+          //console.log('Success! icon = ', result);
           this.setState({
             icons: result,
             iconLoaded: true,
@@ -79,12 +79,12 @@ class Admin extends Component {
           // TODO maybe display an error for the user?
         }
       );
-    console.log(`Fetching memory from ${ENDPOINT_API}/memories/`);
+    //console.log(`Fetching memory from ${ENDPOINT_API}/memories/`);
     fetch(ENDPOINT_API + '/memories')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! memory = ', result);
+          //console.log('Success! memory = ', result);
           this.setState({
             memories: [...result],
             memoriesLoaded: true,
@@ -99,12 +99,12 @@ class Admin extends Component {
         }
       );
 
-    console.log(`Fetching memory from ${ENDPOINT_API}/trailbymemory/`);
+    //console.log(`Fetching memory from ${ENDPOINT_API}/trailbymemory/`);
     fetch(ENDPOINT_API + '/trailbymemory')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! trailbymem = ', result);
+          //console.log('Success! trailbymem = ', result);
           this.setState({
             trailByMemory: result,
             trailByMemoryLoaded: true,
@@ -124,12 +124,12 @@ class Admin extends Component {
 
   loadTrail = () => {
     this.setState({ trailsLoaded: false });
-    console.log(`Fetching keyword from ${ENDPOINT_API}/trail/`);
+    //console.log(`Fetching keyword from ${ENDPOINT_API}/trail/`);
     fetch(ENDPOINT_API + '/trail')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! trail = ', result);
+          //console.log('Success! trail = ', result);
           this.setState({
             trails: result,
             trailsLoaded: true,
@@ -200,10 +200,10 @@ class Admin extends Component {
     // eslint-disable-next-line no-restricted-globals
     const confirmed  = confirm("Le souvenir " + memoryName + " va être supprimé. Il n'y a pas de retour en arrière. Êtes vous sûr de vouloir supprimer le souvenir ? ")
     if (confirmed){
-      console.log(idToDelete);
-      console.log(memoryName);
-      console.log(trails);
-      console.log(`delete souvenirs from ${ENDPOINT_API}/memory/${idToDelete}`);
+      //console.log(idToDelete);
+      //console.log(memoryName);
+      //console.log(trails);
+      //console.log(`delete souvenirs from ${ENDPOINT_API}/memory/${idToDelete}`);
       fetch(ENDPOINT_API + '/memory/' + idToDelete, {
         method : "DELETE",
         headers: {

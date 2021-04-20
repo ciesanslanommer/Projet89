@@ -12,12 +12,12 @@ class ManageLinkMemory extends Component {
     };
   }
   componentDidMount() {
-    console.log(`Fetching trail from ${ENDPOINT_API}/trailbymemory/`);
+    //console.log(`Fetching trail from ${ENDPOINT_API}/trailbymemory/`);
     fetch(ENDPOINT_API + '/trailbymemory')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! trail by memory = ', result);
+          //console.log('Success! trail by memory = ', result);
           this.setState({
             trailByMemory: result,
             loaded: true,
@@ -35,14 +35,14 @@ class ManageLinkMemory extends Component {
 
   getValue = (event) => {
     let value = event.target.value;
-    console.log(value);
+    //console.log(value);
     this.setState({ target_id: value });
   };
 
   postRequest(memory_id, event) {
     let first = document.getElementById(memory_id + '-first').value;
     let second = document.getElementById(memory_id + '-second').value;
-    console.log(first, second);
+    //console.log(first, second);
     /*~~~~~~~~ Delete Request ~~~~~~~~*/
 
     fetch(ENDPOINT_API + '/trailsfrommemory/' + memory_id, {
@@ -99,7 +99,7 @@ class ManageLinkMemory extends Component {
                 return res.json();
               })
               .then((res) => {
-                console.log(res);
+                //console.log(res);
                 alert('Le lien a bien été enregistré :)');
                 this.componentDidMount();
               }).catch(e => console.error(e))
@@ -108,7 +108,7 @@ class ManageLinkMemory extends Component {
   }
 
   render() {
-    console.log(this.state.trails);
+    //console.log(this.state.trails);
     const trails = this.state.trails;
     const memories = this.state.memories;
     const loaded = this.state.loaded;

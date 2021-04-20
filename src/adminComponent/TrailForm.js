@@ -16,8 +16,8 @@ class TrailForm extends Component {
 
   getValue = (stateKey, event) => {
     let value = event.target.value;
-    console.log();
-    console.log(value);
+    //console.log();
+    //console.log(value);
     this.setState({ [stateKey]: value });
   };
 
@@ -50,7 +50,7 @@ class TrailForm extends Component {
           return res.json();
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         alert('Parcours bien ajouté :)');
       }).catch(e => console.error(e));
   };
@@ -82,7 +82,7 @@ class TrailForm extends Component {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         alert('Le parcours a bien été mis à jour :)');
       }).catch(e => console.error(e));
   };

@@ -51,12 +51,12 @@ class MemoryForm extends Component {
   }
   componentDidMount() {
     // TODO display a loader when not loaded yet?
-    console.log(`Fetching souvenirs from ${ENDPOINT_API}/icon/`);
+    //console.log(`Fetching souvenirs from ${ENDPOINT_API}/icon/`);
     fetch(ENDPOINT_API + '/icon')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! icon = ', result);
+          //console.log('Success! icon = ', result);
           this.setState({
             icons: result,
             iconLoaded: true,
@@ -71,12 +71,12 @@ class MemoryForm extends Component {
         }
       );
 
-    console.log(`Fetching memory from ${ENDPOINT_API}/memories/`);
+    //console.log(`Fetching memory from ${ENDPOINT_API}/memories/`);
     fetch(ENDPOINT_API + '/memories')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! submemory = ', result);
+          //console.log('Success! submemory = ', result);
           this.setState({
             memories: [...result],
             memoriesLoaded: true,
@@ -96,12 +96,12 @@ class MemoryForm extends Component {
 
   loadKeyword = () => {
     this.setState({ keywordLoaded: false });
-    console.log(`Fetching keyword from ${ENDPOINT_API}/keyword/`);
+    //console.log(`Fetching keyword from ${ENDPOINT_API}/keyword/`);
     fetch(ENDPOINT_API + '/keyword')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! keyword = ', result);
+          //console.log('Success! keyword = ', result);
           this.setState({
             keywords: result,
             keywordLoaded: true,
@@ -119,12 +119,12 @@ class MemoryForm extends Component {
 
   loadTrail = () => {
     this.setState({ trailsLoaded: false });
-    console.log(`Fetching keyword from ${ENDPOINT_API}/trail/`);
+    //console.log(`Fetching keyword from ${ENDPOINT_API}/trail/`);
     fetch(ENDPOINT_API + '/trail')
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! trail = ', result);
+          //console.log('Success! trail = ', result);
           this.setState({
             trails: result,
             trailsLoaded: true,
@@ -148,7 +148,7 @@ class MemoryForm extends Component {
   getFile = (e) => {
     if (e.target.files[0]) {
       const fsize = e.target.files[0].size;
-      console.log("fsize", fsize)
+      //console.log("fsize", fsize)
 
       if (Math.round(fsize / 1024) > 5000) {
         alert('File is too large: limit is 5mb');
@@ -174,43 +174,43 @@ class MemoryForm extends Component {
   };
 
   addElements = (stateKey) => {
-    console.log(stateKey);
+    //console.log(stateKey);
     this.setState({ [stateKey]: true });
     if (stateKey === 'createKeyword') this.closeButtonK();
     if (stateKey === 'createTrail') this.closeButtonT();
   };
 
   isChecked = (stateKey, e) => {
-    console.log(stateKey);
+    //console.log(stateKey);
     let isChecked = e.target.checked;
     let id = e.target.id;
-    console.log(isChecked, id);
+    //console.log(isChecked, id);
     let tab = [...this.state[stateKey]];
     if (isChecked) {
       tab.push(Number(id));
-      console.log('Tab trails push : ' + tab);
+      //console.log('Tab trails push : ' + tab);
       this.setState({ [stateKey]: tab });
     } else {
       tab = tab.filter((el) => el !== id);
-      console.log(tab);
+      //console.log(tab);
       this.setState({ [stateKey]: tab });
     }
-    console.log(this.state[stateKey]);
+    //console.log(this.state[stateKey]);
   };
 
   createTabTarget = (e) => {
-    console.log(e.target);
+    //console.log(e.target);
     let value = Number(e.target.value);
     let isInState = this.state.target_id.findIndex((el) => el === value);
-    console.log(isInState);
-    console.log('this.state.target_id ' + this.state.target_id);
+    //console.log(isInState);
+    //console.log('this.state.target_id ' + this.state.target_id);
 
     if (isInState === -1) {
       const tab = [...this.state.target_id, value];
       this.setState({ target_id: tab });
     } else {
       let tabFilter = this.state.target_id.filter((target) => target !== value);
-      console.log('else' + tabFilter);
+      //console.log('else' + tabFilter);
       this.setState({ target_id: tabFilter });
     }
   };
@@ -304,7 +304,7 @@ class MemoryForm extends Component {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         // const value = '';
         // this.setState({
         //   name: value,
@@ -333,8 +333,8 @@ class MemoryForm extends Component {
 
     if (request.format === 'youtube') request.youtube = request.content;
 
-    console.log('update to do');
-    console.log(request);
+    //console.log('update to do');
+    //console.log(request);
 
     /*~~~~~~~~~~ Post Request ~~~~~~~~~*/
     fetch(ENDPOINT_API + '/memory/' + this.state.id, {
@@ -353,7 +353,7 @@ class MemoryForm extends Component {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         // const value = '';
         // this.setState({
         //   name: value,
@@ -383,7 +383,7 @@ class MemoryForm extends Component {
       subs: [],
     };
 
-    // console.log(request);
+    // //console.log(request);
     let icons = this.state.icons;
     let keywords = this.state.keywords;
     const date = this.state.contribution_date

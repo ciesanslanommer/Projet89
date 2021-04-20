@@ -11,8 +11,8 @@ class AddKeyword extends Component {
 
   getValue = (stateKey, event) => {
     let value = event.target.value;
-    console.log();
-    console.log(value);
+    //console.log();
+    //console.log(value);
     this.setState({ [stateKey]: value });
   };
 
@@ -33,7 +33,7 @@ class AddKeyword extends Component {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         const value = '';
         this.setState({
           keyword: value,

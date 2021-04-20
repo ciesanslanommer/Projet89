@@ -13,12 +13,12 @@ class LinkForm extends Component {
   }
 
   componentDidMount() {
-    console.log(`Fetching trail from ${ENDPOINT_API}/trail/`+this.props.trail.id);
+    //console.log(`Fetching trail from ${ENDPOINT_API}/trail/`+this.props.trail.id);
     fetch(ENDPOINT_API + '/trail/' + this.props.trail.id)
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! trail = ', result);
+          //console.log('Success! trail = ', result);
           this.setState({
             path: result.message ? [] : result,
             // memory_ids : result,
@@ -42,8 +42,8 @@ class LinkForm extends Component {
 
   getValue = (stateKey, event) => {
     let value = event.target.value;
-    console.log();
-    console.log(value);
+    //console.log();
+    //console.log(value);
     this.setState({ [stateKey]: value });
   };
 
@@ -54,14 +54,14 @@ class LinkForm extends Component {
   }
 
   updateMemoryPath = (e) => {
-    console.log(e.target)
+    //console.log(e.target)
     let addedMem = [...this.state.memory_ids]
     addedMem[Number(e.target.id)] = Number(e.target.value)
     this.setState({memory_ids : addedMem})
   }
 
   deleteFromMem = (e, indexToDelete) => {
-    console.log(indexToDelete);
+    //console.log(indexToDelete);
       const newArr = this.state.memory_ids.filter((id, index) => index !== indexToDelete);
       this.setState({memory_ids : newArr})
   }
@@ -103,7 +103,7 @@ class LinkForm extends Component {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         alert('Lien bien ajouté :)');
       }).catch(e => console.error(e));
   };

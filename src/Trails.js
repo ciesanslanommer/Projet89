@@ -59,8 +59,8 @@ class Trails extends PureComponent {
     //   if (!node.zoom) node.zoom = 0.1;
     // });
 
-    // console.log(this.props.nodes);
-    // console.log(this.props.links);
+    // //console.log(this.props.nodes);
+    // //console.log(this.props.links);
 
     this.state = {
       nodes: this.formatNodes(
@@ -102,7 +102,7 @@ class Trails extends PureComponent {
       if (!trail.zoom) trail.zoom = 0.1;
       trail.entry = true;
     });
-    // console.log(nodes.concat(trail));
+    // //console.log(nodes.concat(trail));
     return nodes.concat(trail);
   }
 
@@ -288,8 +288,8 @@ class Trails extends PureComponent {
     else{
       currentTrail = cpy[id].entry ? [cpy[id].parcours] : cpy[id].trails;
     }
-    console.log("HGZGNJRGNRG");
-    console.log(currentTrail);
+    //console.log("HGZGNJRGNRG");
+    //console.log(currentTrail);
     return currentTrail;
   }
 
@@ -432,7 +432,7 @@ class Trails extends PureComponent {
 
   // event handler for zoom changed from the slider
   onCustomZoomChange = (event) => {
-    // console.log('onCustomZoomChange', event.target.value);
+    // //console.log('onCustomZoomChange', event.target.value);
     if (!this.state.deactivateReactZoom) {
       this.setState((prevState) => ({
         zoom: parseFloat(event.target.value),
@@ -447,7 +447,7 @@ class Trails extends PureComponent {
 
   // event handler for zoom changed from d3 (wheel)
   onD3ZoomChange = (prevZoom, newZoom, e) => {
-    // console.log('onD3ZoomChange:', prevZoom, '=>', newZoom);
+    // //console.log('onD3ZoomChange:', prevZoom, '=>', newZoom);
     const strZoom = '' + newZoom;
     // if this zoom value was already handled by the slider, do not set new zoom value to prevent infinite re-rendering
     if (this.state.customZoomsToIgnore.includes(strZoom)) {
@@ -466,7 +466,7 @@ class Trails extends PureComponent {
 
   // event handler for slider zoom start:  disable d3 zoom
   onCustomZoomMouseDown = (event) => {
-    // console.log('onCustomZoomMouseDown', event.target.value);
+    // //console.log('onCustomZoomMouseDown', event.target.value);
     this.setState({
       deactivateReactZoom: false,
       deactivateD3Zoom: true,
@@ -476,7 +476,7 @@ class Trails extends PureComponent {
 
   // event handler for slider zoom end: re-enable d3 zoom
   onCustomZoomMouseUp = (event) => {
-    // console.log('onCustomZoomMouseUp', event.target.value);
+    // //console.log('onCustomZoomMouseUp', event.target.value);
     this.setState({
       deactivateReactZoom: true,
       deactivateD3Zoom: false,
@@ -486,7 +486,7 @@ class Trails extends PureComponent {
   // *************************************************************
 
     render() {
-      // console.log('trails render');
+      // //console.log('trails render');
       myConfig.width = this.state.width;
       myConfig.height = this.state.height;
       myConfig.node.viewGenerator = this.customNodeGenerator;

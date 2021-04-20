@@ -12,7 +12,7 @@ class ManageLink extends Component {
 
   putRequest(trail_id, event) {
     let value = event.target.value;
-    console.log(value);
+    //console.log(value);
 
     /*~~~~~~~~~~ Put Request ~~~~~~~~~*/
     fetch(ENDPOINT_API + '/updatetargetid/' + trail_id, {
@@ -31,7 +31,7 @@ class ManageLink extends Component {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         // const value = '';
         // this.setState({
         //   name: value,
@@ -44,7 +44,7 @@ class ManageLink extends Component {
   }
 
   render() {
-    console.log(this.state.trails);
+    //console.log(this.state.trails);
     const trails = this.state.trails;
     const memories = this.state.memories;
     return (

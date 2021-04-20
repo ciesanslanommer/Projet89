@@ -39,7 +39,7 @@ class Login extends Component {
       .then((res) => {
         this.setState({ loading: false });
         if (res.token) {
-          console.log("authentication success!")
+          //console.log("authentication success!")
           this.props.setToken(res.token);
         } else if (res.message || res.error) {
           const error = res.message || res.error;

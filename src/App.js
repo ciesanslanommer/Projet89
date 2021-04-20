@@ -49,7 +49,7 @@ class App extends PureComponent {
       trailByMem = 'trailbymemory'
     }
 
-    console.log('Fetching from' + node);
+    ////console.log('Fetching from' + node);
     fetch(path + node, {
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ class App extends PureComponent {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! node = ', result);
+          ////console.log('Success! node = ', result);
           this.setState({
             node: result,
             nodeLoaded: true,
@@ -74,7 +74,7 @@ class App extends PureComponent {
         }
       );
 
-    console.log('Fetching ' + link);
+    ////console.log('Fetching ' + link);
     fetch(path + link, {
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ class App extends PureComponent {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! link = ', result);
+          //console.log('Success! link = ', result);
           this.setState({
             link: result,
             linkLoaded: true,
@@ -99,7 +99,7 @@ class App extends PureComponent {
         }
       );
 
-    console.log('Fetching ' + trail);
+    ////console.log('Fetching ' + trail);
     fetch(path + trail, {
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ class App extends PureComponent {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! trail = ', result);
+          //console.log('Success! trail = ', result);
           this.setState({
             trail: result,
             trailLoaded: true,
@@ -124,7 +124,7 @@ class App extends PureComponent {
         }
       );
 
-    console.log('Fetching ' + trailByMem);
+    ////console.log('Fetching ' + trailByMem);
     fetch(path + trailByMem, {
       headers: {
         'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ class App extends PureComponent {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log('Success! trail by memory = ', result);
+          //console.log('Success! trail by memory = ', result);
           this.setState({
             trailByMemory: result,
             trailByMemoryLoaded: true,
@@ -285,8 +285,8 @@ class App extends PureComponent {
       this.state.trailByMemoryLoaded &&
       this.state.trailLoaded;
     // const adminLoaded = this.state.trailLoaded;
-    // console.log('trailloaded?', trailloaded);
-    console.log(this.formattedCurrentTrail());
+    // //console.log('trailloaded?', trailloaded);
+    //console.log(this.formattedCurrentTrail());
     return (
       <div className='App'>
         {

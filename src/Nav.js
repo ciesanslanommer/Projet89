@@ -27,7 +27,7 @@ class Nav extends PureComponent {
         if (event.key === 'Enter') {
             event.preventDefault(); 
             //send request to app
-            console.log(this.state.request + " valeur de request ");
+            //console.log(this.state.request + " valeur de request ");
         }
     };
 

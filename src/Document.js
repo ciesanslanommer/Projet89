@@ -189,14 +189,14 @@ class Document extends PureComponent {
   getTrailById = (id) => {
     let trail = [];
     if (this.props.trailByMemory[id]) {
-      // console.log(this.props.trailByMemory[id]);
+      // //console.log(this.props.trailByMemory[id]);
       this.props.trailByMemory[id].forEach((el) => {
         const obj = { parcours: el.name, path: el.path, entry: el.entry };
         trail.push(obj);
       });
     }
-    // console.log('les parcours du doc');
-    // console.log(trail);
+    // //console.log('les parcours du doc');
+    // //console.log(trail);
     return trail;
   };
 
@@ -242,7 +242,7 @@ class Document extends PureComponent {
 
 
     // // TODO display a loader when not loaded yet?
-    // console.log(
+    // //console.log(
     //   `Fetching souvenirs from ${ENDPOINT_API}/memory/${this.props.id}`
     // );
     const memoryPath = (this.props.isPreviewGraph)
@@ -258,7 +258,7 @@ class Document extends PureComponent {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(`Success! memory ${this.props.id} = `, result);
+          //console.log(`Success! memory ${this.props.id} = `, result);
           this.setState({
             memory: { ...result },
             loadedMemory: true,
@@ -282,7 +282,7 @@ class Document extends PureComponent {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(`Success! submemory ${this.props.id} = `, result);
+          //console.log(`Success! submemory ${this.props.id} = `, result);
           this.setState({
             subs: result,
             loadedSubs: true,
