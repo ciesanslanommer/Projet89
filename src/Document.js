@@ -446,6 +446,9 @@ class Document extends PureComponent {
                   )}
                 </div>
               )}
+              {
+                this.state.memory.caption && (<p>{this.state.memory.caption}</p>)
+              }
             </div>
           </div>
         

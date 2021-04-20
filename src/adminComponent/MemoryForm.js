@@ -13,6 +13,7 @@ class MemoryForm extends Component {
       description: '',
       format: 'image',
       content: null,
+      caption: '',
       icon_id: '',
       target_id: [],
       contribution_date: '',
@@ -371,6 +372,7 @@ class MemoryForm extends Component {
       description: this.state.description,
       format: this.state.format,
       content: this.state.content,
+      caption: this.state.caption,
       icon_id: this.state.icon_id,
       contributeur: this.state.contributeur,
       contribution_date: this.state.contribution_date,
@@ -451,6 +453,19 @@ class MemoryForm extends Component {
               <option value='audio'>Audio</option>
             </select>
             {this.displayDoc(this.state.format)}
+
+            <label>
+              Légende (facultatif)
+            </label>
+            <textarea
+              name='caption'
+              rows='15'
+              cols='70'
+              onChange={(e) => this.getValue('caption', e)}
+            >
+              {this.state.caption}
+            </textarea>
+
             <label>
               Date de contribution <abbr> * </abbr>
             </label>
