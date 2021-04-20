@@ -311,7 +311,7 @@ class App extends PureComponent {
         <Menu onClick={this.onClickOnMenu} />
 
         {
-          !this.state.readyToShowGraph && !this.props.preview && <div id='loading'>Chargement en cours...</div>
+          !this.state.readyToShowGraph && <div id='loading'>Chargement en cours...</div>
         }
 
         {trailloaded && (
