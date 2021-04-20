@@ -3,7 +3,7 @@ import './App.css';
 import './Menu.css';
 import Document from './Document.js';
 import Trails from './Trails.js';
-// import Nav from './Nav.js';
+import Nav from './Nav.js';
 import Menu from './Menu.js';
 import Welcome from './popups/Welcome.js';
 import Projet89 from './popups/Projet89.js';
@@ -29,7 +29,6 @@ class App extends PureComponent {
       trail: [],
       trailByMemory: [],
       memories: [],
-      readyToShowGraph: false,
     };
   }
 
@@ -270,10 +269,6 @@ class App extends PureComponent {
     this.setState({ popupOpen: item });
   }
 
-  onInitializingFinished = () => {
-    this.setState({ readyToShowGraph: true });
-  }
-
   render() {
     //copy array of obj
     let cpyNode = [];
@@ -304,15 +299,9 @@ class App extends PureComponent {
           this.state.popupOpen === 'collecte' && <Collecte onClose={this.closePopup} />
         }
 
-        {
-          //<Nav />
-        }
+        {<Nav />}
 
         <Menu onClick={this.onClickOnMenu} />
-
-        {
-          !this.state.readyToShowGraph && <div id='loading'>Chargement en cours...</div>
-        }
 
         {trailloaded && (
           <Trails
@@ -327,7 +316,6 @@ class App extends PureComponent {
             unsetCurrentMemory = {this.unsetCurrentMemory}
             openPreview = {this.openPreview}
             closePreview = {this.closePreview}
-            onInitializingFinished = {this.onInitializingFinished}
           />
         )}
         {this.state.docOpen === 'memory' ? (
