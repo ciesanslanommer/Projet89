@@ -1,1 +1,62 @@
-[{"target_id":61,"id":1,"path":"trails/ruines.png","parcours":"Ruines","x":794.212044373042,"y":678.063414284698},{"target_id":67,"id":3,"path":"trails/bouleversement.png","parcours":"Bouleversement","x":191.941710362227,"y":641.140415888562},{"target_id":70,"id":2,"path":"trails/oracle.png","parcours":"Oracle","x":996.712466468813,"y":122.628442283128}]
+[
+    {
+        "target_id": 64,
+        "id": 7,
+        "icon_id": 1,
+        "path": "trails/amnesie.png",
+        "parcours": "Méduse",
+        "description": "Entrez dans le parcours Méduse",
+        "entry_message": "Un jeu de regards qui transforment parfois en pierre. Où on apprend à regarder de biais.",
+        "exit_message": "",
+        "x": 196.64190310062568,
+        "y": 813.9185332113334
+    },
+    {
+        "target_id": 63,
+        "id": 10,
+        "icon_id": 2,
+        "path": "trails/bouleversement.png",
+        "parcours": "Bouleversement",
+        "description": "Entrez dans le parcours Bouleversement",
+        "entry_message": "Le désordre des choses, le point de bascule ou la violence d’un trouble. Dans le bouleversement, il y a l’idée d’appuyer avec force d’un côté pour provoquer un changement de l’autre côté.",
+        "exit_message": "",
+        "x": 144.967325380996,
+        "y": 262.0382799051493
+    },
+    {
+        "target_id": 57,
+        "id": 4,
+        "icon_id": 3,
+        "path": "trails/oracle.png",
+        "parcours": "Oracle",
+        "description": "Entrez dans le Parcours Oracle",
+        "entry_message": "L’imagination de prédictions, de réponses extra-humaines face au déferlement d'événements.",
+        "exit_message": "",
+        "x": 57.59401394323716,
+        "y": 609.7660084252776
+    },
+    {
+        "target_id": 50,
+        "id": 9,
+        "icon_id": 4,
+        "path": "trails/ruines.png",
+        "parcours": "Ruines",
+        "description": "Entrez dans le parcours ruines",
+        "entry_message": "Usures, effritements progressifs, destructions, épaves, restes, en morceaux, en état d'abandon, en friche. 1989 pourrait bien en être une…",
+        "exit_message": "",
+        "x": 888.7596377476368,
+        "y": 711.3398653247418
+    },
+    {
+        "target_id": 69,
+        "id": 8,
+        "icon_id": 5,
+        "path": "trails/utopie.png",
+        "parcours": "Utopie",
+        "description": "Entrez dans le parcours Utopie",
+        "entry_message": "Imaginer des possibles, ouvrir des brèches, construire des alternatives.",
+        "exit_message": "",
+        "x": 266.5058609913695,
+        "y": 869.4986593445899
+    }
+]
