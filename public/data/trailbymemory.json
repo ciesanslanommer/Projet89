@@ -1,1 +1,221 @@
-{"50":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"51":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"52":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"53":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"54":[{"id":1,"name":"Ruines","path":"trails/ruines.png"},{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"55":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"56":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"57":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"59":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"60":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"61":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"62":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"63":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"64":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"65":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"66":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"67":[{"id":3,"name":"Bouleversement","path":"trails/bouleversement.png"}],"68":[{"id":2,"name":"Oracle","path":"trails/oracle.png"}],"69":[{"id":2,"name":"Oracle","path":"trails/oracle.png"}],"70":[{"id":2,"name":"Oracle","path":"trails/oracle.png"}],"71":[{"id":1,"name":"Ruines","path":"trails/ruines.png"},{"id":2,"name":"Oracle","path":"trails/oracle.png"}],"72":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}],"73":[{"id":1,"name":"Ruines","path":"trails/ruines.png"}]}
+{
+    "50": [
+        {
+            "id": 7,
+            "name": "Méduse",
+            "path": "trails/amnesie.png"
+        },
+        {
+            "id": 9,
+            "name": "Ruines",
+            "path": "trails/ruines.png"
+        }
+    ],
+    "51": [
+        {
+            "id": 9,
+            "name": "Ruines",
+            "path": "trails/ruines.png"
+        }
+    ],
+    "52": [
+        {
+            "id": 10,
+            "name": "Bouleversement",
+            "path": "trails/bouleversement.png"
+        },
+        {
+            "id": 9,
+            "name": "Ruines",
+            "path": "trails/ruines.png"
+        }
+    ],
+    "53": [
+        {
+            "id": 10,
+            "name": "Bouleversement",
+            "path": "trails/bouleversement.png"
+        },
+        {
+            "id": 9,
+            "name": "Ruines",
+            "path": "trails/ruines.png"
+        }
+    ],
+    "54": [
+        {
+            "id": 9,
+            "name": "Ruines",
+            "path": "trails/ruines.png"
+        }
+    ],
+    "56": [
+        {
+            "id": 9,
+            "name": "Ruines",
+            "path": "trails/ruines.png"
+        }
+    ],
+    "57": [
+        {
+            "id": 4,
+            "name": "Oracle",
+            "path": "trails/oracle.png"
+        }
+    ],
+    "58": [
+        {
+            "id": 4,
+            "name": "Oracle",
+            "path": "trails/oracle.png"
+        }
+    ],
+    "60": [
+        {
+            "id": 7,
+            "name": "Méduse",
+            "path": "trails/amnesie.png"
+        },
+        {
+            "id": 4,
+            "name": "Oracle",
+            "path": "trails/oracle.png"
+        }
+    ],
+    "61": [
+        {
+            "id": 9,
+            "name": "Ruines",
+            "path": "trails/ruines.png"
+        }
+    ],
+    "62": [
+        {
+            "id": 4,
+            "name": "Oracle",
+            "path": "trails/oracle.png"
+        }
+    ],
+    "63": [
+        {
+            "id": 10,
+            "name": "Bouleversement",
+            "path": "trails/bouleversement.png"
+        }
+    ],
+    "64": [
+        {
+            "id": 7,
+            "name": "Méduse",
+            "path": "trails/amnesie.png"
+        }
+    ],
+    "65": [
+        {
+            "id": 7,
+            "name": "Méduse",
+            "path": "trails/amnesie.png"
+        },
+        {
+            "id": 10,
+            "name": "Bouleversement",
+            "path": "trails/bouleversement.png"
+        }
+    ],
+    "66": [
+        {
+            "id": 7,
+            "name": "Méduse",
+            "path": "trails/amnesie.png"
+        }
+    ],
+    "67": [
+        {
+            "id": 10,
+            "name": "Bouleversement",
+            "path": "trails/bouleversement.png"
+        }
+    ],
+    "68": [
+        {
+            "id": 10,
+            "name": "Bouleversement",
+            "path": "trails/bouleversement.png"
+        }
+    ],
+    "69": [
+        {
+            "id": 10,
+            "name": "Bouleversement",
+            "path": "trails/bouleversement.png"
+        },
+        {
+            "id": 8,
+            "name": "Utopie",
+            "path": "trails/utopie.png"
+        }
+    ],
+    "70": [
+        {
+            "id": 10,
+            "name": "Bouleversement",
+            "path": "trails/bouleversement.png"
+        }
+    ],
+    "71": [
+        {
+            "id": 7,
+            "name": "Méduse",
+            "path": "trails/amnesie.png"
+        }
+    ],
+    "72": [
+        {
+            "id": 7,
+            "name": "Méduse",
+            "path": "trails/amnesie.png"
+        }
+    ],
+    "73": [
+        {
+            "id": 8,
+            "name": "Utopie",
+            "path": "trails/utopie.png"
+        }
+    ],
+    "74": [
+        {
+            "id": 8,
+            "name": "Utopie",
+            "path": "trails/utopie.png"
+        }
+    ],
+    "75": [
+        {
+            "id": 9,
+            "name": "Ruines",
+            "path": "trails/ruines.png"
+        }
+    ],
+    "76": [
+        {
+            "id": 8,
+            "name": "Utopie",
+            "path": "trails/utopie.png"
+        }
+    ],
+    "77": [
+        {
+            "id": 8,
+            "name": "Utopie",
+            "path": "trails/utopie.png"
+        }
+    ],
+    "78": [
+        {
+            "id": 8,
+            "name": "Utopie",
+            "path": "trails/utopie.png"
+        }
+    ]
+}
