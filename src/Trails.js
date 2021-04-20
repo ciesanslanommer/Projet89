@@ -9,7 +9,7 @@ import Entry from './Entry.js';
 const myConfig = {
   nodeHighlightBehavior: true,
   width: 400,
-  initialZoom: 1,
+  // initialZoom: 1,
   // staticGraphWithDragAndDrop: false,
   staticGraph : false,
   highlightDegree: 0,
@@ -72,7 +72,7 @@ class Trails extends PureComponent {
       focusedNodeId: null,
       width: 0,
       height: 0,
-      zoom: 1,
+      zoom: 0.8,
       freeze: false,
       customZoomsToIgnore: [],
     };
@@ -487,8 +487,8 @@ class Trails extends PureComponent {
 
     render() {
       // //console.log('trails render');
-      myConfig.width = this.state.width;
-      myConfig.height = this.state.height;
+      myConfig.width = this.state.width || window.innerWidth;
+      myConfig.height = this.state.height || window.innerHeight;
       myConfig.node.viewGenerator = this.customNodeGenerator;
       myConfig.initialZoom = this.state.zoom;
       myConfig.freezeAllDragEvents = this.state.freeze;
