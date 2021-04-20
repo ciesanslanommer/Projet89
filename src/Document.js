@@ -95,7 +95,13 @@ class DocumentButton extends Component {
     this.highlightDirectionOfButton(this.props.currentId, this.props.id);
     // const trail = this.props.parcours.length <= 1 ? this.props.parcours[0].parcours : this.props.currentTrail.parcours;
     if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.parcours.path);
-    const {nature, type, parcours} = this.props;
+    const {nature, type} = this.props;
+
+    // ugly last-minute fix
+    const parcours = Array.isArray(this.props.parcours)
+      ? this.props.parcours.find(e => e.parcours === this.props.currentTrail.parcours) || this.props.parcours.find(e => this.props.allTrails && this.props.allTrails.some(owntrail => owntrail.parcours === e.parcours)) || {parcours: 'inconnu'}
+      : this.props.parcours;
+
     this.props.displayArrowText(true, nature, type, parcours.parcours);
   }
 
@@ -108,14 +114,17 @@ class DocumentButton extends Component {
   onClick = () => {
     this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
     this.props.displayArrowText(false);
-    this.props.onClick();
+    this.props.onClick(this.props.id);
   }
 
   render() {
     let props = this.props;
     var type = props.type;
     //this.removeHighlightDirectionOfButton(this.props.currentId, this.props.id);
-    let current = (this.props.parcours.parcours === this.props.currentTrail.parcours);
+
+    let current = this.props.parcours && (Array.isArray(this.props.parcours)
+      ? this.props.parcours.some(e => e.parcours === this.props.currentTrail.parcours)
+      :this.props.parcours.parcours === this.props.currentTrail.parcours);
 
     return (
       <div onClick={this.onClick} className={classNames({
@@ -347,6 +356,7 @@ class Document extends PureComponent {
 
   // please don't use this code as an example of good practice :-p (@agr)
   onKeyDown(e) {
+    return; // TODO to fix later
     if (e.code === 'ArrowRight' || e.code === 'ArrowUp') {
       if (e.code === 'ArrowRight') {
         // check if we are at the end
@@ -463,11 +473,12 @@ class Document extends PureComponent {
                 <DocumentButton
                   key={source.id}
                   id={source.id}
-                  onClick={() => this.props.onNextClick(source.id, 'memory')}
+                  onClick={id => this.props.onNextClick(id, 'memory')}
                   type='previous'
-                  parcours={source.parcours.length > 1 ? this.props.currentTrail : source.parcours[0]}
+                  parcours={source.parcours}
                   currentId={this.props.id}
                   currentTrail={this.props.currentTrail}
+                  allTrails={this.state.trails}
                   changeTrailImg={this.changeTrailImg}
                   displayArrowText={this.props.displayArrowText}
                   nature="memory"
@@ -478,11 +489,12 @@ class Document extends PureComponent {
                 <DocumentButton
                   id={target.id}
                   key={target.id}
-                  onClick={() => this.props.onNextClick(target.id, 'memory')}
+                  onClick={id => this.props.onNextClick(id, 'memory')}
                   type='next'
-                  parcours={target.parcours.length > 1 ? this.props.currentTrail : target.parcours[0]}
+                  parcours={target.parcours}
                   currentId={this.props.id}
                   currentTrail={this.props.currentTrail}
+                  allTrails={this.state.trails}
                   changeTrailImg={this.changeTrailImg}
                   displayArrowText={this.props.displayArrowText}
                   nature="memory"
@@ -506,6 +518,7 @@ class Document extends PureComponent {
                   parcours={this.getTrailIdOfFirst()}
                   currentId={this.props.id}
                   currentTrail={this.props.currentTrail}
+                  allTrails={this.state.trails}
                   changeTrailImg={this.changeTrailImg}
                   displayArrowText={this.props.displayArrowText}
                   nature="entry"
