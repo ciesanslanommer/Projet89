@@ -198,7 +198,7 @@ class Admin extends Component {
       return;
     }
     // eslint-disable-next-line no-restricted-globals
-    const confirmed  = confirm("Le souvenir " + memoryName + " va être supprimé. Il n'y a pas de retour en arrière. Êtes vous sûr de vouloir supprimer le souvenir? ")
+    const confirmed  = confirm("Le souvenir " + memoryName + " va être supprimé. Il n'y a pas de retour en arrière. Êtes vous sûr de vouloir supprimer le souvenir ? ")
     if (confirmed){
       console.log(idToDelete);
       console.log(memoryName);
@@ -220,7 +220,37 @@ class Admin extends Component {
         })
         .then(
           (result) => {
-            console.log('Souvenir bien supprimé', result);
+            alert('Souvenir bien supprimé :)');
+            this.componentDidMount();
+          },
+        ).catch(e => console.error(e));
+      }
+  }
+
+  deleteTrail = (e) => {
+    const idToDelete = e.target.value;
+    const name = this.state.trails.filter((trail) => trail.id === Number(idToDelete))[0].name;
+
+    // eslint-disable-next-line no-restricted-globals
+    const confirmed  = confirm("Le parcours " + name + " va être supprimé. Il n'y a pas de retour en arrière. Êtes vous sûr de vouloir supprimer le parcours ? ")
+    if (confirmed){
+      fetch(ENDPOINT_API + '/trail/' + idToDelete, {
+        method : "DELETE",
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-access-token' : this.state.token,
+        },
+      })
+        .then(function(res) {
+          if (!res.ok) {
+            res.json().then(s => alert('Erreur : ' + s.message));
+            throw res;
+          }
+          return res.json();
+        })
+        .then(
+          (result) => {
+            alert('Parcours bien supprimé :)');
             this.componentDidMount();
           },
         ).catch(e => console.error(e));
@@ -317,6 +347,22 @@ class Admin extends Component {
                       return (
                         <option key={memory.id} value={memory.id}>
                           {memory.name}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+            </div>
+
+            <div className="adminRow">
+              <h2>Suppression d'un parcours</h2>
+              <div className="formRow">
+                <select onChange={(e) => this.deleteTrail(e)}>
+                    <option value='null'>Supprimer un parcours </option>
+                    {this.state.trails.map((trail) => {
+                      return (
+                        <option key={trail.id} value={trail.id}>
+                          {trail.name}
                         </option>
                       );
                     })}
