@@ -13,6 +13,7 @@
     "react-audio-player": "^0.14.0",
     "react-d3-graph": "github:ciesanslanommer/react-d3-graph#feature/roughline",
     "react-dom": "^17.0.1",
+    "react-ga": "^3.3.0",
     "react-player": "^2.9.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
