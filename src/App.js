@@ -1,4 +1,5 @@
 import { React, PureComponent, memo } from 'react';
+import ReactGA from 'react-ga';
 import './App.css';
 import './Menu.css';
 import Document from './Document.js';
@@ -30,6 +31,11 @@ class App extends PureComponent {
       trailByMemory: [],
       memories: [],
     };
+
+    if (process.env.NODE_ENV === 'production') {
+      ReactGA.initialize('UA-195143568-1');
+      ReactGA.pageview(window.location.pathname + window.location.search);
+    }
   }
 
   // exemple from https://reactjs.org/docs/faq-ajax.html
