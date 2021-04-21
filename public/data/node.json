@@ -24,8 +24,8 @@
         "pos_x": null,
         "pos_y": null,
         "priority": 1,
-        "name": "Terrasse",
-        "description": "Destruction",
+        "name": "Jurons que nous serons heureux",
+        "description": "Acteur en reconstruction",
         "icon_path": "memories/arts_spectacle.png",
         "icon_name": "Arts du spectacle"
     },
@@ -75,9 +75,9 @@
         "pos_y": null,
         "priority": 1,
         "name": "Jeux d'enfants",
-        "description": "Cinco Pinos, Nicaragua, le cercle des mains",
-        "icon_path": "memories/appareil_photo.png",
-        "icon_name": "Appareil photo"
+        "description": "Cinco Pinos, Nicaragua, Le cercle des mains",
+        "icon_path": "memories/cabane.png",
+        "icon_name": "Cabane"
     },
     {
         "id": 60,
@@ -96,8 +96,8 @@
         "priority": 1,
         "name": "Manège",
         "description": "Après la révolution",
-        "icon_path": "memories/drapeau.png",
-        "icon_name": "Drapeau"
+        "icon_path": "trails/bouleversement.png",
+        "icon_name": "Bouleversement"
     },
     {
         "id": 62,
@@ -115,7 +115,7 @@
         "pos_y": null,
         "priority": 1,
         "name": "Naissance",
-        "description": "Une année de bascule",
+        "description": "Une année bascule",
         "icon_path": "memories/poing_leve.png",
         "icon_name": "Poing levé"
     },
@@ -126,8 +126,8 @@
         "priority": 1,
         "name": "Anniversaire",
         "description": "regarder et être regardé",
-        "icon_path": "memories/appareil_photo.png",
-        "icon_name": "Appareil photo"
+        "icon_path": "memories/tambour.png",
+        "icon_name": "Tambour"
     },
     {
         "id": 65,
@@ -146,8 +146,8 @@
         "priority": 1,
         "name": "Grosse opération",
         "description": "Vue d'en haut",
-        "icon_path": "memories/arche_defense.png",
-        "icon_name": "Arche de la Défense"
+        "icon_path": "memories/pyramide_louvre.png",
+        "icon_name": "Pyramide du Louvre"
     },
     {
         "id": 67,
@@ -234,7 +234,7 @@
         "pos_x": null,
         "pos_y": null,
         "priority": 1,
-        "name": "Théorie de la ruine",
+        "name": "Théorie des ruines",
         "description": "Porter un regard",
         "icon_path": "memories/livre.png",
         "icon_name": "Livre"
