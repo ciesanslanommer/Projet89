@@ -72,7 +72,7 @@ class Trails extends PureComponent {
       focusedNodeId: null,
       width: window.innerWidth,
       height: window.innerHeight,
-      zoom: window.innerHeight > 13000 ? 1 : window.innerHeight / 1300, // I don't know why I have to do this but otherwise the graph does not fit inside the window...s
+      zoom: Math.min(Math.max(window.innerHeight / 1300, 0.3), 1), // I don't know why I have to do this but otherwise the graph does not fit inside the window...
       freeze: false,
       customZoomsToIgnore: [],
     };
