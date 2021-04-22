@@ -6,6 +6,7 @@ import Document from './Document.js';
 import Trails from './Trails.js';
 import Nav from './Nav.js';
 import Menu from './Menu.js';
+import Popup from './popups/Popup.js';
 import Welcome from './popups/Welcome.js';
 import Projet89 from './popups/Projet89.js';
 import Collecte from './popups/Collecte.js';
@@ -21,7 +22,7 @@ class App extends PureComponent {
       linkLoaded: false,
       trailLoaded: false,
       trailByMemoryLoaded: false,
-      popupOpen: 'aide', // 'aide' / 'projet89' / 'collecte'
+      popupOpen: /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'aide', // 'aide' / 'projet89' / 'collecte' / 'mobile' (for mobile device users warning)
       docOpen: false,
       adminOpen: false,
       previewOpen: null,
@@ -275,6 +276,10 @@ class App extends PureComponent {
     this.setState({ popupOpen: item });
   }
 
+  closeMobileWarning = () => {
+    this.setState({ popupOpen: 'aide' })
+  }
+
   render() {
     //copy array of obj
     let cpyNode = [];
@@ -293,8 +298,12 @@ class App extends PureComponent {
     // const adminLoaded = this.state.trailLoaded;
     // //console.log('trailloaded?', trailloaded);
     //console.log(this.formattedCurrentTrail());
+
     return (
       <div className='App'>
+        {
+          this.state.popupOpen === 'mobile' && <Popup onClose={this.closeMobileWarning}>Ce site n'étant pas optimisé pour les appareils mobiles pour le moment, nous vous invitons à tester sur ordinateur.</Popup>
+        }
         {
           this.state.popupOpen === 'aide' && <Welcome onClose={this.closePopup} />
         }

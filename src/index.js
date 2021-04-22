@@ -7,9 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
-ReactGA.initialize('UA-195143568-1');
-ReactGA.pageview(window.location.pathname + window.location.search);
-
 //console.log("hello", process.env.PUBLIC_URL)
 ReactDOM.render(
   <React.StrictMode>
