@@ -9,7 +9,7 @@
     transform: translate(-50%, -50%); 
 }
 
-@media all and (max-width: 950px) {
+@media all and (max-width: 950px), all and (max-height: 500px) {
     #mainpopup {
         top: 10px;
         transform: translate(-50%);
