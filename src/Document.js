@@ -94,13 +94,18 @@ class DocumentButton extends Component {
   onMouseOver = (e) => {
     this.highlightDirectionOfButton(this.props.currentId, this.props.id);
     // const trail = this.props.parcours.length <= 1 ? this.props.parcours[0].parcours : this.props.currentTrail.parcours;
-    if(this.props.changeTrailImg) this.props.changeTrailImg(this.props.parcours.path);
-    const {nature, type} = this.props;
+
 
     // ugly last-minute fix
     const parcours = Array.isArray(this.props.parcours)
       ? this.props.parcours.find(e => e.parcours === this.props.currentTrail.parcours) || this.props.parcours.find(e => this.props.allTrails && this.props.allTrails.some(owntrail => owntrail.parcours === e.parcours)) || {parcours: 'inconnu'}
       : this.props.parcours;
+
+    if (this.props.changeTrailImg) {
+      this.props.changeTrailImg(parcours.path);
+    }
+
+    const {nature, type} = this.props;
 
     this.props.displayArrowText(true, nature, type, parcours.parcours);
   }
