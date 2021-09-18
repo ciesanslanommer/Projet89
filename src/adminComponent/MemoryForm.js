@@ -53,7 +53,14 @@ class MemoryForm extends Component {
     // TODO display a loader when not loaded yet?
     //console.log(`Fetching souvenirs from ${ENDPOINT_API}/icon/`);
     fetch(ENDPOINT_API + '/icon')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading icon: ", res.statusText);
+          alert("Error loading icon");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           //console.log('Success! icon = ', result);
@@ -73,10 +80,17 @@ class MemoryForm extends Component {
 
     //console.log(`Fetching memory from ${ENDPOINT_API}/memories/`);
     fetch(ENDPOINT_API + '/memories')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading memories: ", res.statusText);
+          alert("Error loading memories");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
-          //console.log('Success! submemory = ', result);
+          console.log('Success! MemotyForm submemory = ', result);
           this.setState({
             memories: [...result],
             memoriesLoaded: true,
@@ -98,7 +112,14 @@ class MemoryForm extends Component {
     this.setState({ keywordLoaded: false });
     //console.log(`Fetching keyword from ${ENDPOINT_API}/keyword/`);
     fetch(ENDPOINT_API + '/keyword')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading keywords: ", res.statusText);
+          alert("Error loading keywords");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           //console.log('Success! keyword = ', result);
@@ -121,7 +142,14 @@ class MemoryForm extends Component {
     this.setState({ trailsLoaded: false });
     //console.log(`Fetching keyword from ${ENDPOINT_API}/trail/`);
     fetch(ENDPOINT_API + '/trail')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading trails: ", res.statusText);
+          alert("Error loading trails");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           //console.log('Success! trail = ', result);

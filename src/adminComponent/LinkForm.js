@@ -15,7 +15,14 @@ class LinkForm extends Component {
   componentDidMount() {
     //console.log(`Fetching trail from ${ENDPOINT_API}/trail/`+this.props.trail.id);
     fetch(ENDPOINT_API + '/trail/' + this.props.trail.id)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading trail: ", res.statusText);
+          alert("Error loading trail");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           //console.log('Success! trail = ', result);
@@ -77,7 +84,7 @@ class LinkForm extends Component {
     }
 
     if(this.state.memory_ids.includes(0)){
-      alert("Certains souvenir n'ont pas été definis. Un champ ou plusieurs sont vides.")
+      alert("Certains souvenirs n'ont pas été définis. Un champ ou plusieurs sont vides.")
       return;
     }
     // if (this.state.trail === '') {

@@ -31,7 +31,14 @@ class AddKeyword extends Component {
         'x-access-token' : this.props.token,
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading keywords: ", res.statusText);
+          alert("Error loading keywords");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then((res) => {
         //console.log(res);
         const value = '';

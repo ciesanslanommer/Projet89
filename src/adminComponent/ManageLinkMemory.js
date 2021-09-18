@@ -14,7 +14,14 @@ class ManageLinkMemory extends Component {
   componentDidMount() {
     //console.log(`Fetching trail from ${ENDPOINT_API}/trailbymemory/`);
     fetch(ENDPOINT_API + '/trailbymemory')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading trail by memory: ", res.statusText);
+          alert("Error loading trail by memory");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           //console.log('Success! trail by memory = ', result);

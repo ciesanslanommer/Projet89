@@ -42,7 +42,14 @@ class Admin extends Component {
   componentDidMount() {
     //console.log(`Fetching trail from ${ENDPOINT_API}/trail/`);
     fetch(ENDPOINT_API + '/trail')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading trails: ", res.statusText);
+          alert("Error loading trails");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           //console.log('Success! trail = ', result);
@@ -62,7 +69,14 @@ class Admin extends Component {
 
     //console.log(`Fetching icons from ${ENDPOINT_API}/icon/`);
     fetch(ENDPOINT_API + '/icon')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading icons: ", res.statusText);
+          alert("Error loading icons");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           //console.log('Success! icon = ', result);
@@ -81,10 +95,17 @@ class Admin extends Component {
       );
     //console.log(`Fetching memory from ${ENDPOINT_API}/memories/`);
     fetch(ENDPOINT_API + '/memories')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading memories: ", res.statusText);
+          alert("Error loading memories");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
-          //console.log('Success! memory = ', result);
+          console.log('Success! Admin memory = ', result, result.ok);
           this.setState({
             memories: [...result],
             memoriesLoaded: true,
@@ -101,7 +122,14 @@ class Admin extends Component {
 
     //console.log(`Fetching memory from ${ENDPOINT_API}/trailbymemory/`);
     fetch(ENDPOINT_API + '/trailbymemory')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading trails by memory: ", res.statusText);
+          alert("Error loading trails by memory");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           //console.log('Success! trailbymem = ', result);
@@ -126,7 +154,14 @@ class Admin extends Component {
     this.setState({ trailsLoaded: false });
     //console.log(`Fetching keyword from ${ENDPOINT_API}/trail/`);
     fetch(ENDPOINT_API + '/trail')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Error loading trail: ", res.statusText);
+          alert("Error loading trail");
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           //console.log('Success! trail = ', result);
