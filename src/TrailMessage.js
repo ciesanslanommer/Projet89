@@ -19,8 +19,10 @@ class Exit extends Component {
 
     randomTrailId() {
         let randomIndex = this.getRandomInt(this.props.entries.length);
-        while(this.props.entries[randomIndex].parcours === this.props.trail.parcours) {
-            randomIndex = this.getRandomInt(this.props.entries.length);
+        if (this.props.entries.length > 1) {
+            while(this.props.entries[randomIndex].parcours === this.props.trail.parcours) {
+                randomIndex = this.getRandomInt(this.props.entries.length);
+            }
         }
         return this.props.entries[randomIndex].id;
     }
