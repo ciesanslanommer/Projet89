@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {withRouter} from 'react-router-dom'
 import MemoryForm from './MemoryForm.js';
 import '../Admin.css';
 import './AdminForm.css';
@@ -297,13 +298,23 @@ class Admin extends Component {
     const memoriesLoaded = this.state.memoriesLoaded;
     // const adminLoaded = this.state.trailLoaded;
 
-    if (!this.state.token) {
+  /*  if (!this.state.token) {
       return <Login setToken={token => this.setToken(token)} />
-    }
+    }*/
 
     return (
       <div className='adminBody'>
         <h1>Mode admin</h1>
+
+        <button
+          type='button'
+          onClick={(e) => this.props.history.push("/preview")}
+        >
+          ⬅️ Retour au mode preview
+        </button>
+
+        <br/>
+
         {!this.state.memoryFormOpen &&
         !this.state.manageLinkTrailOpen &&
         !this.state.manageLinkMemoryOpen &&
@@ -492,4 +503,4 @@ class Admin extends Component {
   }
 }
 
-export default Admin;
+export default withRouter(Admin);

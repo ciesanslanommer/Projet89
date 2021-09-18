@@ -316,7 +316,10 @@ class App extends PureComponent {
 
         {<Nav />}
 
-        <Menu onClick={this.onClickOnMenu} />
+        <Menu
+          showAdmin={this.props.preview}
+          onClick={this.onClickOnMenu}
+        />
 
         {trailloaded && (
           <Trails
