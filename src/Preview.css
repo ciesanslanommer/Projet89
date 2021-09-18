@@ -1,0 +1,18 @@
+.resume {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    text-align: center;
+    background-color: white;
+    width: 180px;
+    padding: 5px;
+    pointer-events: none; /* prevents flickering when hovering node */
+}
+.resume h2 {
+    font-size: 20px;
+    margin: 2px;
+}
+.resume p {
+    font-size: 15px;
+}

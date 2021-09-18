@@ -1,33 +1,202 @@
-.souvenir img{
-    max-width: 80%;
-    max-height: 800px;
+.souvenir {
+  /* box-shadow: 0 0 5px 5px #d5bf9e; */
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.souvenir h1{
-    text-transform: capitalize;
+@media all and (max-width: 800px) {
+    .souvenir {
+      position: absolute;
+      width: 100%;
+    }
 }
 
-.souvenir p{
-    max-width:500px;
-    font-size: 0.8em;
-    text-align: justify;
+.souvenir p {
+  text-align: center;
+  text-align: justify;
+}
+.souvenir h1 {
+  text-transform: capitalize;
+  margin-bottom: 0;
+}
+#memory_and_navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 0 5px;
 }
 
-button{
-    border:none;
-    text-transform: uppercase;
-    background:rgba(255, 255, 255, 0.2);
-    color: white;
-    cursor:pointer;
-    margin: 1rem;
-    padding:.25rem .75rem;
-    transition:all .25s ease-in-out;
-    border-radius: 1rem;
+
+/** TRAIL INFO **/
+
+#trail_info {
+  background-color: rgb(43, 43, 43);
+}
+#trail_info h1 {
+  color: white;
+  margin: auto;
+  padding: 5px;
 }
 
-button:hover, button:hover{
-    background:rgba(255, 255, 255, 1);
-    color: black;
-    transform: scale(1.1);
+/** MEMORY INFO **/
 
+#memory_info {
+  overflow: auto;
+  height: calc(100vh - 200px);
+  flex-grow: 1;
+  margin: 20px 0 0;
+  padding: 0 40px;
+  display: grid;
+  grid-template-areas: 
+    "date contributor"
+    "document document";
+  grid-template-rows: min-content auto;
+}
+#date {
+  grid-area: date;
+  display: flex;
+  justify-content: flex-start;
+}
+#contributor {
+  grid-area: contributor;
+  display: flex;
+  justify-content: flex-end;
+}
+#date p, #contributor p {
+  margin: 0;
+}
+.document > *, .sub_docs > * {
+  max-width: 100%;
+  max-height: 80vh;
+}
+.document {
+  grid-area: document;
+}
+.document * {
+  margin-top: 20px;
+}
+.document p {
+  text-indent: 10%;
+  white-space: pre-line;
+}
+
+.document p .highlightedText {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: rgb(57,234, 234);
+}
+
+.sub_docs {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: auto;
+}
+audio {
+  outline: none;
+}
+
+/** BUTTONS **/
+
+/*.button {
+  display: flex;
+  align-items: center;
+  filter: brightness(56%) grayscale(1);
+}
+.button h2 {
+  margin: 0;
+}
+.trails_img {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.trails_img > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.button * {
+  filter:inherit;
+  color: inherit;
+}
+.next img {
+  width: 50px;
+  height: auto;
+  max-width: 100%;
+}
+.previous img {
+  width: 30px;
+  height: auto;
+} 
+.next h2 {
+  font-size: 1em;
+}
+.previous h2 {
+  font-size: 0.6em;
+}
+.all_previous, .all_next {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.next {
+  justify-content: flex-end;
+}
+.previous {
+  justify-content: flex-start;
+}
+.next .arrowbutton_img {
+  transform: scaleX(-1);
+}
+.button:hover {
+  filter: none;
+  color: #39EAEA;
+}*/
+.circle{
+  width: 100px;
+  background-color: brown;
+  z-index: 10;
+}
+
+
+.cross {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  filter: brightness(100);
+}
+
+
+.relatedtoButton {
+  filter: drop-shadow(0px 0px 5px rgba(255, 98, 242, 0.774));
+  stroke: rgba(255, 98, 242, 0.774) !important;
+}
+
+/** SCROLL BAR **/
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(236, 255, 255);
+  border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(57,234,234); 
+  border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(41, 167, 167); 
 }

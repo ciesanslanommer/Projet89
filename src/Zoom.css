@@ -1,0 +1,44 @@
+#sliderContainer{
+  position: absolute;
+  /* transform: rotate(-90deg);
+  width: 100px;
+  height: 15px; */
+  top: 50%;
+  transform: rotate(-90deg) translate(0, calc(-50% - 130px));
+}
+
+#myRange {
+  -webkit-appearance: none;
+  width: 350px;
+  /* position: absolute; */
+  /* right: 250px; */
+  border-radius: 50px;  
+  background: #ffffff;
+  outline: none;
+  opacity: 0.8;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  z-index: 5;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; 
+    background: #8aeeff;
+    cursor: pointer;
+  }
+
+   /* Pour Mozilla */
+   .slider::-moz-range-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; 
+    background: #8aeeff;
+    cursor: pointer;
+  }
+
+

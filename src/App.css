@@ -1,18 +1,26 @@
 .App {
+  overflow: hidden;
   text-align: center;
+  display: grid;
+  grid-template-columns: 100vw;
+  grid-template-rows: 100vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.displayDoc {
+  grid-template-columns: 40vw auto !important;
+  grid-template-rows: 100vh !important;
 }
 
+.Graph{
+  /* height : 100vh;
+  width: 100vw; */
+  grid-column: 1 / 2;
+} 
+
+#id-graph-wrapper svg {
+  height: 100vh;
+  width: 100vw;
+} 
 
 .example-enter {
   opacity: 0.01;

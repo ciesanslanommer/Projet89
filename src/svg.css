@@ -1,0 +1,28 @@
+object {
+    fill: red;
+    stroke: red;
+}
+
+object * {
+    fill: red;
+    stroke: red;
+    background-color: royalblue;
+}
+
+path {
+    fill: red;
+    stroke: red;
+    background-color: royalblue;
+}
+
+object > path {
+    fill: red;
+    stroke: red;
+    background-color: royalblue;
+}
+
+.cls-1 {
+    fill: red;
+    stroke: red;
+    background-color: royalblue;
+}

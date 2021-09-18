@@ -1,116 +1,260 @@
 { 
     "nodes" :[
-        {
-            "id" : 0,
-            "name": "manege",
-            "path": "2019_5juin14h34_manège_roumanie",
-            "format" : "jpg"
-        },
-        {
-            "id" : 1,
-            "name": "walkman",
-            "path": "2019_15avril12h35_Walkman",
-            "format" : "txt"
-        },
-        {
-            "id" : 2,
-            "name": "tambour",
-            "path": "2020_27 mai 23h19_Le tambour",
-            "format" : "jpg"
-        },
-        {
-            "id" : 3,
-            "name": "famille",
-            "path": "2019_juin_photo de famille_Eglantine Agathe et Marguerite _4 mois_ juillet 1989",
-            "format" : "jpg"
-        },
-        {
-            "id" : 4,
-            "name": "tour trump",
-            "path": "2020_22 avril_Tour de  Trump",
-            "format" : "jpg"
-        },
-        {
-            "id" : 5,
-            "name": "distribution",
-            "path": "2019_5 juin 14h34_distribution alimentaire_roumanie",
-            "format" : "jpg"
-        },
-        {
-            "id" : 6,
-            "name": "squat",
-            "path": "2019_19 juin 22h57_Squats",
-            "format" : "txt"
-        },
-        {
-            "id" : 7,
-            "name": "anniversaire",
-            "path": "2019_27 août_gâteau d_anniversaire",
-            "format" : "jpg"
-        },
-
-        {
-            "id" : 8,
-            "name": "centre commercial",
-            "path": "2020_2 mai_futur centre commercial",
-            "format" : "jpg"
-        },
-        
-        {
-            "id" : 9,
-            "name": "salon",
-            "path": "2020_21 octobre à 22h38_Salon",
-            "format" : "txt"
-        } 
+      {
+        "id": 0,
+        "name": "Ste Victoire",
+        "parcours": ["Ruines"],
+        "path": "0_SainteVictoire.txt",
+        "nature": "texte",
+        "x": 41.5,
+        "y": 969.5,
+        "zoom": 0.5
+      },
+      {
+        "id": 1,
+        "name": "Les Pierres",
+        "parcours":[ "Ruines"],
+        "path": "1_LesPierres.txt",
+        "nature": "texte",
+        "x": 194.5,
+        "y": 708,
+        "zoom": 0.8
+      },
+      {
+        "id": 2,
+        "name": "Terrasse",
+        "parcours": ["Ruines"],
+        "path": "2_Terrasse.txt",
+        "nature": "texte",
+        "zoom": 1
+      },
+      {
+        "id": 3,
+        "name": "Centre Commercial",
+        "parcours": ["Ruines"],
+        "path": "3_FuturCentreCommercial.jpg",
+        "nature": "image",
+        "zoom": 1
+      },
+      {
+        "id": 4,
+        "name": "Mur",
+        "parcours": ["Ruines"],
+        "path": "4_Mur.jpg",
+        "nature": "image",
+        "zoom": 1
+      },
+      {
+        "id": 5,
+        "name": "Diane Scott",
+        "parcours": ["Ruines"],
+        "path": "5_DianeScott.txt",
+        "nature": "texte",
+        "zoom": 1
+      },
+      {
+        "id": 6,
+        "name": "Depardon",
+        "parcours": ["Ruines", "Passage"],
+        "path": "6_Depardon.jpg",
+        "nature": "image",
+        "x": 36.5,
+        "y": 430.5,
+        "zoom": 2
+      },
+      {
+        "id": 7,
+        "name": "Manege",
+        "parcours": ["Ruines"],
+        "path": "7_Manège.jpg",
+        "nature": "image",
+        "zoom": 2
+      },
+      {
+        "id": 8,
+        "name": "Etienne Parc",
+        "parcours": ["Passage"],
+        "path": "8_EtienneParc.txt",
+        "nature": "texte",
+        "x": 609.5,
+        "y": 273.5,
+        "zoom": 0.5
+      },
+      {
+        "id": 9,
+        "name": "Mathieu Bonzom",
+        "parcours": ["Passage"],
+        "path": "9_MathieuBonzom.txt",
+        "nature": "texte",
+        "x": 456,
+        "y": 52.5,
+        "zoom": 0.8
+      },
+      {
+        "id": 10,
+        "name": "Stephen Jaffe",
+        "parcours": ["Passage"],
+        "path": "10_StephenJaffe.jpg",
+        "nature": "image",
+        "zoom": 1
+      },
+      {
+        "id": 11,
+        "name": "Christophe",
+        "parcours": ["Passage"],
+        "path": "11_Christophe.png",
+        "nature": "image",
+        "zoom": 1
+      },
+      {
+        "id": 12,
+        "name": "Claude Bernard",
+        "parcours": ["Passage"],
+        "path": "12_ClaudeBernard.txt",
+        "nature": "texte",
+        "zoom": 1
+      },
+      {
+        "id": 13,
+        "name": "Cyrille Bregere",
+        "parcours": ["Passage"],
+        "path": "13_CyrilleBregere.txt",
+        "nature": "texte",
+        "zoom": 1
+      },
+      {
+        "id": 14,
+        "name": "Place Tienanmen",
+        "parcours":[ "Passage"],
+        "path": "14_PlaceTienanmenDidierLeglise.jpg",
+        "nature": "image",
+        "zoom": 2
+      },
+      {
+        "id": 15,
+        "name": "Maison Isolé",
+        "parcours": ["Passage"],
+        "path": "15_MaisonIsolePinos.jpg",
+        "nature": "image",
+        "zoom": 2
+      },
+      {
+        "id": 16,
+        "name": "Maillots",
+        "path": "Les maillots de bains de l'été 1989 _ Archive INA.mp4",
+        "nature": "video",
+        "zoom": 2
+      },
+      {
+        "id": 17,
+        "name": "Conte de raiponce",
+        "path": "2019_27 août_Le conte de Raiponce.mp3",
+        "nature": "audio",
+        "zoom" : 2,
+        "subs": [
+              {   
+                  "id": 0,
+                  "name": "Distribution alimentaire",
+                  "path": "2019_5 juin 14h34_distribution alimentaire_roumanie.jpg",
+                  "nature": "image"
+              },
+              {   
+                  "id": 1,
+                  "name": "Ste Victoire",
+                  "path": "2019_2 août 7h03_Ste-Victoire.txt",
+                  "nature": "texte"
+              }
+          ]
+      }
+    ],
+    "trails" : [
+      {
+        "id" : 18,
+        "path" : "ruines.svg",
+        "parcours" : "Ruines",
+        "x" : 600,
+        "y" : 300,
+        "zoom" : 0.1,
+        "entry" : true
+      },
+      {
+        "id" : 19,
+        "path" : "passage.svg",
+        "parcours" : "Passage",
+        "x" : 200,
+        "y" : 200,
+        "zoom" : 0.1,
+        "entry" : true
+      }
     ],
     "links" : [
         {
             "source" : 0,
-            "target" : 5
-        },
-        {
-            "source" : 5,
-            "target" : 9
-        },
-        {
-            "source" : 9,
-            "target" : 3
-        },
-        {
-            "source" : 3,
-            "target" : 7
-        },
-        {
-            "source" : 3,
-            "target" : 2
-        },
-        {
-            "source" : 3,
-            "target" : 9
-        },
-        {
-            "source" : 2,
-            "target" : 4
-        },
-        {
-            "source" : 4,
-            "target" : 1
-        },
-        {
-            "source" : 7,
             "target" : 1
         },
         {
             "source" : 1,
+            "target" : 2
+        },
+        {
+            "source" : 2,
+            "target" : 3
+        },
+        {
+            "source" : 3,
+            "target" : 4
+        },
+        {
+            "source" : 4,
+            "target" : 5
+        },
+        {
+            "source" : 5,
             "target" : 6
         },
         {
             "source" : 6,
-            "target" : 8
+            "target" : 7
         },
         {
             "source" : 8,
-            "target" : 0
+            "target" : 9
+        },
+        {
+            "source" : 9,
+            "target" : 10
+        },
+        {
+            "source" : 10,
+            "target" : 11
+        },
+        {
+            "source" : 11,
+            "target" : 6
+        },
+        {
+            "source" : 6,
+            "target" : 12
+        },
+        {
+            "source" : 12,
+            "target" : 13
+        },
+        {
+            "source" : 13,
+            "target" : 14
+        },
+        {
+            "source" : 14,
+            "target" : 15
+        },
+        {
+          "source" : 18,
+          "target" : 0
+        },
+        {
+          "source" : 19,
+          "target" : 8
         }
     ]
 }
