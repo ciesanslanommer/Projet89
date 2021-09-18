@@ -282,7 +282,7 @@ class Document extends PureComponent {
         }
       );
 
-    const submemPath = (this.props.isPreviewGraph)
+/*    const submemPath = (this.props.isPreviewGraph)
       ? ENDPOINT_API + '/submemoryfrommemory/' + this.props.id 
       : ENDPOINT_API + '/submemoryfrommemory/' + this.props.id
 
@@ -305,7 +305,7 @@ class Document extends PureComponent {
           // TODO maybe display an error for the user?
         }
       );
-
+*/
   }
 
   displayDoc(id, nature, content, desc) {

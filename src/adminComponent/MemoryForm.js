@@ -616,19 +616,29 @@ class MemoryForm extends Component {
               );
             })}
           </div> */}
-          <h2>Autres fonctionnalités</h2>
+         
+
+        {
+          
+                  // <h2>Autres fonctionnalités</h2>
+        }
+         
+
           {/* *************************************************************** AJOUT KEYWORDS *************************************************************** */}
-          <button
-            type='button'
-            onClick={
-              this.state.addKeyword
-                ? (e) => this.closeDiv('addKeyword')
-                : (e) => this.openDiv('addKeyword')
-            }
-          >
-            Ajouter un mot clé
-          </button>
-          {this.state.addKeyword && (
+          {
+           /* <button
+              type='button'
+              onClick={
+                this.state.addKeyword
+                  ? (e) => this.closeDiv('addKeyword')
+                  : (e) => this.openDiv('addKeyword')
+              }
+            >
+              Ajouter un mot clé
+            </button>*/
+          }
+          {
+          /*  this.state.addKeyword && (
             <div className='sousForm keywords' id='KeyWords'>
               <div className='divKeywords'>
                 <label>Taguer le souvenir d'un ou plusieurs mots-clés</label>
@@ -648,52 +658,61 @@ class MemoryForm extends Component {
                   );
                 })}
               </div>
-              {this.state.closeButtonK && (
-                <button
-                  type='button'
-                  onClick={() => this.addElements('createKeyword')}
-                >
-                  Ajouter un mot-clé
-                </button>
-              )}
+              {
+                this.state.closeButtonK && (
+                  <button
+                    type='button'
+                    onClick={() => this.addElements('createKeyword')}
+                  >
+                    Ajouter un mot-clé
+                  </button>
+                )
+              }
               {this.state.createKeyword && (
                 <AddKeyword reloadKeyword={this.loadKeyword} token={this.props.token} />
               )}
             </div>
-          )}
+          )*/
+        }
 
           {/* *************************************************************** AJOUT SUBMEMORY *************************************************************** */}
-          <button
-            type='button'
-            onClick={
-              this.state.addSub
-                ? (e) => this.closeDiv('addSub')
-                : (e) => this.openDiv('addSub')
-            }
-          >
-            Ajouter un sous-souvenir
-          </button>
-          {this.state.addSub && (
-            <div className='sousForm'>
-              <label>Ajouter un document au souvenir</label>
-              <label>
-                Format du fichier <abbr> * </abbr>
-              </label>
-              <select
-                required
-                className='require'
-                name='subFormat'
-                id='subFormat_id'
-                onChange={(e) => this.getValue('subFormat', e)}
-              >
-                <option value='image'>Image</option>
-                <option value='youtube'>Vidéo</option>
-                <option value='texte'>Texte</option>
-                <option value='audio'>Audio</option>
-              </select>
-              {this.displayDoc(this.state.subFormat)}
-            </div>
-          )}
+          
+          {
+            /*<button
+              type='button'
+              onClick={
+                this.state.addSub
+                  ? (e) => this.closeDiv('addSub')
+                  : (e) => this.openDiv('addSub')
+              }
+            >
+              Ajouter un sous-souvenir
+            </button>
+
+
+            {this.state.addSub && (
+              <div className='sousForm'>
+                <label>Ajouter un document au souvenir</label>
+                <label>
+                  Format du fichier <abbr> * </abbr>
+                </label>
+                <select
+                  required
+                  className='require'
+                  name='subFormat'
+                  id='subFormat_id'
+                  onChange={(e) => this.getValue('subFormat', e)}
+                >
+                  <option value='image'>Image</option>
+                  <option value='youtube'>Vidéo</option>
+                  <option value='texte'>Texte</option>
+                  <option value='audio'>Audio</option>
+                </select>
+                {this.displayDoc(this.state.subFormat)}
+              </div>
+            )}*/
+
+          }
         </form>
         <button
           type='button'
