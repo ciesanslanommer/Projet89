@@ -267,6 +267,8 @@ class MemoryForm extends Component {
               type='text'
               name='linkToYoutube'
               placeholder='lien vers la vidéo Youtube'
+              value={this.state.content}
+              onChange={(e) => this.getValue('content', e)}
             />
           </div>
         );

@@ -324,6 +324,7 @@ class Document extends PureComponent {
       case 'audio':
         return <Audio key={id} path={content} parcours={this.state.trails} />;
       case 'video':
+      case 'youtube':
         return <Video key={id} path={content} parcours={this.state.trails} />;
       default:
         return <p key={id}>{this.state.memory.format}</p>;
@@ -414,7 +415,7 @@ class Document extends PureComponent {
     let doc = this.displayDoc(
       'main_doc',
       this.state.memory.format,
-      this.state.memory.content,
+      this.state.memory.content || this.state.memory.youtube,
       this.state.memory.description
     ); // Main document
     let subs = this.props.subs; // Array of secondary documents associated with the main one
