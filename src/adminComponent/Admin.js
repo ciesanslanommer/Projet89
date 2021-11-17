@@ -298,9 +298,9 @@ class Admin extends Component {
     const memoriesLoaded = this.state.memoriesLoaded;
     // const adminLoaded = this.state.trailLoaded;
 
-  /*  if (!this.state.token) {
+    if (!this.state.token) {
       return <Login setToken={token => this.setToken(token)} />
-    }*/
+    }
 
     return (
       <div className='adminBody'>
