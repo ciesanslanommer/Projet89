@@ -93,7 +93,8 @@ class App extends PureComponent {
         (result) => {
           //console.log('Success! link = ', result);
           this.setState({
-            link: result,
+            // remove potential duplicated tuples (e.source, e.target) - cf https://stackoverflow.com/a/56757215/4503757 
+            link: [...new Map(result.map(v => [JSON.stringify([v.source,v.target]), v])).values()],
             linkLoaded: true,
           });
         },
