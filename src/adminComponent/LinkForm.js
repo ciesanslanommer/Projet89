@@ -139,7 +139,9 @@ class LinkForm extends Component {
               select={id}
               >
                 <option value={0}>...</option>
-              {memories.map((memory) => 
+              {memories.filter(e => e.id === id || !this.state.memory_ids.includes(e.id))
+                .sort((a,b) => a.name.localeCompare(b.name))
+                .map((memory) =>
                   <option key={memory.id} value={memory.id} selected={memory.id === id}>
                   {memory.name}
                   </option>
