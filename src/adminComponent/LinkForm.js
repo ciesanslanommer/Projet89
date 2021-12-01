@@ -143,7 +143,7 @@ class LinkForm extends Component {
                 .sort((a,b) => a.name.localeCompare(b.name))
                 .map((memory) =>
                   <option key={memory.id} value={memory.id} selected={memory.id === id}>
-                  {memory.name}
+                  {memory.name} (id: {memory.id})
                   </option>
               )}
               </select>
