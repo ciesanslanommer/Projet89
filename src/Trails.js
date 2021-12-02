@@ -128,7 +128,7 @@ class Trails extends PureComponent {
 
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
-      const indexNode = this.props.nodes.findIndex((elt) => elt.id === Number(node.id));
+      const indexNode = this.props.nodes.findIndex((elt) => elt.id === Number(node.id) && !node.querySelector('.iconstrails'));
       const dataNode = this.props.nodes[indexNode];
       if (dataNode) {
         node.addEventListener('mouseenter', (event) => {
@@ -137,7 +137,7 @@ class Trails extends PureComponent {
         );
         node.addEventListener('mouseleave', this.props.closePreview);
       } else {
-        const indexTrail = this.props.trails.findIndex((elt) => elt.id === Number(node.id));
+        const indexTrail = this.props.trails.findIndex((elt) => elt.id === Number(node.id) && !!node.querySelector('.iconstrails'));
         const dataTrail = this.props.trails[indexTrail];
         if (dataTrail) {
           node.addEventListener('mouseenter', (event) => {
@@ -221,13 +221,15 @@ class Trails extends PureComponent {
   // ************************************************************* EVENT
 
   nodeClick = (nodeId, e) => {
-    let { cpy, id } = this.getNodesAndId(nodeId);
-    let currentNodeVisited = cpy[id];
+    console.log("nodeclick", nodeId, e)
 
-    if (currentNodeVisited.entry) {
+
+    if (e.parcours) {
       this.props.nodeClick(nodeId, 'entry');
-    }
-    else {
+    } else {
+      let { cpy, id } = this.getNodesAndId(nodeId);
+      let currentNodeVisited = cpy[id];
+
       // set it to visited
       if (nodeId === this.props.currentMemory) {
         this.focusOnNode(this.props.currentMemory);
