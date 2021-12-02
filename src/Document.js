@@ -73,10 +73,12 @@ class DocumentButton extends Component {
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
 
-    //htmlNode.classList.remove('inTrail');
-    htmlLink.classList.remove('inTrail');
-    //htmlNode.classList.add('relatedtoButton');
-    htmlLink.classList.add('relatedtoButton');
+      if (htmlLink) {
+        //htmlNode.classList.remove('inTrail');
+        htmlLink.classList.remove('inTrail');
+        //htmlNode.classList.add('relatedtoButton');
+        htmlLink.classList.add('relatedtoButton');
+      }
   }
 
   removeHighlightDirectionOfButton(currentId, nodeId) {
@@ -85,10 +87,12 @@ class DocumentButton extends Component {
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
 
-    //htmlNode.classList.add('inTrail');
-    htmlLink.classList.add('inTrail');
-    //htmlNode.classList.remove('relatedtoButton');
-    htmlLink.classList.remove('relatedtoButton');
+      if (htmlLink) {
+        //htmlNode.classList.add('inTrail');
+        htmlLink.classList.add('inTrail');
+        //htmlNode.classList.remove('relatedtoButton');
+        htmlLink.classList.remove('relatedtoButton');
+      }
   }
 
   onMouseOver = (e) => {

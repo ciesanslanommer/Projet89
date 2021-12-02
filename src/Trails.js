@@ -68,7 +68,11 @@ class Trails extends PureComponent {
         this.props.trails,
         this.props.trailsByMemory
       ),
-      links: this.props.links,
+      links: this.formatLinks(
+        this.props.links,
+        this.props.trails,
+        this.props.nodes
+      ),
       focusedNodeId: null,
       width: window.innerWidth,
       height: window.innerHeight,
@@ -76,6 +80,22 @@ class Trails extends PureComponent {
       freeze: false,
       customZoomsToIgnore: [],
     };
+  }
+
+  formatLinks(links, trails, nodes) {
+//    console.log("formatLinks", trails)
+    // remove links that are not linked with existing memories
+    const formattedLinks = this.props.links.filter(e => this.props.nodes.find(n => e.source === n.id) && this.props.nodes.find(n => e.target === n.id));
+    // add first link for each trail
+    trails.forEach(e => {
+      if (nodes.find(n => n.id === e.target_id)) {
+        formattedLinks.push({
+          source: /*'trail_' + */e.id,
+          target: e.target_id,
+        });
+      }
+    })
+    return formattedLinks;
   }
 
   formatNodes(nodes, trail, trailByMemory) {
@@ -101,6 +121,9 @@ class Trails extends PureComponent {
     trail.forEach((trail) => {
       if (!trail.zoom) trail.zoom = 0.1;
       trail.entry = true;
+      if (typeof trail.id !== 'string' || !trail.id.startsWith('trail_')) {
+        trail.id = 'trail_' + trail.id;
+      }
     });
     // //console.log(nodes.concat(trail));
     return nodes.concat(trail);
@@ -137,7 +160,7 @@ class Trails extends PureComponent {
         );
         node.addEventListener('mouseleave', this.props.closePreview);
       } else {
-        const indexTrail = this.props.trails.findIndex((elt) => elt.id === Number(node.id) && !!node.querySelector('.iconstrails'));
+        const indexTrail = this.props.trails.findIndex((elt => /*('trail_' + elt.id)*/elt.id === node.id && !!node.querySelector('.iconstrails')));
         const dataTrail = this.props.trails[indexTrail];
         if (dataTrail) {
           node.addEventListener('mouseenter', (event) => {
@@ -425,6 +448,9 @@ class Trails extends PureComponent {
 
   removeCurrentNode() {
     let htmlNodes = document.querySelectorAll('.node section');
+    if (!htmlNodes) {
+      return
+    }
     htmlNodes.forEach((node) => { 
       node.classList.remove('currentNode'); 
     })

@@ -202,7 +202,7 @@ class App extends PureComponent {
     this.state.node.concat(this.state.trail).forEach((node) => cpyNode.push({ ...node }));
     //find current node
     let id = cpyNode.findIndex(
-      (node) => Number(node.id) === Number(nodeId)
+      node => node.id == nodeId//Number(node.id) === Number(nodeId)
     );
     // currentTrail changes when changing trail or opening doc/entry
     // but should not change on a crossroad
@@ -287,7 +287,7 @@ class App extends PureComponent {
     this.state.node.concat(this.state.trail).forEach((node) => cpyNode.push({ ...node }));
     //find current node
     let id = cpyNode.findIndex(
-      (node) => Number(node.id) === Number(this.state.currentMemory)
+      (node) => node.id == this.state.currentMemory //Number(node.id) === Number(this.state.currentMemory)
     );
     let memory = cpyNode[id];
     
