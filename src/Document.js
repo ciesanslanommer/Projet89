@@ -431,7 +431,10 @@ class Document extends PureComponent {
     let trail = this.props.currentTrail && this.props.currentTrail.parcours
       ? 'PARCOURS '+this.props.currentTrail.parcours.toUpperCase()
       : 'PARCOURS INCONNU';
-    const isLast = this.state.targets.length === 0 && this.state.trails.length >=1;
+
+    // it's the last memory if there is not more target memory also present in the current trail
+    // another ugly line
+    const isLast = this.state.targets.filter(a => a.parcours.find(b => b.parcours === this.props.currentTrail.parcours)).length === 0 && this.state.trails.length >=1;
     
     return (
       <div className='souvenir'>
