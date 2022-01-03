@@ -224,19 +224,19 @@ class App extends PureComponent {
     this.setState({ currentMemory: null, currentTrail: null });
   };
 
-  trailByMemoryPlusEntries() {
-    let res = this.state.trailByMemory;
-    this.state.trail.forEach(trail => {
-      let formattedTrail = {
-        id: trail.id,
-        name: trail.parcours,
-        path: trail.path,
-        entry: trail.entry,
-      }
-      res[formattedTrail.id] = [formattedTrail];
-    });
-    return res;
-  }
+  // trailByMemoryPlusEntries() {
+  //   let res = this.state.trailByMemory;
+  //   this.state.trail.forEach(trail => {
+  //     let formattedTrail = {
+  //       id: trail.id,
+  //       name: trail.parcours,
+  //       path: trail.path,
+  //       entry: trail.entry,
+  //     }
+  //     res[formattedTrail.id] = [formattedTrail];
+  //   });
+  //   return res;
+  // }
 
   formattedCurrentTrail() {
     let res;
@@ -327,7 +327,8 @@ class App extends PureComponent {
             nodeClick={this.changeDoc}
             nodes={this.state.node}
             links={this.state.link}
-            trailsByMemory={this.trailByMemoryPlusEntries()}
+            // trailsByMemory={this.trailByMemoryPlusEntries()}
+            trailsByMemory={this.state.trailByMemory}
             trails={this.state.trail}
             currentMemory={this.state.currentMemory}
             docOpen={this.state.docOpen}
