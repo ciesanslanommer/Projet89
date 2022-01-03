@@ -480,6 +480,8 @@ class Document extends PureComponent {
               {this.state.sources.map((source) => (
                 source.parcours && source.parcours[0] &&
                 !source.parcours[0].entry &&
+                (source.parcours.find(e => e.parcours === this.props.currentTrail.parcours) || source.parcours.find(e => this.state.trails && this.state.trails.some(owntrail => owntrail.parcours === e.parcours)))
+                &&
                 <DocumentButton
                   key={source.id}
                   id={source.id}
