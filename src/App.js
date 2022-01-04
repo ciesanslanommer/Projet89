@@ -158,12 +158,13 @@ class App extends PureComponent {
       );
   }
   
-  componentWillUnmount() {
-    document.querySelectorAll('.node').forEach((node) => {
-      node.removeEventListener('mouseover', this.openPreview);
-      node.removeEventListener('mouseout', this.closePreview);
-    });
-  };
+  // componentWillUnmount() {
+  //   document.querySelectorAll('.node').forEach((node) => {
+  //     const icon = node.querySelector("[class^=icons]");
+  //     icon.removeEventListener('mouseover', this.openPreview);
+  //     icon.removeEventListener('mouseout', this.closePreview);
+  //   });
+  // };
 
   closeMemory = (e) => {
     this.setState({ docOpen: false });

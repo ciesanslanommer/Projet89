@@ -153,24 +153,40 @@ class Trails extends PureComponent {
     document.querySelectorAll('.node').forEach((node) => {
       const indexNode = this.props.nodes.findIndex((elt) => elt.id === Number(node.id) && !node.querySelector('.iconstrails'));
       const dataNode = this.props.nodes[indexNode];
+      const icon = node.querySelector("[class^=icons]");
       if (dataNode) {
-        node.addEventListener('mouseenter', (event) => {
+        icon.addEventListener('mouseenter', (event) => {
+            this.onMouseOverNode(dataNode.id, dataNode);
             this.props.openPreview(node, dataNode.name, dataNode.description, dataNode.entry)
           }
         );
-        node.addEventListener('mouseleave', this.props.closePreview);
+        icon.addEventListener('mouseleave', () => {
+          this.onMouseOutNode(dataNode.id, dataNode);
+          this.props.closePreview();
+        });
+        icon.addEventListener('click', () => {
+          this.nodeClick(dataNode.id, dataNode);
+        });
+
       } else {
         const indexTrail = this.props.trails.findIndex((elt => /*('trail_' + elt.id)*/elt.id === node.id && !!node.querySelector('.iconstrails')));
         const dataTrail = this.props.trails[indexTrail];
         if (dataTrail) {
-          node.addEventListener('mouseenter', (event) => {
+          icon.addEventListener('mouseenter', (event) => {
               const parcours = dataTrail.parcours
                 ? `PARCOURS ${dataTrail.parcours.toUpperCase()}`
                 : 'PARCOURS INCONNU';
+              this.onMouseOverNode(dataTrail.id, dataTrail);
               this.props.openPreview(node, parcours, dataTrail.description, dataTrail.entry)
             }
           );
-          node.addEventListener('mouseleave', this.props.closePreview);
+          icon.addEventListener('mouseleave', () => {
+            this.onMouseOutNode(dataTrail.id, dataTrail);
+            this.props.closePreview();
+          });
+          icon.addEventListener('click', () => {
+            this.nodeClick(dataTrail.id, dataTrail);
+          });
         }
       }
     });
@@ -243,11 +259,9 @@ class Trails extends PureComponent {
 
   // ************************************************************* EVENT
 
-  nodeClick = (nodeId, e) => {
-    console.log("nodeclick", nodeId, e)
-
-
-    if (e.parcours) {
+  nodeClick = (nodeId, node) => {
+    console.log("nodeClick", nodeId, node)
+    if ((''+nodeId).startsWith('trail')) {
       this.props.nodeClick(nodeId, 'entry');
     } else {
       let { cpy, id } = this.getNodesAndId(nodeId);
@@ -266,8 +280,6 @@ class Trails extends PureComponent {
       this.setState({ nodes: cpy });
       this.props.nodeClick(nodeId, 'memory');
     }
-
-    
   }
 
   // savePosition = (nodeId, x, y, e) => {
@@ -541,11 +553,11 @@ class Trails extends PureComponent {
               focusedNodeId: this.state.focusedNodeId,
             }}
             config={myConfig}
-            onClickNode={this.nodeClick}
+            // onClickNode={this.nodeClick}
             // onNodePositionChange={this.savePosition}
             onZoomChange={this.onD3ZoomChange}
-            onMouseOverNode={this.onMouseOverNode}
-            onMouseOutNode={this.onMouseOutNode}
+            // onMouseOverNode={this.onMouseOverNode}
+            // onMouseOutNode={this.onMouseOutNode}
             onClickGraph={this.onClickGraph}
           />
         </div>
