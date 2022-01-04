@@ -21,7 +21,7 @@ const myConfig = {
   // directed: true,
   node: {
     color: 'lightgreen',
-    size: 1800,
+    size: 1000,
     highlightStrokeColor: 'blue',
     renderLabel: false,
   },
@@ -76,7 +76,7 @@ class Trails extends PureComponent {
       focusedNodeId: null,
       width: window.innerWidth,
       height: window.innerHeight,
-      zoom: Math.min(Math.max(window.innerHeight / 1300, 0.3), 1), // I don't know why I have to do this but otherwise the graph does not fit inside the window...
+      zoom: Math.min(Math.max(window.innerHeight / 2200, 0.3), 1), // I don't know why I have to do this but otherwise the graph does not fit inside the window...
       freeze: false,
       customZoomsToIgnore: [],
     };
