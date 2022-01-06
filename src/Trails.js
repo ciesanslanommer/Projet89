@@ -151,7 +151,7 @@ class Trails extends PureComponent {
 
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
-      const indexNode = this.props.nodes.findIndex((elt) => elt.id === Number(node.id) && !node.querySelector('.iconstrails'));
+      const indexNode = this.props.nodes.findIndex((elt) => elt.id === /*Number*/(node.id) && !node.querySelector('.iconstrails'));
       const dataNode = this.props.nodes[indexNode];
       const icon = node.querySelector("[class^=icons]");
       if (dataNode) {
@@ -214,7 +214,7 @@ class Trails extends PureComponent {
     this.state.nodes.forEach((node) => nodes.push({ ...node }));
 
     //find current node
-    let id = nodes.findIndex((node) => node.id === Number(nodeId));
+    let id = nodes.findIndex((node) => node.id === /*Number*/(nodeId));
     return { cpy: nodes, id: id };
   }
 
