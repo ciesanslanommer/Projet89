@@ -359,6 +359,7 @@ class Trails extends PureComponent {
     /** If document isn't open **/
     /* highlight current trail and node or trail mouseovered */
     if (!this.props.docOpen) {
+      this.props.unsetCurrentMemory();
       const trailMouseOvered = node.entry ? [node.parcours] : node.trails;
       const cpy = this.getNodesAndId(this.props.currentMemory).cpy;
       const currentId = this.getNodesAndId(this.props.currentMemory).id;

@@ -169,6 +169,7 @@ class App extends PureComponent {
   closeMemory = (e) => {
     this.setState({ docOpen: false });
     document.querySelector('.App').classList.remove('displayDoc');
+    this.unsetCurrentMemory();
   };
 
   openMemory = (state, e) => {
