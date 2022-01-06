@@ -418,7 +418,7 @@ class Document extends PureComponent {
     this.props.node.concat(this.props.trail).forEach((node) => cpyNode.push({ ...node }));
     //find current node
     let id = cpyNode.findIndex(
-      (node) => Number(node.id) === Number(this.props.id)
+      (node) => /*Number*/(node.id) === /*Number*/(this.props.id)
     );
     const isCrossRoad = cpyNode[id].entry ? false : cpyNode[id].trails.length>1;
     let doc = this.displayDoc(
