@@ -302,6 +302,10 @@ class App extends PureComponent {
     // //console.log('trailloaded?', trailloaded);
     //console.log(this.formattedCurrentTrail());
 
+
+    const helpMouseOver = () => this.setState({showHelp: true})
+    const helpMouseOut = () => this.setState({showHelp: false})
+
     return (
       <div className='App'>
         {
@@ -326,24 +330,42 @@ class App extends PureComponent {
 
         {
           !this.state.docOpen && (
+            <img
+              className='icon-help'
+              src={require('./assets/help.png').default}
+              alt='help'
+              onMouseOver={helpMouseOver}
+              onMouseOut={helpMouseOut}
+            />
+          )
+        }
+
+        {
+          !this.state.docOpen && this.state.showHelp && (
             <span className='scroll-help'>
-              <img
-                src={require('./assets/mouse-scroll.png').default}
-                alt='scroll'
-              />
-              Scroll = <br /> zoomer/dézoomer
+              <span class='intro-help'>
+                Interactions
+              </span>
+              <br />
+              <span class='content-help'>
+                <img
+                  src={require('./assets/mouse-scroll.png').default}
+                  alt='scroll'
+                />
+                Scroll = <br /> zoomer/dézoomer
 
-               <img
-                src={require('./assets/mouse-drag-drop.png').default}
-                alt='click'
-              />
-             Cliquer-glisser = <br /> se déplacer
+                 <img
+                  src={require('./assets/mouse-drag-drop.png').default}
+                  alt='click'
+                />
+               Cliquer-glisser = <br /> se déplacer
 
-              <img
-                src={require('./assets/mouse-click.png').default}
-                alt='click'
-              />
-              Click = <br/> afficher le souvenir
+                <img
+                  src={require('./assets/mouse-click.png').default}
+                  alt='click'
+                />
+                Click = <br/> afficher le souvenir
+              </span>
             </span>
           )
         }

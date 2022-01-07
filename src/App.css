@@ -42,20 +42,28 @@ example-leave-active {
 
 
 .scroll-help {
-  color: rgb(255, 255, 255, .5);
-  padding-top: 10px;
   position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%) scale(0.9);
+  top: 20px;
+  right: 100px;
+  background: white;
+  padding:  30px;
+  border-width:  20px;
+  border-color: rgb(57, 234, 234);
+  border-radius:  5px;
+}
+
+.scroll-help .intro-help {
+  font-size: 1.2em;
+}
+
+.scroll-help .content-help {
   display: inline-flex;
   min-height: 50px;
   align-items: center;
+  padding-top: 20px;
 }
 
 .scroll-help img {
-  filter: invert();
-  opacity: 0.5;
   height: 50px;
   padding: 0 20px;
 
@@ -72,5 +80,27 @@ example-leave-active {
 
 .scroll-help img:nth-child(5) {
    height: 40px;
-    margin-left:  20px;
+  margin-left:  20px;
+}
+
+
+.icon-help {
+  filter: invert();
+  opacity: 0.5;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin:  40px;
+  transition: all 0.3s linear;
+}
+
+
+.icon-help:hover {
+  filter: invert(94%) sepia(99%) saturate(2818%) hue-rotate(136deg) brightness(93%) contrast(97%);
+  cursor:  help;
+}
+
+button#burger-button:hover div {
 }
