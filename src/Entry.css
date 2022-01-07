@@ -1,5 +1,6 @@
+
 .iconstrails img {
-    width: 90%;
+    transform: scale(0.55);
     filter: brightness(10);
 }
 
