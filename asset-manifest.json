@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.3dca48d2.chunk.css",
-    "main.js": "/static/js/main.7757040d.chunk.js",
-    "main.js.map": "/static/js/main.7757040d.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.469c68d6.js",
-    "runtime-main.js.map": "/static/js/runtime-main.469c68d6.js.map",
-    "static/js/2.c3fd7de8.chunk.js": "/static/js/2.c3fd7de8.chunk.js",
-    "static/js/2.c3fd7de8.chunk.js.map": "/static/js/2.c3fd7de8.chunk.js.map",
-    "static/js/3.c94ddd66.chunk.js": "/static/js/3.c94ddd66.chunk.js",
-    "static/js/3.c94ddd66.chunk.js.map": "/static/js/3.c94ddd66.chunk.js.map",
+    "main.css": "/static/css/main.e43515b6.chunk.css",
+    "main.js": "/static/js/main.fb650c8e.chunk.js",
+    "main.js.map": "/static/js/main.fb650c8e.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8578405d.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8578405d.js.map",
+    "static/js/2.bc34c94c.chunk.js": "/static/js/2.bc34c94c.chunk.js",
+    "static/js/2.bc34c94c.chunk.js.map": "/static/js/2.bc34c94c.chunk.js.map",
+    "static/js/3.bc6de07d.chunk.js": "/static/js/3.bc6de07d.chunk.js",
+    "static/js/3.bc6de07d.chunk.js.map": "/static/js/3.bc6de07d.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.3dca48d2.chunk.css.map": "/static/css/main.3dca48d2.chunk.css.map",
-    "static/js/2.c3fd7de8.chunk.js.LICENSE.txt": "/static/js/2.c3fd7de8.chunk.js.LICENSE.txt",
+    "static/css/main.e43515b6.chunk.css.map": "/static/css/main.e43515b6.chunk.css.map",
+    "static/js/2.bc34c94c.chunk.js.LICENSE.txt": "/static/js/2.bc34c94c.chunk.js.LICENSE.txt",
     "static/media/amnesie.png": "/static/media/amnesie.4aa8497a.png",
     "static/media/amnesie_petit.png": "/static/media/amnesie_petit.8f94e1aa.png",
     "static/media/appareil_photo.png": "/static/media/appareil_photo.4de9e0b1.png",
@@ -40,6 +40,7 @@
     "static/media/AdminForm.css": "/static/media/fond.935566c1.png",
     "static/media/fondation.png": "/static/media/fondation.f45d88da.png",
     "static/media/fondation_petit.png": "/static/media/fondation_petit.94c36300.png",
+    "static/media/help.png": "/static/media/help.2d3f0b39.png",
     "static/media/icone.png": "/static/media/icone.8a33f083.png",
     "static/media/icone_petit.png": "/static/media/icone_petit.e21c7a34.png",
     "static/media/livre.png": "/static/media/livre.3221661f.png",
@@ -70,9 +71,9 @@
     "static/media/walkman.png": "/static/media/walkman.e0c3b9b1.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.469c68d6.js",
-    "static/js/2.c3fd7de8.chunk.js",
-    "static/css/main.3dca48d2.chunk.css",
-    "static/js/main.7757040d.chunk.js"
+    "static/js/runtime-main.8578405d.js",
+    "static/js/2.bc34c94c.chunk.js",
+    "static/css/main.e43515b6.chunk.css",
+    "static/js/main.fb650c8e.chunk.js"
   ]
 }
