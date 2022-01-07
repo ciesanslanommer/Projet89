@@ -39,3 +39,38 @@ example-leave-active {
   opacity: 0.01;
   transition: opacity 1000ms ease-in;
 }
+
+
+.scroll-help {
+  color: rgb(255, 255, 255, .5);
+  padding-top: 10px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%) scale(0.9);
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+}
+
+.scroll-help img {
+  filter: invert();
+  opacity: 0.5;
+  height: 50px;
+  padding: 0 20px;
+
+}
+
+.scroll-help img:nth-child(1) {
+  height: 40px;
+}
+
+.scroll-help img:nth-child(3) {
+  margin-left:  20px;
+  height: 55px;
+}
+
+.scroll-help img:nth-child(5) {
+   height: 40px;
+    margin-left:  20px;
+}

@@ -324,6 +324,30 @@ class App extends PureComponent {
           onClick={this.onClickOnMenu}
         />
 
+        {
+          !this.state.docOpen && (
+            <span className='scroll-help'>
+              <img
+                src={require('./assets/mouse-scroll.png').default}
+                alt='scroll'
+              />
+              Scroll = <br /> zoomer/dézoomer
+
+               <img
+                src={require('./assets/mouse-drag-drop.png').default}
+                alt='click'
+              />
+             Cliquer-glisser = <br /> se déplacer
+
+              <img
+                src={require('./assets/mouse-click.png').default}
+                alt='click'
+              />
+              Click = <br/> afficher le souvenir
+            </span>
+          )
+        }
+
         {trailloaded && (
           <Trails
             nodeClick={this.changeDoc}
