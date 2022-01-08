@@ -21,7 +21,7 @@ const myConfig = {
   // directed: true,
   node: {
     color: 'lightgreen',
-    size: 3600,
+    size: 4400,
     highlightStrokeColor: 'blue',
     renderLabel: false,
   },
