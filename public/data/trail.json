@@ -1,62 +1,134 @@
 [
     {
-        "target_id": 64,
-        "id": 7,
-        "icon_id": 1,
-        "path": "trails/amnesie.png",
-        "parcours": "Méduse",
-        "description": "Entrez dans le parcours Méduse",
-        "entry_message": "Un jeu de regards qui transforment parfois en pierre. Où on apprend à regarder de biais.",
-        "exit_message": "",
-        "x": 196.64190310062568,
-        "y": 813.9185332113334
-    },
-    {
         "target_id": 63,
-        "id": 10,
+        "id": 15,
         "icon_id": 2,
         "path": "trails/bouleversement.png",
         "parcours": "Bouleversement",
-        "description": "Entrez dans le parcours Bouleversement",
+        "description": "Entrez dans le parcours \"Bouleversement\"",
         "entry_message": "Le désordre des choses, le point de bascule ou la violence d’un trouble. Dans le bouleversement, il y a l’idée d’appuyer avec force d’un côté pour provoquer un changement de l’autre côté.",
         "exit_message": "",
-        "x": 144.967325380996,
-        "y": 262.0382799051493
+        "x": 69.98460100535353,
+        "y": 559.7926202280288
     },
     {
         "target_id": 57,
-        "id": 4,
+        "id": 19,
         "icon_id": 3,
         "path": "trails/oracle.png",
         "parcours": "Oracle",
-        "description": "Entrez dans le Parcours Oracle",
+        "description": "Entrez dans le parcours \"Oracle\"",
         "entry_message": "L’imagination de prédictions, de réponses extra-humaines face au déferlement d'événements.",
         "exit_message": "",
-        "x": 57.59401394323716,
-        "y": 609.7660084252776
+        "x": 259.67460238297815,
+        "y": 944.3532032080748
     },
     {
         "target_id": 50,
-        "id": 9,
+        "id": 18,
         "icon_id": 4,
         "path": "trails/ruines.png",
         "parcours": "Ruines",
-        "description": "Entrez dans le parcours ruines",
+        "description": "Entrez dans le parcours \"Ruines\"",
         "entry_message": "Usures, effritements progressifs, destructions, épaves, restes, en morceaux, en état d'abandon, en friche. 1989 pourrait bien en être une…",
         "exit_message": "",
-        "x": 888.7596377476368,
-        "y": 711.3398653247418
+        "x": 337.788959791405,
+        "y": 400.03004320373867
     },
     {
         "target_id": 69,
-        "id": 8,
+        "id": 16,
         "icon_id": 5,
         "path": "trails/utopie.png",
         "parcours": "Utopie",
-        "description": "Entrez dans le parcours Utopie",
+        "description": "Entrez dans le parcours utopie",
         "entry_message": "Imaginer des possibles, ouvrir des brèches, construire des alternatives.",
         "exit_message": "",
-        "x": 266.5058609913695,
-        "y": 869.4986593445899
+        "x": 256.2735864930532,
+        "y": 926.1107611242483
+    },
+    {
+        "target_id": 140,
+        "id": 56,
+        "icon_id": 21,
+        "path": "trails/aleatoire.png",
+        "parcours": "Pêle-mêle",
+        "description": "Entrez dans le parcours \"Pêle-mêle\"",
+        "entry_message": "Entre hier et aujourd'hui seules restent quelques photos, articles, flash de mémoire, sensations physiques... Les souvenirs reviennent aléatoirement et de manière confuse. ",
+        "exit_message": "",
+        "x": 937.6574914428286,
+        "y": 623.4452337221832
+    },
+    {
+        "target_id": 119,
+        "id": 52,
+        "icon_id": 22,
+        "path": "trails/cercle.png",
+        "parcours": "Cercle",
+        "description": "Entrez dans le parcours \"Cercle\"",
+        "entry_message": "Symbole ancestral, le cercle nous rassemble et nous relie.\nDans une impression de tourner en rond, tout revient au commencement, dans un éternel retour. ",
+        "exit_message": "",
+        "x": 601.5957034252868,
+        "y": 865.358085106636
+    },
+    {
+        "target_id": 106,
+        "id": 54,
+        "icon_id": 24,
+        "path": "trails/desenchantement.png",
+        "parcours": "Désenchantement",
+        "description": "Entrez dans le parcours \"Désenchantement\" ",
+        "entry_message": "La fin des illusions. Les attentes étaient trop grandes et voilà que patatra, les masques tombent. ",
+        "exit_message": "",
+        "x": 631.7683778606466,
+        "y": 403.18786024588337
+    },
+    {
+        "target_id": 128,
+        "id": 55,
+        "icon_id": 29,
+        "path": "trails/icone.png",
+        "parcours": "Icônes",
+        "description": "Entrez dans le parcours \"Icônes\"",
+        "entry_message": "Des signes emblématiques de l’année 1989. Des images et objets évocateurs, symboliques, incontournables et parfois irrésistibles. \n",
+        "exit_message": "",
+        "x": 918.8888285733323,
+        "y": 317.9883795909577
+    },
+    {
+        "target_id": 64,
+        "id": 17,
+        "icon_id": 30,
+        "path": "trails/meduse.png",
+        "parcours": "Méduse",
+        "description": "Entrez dans le parcours \"Méduse\"",
+        "entry_message": "Un jeu de regards qui transforment parfois en pierre. Où on apprend à regarder de biais.",
+        "exit_message": "",
+        "x": 12.862525771411892,
+        "y": 735.4066754278858
+    },
+    {
+        "target_id": 110,
+        "id": 53,
+        "icon_id": 31,
+        "path": "trails/passage.png",
+        "parcours": "Passage",
+        "description": "Entrez dans le parcours \"Passage\"",
+        "entry_message": "Une brèche, une transition, un glissement. Il y a là une perte de l’innocence mise en éveil par la réalité du monde. ",
+        "exit_message": "",
+        "x": 473.18436999417935,
+        "y": 923.3291594077508
+    },
+    {
+        "target_id": 117,
+        "id": 51,
+        "icon_id": 34,
+        "path": "trails/vertige.png",
+        "parcours": "Suspension",
+        "description": "Entrez dans le parcours \"Suspension\"",
+        "entry_message": "Sensation de vivre un moment unique et protégé de l’extérieur. Avoir l’impression de flotter, de s’élever au-dessus du sol. ",
+        "exit_message": "",
+        "x": 231.3087161609324,
+        "y": 42.131706379539224
     }
 ]
