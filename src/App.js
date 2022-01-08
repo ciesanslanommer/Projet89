@@ -93,7 +93,8 @@ class App extends PureComponent {
         (result) => {
           //console.log('Success! link = ', result);
           this.setState({
-            link: result,
+            // remove potential duplicated tuples (e.source, e.target) - cf https://stackoverflow.com/a/56757215/4503757 
+            link: [...new Map(result.map(v => [JSON.stringify([v.source,v.target]), v])).values()],
             linkLoaded: true,
           });
         },
@@ -157,16 +158,18 @@ class App extends PureComponent {
       );
   }
   
-  componentWillUnmount() {
-    document.querySelectorAll('.node').forEach((node) => {
-      node.removeEventListener('mouseover', this.openPreview);
-      node.removeEventListener('mouseout', this.closePreview);
-    });
-  };
+  // componentWillUnmount() {
+  //   document.querySelectorAll('.node').forEach((node) => {
+  //     const icon = node.querySelector("[class^=icons]");
+  //     icon.removeEventListener('mouseover', this.openPreview);
+  //     icon.removeEventListener('mouseout', this.closePreview);
+  //   });
+  // };
 
   closeMemory = (e) => {
     this.setState({ docOpen: false });
     document.querySelector('.App').classList.remove('displayDoc');
+    this.unsetCurrentMemory();
   };
 
   openMemory = (state, e) => {
@@ -201,7 +204,7 @@ class App extends PureComponent {
     this.state.node.concat(this.state.trail).forEach((node) => cpyNode.push({ ...node }));
     //find current node
     let id = cpyNode.findIndex(
-      (node) => Number(node.id) === Number(nodeId)
+      node => node.id == nodeId//Number(node.id) === Number(nodeId)
     );
     // currentTrail changes when changing trail or opening doc/entry
     // but should not change on a crossroad
@@ -223,19 +226,19 @@ class App extends PureComponent {
     this.setState({ currentMemory: null, currentTrail: null });
   };
 
-  trailByMemoryPlusEntries() {
-    let res = this.state.trailByMemory;
-    this.state.trail.forEach(trail => {
-      let formattedTrail = {
-        id: trail.id,
-        name: trail.parcours,
-        path: trail.path,
-        entry: trail.entry,
-      }
-      res[formattedTrail.id] = [formattedTrail];
-    });
-    return res;
-  }
+  // trailByMemoryPlusEntries() {
+  //   let res = this.state.trailByMemory;
+  //   this.state.trail.forEach(trail => {
+  //     let formattedTrail = {
+  //       id: trail.id,
+  //       name: trail.parcours,
+  //       path: trail.path,
+  //       entry: trail.entry,
+  //     }
+  //     res[formattedTrail.id] = [formattedTrail];
+  //   });
+  //   return res;
+  // }
 
   formattedCurrentTrail() {
     let res;
@@ -286,7 +289,7 @@ class App extends PureComponent {
     this.state.node.concat(this.state.trail).forEach((node) => cpyNode.push({ ...node }));
     //find current node
     let id = cpyNode.findIndex(
-      (node) => Number(node.id) === Number(this.state.currentMemory)
+      (node) => node.id == this.state.currentMemory //Number(node.id) === Number(this.state.currentMemory)
     );
     let memory = cpyNode[id];
     
@@ -298,6 +301,10 @@ class App extends PureComponent {
     // const adminLoaded = this.state.trailLoaded;
     // //console.log('trailloaded?', trailloaded);
     //console.log(this.formattedCurrentTrail());
+
+
+    const helpMouseOver = () => this.setState({showHelp: true})
+    const helpMouseOut = () => this.setState({showHelp: false})
 
     return (
       <div className='App'>
@@ -321,12 +328,55 @@ class App extends PureComponent {
           onClick={this.onClickOnMenu}
         />
 
+        {
+          !this.state.docOpen && (
+            <img
+              className='icon-help'
+              src={require('./assets/help.png').default}
+              alt='help'
+              onMouseOver={helpMouseOver}
+              onMouseOut={helpMouseOut}
+            />
+          )
+        }
+
+        {
+          !this.state.docOpen && this.state.showHelp && (
+            <span className='scroll-help'>
+              <span class='intro-help'>
+                Interactions
+              </span>
+              <br />
+              <span class='content-help'>
+                <img
+                  src={require('./assets/mouse-scroll.png').default}
+                  alt='scroll'
+                />
+                Scroll = <br /> zoomer/dézoomer
+
+                 <img
+                  src={require('./assets/mouse-drag-drop.png').default}
+                  alt='click'
+                />
+               Cliquer-glisser = <br /> se déplacer
+
+                <img
+                  src={require('./assets/mouse-click.png').default}
+                  alt='click'
+                />
+                Click = <br/> afficher le souvenir
+              </span>
+            </span>
+          )
+        }
+
         {trailloaded && (
           <Trails
             nodeClick={this.changeDoc}
             nodes={this.state.node}
             links={this.state.link}
-            trailsByMemory={this.trailByMemoryPlusEntries()}
+            // trailsByMemory={this.trailByMemoryPlusEntries()}
+            trailsByMemory={this.state.trailByMemory}
             trails={this.state.trail}
             currentMemory={this.state.currentMemory}
             docOpen={this.state.docOpen}

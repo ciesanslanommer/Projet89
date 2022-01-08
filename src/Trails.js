@@ -14,14 +14,14 @@ const myConfig = {
   staticGraph : false,
   highlightDegree: 0,
   minZoom: 0.1,
-  maxZoom: 3,
-  focusZoom: 2,
+  maxZoom: 2,
+  focusZoom: 1,
   focusAnimationDuration: 0.75,
   freezeAllDragEvents: true,
   // directed: true,
   node: {
     color: 'lightgreen',
-    size: 1800,
+    size: 3600,
     highlightStrokeColor: 'blue',
     renderLabel: false,
   },
@@ -68,14 +68,34 @@ class Trails extends PureComponent {
         this.props.trails,
         this.props.trailsByMemory
       ),
-      links: this.props.links,
+      links: this.formatLinks(
+        this.props.links,
+        this.props.trails,
+        this.props.nodes
+      ),
       focusedNodeId: null,
       width: window.innerWidth,
       height: window.innerHeight,
-      zoom: Math.min(Math.max(window.innerHeight / 1300, 0.3), 1), // I don't know why I have to do this but otherwise the graph does not fit inside the window...
+      zoom: Math.min(Math.max(window.innerHeight / 2500, 0.3), 1), // I don't know why I have to do this but otherwise the graph does not fit inside the window...
       freeze: false,
       customZoomsToIgnore: [],
     };
+  }
+
+  formatLinks(links, trails, nodes) {
+//    console.log("formatLinks", trails)
+    // remove links that are not linked with existing memories
+    const formattedLinks = this.props.links.filter(e => this.props.nodes.find(n => e.source === n.id) && this.props.nodes.find(n => e.target === n.id));
+    // add first link for each trail
+    trails.forEach(e => {
+      if (nodes.find(n => n.id === e.target_id)) {
+        formattedLinks.push({
+          source: /*'trail_' + */e.id,
+          target: e.target_id,
+        });
+      }
+    })
+    return formattedLinks;
   }
 
   formatNodes(nodes, trail, trailByMemory) {
@@ -101,6 +121,9 @@ class Trails extends PureComponent {
     trail.forEach((trail) => {
       if (!trail.zoom) trail.zoom = 0.1;
       trail.entry = true;
+      if (typeof trail.id !== 'string' || !trail.id.startsWith('trail_')) {
+        trail.id = 'trail_' + trail.id;
+      }
     });
     // //console.log(nodes.concat(trail));
     return nodes.concat(trail);
@@ -128,26 +151,42 @@ class Trails extends PureComponent {
 
     /** Handle open/close preview **/
     document.querySelectorAll('.node').forEach((node) => {
-      const indexNode = this.props.nodes.findIndex((elt) => elt.id === Number(node.id));
+      const indexNode = this.props.nodes.findIndex((elt) => elt.id === Number(node.id) && !node.querySelector('.iconstrails'));
       const dataNode = this.props.nodes[indexNode];
+      const icon = node.querySelector("[class^=icons]");
       if (dataNode) {
-        node.addEventListener('mouseenter', (event) => {
+        icon.addEventListener('mouseenter', (event) => {
+            this.onMouseOverNode(dataNode.id, dataNode);
             this.props.openPreview(node, dataNode.name, dataNode.description, dataNode.entry)
           }
         );
-        node.addEventListener('mouseleave', this.props.closePreview);
+        icon.addEventListener('mouseleave', () => {
+          this.onMouseOutNode(dataNode.id, dataNode);
+          this.props.closePreview();
+        });
+        icon.addEventListener('click', () => {
+          this.nodeClick(dataNode.id, dataNode);
+        });
+
       } else {
-        const indexTrail = this.props.trails.findIndex((elt) => elt.id === Number(node.id));
+        const indexTrail = this.props.trails.findIndex((elt => /*('trail_' + elt.id)*/elt.id === node.id && !!node.querySelector('.iconstrails')));
         const dataTrail = this.props.trails[indexTrail];
         if (dataTrail) {
-          node.addEventListener('mouseenter', (event) => {
+          icon.addEventListener('mouseenter', (event) => {
               const parcours = dataTrail.parcours
                 ? `PARCOURS ${dataTrail.parcours.toUpperCase()}`
                 : 'PARCOURS INCONNU';
+              this.onMouseOverNode(dataTrail.id, dataTrail);
               this.props.openPreview(node, parcours, dataTrail.description, dataTrail.entry)
             }
           );
-          node.addEventListener('mouseleave', this.props.closePreview);
+          icon.addEventListener('mouseleave', () => {
+            this.onMouseOutNode(dataTrail.id, dataTrail);
+            this.props.closePreview();
+          });
+          icon.addEventListener('click', () => {
+            this.nodeClick(dataTrail.id, dataTrail);
+          });
         }
       }
     });
@@ -220,14 +259,14 @@ class Trails extends PureComponent {
 
   // ************************************************************* EVENT
 
-  nodeClick = (nodeId, e) => {
-    let { cpy, id } = this.getNodesAndId(nodeId);
-    let currentNodeVisited = cpy[id];
-
-    if (currentNodeVisited.entry) {
+  nodeClick = (nodeId, node) => {
+    console.log("nodeClick", nodeId, node)
+    if ((''+nodeId).startsWith('trail')) {
       this.props.nodeClick(nodeId, 'entry');
-    }
-    else {
+    } else {
+      let { cpy, id } = this.getNodesAndId(nodeId);
+      let currentNodeVisited = cpy[id];
+
       // set it to visited
       if (nodeId === this.props.currentMemory) {
         this.focusOnNode(this.props.currentMemory);
@@ -241,8 +280,6 @@ class Trails extends PureComponent {
       this.setState({ nodes: cpy });
       this.props.nodeClick(nodeId, 'memory');
     }
-
-    
   }
 
   // savePosition = (nodeId, x, y, e) => {
@@ -322,6 +359,7 @@ class Trails extends PureComponent {
     /** If document isn't open **/
     /* highlight current trail and node or trail mouseovered */
     if (!this.props.docOpen) {
+      this.props.unsetCurrentMemory();
       const trailMouseOvered = node.entry ? [node.parcours] : node.trails;
       const cpy = this.getNodesAndId(this.props.currentMemory).cpy;
       const currentId = this.getNodesAndId(this.props.currentMemory).id;
@@ -423,6 +461,9 @@ class Trails extends PureComponent {
 
   removeCurrentNode() {
     let htmlNodes = document.querySelectorAll('.node section');
+    if (!htmlNodes) {
+      return
+    }
     htmlNodes.forEach((node) => { 
       node.classList.remove('currentNode'); 
     })
@@ -513,11 +554,11 @@ class Trails extends PureComponent {
               focusedNodeId: this.state.focusedNodeId,
             }}
             config={myConfig}
-            onClickNode={this.nodeClick}
+            // onClickNode={this.nodeClick}
             // onNodePositionChange={this.savePosition}
             onZoomChange={this.onD3ZoomChange}
-            onMouseOverNode={this.onMouseOverNode}
-            onMouseOutNode={this.onMouseOutNode}
+            // onMouseOverNode={this.onMouseOverNode}
+            // onMouseOutNode={this.onMouseOutNode}
             onClickGraph={this.onClickGraph}
           />
         </div>

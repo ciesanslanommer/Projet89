@@ -37,3 +37,11 @@
 .Graph {
     background-color: rgb(47 25 26);
 }
+
+.node {
+  pointer-events: none;
+}
+
+[class^="icons"] {
+  pointer-events: all;
+}

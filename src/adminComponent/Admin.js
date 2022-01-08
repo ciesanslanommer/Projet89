@@ -298,9 +298,9 @@ class Admin extends Component {
     const memoriesLoaded = this.state.memoriesLoaded;
     // const adminLoaded = this.state.trailLoaded;
 
-  /*  if (!this.state.token) {
+    if (!this.state.token) {
       return <Login setToken={token => this.setToken(token)} />
-    }*/
+    }
 
     return (
       <div className='adminBody'>
@@ -347,7 +347,9 @@ class Admin extends Component {
               <div className="formRow">
                 <select onChange={(e) => this.openComponent('updateMemory', e)}>
                   <option value='null'>Modifier un souvenir</option>
-                  {this.state.memories.map((memory) => {
+                  {this.state.memories
+                    .sort((a,b) => a.name.localeCompare(b.name))
+                    .map((memory) => {
                     return (
                       <option key={memory.id} value={memory.id}>
                         {`${memory.name} (id:${memory.id})`}
@@ -357,7 +359,9 @@ class Admin extends Component {
                 </select>
                 <select onChange={(e) => this.openComponent('updateTrail', e)}>
                   <option value='null'>Modifier un parcours</option>
-                  {this.state.trails.map((trail) => {
+                  {this.state.trails
+                    .sort((a,b) => a.parcours.localeCompare(b.parcours))
+                    .map((trail) => {
                     return (
                       <option key={trail.id} value={trail.id}>
                         {`${trail.parcours} (id:${trail.id})`}
@@ -373,7 +377,9 @@ class Admin extends Component {
               <div className="formRow">
                 <select onChange={(e) => this.openComponent('linkFormOpen', e)}>
                     <option value='null'>Creer les liens de ...</option>
-                    {this.state.trails.map((trail) => {
+                    {this.state.trails
+                      .sort((a,b) => a.parcours.localeCompare(b.parcours))
+                      .map((trail) => {
                       return (
                         <option key={trail.id} value={trail.id}>
                           {`${trail.parcours} (id:${trail.id})`}
@@ -389,7 +395,9 @@ class Admin extends Component {
               <div className="formRow">
                 <select onChange={(e) => this.deleteMemory(e)}>
                     <option value='null'>Supprimer un souvenir </option>
-                    {this.state.memories.map((memory) => {
+                    {this.state.memories
+                      .sort((a,b) => a.name.localeCompare(b.name))
+                      .map((memory) => {
                       return (
                         <option key={memory.id} value={memory.id}>
                           {`${memory.name} (id:${memory.id})`}
@@ -405,7 +413,9 @@ class Admin extends Component {
               <div className="formRow">
                 <select onChange={(e) => this.deleteTrail(e)}>
                     <option value='null'>Supprimer un parcours </option>
-                    {this.state.trails.map((trail) => {
+                    {this.state.trails
+                      .sort((a,b) => a.parcours.localeCompare(b.parcours))
+                      .map((trail) => {
                       return (
                         <option key={trail.id} value={trail.id}>
                           {`${trail.parcours} (id:${trail.id})`}

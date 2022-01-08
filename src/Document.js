@@ -73,10 +73,12 @@ class DocumentButton extends Component {
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
 
-    //htmlNode.classList.remove('inTrail');
-    htmlLink.classList.remove('inTrail');
-    //htmlNode.classList.add('relatedtoButton');
-    htmlLink.classList.add('relatedtoButton');
+      if (htmlLink) {
+        //htmlNode.classList.remove('inTrail');
+        htmlLink.classList.remove('inTrail');
+        //htmlNode.classList.add('relatedtoButton');
+        htmlLink.classList.add('relatedtoButton');
+      }
   }
 
   removeHighlightDirectionOfButton(currentId, nodeId) {
@@ -85,10 +87,12 @@ class DocumentButton extends Component {
       document.querySelector(`[id="${nodeId},${currentId}"]`) :
       document.querySelector(`[id="${currentId},${nodeId}"]`);
 
-    //htmlNode.classList.add('inTrail');
-    htmlLink.classList.add('inTrail');
-    //htmlNode.classList.remove('relatedtoButton');
-    htmlLink.classList.remove('relatedtoButton');
+      if (htmlLink) {
+        //htmlNode.classList.add('inTrail');
+        htmlLink.classList.add('inTrail');
+        //htmlNode.classList.remove('relatedtoButton');
+        htmlLink.classList.remove('relatedtoButton');
+      }
   }
 
   onMouseOver = (e) => {
@@ -414,7 +418,7 @@ class Document extends PureComponent {
     this.props.node.concat(this.props.trail).forEach((node) => cpyNode.push({ ...node }));
     //find current node
     let id = cpyNode.findIndex(
-      (node) => Number(node.id) === Number(this.props.id)
+      (node) => /*Number*/(node.id) === /*Number*/(this.props.id)
     );
     const isCrossRoad = cpyNode[id].entry ? false : cpyNode[id].trails.length>1;
     let doc = this.displayDoc(
@@ -427,7 +431,10 @@ class Document extends PureComponent {
     let trail = this.props.currentTrail && this.props.currentTrail.parcours
       ? 'PARCOURS '+this.props.currentTrail.parcours.toUpperCase()
       : 'PARCOURS INCONNU';
-    const isLast = this.state.targets.length === 0 && this.state.trails.length >=1;
+
+    // it's the last memory if there is not more target memory also present in the current trail
+    // another ugly line
+    const isLast = this.state.targets.filter(a => a.parcours.find(b => b.parcours === this.props.currentTrail.parcours)).length === 0 && this.state.trails.length >=1;
     
     return (
       <div className='souvenir'>
@@ -476,6 +483,8 @@ class Document extends PureComponent {
               {this.state.sources.map((source) => (
                 source.parcours && source.parcours[0] &&
                 !source.parcours[0].entry &&
+                (source.parcours.find(e => e.parcours === this.props.currentTrail.parcours) || source.parcours.find(e => this.state.trails && this.state.trails.some(owntrail => owntrail.parcours === e.parcours)))
+                &&
                 <DocumentButton
                   key={source.id}
                   id={source.id}

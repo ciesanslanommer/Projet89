@@ -9,8 +9,8 @@ class Zoom extends PureComponent {
                     className="slider"
                     id="myRange"
                     type="range"
-                    min="0.5"
-                    max="2.5"
+                    min="0.1"
+                    max="2"
                     step="0.1"
                     value={this.props.zoom}
                     onChange={this.props.onChange}
