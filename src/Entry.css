@@ -1,7 +1,13 @@
 
 .iconstrails img {
-    transform: scale(0.55);
+    max-width: 180px;
+    max-height: 180px;
     filter: brightness(10);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .iconstrails h2 {
