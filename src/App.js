@@ -17,12 +17,16 @@ import { ENDPOINT_API } from './constants/endpoints';
 class App extends PureComponent {
   constructor(props) {
     super(props);
+
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const isSafari = navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome');
+
     this.state = {
       nodeLoaded: false,
       linkLoaded: false,
       trailLoaded: false,
       trailByMemoryLoaded: false,
-      popupOpen: /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'aide', // 'aide' / 'projet89' / 'collecte' / 'mobile' (for mobile device users warning)
+      popupOpen: isSafari ? 'safari' : isMobile ? 'mobile' : 'aide', // 'aide' / 'projet89' / 'collecte' / 'mobile' (for mobile device users warning) / 'safari' (for safari users warning)
       docOpen: false,
       adminOpen: false,
       previewOpen: null,
@@ -279,7 +283,7 @@ class App extends PureComponent {
     this.setState({ popupOpen: item });
   }
 
-  closeMobileWarning = () => {
+  closeBrowserWarning = () => {
     this.setState({ popupOpen: 'aide' })
   }
 
@@ -309,7 +313,10 @@ class App extends PureComponent {
     return (
       <div className='App'>
         {
-          this.state.popupOpen === 'mobile' && <Popup onClose={this.closeMobileWarning}>Ce site n'étant pas optimisé pour les appareils mobiles pour le moment, nous vous invitons à tester sur ordinateur.</Popup>
+          this.state.popupOpen === 'safari' && <Popup onClose={this.closeBrowserWarning}>Ce site n'étant pas optimisé pour le navigateur Safari pour le moment, nous vous invitons à tester sur un autre navigateur (ex: <a href="https://www.google.com/chrome/">Chrome</a>).</Popup>
+        }
+        {
+          this.state.popupOpen === 'mobile' && <Popup onClose={this.closeBrowserWarning}>Ce site n'étant pas optimisé pour les appareils mobiles pour le moment, nous vous invitons à tester sur ordinateur.</Popup>
         }
         {
           this.state.popupOpen === 'aide' && <Welcome onClose={this.closePopup} />
